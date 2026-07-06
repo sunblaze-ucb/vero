@@ -1,0 +1,9 @@
+import BitManipulation.Harness
+import BitManipulation.Spec.Aux
+import BitManipulation.Spec.BinaryAndOperator
+import BitManipulation.Spec.BinaryOrOperator
+import BitManipulation.Spec.BinaryXorOperator
+import BitManipulation.Spec.BinaryShifts
+import BitManipulation.Spec.BinaryTwosComplement
+import BitManipulation.Spec.SingleBitManipulationOperations
+import BitManipulation.Test

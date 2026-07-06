@@ -1,0 +1,87 @@
+{
+ "benchmark_id": "munkres",
+ "description": "munkres assignment-problem core: the Munkres / Hungarian / Kuhn–Munkres algorithm solving the classical assignment problem — given an n×n integer cost matrix, find the one row → one column bijection of minimum total cost. Translated from the `munkres` library (PyPI `munkres` 1.1.4, bmc/munkres, Apache-2.0, `munkres.py`). Cost matrices are modelled mathlib-free as `List (List Nat)`; the algorithm's mutable working state (the reduced matrix `C : List (List Int)`, the row/column covers, and the star/prime marks) is threaded functionally through a fuel-bounded primal-dual step machine (`runSteps` drives `step1 … step6` exactly as munkres' `__step1 … __step6`; augmenting paths are built by `buildPathAux`, the modular uncovered-zero scan by `findAZeroAux`). One module. Assign (padMatrix/makeCostMatrix/compute/assignmentCost): `padMatrix` pads a rectangular matrix to square with pad value 0 (side = max(#rows, widest row)); `makeCostMatrix` is munkres' default profit→cost inversion `globalMax − value`; the headline `compute` returns the minimum-cost assignment as `(row, column)` pairs; `assignmentCost` folds the total cost of an assignment. The behaviour is pinned by a frozen PERMUTATION ORACLE: `perms n` enumerates all n! permutations of [0,n) as column vectors and `permCost M p = Σ_i M[i][p[i]]` is the cost of assignment p, both independent of the scored `compute`. The crown laws are TWO-SIDED OPTIMALITY: `spec_compute_feasible` — for a square matrix `compute` returns exactly one pair per row 0..n-1 (first coords = [0,n)) whose columns form a permutation of [0,n) (a genuine bijection: each row once, each column once); `spec_compute_optimal_value` — the cost of `compute M` is ≤ `permCost M p` for EVERY p ∈ perms n (a universal no-better-exists statement over all n! assignments, the true Hungarian global minimum, not derivable by running `compute` and non-hackable since `perms` is frozen); `spec_compute_achieves_min` — `compute`'s cost EQUALS `minCost M n` (the fold-min of permCost over perms), so it attains the exact optimal VALUE (ties leave the optimal value unique even when the witness is not, so the value is pinned, never a specific witness); `spec_compute_cost_colVec` ties the (row,col)-pair fold to the column-vector fold used by the optimality laws. Duality: `spec_makeCost_entrywise` pins the entrywise transform; `spec_makeCost_duality` proves the frozen identity permCost(makeCostMatrix P) p + permProfit P p = n·globalMax P for all p (a constant, so cost-min = profit-max); `spec_compute_profit_max` transports optimality through duality — `compute (makeCostMatrix P)` maximizes profit under P over all p ∈ perms n. Padding: `spec_pad_square` (output is always n×n, n = max(widest row, #rows)) and `spec_pad_square_id` (identity on already-square input, so the optimum is untouched). `spec_assignmentCost_fold` pins the total-cost fold to the frozen entry lookup and sum. All laws are general ∀-laws over arbitrary matrices (never concrete-value-only); the optimality/duality/padding laws carry the frozen `Square M n` shape hypothesis (n ≥ 1, M is n×n) exactly where the assignment/permutation semantics require it. Everything is discrete Nat/Int over +, -, *, min; no Float. The step machine's loops (findAZeroAux/step4Aux/buildPathAux/runSteps) are fuel-bounded and terminating; step2Aux/step3Aux terminate structurally on the (n−i, n−j) scan. Scope: the benchmark models padding, the profit↔cost inversion with its duality identity, the total-cost fold, and the headline `compute` with its feasibility (bijection) and two-sided optimality (global-min value + profit-max) laws over the frozen permutation oracle. The DISALLOWED sentinel (munkres' optional forbidden-cell marker), floating-point costs, and the UnsolvableMatrix path are OUT of scope (the model uses plain finite Nat cost matrices, which are always solvable).",
+ "lean_version": "4.29.1",
+ "modes_supported": [
+  "proof",
+  "codeproof"
+ ],
+ "source": {
+  "kind": "translated",
+  "language": "python",
+  "repo_url": "https://github.com/bmc/munkres",
+  "commit_hash": "ac8af9e3b6093e4be8e3935829bc7d7fc45a84d2",
+  "path": [
+   "munkres.py"
+  ],
+  "name": "munkres"
+ },
+ "curation": {
+  "date": "2026-07-04"
+ },
+ "root_package": "Munkres",
+ "files": {
+  "root_hub": "Munkres.lean",
+  "harness": "Munkres/Harness.lean",
+  "test": "Munkres/Test.lean",
+  "lakefile": "lakefile.toml"
+ },
+ "packages": [
+  {
+   "name": "Munkres",
+   "bundle": "Munkres/Bundle.lean",
+   "bundle_type": "MunkresBundle",
+   "repo_impl_field": "munkres",
+   "modules": [
+    {
+     "name": "Assign",
+     "impl": "Munkres/Impl/Assign.lean",
+     "spec": "Munkres/Spec/Assign.lean",
+     "apis": [
+      {
+       "name": "padMatrix",
+       "sig": "PadMatrixSig",
+       "type": "List (List Nat) → List (List Nat)"
+      },
+      {
+       "name": "makeCostMatrix",
+       "sig": "MakeCostMatrixSig",
+       "type": "List (List Nat) → List (List Nat)"
+      },
+      {
+       "name": "compute",
+       "sig": "ComputeSig",
+       "type": "List (List Nat) → List (Nat × Nat)"
+      },
+      {
+       "name": "assignmentCost",
+       "sig": "AssignmentCostSig",
+       "type": "List (List Nat) → List (Nat × Nat) → Nat"
+      }
+     ],
+     "specs": [
+      "spec_assignmentCost_fold",
+      "spec_pad_square",
+      "spec_pad_square_id",
+      "spec_makeCost_entrywise",
+      "spec_makeCost_duality",
+      "spec_compute_feasible",
+      "spec_compute_colVec_mem",
+      "spec_compute_optimal_value",
+      "spec_compute_achieves_min",
+      "spec_compute_cost_colVec",
+      "spec_compute_profit_max",
+      "spec_minCost_unique_value",
+      "spec_minCost_witness_optimal",
+      "spec_permCost_row_reduction_shift",
+      "spec_row_reduction_minCost_shift",
+      "spec_minCost_monotone_entrywise",
+      "spec_permCost_identity_trace",
+      "spec_permCost_extensional",
+      "spec_compute_cost_global_bounds"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,9 @@
+import EIP20V2.Impl.EIP20Token
+import EIP20V2.Impl.EIP20TokenCorrect
+import EIP20V2.Impl.EIP20TokenTests
+import EIP20V2.Bundle
+import EIP20V2.Harness
+import EIP20V2.Spec.EIP20Token
+import EIP20V2.Spec.EIP20TokenCorrect
+import EIP20V2.Spec.EIP20TokenTests
+import EIP20V2.Test

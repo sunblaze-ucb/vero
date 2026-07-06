@@ -1,0 +1,35 @@
+{% extends "instruction/base.md.j2" %}
+{% block mode_body -%}
+## Your task in ``proof`` mode
+
+``canonical : RepoImpl`` is the curator's reference implementation.
+``Impl/*.lean`` is **frozen** in this mode — do NOT edit it.
+The reference implementation is NOT guaranteed correct; the specs are the ground truth, and your job is to determine per spec whether ``canonical`` satisfies it.
+
+For every spec ``S``, ``Proof/<Module>.lean`` contains a paired stub:
+
+```
+theorem prove_<bare_S>    : spec_<bare_S> canonical   := by sorry
+theorem disprove_<bare_S> : ¬ spec_<bare_S> canonical := by sorry
+```
+
+(``<bare_S>`` = ``S`` with the ``spec_`` prefix stripped.)
+
+**Fill exactly one of each pair.** Both outcomes are equally legitimate:
+
+- ``prove_<bare_S>`` — the reference impl satisfies ``S``.
+- ``disprove_<bare_S>`` — the reference impl violates ``S``.
+  A concrete counter-witness (e.g. ``exact ⟨inputs, by decide⟩``) is sufficient; you need not refute the universally-quantified form.
+
+Do NOT default to ``prove_`` reflexively — read the spec and the impl before committing.
+
+``proof_aux`` / ``global_aux`` / ``imports`` are available for file-level helpers.
+
+## Grading (``proof`` mode)
+
+A spec is **passed** iff exactly one of ``{prove_<S>, disprove_<S>}`` is filled, the file compiles, and ``#print axioms`` reports only the standard trio (``Classical.choice``, ``propext``, ``Quot.sound``) or none.
+
+Per-spec failure statuses: ``unfilled``, ``overfilled``, ``sorry_leaked``, ``axiom_leaked``, ``slot_body_tainted``, ``build_error``.
+
+Do not hide ``sorry`` via ``Classical.arbitrary`` or contradictory hypotheses. The grader reads axioms, not tactics.
+{%- endblock %}

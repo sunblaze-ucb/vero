@@ -1,0 +1,8 @@
+name = "base58"
+version = "0.1.0"
+defaultTargets = ["Base58"]
+
+[[lean_lib]]
+name = "Base58"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

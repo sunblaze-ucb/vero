@@ -1,0 +1,8 @@
+name = "Primepy"
+version = "0.1.0"
+defaultTargets = ["Primepy"]
+
+[[lean_lib]]
+name = "Primepy"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

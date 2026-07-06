@@ -1,0 +1,8 @@
+name = "textdistance"
+version = "0.1.0"
+defaultTargets = ["Textdistance"]
+
+[[lean_lib]]
+name = "Textdistance"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

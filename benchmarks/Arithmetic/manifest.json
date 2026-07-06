@@ -1,0 +1,2162 @@
+{
+  "benchmark_id": "arithmetic-v2",
+  "description": "Lean 4 retranslation of Verus vstd arithmetic as a theory-heavy benchmark with checked-overflow API obligations.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "verus",
+    "repo_url": "https://github.com/verus-lang/verus.git",
+    "commit_hash": "8c06fbd7248382adbe7e20892ecb44391e81d64a",
+    "path": "source/vstd/arithmetic"
+  },
+  "curation": {
+    "date": "2026-06-12",
+    "artifact_level": "theory-heavy scoped candidate",
+    "notes": [
+      "Most arithmetic lemmas are theorem-only Verus proof obligations; Overflow APIs are constrained by RepoImpl-dependent specs mirroring overflow.rs method postconditions."
+    ]
+  },
+  "root_package": "ArithmeticV2",
+  "files": {
+    "root_hub": "ArithmeticV2.lean",
+    "harness": "ArithmeticV2/Harness.lean",
+    "test": "ArithmeticV2/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "ArithmeticV2",
+      "bundle": "ArithmeticV2/Bundle.lean",
+      "bundle_type": "ArithmeticV2Bundle",
+      "repo_impl_field": "arithmeticV2",
+      "modules": [
+        {
+          "name": "Internals/GeneralInternals",
+          "impl": "ArithmeticV2/Impl/Internals/GeneralInternals.lean",
+          "spec": "ArithmeticV2/Spec/Internals/GeneralInternals.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Internals/MulInternals",
+          "impl": "ArithmeticV2/Impl/Internals/MulInternals.lean",
+          "spec": "ArithmeticV2/Spec/Internals/MulInternals.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Internals/ModInternalsNonlinear",
+          "impl": "ArithmeticV2/Impl/Internals/ModInternalsNonlinear.lean",
+          "spec": "ArithmeticV2/Spec/Internals/ModInternalsNonlinear.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Internals/ModInternals",
+          "impl": "ArithmeticV2/Impl/Internals/ModInternals.lean",
+          "spec": "ArithmeticV2/Spec/Internals/ModInternals.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Internals/DivInternals",
+          "impl": "ArithmeticV2/Impl/Internals/DivInternals.lean",
+          "spec": "ArithmeticV2/Spec/Internals/DivInternals.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Internals/DivInternalsNonlinear",
+          "impl": "ArithmeticV2/Impl/Internals/DivInternalsNonlinear.lean",
+          "spec": "ArithmeticV2/Spec/Internals/DivInternalsNonlinear.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "DivMod",
+          "impl": "ArithmeticV2/Impl/DivMod.lean",
+          "spec": "ArithmeticV2/Spec/DivMod.lean",
+          "apis": [],
+          "specs": [
+            "spec_lemma_div_is_div_recursive",
+            "spec_lemma_div_by_self",
+            "spec_lemma_div_of0",
+            "spec_lemma_div_basics_4",
+            "spec_lemma_small_div_converse",
+            "spec_lemma_div_is_strictly_smaller",
+            "spec_lemma_div_pos_is_pos",
+            "spec_lemma_div_plus_one",
+            "spec_lemma_div_minus_one",
+            "spec_lemma_basic_div_specific_divisor",
+            "spec_lemma_div_is_ordered",
+            "spec_lemma_div_decreases",
+            "spec_lemma_div_nonincreasing",
+            "spec_lemma_small_mod",
+            "spec_lemma_remainder_upper",
+            "spec_lemma_remainder_lower",
+            "spec_lemma_remainder",
+            "spec_lemma_fundamental_div_mod",
+            "spec_lemma_indistinguishable_quotients",
+            "spec_lemma_round_down",
+            "spec_lemma_mod_is_mod_recursive",
+            "spec_lemma_mod_self_0",
+            "spec_lemma_mod_twice",
+            "spec_lemma_mod_division_less_than_divisor",
+            "spec_lemma_mod_decreases",
+            "spec_lemma_mod_multiples_basic",
+            "spec_lemma_mod_add_multiples_vanish",
+            "spec_lemma_mod_sub_multiples_vanish",
+            "spec_lemma_mod_multiples_vanish",
+            "spec_lemma_mod_subtraction",
+            "spec_lemma_add_mod_noop",
+            "spec_lemma_add_mod_noop_right",
+            "spec_lemma_sub_mod_noop",
+            "spec_lemma_sub_mod_noop_right",
+            "spec_lemma_mod_adds",
+            "spec_lemma_mod_neg_neg",
+            "spec_lemma_mod_pos_bound",
+            "spec_lemma_mod_bound",
+            "spec_lemma_mul_mod_noop_left",
+            "spec_lemma_mul_mod_noop_right",
+            "spec_lemma_mod_equivalence",
+            "spec_lemma_div_basics",
+            "spec_lemma_div_non_zero",
+            "spec_lemma_div_is_ordered_by_denominator",
+            "spec_lemma_dividing_sums",
+            "spec_lemma_basic_div",
+            "spec_lemma_div_by_multiple_is_strongly_ordered",
+            "spec_lemma_part_bound1",
+            "spec_lemma_mod_is_zero",
+            "spec_lemma_fundamental_div_mod_converse_mod",
+            "spec_lemma_fundamental_div_mod_converse_div",
+            "spec_lemma_mul_mod_noop_general",
+            "spec_lemma_mod_mul_equivalent",
+            "spec_lemma_mod_ordering",
+            "spec_lemma_part_bound2",
+            "spec_lemma_div_basics_1",
+            "spec_lemma_div_basics_2",
+            "spec_lemma_div_basics_3",
+            "spec_lemma_div_basics_5",
+            "spec_lemma_div_multiples_vanish_fancy",
+            "spec_lemma_fundamental_div_mod_converse",
+            "spec_lemma_mul_mod_noop",
+            "spec_lemma_div_multiples_vanish",
+            "spec_lemma_hoist_over_denominator",
+            "spec_lemma_mod_mod",
+            "spec_lemma_div_denominator",
+            "spec_lemma_mul_hoist_inequality",
+            "spec_lemma_div_by_multiple",
+            "spec_lemma_multiply_divide_le",
+            "spec_lemma_multiply_divide_lt",
+            "spec_lemma_truncate_middle",
+            "spec_lemma_div_multiples_vanish_quotient",
+            "spec_lemma_breakdown",
+            "spec_lemma_mod_breakdown"
+          ],
+          "spec_metadata": [
+            {
+              "name": "spec_lemma_div_is_div_recursive",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_is_div_recursive:55",
+              "source_theorem": "lemma_div_is_div_recursive",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_by_self",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_by_self:2391",
+              "source_theorem": "lemma_div_by_self",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_of0",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_of0:2609",
+              "source_theorem": "lemma_div_of0",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_basics_4",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_basics_4:127",
+              "source_theorem": "lemma_div_basics_4",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_small_div_converse",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_small_div_converse:156",
+              "source_theorem": "lemma_small_div_converse",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_is_strictly_smaller",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_is_strictly_smaller:213",
+              "source_theorem": "lemma_div_is_strictly_smaller",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_pos_is_pos",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_pos_is_pos:242",
+              "source_theorem": "lemma_div_pos_is_pos",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_plus_one",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_plus_one:261",
+              "source_theorem": "lemma_div_plus_one",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_minus_one",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_minus_one:274",
+              "source_theorem": "lemma_div_minus_one",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_basic_div_specific_divisor",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_basic_div_specific_divisor:8824",
+              "source_theorem": "lemma_basic_div_specific_divisor",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_is_ordered",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_is_ordered:309",
+              "source_theorem": "lemma_div_is_ordered",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_decreases",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_decreases:337",
+              "source_theorem": "lemma_div_decreases",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_nonincreasing",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_nonincreasing:350",
+              "source_theorem": "lemma_div_nonincreasing",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_small_mod",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_small_mod:11200",
+              "source_theorem": "lemma_small_mod",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_remainder_upper",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_remainder_upper:442",
+              "source_theorem": "lemma_remainder_upper",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_remainder_lower",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_remainder_lower:458",
+              "source_theorem": "lemma_remainder_lower",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_remainder",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_remainder:474",
+              "source_theorem": "lemma_remainder",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_fundamental_div_mod",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_fundamental_div_mod:489",
+              "source_theorem": "lemma_fundamental_div_mod",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_indistinguishable_quotients",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_indistinguishable_quotients:637",
+              "source_theorem": "lemma_indistinguishable_quotients",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_round_down",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_round_down:722",
+              "source_theorem": "lemma_round_down",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_is_mod_recursive",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_is_mod_recursive:941",
+              "source_theorem": "lemma_mod_is_mod_recursive",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_self_0",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_self_0:1000",
+              "source_theorem": "lemma_mod_self_0",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_twice",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_twice:1010",
+              "source_theorem": "lemma_mod_twice",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_division_less_than_divisor",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_division_less_than_divisor:1025",
+              "source_theorem": "lemma_mod_division_less_than_divisor",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_decreases",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_decreases:1041",
+              "source_theorem": "lemma_mod_decreases",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_multiples_basic",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_multiples_basic:1066",
+              "source_theorem": "lemma_mod_multiples_basic",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_add_multiples_vanish",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_add_multiples_vanish:1082",
+              "source_theorem": "lemma_mod_add_multiples_vanish",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_sub_multiples_vanish",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_sub_multiples_vanish:1093",
+              "source_theorem": "lemma_mod_sub_multiples_vanish",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_multiples_vanish",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_multiples_vanish:1105",
+              "source_theorem": "lemma_mod_multiples_vanish",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_subtraction",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_subtraction:1129",
+              "source_theorem": "lemma_mod_subtraction",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_add_mod_noop",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_add_mod_noop:1143",
+              "source_theorem": "lemma_add_mod_noop",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_add_mod_noop_right",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_add_mod_noop_right:1156",
+              "source_theorem": "lemma_add_mod_noop_right",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_sub_mod_noop",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_sub_mod_noop:1169",
+              "source_theorem": "lemma_sub_mod_noop",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_sub_mod_noop_right",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_sub_mod_noop_right:1182",
+              "source_theorem": "lemma_sub_mod_noop_right",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_adds",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_adds:1195",
+              "source_theorem": "lemma_mod_adds",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_neg_neg",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_neg_neg:37290",
+              "source_theorem": "lemma_mod_neg_neg",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_pos_bound",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_pos_bound:1359",
+              "source_theorem": "lemma_mod_pos_bound",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_bound",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_bound:1371",
+              "source_theorem": "lemma_mod_bound",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_mod_noop_left",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mul_mod_noop_left:1382",
+              "source_theorem": "lemma_mul_mod_noop_left",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_mod_noop_right",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mul_mod_noop_right:1394",
+              "source_theorem": "lemma_mul_mod_noop_right",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_equivalence",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_equivalence:1439",
+              "source_theorem": "lemma_mod_equivalence",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_basics",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_basics:2901",
+              "source_theorem": "lemma_div_basics",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_non_zero",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_non_zero:5207",
+              "source_theorem": "lemma_div_non_zero",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_is_ordered_by_denominator",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_is_ordered_by_denominator:187",
+              "source_theorem": "lemma_div_is_ordered_by_denominator",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_dividing_sums",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_dividing_sums:226",
+              "source_theorem": "lemma_dividing_sums",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_basic_div",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_basic_div:297",
+              "source_theorem": "lemma_basic_div",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_by_multiple_is_strongly_ordered",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_by_multiple_is_strongly_ordered:805",
+              "source_theorem": "lemma_div_by_multiple_is_strongly_ordered",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_part_bound1",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_part_bound1:900",
+              "source_theorem": "lemma_part_bound1",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_is_zero",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_is_zero:1051",
+              "source_theorem": "lemma_mod_is_zero",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_fundamental_div_mod_converse_mod",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_fundamental_div_mod_converse_mod:1307",
+              "source_theorem": "lemma_fundamental_div_mod_converse_mod",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_fundamental_div_mod_converse_div",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_fundamental_div_mod_converse_div:1323",
+              "source_theorem": "lemma_fundamental_div_mod_converse_div",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_mod_noop_general",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mul_mod_noop_general:1407",
+              "source_theorem": "lemma_mul_mod_noop_general",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_mul_equivalent",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_mul_equivalent:1460",
+              "source_theorem": "lemma_mod_mul_equivalent",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_ordering",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_ordering:1476",
+              "source_theorem": "lemma_mod_ordering",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_part_bound2",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_part_bound2:1565",
+              "source_theorem": "lemma_part_bound2",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_basics_1",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_basics_1:103",
+              "source_theorem": "lemma_div_basics_1",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_basics_2",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_basics_2:111",
+              "source_theorem": "lemma_div_basics_2",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_basics_3",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_basics_3:119",
+              "source_theorem": "lemma_div_basics_3",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_basics_5",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_basics_5:135",
+              "source_theorem": "lemma_div_basics_5",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_multiples_vanish_fancy",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_multiples_vanish_fancy:737",
+              "source_theorem": "lemma_div_multiples_vanish_fancy",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_fundamental_div_mod_converse",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_fundamental_div_mod_converse:41611",
+              "source_theorem": "lemma_fundamental_div_mod_converse",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_mod_noop",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mul_mod_noop:1423",
+              "source_theorem": "lemma_mul_mod_noop",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_multiples_vanish",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_multiples_vanish:776",
+              "source_theorem": "lemma_div_multiples_vanish",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_hoist_over_denominator",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_hoist_over_denominator:873",
+              "source_theorem": "lemma_hoist_over_denominator",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_mod",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_mod:1525",
+              "source_theorem": "lemma_mod_mod",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_denominator",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_denominator:502",
+              "source_theorem": "lemma_div_denominator",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_hoist_inequality",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mul_hoist_inequality:602",
+              "source_theorem": "lemma_mul_hoist_inequality",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_by_multiple",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_by_multiple:789",
+              "source_theorem": "lemma_div_by_multiple",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_multiply_divide_le",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_multiply_divide_le:830",
+              "source_theorem": "lemma_multiply_divide_le",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_multiply_divide_lt",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_multiply_divide_lt:847",
+              "source_theorem": "lemma_multiply_divide_lt",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_truncate_middle",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_truncate_middle:21175",
+              "source_theorem": "lemma_truncate_middle",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_div_multiples_vanish_quotient",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_div_multiples_vanish_quotient:696",
+              "source_theorem": "lemma_div_multiples_vanish_quotient",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_breakdown",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_breakdown:377",
+              "source_theorem": "lemma_breakdown",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mod_breakdown",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "div_mod.rs:lemma_mod_breakdown:1590",
+              "source_theorem": "lemma_mod_breakdown",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            }
+          ]
+        },
+        {
+          "name": "Mul",
+          "impl": "ArithmeticV2/Impl/Mul.lean",
+          "spec": "ArithmeticV2/Spec/Mul.lean",
+          "apis": [],
+          "specs": [
+            "spec_lemma_mul_is_mul_pos",
+            "spec_lemma_mul_basics",
+            "spec_lemma_mul_basics_1",
+            "spec_lemma_mul_basics_2",
+            "spec_lemma_mul_basics_3",
+            "spec_lemma_mul_basics_4",
+            "spec_lemma_mul_nonzero",
+            "spec_lemma_mul_is_associative",
+            "spec_lemma_mul_is_commutative",
+            "spec_lemma_mul_ordering",
+            "spec_lemma_mul_inequality",
+            "spec_lemma_mul_strict_inequality",
+            "spec_lemma_mul_left_inequality",
+            "spec_lemma_mul_equality_converse",
+            "spec_lemma_mul_inequality_converse",
+            "spec_lemma_mul_strict_inequality_converse",
+            "spec_lemma_mul_is_distributive_add",
+            "spec_lemma_mul_is_distributive_add_other_way",
+            "spec_lemma_mul_is_distributive_sub",
+            "spec_lemma_mul_strictly_positive",
+            "spec_lemma_mul_strictly_increases",
+            "spec_lemma_mul_increases",
+            "spec_lemma_mul_nonnegative",
+            "spec_lemma_mul_unary_negation",
+            "spec_lemma_mul_cancels_negatives",
+            "spec_lemma_mul_is_mul_recursive",
+            "spec_lemma_mul_by_zero_is_zero",
+            "spec_lemma_mul_upper_bound",
+            "spec_lemma_mul_strict_upper_bound",
+            "spec_lemma_mul_is_distributive_sub_other_way"
+          ],
+          "spec_metadata": [
+            {
+              "name": "spec_lemma_mul_is_mul_pos",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_is_mul_pos:1712",
+              "source_theorem": "lemma_mul_is_mul_pos",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_basics",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_basics:1937",
+              "source_theorem": "lemma_mul_basics",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_basics_1",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_basics_1:64",
+              "source_theorem": "lemma_mul_basics_1",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_basics_2",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_basics_2:72",
+              "source_theorem": "lemma_mul_basics_2",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_basics_3",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_basics_3:80",
+              "source_theorem": "lemma_mul_basics_3",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_basics_4",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_basics_4:88",
+              "source_theorem": "lemma_mul_basics_4",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_nonzero",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_nonzero:102",
+              "source_theorem": "lemma_mul_nonzero",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_is_associative",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_is_associative:123",
+              "source_theorem": "lemma_mul_is_associative",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_is_commutative",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_is_commutative:134",
+              "source_theorem": "lemma_mul_is_commutative",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_ordering",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_ordering:143",
+              "source_theorem": "lemma_mul_ordering",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_inequality",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_inequality:164",
+              "source_theorem": "lemma_mul_inequality",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_strict_inequality",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_strict_inequality:175",
+              "source_theorem": "lemma_mul_strict_inequality",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_left_inequality",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_left_inequality:221",
+              "source_theorem": "lemma_mul_left_inequality",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_equality_converse",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_equality_converse:234",
+              "source_theorem": "lemma_mul_equality_converse",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_inequality_converse",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_inequality_converse:248",
+              "source_theorem": "lemma_mul_inequality_converse",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_strict_inequality_converse",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_strict_inequality_converse:259",
+              "source_theorem": "lemma_mul_strict_inequality_converse",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_is_distributive_add",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_is_distributive_add:271",
+              "source_theorem": "lemma_mul_is_distributive_add",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_is_distributive_add_other_way",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_is_distributive_add_other_way:280",
+              "source_theorem": "lemma_mul_is_distributive_add_other_way",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_is_distributive_sub",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_is_distributive_sub:290",
+              "source_theorem": "lemma_mul_is_distributive_sub",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_strictly_positive",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_strictly_positive:358",
+              "source_theorem": "lemma_mul_strictly_positive",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_strictly_increases",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_strictly_increases:366",
+              "source_theorem": "lemma_mul_strictly_increases",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_increases",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_increases:378",
+              "source_theorem": "lemma_mul_increases",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_nonnegative",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_nonnegative:390",
+              "source_theorem": "lemma_mul_nonnegative",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_unary_negation",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_unary_negation:402",
+              "source_theorem": "lemma_mul_unary_negation",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_cancels_negatives",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_cancels_negatives:413",
+              "source_theorem": "lemma_mul_cancels_negatives",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_is_mul_recursive",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_is_mul_recursive:25",
+              "source_theorem": "lemma_mul_is_mul_recursive",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_by_zero_is_zero",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_by_zero_is_zero:110",
+              "source_theorem": "lemma_mul_by_zero_is_zero",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_upper_bound",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_upper_bound:188",
+              "source_theorem": "lemma_mul_upper_bound",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_strict_upper_bound",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_strict_upper_bound:205",
+              "source_theorem": "lemma_mul_strict_upper_bound",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_mul_is_distributive_sub_other_way",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "mul.rs:lemma_mul_is_distributive_sub_other_way:301",
+              "source_theorem": "lemma_mul_is_distributive_sub_other_way",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            }
+          ]
+        },
+        {
+          "name": "Power",
+          "impl": "ArithmeticV2/Impl/Power.lean",
+          "spec": "ArithmeticV2/Spec/Power.lean",
+          "apis": [],
+          "specs": [
+            "spec_lemma_pow0",
+            "spec_lemma0_pow",
+            "spec_lemma1_pow",
+            "spec_lemma_square_is_pow2",
+            "spec_lemma_pow_distributes",
+            "spec_lemma_pow_mod_noop",
+            "spec_lemma_pow1",
+            "spec_lemma_pow_positive",
+            "spec_lemma_pow_adds",
+            "spec_lemma_pow_sub_add_cancel",
+            "spec_lemma_pow_multiplies",
+            "spec_lemma_pow_strictly_increases",
+            "spec_lemma_pow_division_inequality",
+            "spec_lemma_pow_mod",
+            "spec_lemma_pow_subtracts",
+            "spec_lemma_pow_increases",
+            "spec_lemma_pow_increases_converse",
+            "spec_lemma_pull_out_pows",
+            "spec_lemma_pow_strictly_increases_converse"
+          ],
+          "spec_metadata": [
+            {
+              "name": "spec_lemma_pow0",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow0:54",
+              "source_theorem": "lemma_pow0",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma0_pow",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma0_pow:83",
+              "source_theorem": "lemma0_pow",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma1_pow",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma1_pow:99",
+              "source_theorem": "lemma1_pow",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_square_is_pow2",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_square_is_pow2:113",
+              "source_theorem": "lemma_square_is_pow2",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow_distributes",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow_distributes:272",
+              "source_theorem": "lemma_pow_distributes",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow_mod_noop",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow_mod_noop:528",
+              "source_theorem": "lemma_pow_mod_noop",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow1",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow1:62",
+              "source_theorem": "lemma_pow1",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow_positive",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow_positive:122",
+              "source_theorem": "lemma_pow_positive",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow_adds",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow_adds:138",
+              "source_theorem": "lemma_pow_adds",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow_sub_add_cancel",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow_sub_add_cancel:179",
+              "source_theorem": "lemma_pow_sub_add_cancel",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow_multiplies",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow_multiplies:217",
+              "source_theorem": "lemma_pow_multiplies",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow_strictly_increases",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow_strictly_increases:339",
+              "source_theorem": "lemma_pow_strictly_increases",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow_division_inequality",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow_division_inequality:14016",
+              "source_theorem": "lemma_pow_division_inequality",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow_mod",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow_mod:490",
+              "source_theorem": "lemma_pow_mod",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow_subtracts",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow_subtracts:192",
+              "source_theorem": "lemma_pow_subtracts",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow_increases",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow_increases:384",
+              "source_theorem": "lemma_pow_increases",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow_increases_converse",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow_increases_converse:421",
+              "source_theorem": "lemma_pow_increases_converse",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pull_out_pows",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pull_out_pows:436",
+              "source_theorem": "lemma_pull_out_pows",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow_strictly_increases_converse",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power.rs:lemma_pow_strictly_increases_converse:404",
+              "source_theorem": "lemma_pow_strictly_increases_converse",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            }
+          ]
+        },
+        {
+          "name": "Power2",
+          "impl": "ArithmeticV2/Impl/Power2.lean",
+          "spec": "ArithmeticV2/Spec/Power2.lean",
+          "apis": [],
+          "specs": [
+            "spec_lemma_pow2_pos",
+            "spec_lemma_pow2",
+            "spec_lemma2_to64",
+            "spec_lemma2_to64_rest",
+            "spec_is_pow2_equiv",
+            "spec_lemma_pow2_unfold",
+            "spec_lemma_pow2_adds",
+            "spec_lemma_pow2_subtracts",
+            "spec_lemma_pow2_strictly_increases"
+          ],
+          "spec_metadata": [
+            {
+              "name": "spec_lemma_pow2_pos",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power2.rs:lemma_pow2_pos:122",
+              "source_theorem": "lemma_pow2_pos",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow2",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power2.rs:lemma_pow2:130",
+              "source_theorem": "lemma_pow2",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma2_to64",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power2.rs:lemma2_to64:4808",
+              "source_theorem": "lemma2_to64",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma2_to64_rest",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power2.rs:lemma2_to64_rest:7140",
+              "source_theorem": "lemma2_to64_rest",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_is_pow2_equiv",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power2.rs:is_pow2_equiv:57",
+              "source_theorem": "is_pow2_equiv",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow2_unfold",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power2.rs:lemma_pow2_unfold:142",
+              "source_theorem": "lemma_pow2_unfold",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow2_adds",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power2.rs:lemma_pow2_adds:154",
+              "source_theorem": "lemma_pow2_adds",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow2_subtracts",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power2.rs:lemma_pow2_subtracts:165",
+              "source_theorem": "lemma_pow2_subtracts",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_pow2_strictly_increases",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "power2.rs:lemma_pow2_strictly_increases:178",
+              "source_theorem": "lemma_pow2_strictly_increases",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            }
+          ]
+        },
+        {
+          "name": "Logarithm",
+          "impl": "ArithmeticV2/Impl/Logarithm.lean",
+          "spec": "ArithmeticV2/Spec/Logarithm.lean",
+          "apis": [],
+          "specs": [
+            "spec_lemma_log0",
+            "spec_lemma_log_s",
+            "spec_lemma_log_nonnegative",
+            "spec_lemma_log_is_ordered",
+            "spec_lemma_log_pow"
+          ],
+          "spec_metadata": [
+            {
+              "name": "spec_lemma_log0",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "logarithm.rs:lemma_log0:1991",
+              "source_theorem": "lemma_log0",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_log_s",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "logarithm.rs:lemma_log_s:69",
+              "source_theorem": "lemma_log_s",
+              "semantic_bridge_required": [
+                "Verus mathematical integer division/modulo is modeled by Lean Int division/modulo."
+              ],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_log_nonnegative",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "logarithm.rs:lemma_log_nonnegative:2731",
+              "source_theorem": "lemma_log_nonnegative",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_log_is_ordered",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "logarithm.rs:lemma_log_is_ordered:3192",
+              "source_theorem": "lemma_log_is_ordered",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_lemma_log_pow",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "logarithm.rs:lemma_log_pow:3851",
+              "source_theorem": "lemma_log_pow",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent"
+            }
+          ]
+        },
+        {
+          "name": "Overflow",
+          "impl": "ArithmeticV2/Impl/Overflow.lean",
+          "spec": "ArithmeticV2/Spec/Overflow.lean",
+          "apis": [
+            {
+              "name": "CheckedU128_new",
+              "sig": "CheckedU128NewSig",
+              "type": "Nat \u2192 CheckedU128",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:new:4300"
+            },
+            {
+              "name": "CheckedU16_new",
+              "sig": "CheckedU16NewSig",
+              "type": "Nat \u2192 CheckedU16",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:new:4300"
+            },
+            {
+              "name": "CheckedU32_new",
+              "sig": "CheckedU32NewSig",
+              "type": "Nat \u2192 CheckedU32",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:new:4300"
+            },
+            {
+              "name": "CheckedU64_new",
+              "sig": "CheckedU64NewSig",
+              "type": "Nat \u2192 CheckedU64",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:new:4300"
+            },
+            {
+              "name": "CheckedU8_new",
+              "sig": "CheckedU8NewSig",
+              "type": "Nat \u2192 CheckedU8",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:new:4300"
+            },
+            {
+              "name": "CheckedUsize_new",
+              "sig": "CheckedUsizeNewSig",
+              "type": "Nat \u2192 CheckedUsize",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:new:4300"
+            },
+            {
+              "name": "CheckedU128_new_overflowed",
+              "sig": "CheckedU128NewOverflowedSig",
+              "type": "Int \u2192 CheckedU128",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:new_overflowed:4761"
+            },
+            {
+              "name": "CheckedU16_new_overflowed",
+              "sig": "CheckedU16NewOverflowedSig",
+              "type": "Int \u2192 CheckedU16",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:new_overflowed:4761"
+            },
+            {
+              "name": "CheckedU32_new_overflowed",
+              "sig": "CheckedU32NewOverflowedSig",
+              "type": "Int \u2192 CheckedU32",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:new_overflowed:4761"
+            },
+            {
+              "name": "CheckedU64_new_overflowed",
+              "sig": "CheckedU64NewOverflowedSig",
+              "type": "Int \u2192 CheckedU64",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:new_overflowed:4761"
+            },
+            {
+              "name": "CheckedU8_new_overflowed",
+              "sig": "CheckedU8NewOverflowedSig",
+              "type": "Int \u2192 CheckedU8",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:new_overflowed:4761"
+            },
+            {
+              "name": "CheckedUsize_new_overflowed",
+              "sig": "CheckedUsizeNewOverflowedSig",
+              "type": "Int \u2192 CheckedUsize",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:new_overflowed:4761"
+            },
+            {
+              "name": "CheckedU128_is_overflowed",
+              "sig": "CheckedU128IsOverflowedSig",
+              "type": "CheckedU128 \u2192 Bool",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:is_overflowed:5560"
+            },
+            {
+              "name": "CheckedU16_is_overflowed",
+              "sig": "CheckedU16IsOverflowedSig",
+              "type": "CheckedU16 \u2192 Bool",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:is_overflowed:5560"
+            },
+            {
+              "name": "CheckedU32_is_overflowed",
+              "sig": "CheckedU32IsOverflowedSig",
+              "type": "CheckedU32 \u2192 Bool",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:is_overflowed:5560"
+            },
+            {
+              "name": "CheckedU64_is_overflowed",
+              "sig": "CheckedU64IsOverflowedSig",
+              "type": "CheckedU64 \u2192 Bool",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:is_overflowed:5560"
+            },
+            {
+              "name": "CheckedU8_is_overflowed",
+              "sig": "CheckedU8IsOverflowedSig",
+              "type": "CheckedU8 \u2192 Bool",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:is_overflowed:5560"
+            },
+            {
+              "name": "CheckedUsize_is_overflowed",
+              "sig": "CheckedUsizeIsOverflowedSig",
+              "type": "CheckedUsize \u2192 Bool",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:is_overflowed:5560"
+            },
+            {
+              "name": "CheckedU128_unwrap",
+              "sig": "CheckedU128UnwrapSig",
+              "type": "CheckedU128 \u2192 Nat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:unwrap:6065"
+            },
+            {
+              "name": "CheckedU16_unwrap",
+              "sig": "CheckedU16UnwrapSig",
+              "type": "CheckedU16 \u2192 Nat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:unwrap:6065"
+            },
+            {
+              "name": "CheckedU32_unwrap",
+              "sig": "CheckedU32UnwrapSig",
+              "type": "CheckedU32 \u2192 Nat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:unwrap:6065"
+            },
+            {
+              "name": "CheckedU64_unwrap",
+              "sig": "CheckedU64UnwrapSig",
+              "type": "CheckedU64 \u2192 Nat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:unwrap:6065"
+            },
+            {
+              "name": "CheckedU8_unwrap",
+              "sig": "CheckedU8UnwrapSig",
+              "type": "CheckedU8 \u2192 Nat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:unwrap:6065"
+            },
+            {
+              "name": "CheckedUsize_unwrap",
+              "sig": "CheckedUsizeUnwrapSig",
+              "type": "CheckedUsize \u2192 Nat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:unwrap:6065"
+            },
+            {
+              "name": "CheckedU128_to_option",
+              "sig": "CheckedU128ToOptionSig",
+              "type": "CheckedU128 \u2192 Option Nat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:to_option:6554"
+            },
+            {
+              "name": "CheckedU16_to_option",
+              "sig": "CheckedU16ToOptionSig",
+              "type": "CheckedU16 \u2192 Option Nat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:to_option:6554"
+            },
+            {
+              "name": "CheckedU32_to_option",
+              "sig": "CheckedU32ToOptionSig",
+              "type": "CheckedU32 \u2192 Option Nat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:to_option:6554"
+            },
+            {
+              "name": "CheckedU64_to_option",
+              "sig": "CheckedU64ToOptionSig",
+              "type": "CheckedU64 \u2192 Option Nat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:to_option:6554"
+            },
+            {
+              "name": "CheckedU8_to_option",
+              "sig": "CheckedU8ToOptionSig",
+              "type": "CheckedU8 \u2192 Option Nat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:to_option:6554"
+            },
+            {
+              "name": "CheckedUsize_to_option",
+              "sig": "CheckedUsizeToOptionSig",
+              "type": "CheckedUsize \u2192 Option Nat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:to_option:6554"
+            },
+            {
+              "name": "CheckedU128_add_value",
+              "sig": "CheckedU128AddValueSig",
+              "type": "CheckedU128 \u2192 Nat \u2192 CheckedU128",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:add_value:7211"
+            },
+            {
+              "name": "CheckedU16_add_value",
+              "sig": "CheckedU16AddValueSig",
+              "type": "CheckedU16 \u2192 Nat \u2192 CheckedU16",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:add_value:7211"
+            },
+            {
+              "name": "CheckedU32_add_value",
+              "sig": "CheckedU32AddValueSig",
+              "type": "CheckedU32 \u2192 Nat \u2192 CheckedU32",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:add_value:7211"
+            },
+            {
+              "name": "CheckedU64_add_value",
+              "sig": "CheckedU64AddValueSig",
+              "type": "CheckedU64 \u2192 Nat \u2192 CheckedU64",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:add_value:7211"
+            },
+            {
+              "name": "CheckedU8_add_value",
+              "sig": "CheckedU8AddValueSig",
+              "type": "CheckedU8 \u2192 Nat \u2192 CheckedU8",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:add_value:7211"
+            },
+            {
+              "name": "CheckedUsize_add_value",
+              "sig": "CheckedUsizeAddValueSig",
+              "type": "CheckedUsize \u2192 Nat \u2192 CheckedUsize",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:add_value:7211"
+            },
+            {
+              "name": "CheckedU128_add_checked",
+              "sig": "CheckedU128AddCheckedSig",
+              "type": "CheckedU128 \u2192 CheckedU128 \u2192 CheckedU128",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:add_checked:8000"
+            },
+            {
+              "name": "CheckedU16_add_checked",
+              "sig": "CheckedU16AddCheckedSig",
+              "type": "CheckedU16 \u2192 CheckedU16 \u2192 CheckedU16",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:add_checked:8000"
+            },
+            {
+              "name": "CheckedU32_add_checked",
+              "sig": "CheckedU32AddCheckedSig",
+              "type": "CheckedU32 \u2192 CheckedU32 \u2192 CheckedU32",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:add_checked:8000"
+            },
+            {
+              "name": "CheckedU64_add_checked",
+              "sig": "CheckedU64AddCheckedSig",
+              "type": "CheckedU64 \u2192 CheckedU64 \u2192 CheckedU64",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:add_checked:8000"
+            },
+            {
+              "name": "CheckedU8_add_checked",
+              "sig": "CheckedU8AddCheckedSig",
+              "type": "CheckedU8 \u2192 CheckedU8 \u2192 CheckedU8",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:add_checked:8000"
+            },
+            {
+              "name": "CheckedUsize_add_checked",
+              "sig": "CheckedUsizeAddCheckedSig",
+              "type": "CheckedUsize \u2192 CheckedUsize \u2192 CheckedUsize",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:add_checked:8000"
+            },
+            {
+              "name": "CheckedU128_mul_value",
+              "sig": "CheckedU128MulValueSig",
+              "type": "CheckedU128 \u2192 Nat \u2192 CheckedU128",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:mul_value:8889"
+            },
+            {
+              "name": "CheckedU16_mul_value",
+              "sig": "CheckedU16MulValueSig",
+              "type": "CheckedU16 \u2192 Nat \u2192 CheckedU16",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:mul_value:8889"
+            },
+            {
+              "name": "CheckedU32_mul_value",
+              "sig": "CheckedU32MulValueSig",
+              "type": "CheckedU32 \u2192 Nat \u2192 CheckedU32",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:mul_value:8889"
+            },
+            {
+              "name": "CheckedU64_mul_value",
+              "sig": "CheckedU64MulValueSig",
+              "type": "CheckedU64 \u2192 Nat \u2192 CheckedU64",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:mul_value:8889"
+            },
+            {
+              "name": "CheckedU8_mul_value",
+              "sig": "CheckedU8MulValueSig",
+              "type": "CheckedU8 \u2192 Nat \u2192 CheckedU8",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:mul_value:8889"
+            },
+            {
+              "name": "CheckedUsize_mul_value",
+              "sig": "CheckedUsizeMulValueSig",
+              "type": "CheckedUsize \u2192 Nat \u2192 CheckedUsize",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:mul_value:8889"
+            },
+            {
+              "name": "CheckedU128_mul_checked",
+              "sig": "CheckedU128MulCheckedSig",
+              "type": "CheckedU128 \u2192 CheckedU128 \u2192 CheckedU128",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:mul_checked:10378"
+            },
+            {
+              "name": "CheckedU16_mul_checked",
+              "sig": "CheckedU16MulCheckedSig",
+              "type": "CheckedU16 \u2192 CheckedU16 \u2192 CheckedU16",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:mul_checked:10378"
+            },
+            {
+              "name": "CheckedU32_mul_checked",
+              "sig": "CheckedU32MulCheckedSig",
+              "type": "CheckedU32 \u2192 CheckedU32 \u2192 CheckedU32",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:mul_checked:10378"
+            },
+            {
+              "name": "CheckedU64_mul_checked",
+              "sig": "CheckedU64MulCheckedSig",
+              "type": "CheckedU64 \u2192 CheckedU64 \u2192 CheckedU64",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:mul_checked:10378"
+            },
+            {
+              "name": "CheckedU8_mul_checked",
+              "sig": "CheckedU8MulCheckedSig",
+              "type": "CheckedU8 \u2192 CheckedU8 \u2192 CheckedU8",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:mul_checked:10378"
+            },
+            {
+              "name": "CheckedUsize_mul_checked",
+              "sig": "CheckedUsizeMulCheckedSig",
+              "type": "CheckedUsize \u2192 CheckedUsize \u2192 CheckedUsize",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "overflow.rs:mul_checked:10378"
+            }
+          ],
+          "specs": [
+            "spec_CheckedU128_new",
+            "spec_CheckedU128_new_overflowed",
+            "spec_CheckedU128_is_overflowed",
+            "spec_CheckedU128_unwrap",
+            "spec_CheckedU128_to_option",
+            "spec_CheckedU128_add_value",
+            "spec_CheckedU128_add_checked",
+            "spec_CheckedU128_mul_value",
+            "spec_CheckedU128_mul_checked",
+            "spec_CheckedU16_new",
+            "spec_CheckedU16_new_overflowed",
+            "spec_CheckedU16_is_overflowed",
+            "spec_CheckedU16_unwrap",
+            "spec_CheckedU16_to_option",
+            "spec_CheckedU16_add_value",
+            "spec_CheckedU16_add_checked",
+            "spec_CheckedU16_mul_value",
+            "spec_CheckedU16_mul_checked",
+            "spec_CheckedU32_new",
+            "spec_CheckedU32_new_overflowed",
+            "spec_CheckedU32_is_overflowed",
+            "spec_CheckedU32_unwrap",
+            "spec_CheckedU32_to_option",
+            "spec_CheckedU32_add_value",
+            "spec_CheckedU32_add_checked",
+            "spec_CheckedU32_mul_value",
+            "spec_CheckedU32_mul_checked",
+            "spec_CheckedU64_new",
+            "spec_CheckedU64_new_overflowed",
+            "spec_CheckedU64_is_overflowed",
+            "spec_CheckedU64_unwrap",
+            "spec_CheckedU64_to_option",
+            "spec_CheckedU64_add_value",
+            "spec_CheckedU64_add_checked",
+            "spec_CheckedU64_mul_value",
+            "spec_CheckedU64_mul_checked",
+            "spec_CheckedU8_new",
+            "spec_CheckedU8_new_overflowed",
+            "spec_CheckedU8_is_overflowed",
+            "spec_CheckedU8_unwrap",
+            "spec_CheckedU8_to_option",
+            "spec_CheckedU8_add_value",
+            "spec_CheckedU8_add_checked",
+            "spec_CheckedU8_mul_value",
+            "spec_CheckedU8_mul_checked",
+            "spec_CheckedUsize_new",
+            "spec_CheckedUsize_new_overflowed",
+            "spec_CheckedUsize_is_overflowed",
+            "spec_CheckedUsize_unwrap",
+            "spec_CheckedUsize_to_option",
+            "spec_CheckedUsize_add_value",
+            "spec_CheckedUsize_add_checked",
+            "spec_CheckedUsize_mul_value",
+            "spec_CheckedUsize_mul_checked"
+          ]
+        },
+        {
+          "name": "Internals/MulInternalsNonlinear",
+          "impl": "ArithmeticV2/Impl/Internals/MulInternalsNonlinear.lean",
+          "spec": "ArithmeticV2/Spec/Internals/MulInternalsNonlinear.lean",
+          "apis": [],
+          "specs": []
+        }
+      ]
+    }
+  ]
+}

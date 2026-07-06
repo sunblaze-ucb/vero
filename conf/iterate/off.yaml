@@ -1,0 +1,14 @@
+# iterate=off — single-shot, identical to pre-iteration behaviour.
+#
+# max=0 disables the outer loop. When the CLI sees max=0 it takes the pre-iteration codepath: one sandbox under <run>/source/, one eval under <run>/eval/<eval.name>/, no <run>/iter-N/ subdirs, no iterations.json.
+
+max: 0
+mode: eval
+feedback: true
+stop_on_done: true
+budget_usd: null
+# Transient-retry knobs — consulted only by the sampled-eval path
+# (eval.sampled=true), which runs under iterate=off. Harmless for the plain
+# single-shot path, which ignores them.
+max_transient_retries: 15
+transient_backoff_seconds: 60

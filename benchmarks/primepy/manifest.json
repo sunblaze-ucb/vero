@@ -1,0 +1,104 @@
+{
+  "benchmark_id": "primepy",
+  "description": "Python-from-JSON scaffold for `primepy`.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/janaindrajit/primePy",
+    "commit_hash": "9c98276fee5211e8761dfc03c9a1e02127e09e4a",
+    "path": "original_python"
+  },
+  "curation": {
+    "date": "2026-04-25"
+  },
+  "root_package": "Primepy",
+  "files": {
+    "root_hub": "Primepy.lean",
+    "harness": "Primepy/Harness.lean",
+    "test": "Primepy/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Primepy",
+      "bundle": "Primepy/Bundle.lean",
+      "bundle_type": "PrimepyBundle",
+      "repo_impl_field": "primepy",
+      "modules": [
+        {
+          "name": "Primes",
+          "impl": "Primepy/Impl/Primes.lean",
+          "spec": "Primepy/Spec/Primes.lean",
+          "apis": [
+            {
+              "name": "factor",
+              "sig": "FactorSig",
+              "type": "Int → Int",
+              "kind": "api"
+            },
+            {
+              "name": "check",
+              "sig": "CheckSig",
+              "type": "Int → Bool",
+              "kind": "api"
+            },
+            {
+              "name": "factors",
+              "sig": "FactorsSig",
+              "type": "Int → List Int",
+              "kind": "api"
+            },
+            {
+              "name": "phi",
+              "sig": "PhiSig",
+              "type": "Int → Int",
+              "kind": "api"
+            },
+            {
+              "name": "first",
+              "sig": "FirstSig",
+              "type": "Nat → List Nat",
+              "kind": "api"
+            },
+            {
+              "name": "upto",
+              "sig": "UptoSig",
+              "type": "Int → List Int",
+              "kind": "api"
+            },
+            {
+              "name": "between",
+              "sig": "BetweenSig",
+              "type": "Int → Int → List Int",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_factor_smallest_prime_divisor",
+            "spec_check_iff_prime_like",
+            "spec_factors_product_prime_sorted",
+            "spec_factors_head_agrees_with_factor",
+            "spec_phi_prime_case",
+            "spec_phi_counts_coprime_range",
+            "spec_first_prime_prefix",
+            "spec_upto_exact_prime_range",
+            "spec_between_agrees_with_upto"
+          ],
+          "spec_helpers": [
+            "spec_helper_divides",
+            "spec_helper_primeLike",
+            "spec_helper_allPrimeLike",
+            "spec_helper_productInt",
+            "spec_helper_sortedNondecreasing",
+            "spec_helper_strictlyIncreasing"
+          ]
+        }
+      ]
+    }
+  ]
+}

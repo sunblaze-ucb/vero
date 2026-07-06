@@ -1,0 +1,439 @@
+{
+  "benchmark_id": "queues",
+  "description": "Queue data structures \u2014 8 Python queue implementations translated to Lean 4",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/TheAlgorithms/Python.git",
+    "commit_hash": "7a0fee401d2990bd5904e94cd5d3a62c50a8b682",
+    "path": "data_structures/queues"
+  },
+  "curation": {
+    "date": "2026-04-26"
+  },
+  "root_package": "Queues",
+  "files": {
+    "root_hub": "Queues.lean",
+    "harness": "Queues/Harness.lean",
+    "test": "Queues/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Queues",
+      "bundle": "Queues/Bundle.lean",
+      "bundle_type": "QueuesBundle",
+      "repo_impl_field": "queues",
+      "modules": [
+        {
+          "name": "CircularQueue",
+          "impl": "Queues/Impl/CircularQueue.lean",
+          "spec": "Queues/Spec/CircularQueue.lean",
+          "apis": [
+            {
+              "name": "size",
+              "sig": "SizeSig",
+              "type": "\u2200 {\u03b1 : Type}, CircularQueue \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "isEmpty",
+              "sig": "IsEmptySig",
+              "type": "\u2200 {\u03b1 : Type}, CircularQueue \u03b1 \u2192 Bool"
+            },
+            {
+              "name": "first",
+              "sig": "FirstSig",
+              "type": "\u2200 {\u03b1 : Type} [Inhabited \u03b1], CircularQueue \u03b1 \u2192 \u03b1"
+            },
+            {
+              "name": "enqueue",
+              "sig": "EnqueueSig",
+              "type": "\u2200 {\u03b1 : Type}, CircularQueue \u03b1 \u2192 \u03b1 \u2192 CircularQueue \u03b1"
+            },
+            {
+              "name": "dequeue",
+              "sig": "DequeueSig",
+              "type": "\u2200 {\u03b1 : Type}, CircularQueue \u03b1 \u2192 Option (\u03b1 \u00d7 CircularQueue \u03b1)"
+            }
+          ],
+          "specs": [
+            "spec_cq_empty_observers",
+            "spec_cq_size_matches_data_length",
+            "spec_cq_isEmpty_matches_data",
+            "spec_cq_enqueue_room_appends_and_grows",
+            "spec_cq_enqueue_full_noop",
+            "spec_cq_first_dequeue_agree_on_front",
+            "spec_cq_enqueue_dequeue_empty_roundtrip"
+          ],
+          "spec_helpers": [
+            "spec_cq_isEmpty_after_enqueue",
+            "spec_cq_first_after_enqueue",
+            "spec_cq_first_FIFO",
+            "spec_cq_enqueue_size_inc",
+            "spec_cq_enqueue_capacity_zero",
+            "spec_cq_dequeue_after_enqueue",
+            "spec_cq_dequeue_fifo"
+          ]
+        },
+        {
+          "name": "CircularQueueLinkedList",
+          "impl": "Queues/Impl/CircularQueueLinkedList.lean",
+          "spec": "Queues/Spec/CircularQueueLinkedList.lean",
+          "apis": [
+            {
+              "name": "isEmpty",
+              "sig": "IsEmptySig",
+              "type": "\u2200 {\u03b1 : Type}, CircularQueueLinkedList \u03b1 \u2192 Bool"
+            },
+            {
+              "name": "first",
+              "sig": "FirstSig",
+              "type": "\u2200 {\u03b1 : Type} [Inhabited \u03b1], CircularQueueLinkedList \u03b1 \u2192 \u03b1"
+            },
+            {
+              "name": "enqueue",
+              "sig": "EnqueueSig",
+              "type": "\u2200 {\u03b1 : Type}, CircularQueueLinkedList \u03b1 \u2192 \u03b1 \u2192 CircularQueueLinkedList \u03b1"
+            },
+            {
+              "name": "dequeue",
+              "sig": "DequeueSig",
+              "type": "\u2200 {\u03b1 : Type}, CircularQueueLinkedList \u03b1 \u2192 Option (\u03b1 \u00d7 CircularQueueLinkedList \u03b1)"
+            }
+          ],
+          "specs": [
+            "spec_cqll_empty_observers",
+            "spec_cqll_isEmpty_matches_data",
+            "spec_cqll_enqueue_room_appends",
+            "spec_cqll_enqueue_full_noop",
+            "spec_cqll_first_dequeue_agree_on_front",
+            "spec_cqll_enqueue_dequeue_empty_roundtrip"
+          ],
+          "spec_helpers": [
+            "spec_cqll_isEmpty_after_enqueue",
+            "spec_cqll_first_empty",
+            "spec_cqll_first_after_enqueue",
+            "spec_cqll_enqueue_dequeue_roundtrip",
+            "spec_cqll_dequeue_fifo"
+          ]
+        },
+        {
+          "name": "DoubleEndedQueue",
+          "impl": "Queues/Impl/DoubleEndedQueue.lean",
+          "spec": "Queues/Spec/DoubleEndedQueue.lean",
+          "apis": [
+            {
+              "name": "isEmpty",
+              "sig": "IsEmptySig",
+              "type": "\u2200 {\u03b1 : Type}, Deque \u03b1 \u2192 Bool"
+            },
+            {
+              "name": "length",
+              "sig": "LengthSig",
+              "type": "\u2200 {\u03b1 : Type}, Deque \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "append",
+              "sig": "AppendSig",
+              "type": "\u2200 {\u03b1 : Type}, Deque \u03b1 \u2192 \u03b1 \u2192 Deque \u03b1"
+            },
+            {
+              "name": "appendLeft",
+              "sig": "AppendLeftSig",
+              "type": "\u2200 {\u03b1 : Type}, Deque \u03b1 \u2192 \u03b1 \u2192 Deque \u03b1"
+            },
+            {
+              "name": "extend",
+              "sig": "ExtendSig",
+              "type": "\u2200 {\u03b1 : Type}, Deque \u03b1 \u2192 List \u03b1 \u2192 Deque \u03b1"
+            },
+            {
+              "name": "extendLeft",
+              "sig": "ExtendLeftSig",
+              "type": "\u2200 {\u03b1 : Type}, Deque \u03b1 \u2192 List \u03b1 \u2192 Deque \u03b1"
+            },
+            {
+              "name": "pop",
+              "sig": "PopSig",
+              "type": "\u2200 {\u03b1 : Type}, Deque \u03b1 \u2192 Option (\u03b1 \u00d7 Deque \u03b1)"
+            },
+            {
+              "name": "popLeft",
+              "sig": "PopLeftSig",
+              "type": "\u2200 {\u03b1 : Type}, Deque \u03b1 \u2192 Option (\u03b1 \u00d7 Deque \u03b1)"
+            }
+          ],
+          "specs": [
+            "spec_deque_empty_observers",
+            "spec_deque_observers_match_list",
+            "spec_deque_append_pop_roundtrip",
+            "spec_deque_appendLeft_popLeft_roundtrip",
+            "spec_deque_extend_matches_repeated_append",
+            "spec_deque_extendLeft_matches_repeated_appendLeft"
+          ],
+          "spec_helpers": [
+            "spec_deque_isEmpty_nonempty",
+            "spec_deque_length_three",
+            "spec_deque_append_singleton",
+            "spec_deque_append_appends",
+            "spec_deque_appendLeft_singleton",
+            "spec_deque_appendLeft_prepends",
+            "spec_deque_extend_empty",
+            "spec_deque_extend_appends_list",
+            "spec_deque_extendLeft_empty",
+            "spec_deque_extendLeft_reverses",
+            "spec_deque_pop_singleton",
+            "spec_deque_pop_after_append",
+            "spec_deque_popLeft_singleton",
+            "spec_deque_popLeft_after_appendLeft"
+          ]
+        },
+        {
+          "name": "LinkedQueue",
+          "impl": "Queues/Impl/LinkedQueue.lean",
+          "spec": "Queues/Spec/LinkedQueue.lean",
+          "apis": [
+            {
+              "name": "length",
+              "sig": "LengthSig",
+              "type": "\u2200 {\u03b1 : Type}, LinkedQueue \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "isEmpty",
+              "sig": "IsEmptySig",
+              "type": "\u2200 {\u03b1 : Type}, LinkedQueue \u03b1 \u2192 Bool"
+            },
+            {
+              "name": "put",
+              "sig": "PutSig",
+              "type": "\u2200 {\u03b1 : Type}, LinkedQueue \u03b1 \u2192 \u03b1 \u2192 LinkedQueue \u03b1"
+            },
+            {
+              "name": "get",
+              "sig": "GetSig",
+              "type": "\u2200 {\u03b1 : Type}, LinkedQueue \u03b1 \u2192 Option (\u03b1 \u00d7 LinkedQueue \u03b1)"
+            },
+            {
+              "name": "clear",
+              "sig": "ClearSig",
+              "type": "\u2200 {\u03b1 : Type}, LinkedQueue \u03b1 \u2192 LinkedQueue \u03b1"
+            }
+          ],
+          "specs": [
+            "spec_lq_empty_queue_law",
+            "spec_lq_put_changes_length",
+            "spec_lq_get_fromList_preserves_head",
+            "spec_lq_put_after_fromList",
+            "spec_lq_clear_empties_queue"
+          ],
+          "spec_helpers": [
+            "spec_lq_length_five",
+            "spec_lq_isEmpty_nonempty",
+            "spec_lq_put_singleton",
+            "spec_lq_put_appends",
+            "spec_lq_get_returns_head",
+            "spec_lq_clear_empties_three",
+            "spec_lq_clear_length_zero",
+            "spec_lq_put_then_get_roundtrip"
+          ]
+        },
+        {
+          "name": "PriorityQueueUsingList",
+          "impl": "Queues/Impl/PriorityQueueUsingList.lean",
+          "spec": "Queues/Spec/PriorityQueueUsingList.lean",
+          "apis": [
+            {
+              "name": "fpq_enqueue",
+              "sig": "FpqEnqueueSig",
+              "type": "\u2200 {\u03b1 : Type}, FixedPriorityQueue \u03b1 \u2192 Nat \u2192 \u03b1 \u2192 FixedPriorityQueue \u03b1"
+            },
+            {
+              "name": "fpq_dequeue",
+              "sig": "FpqDequeueSig",
+              "type": "\u2200 {\u03b1 : Type}, FixedPriorityQueue \u03b1 \u2192 Option (\u03b1 \u00d7 FixedPriorityQueue \u03b1)"
+            },
+            {
+              "name": "epq_enqueue",
+              "sig": "EpqEnqueueSig",
+              "type": "\u2200 {\u03b1 : Type}, ElementPriorityQueue \u03b1 \u2192 \u03b1 \u2192 ElementPriorityQueue \u03b1"
+            },
+            {
+              "name": "epq_dequeue",
+              "sig": "EpqDequeueSig",
+              "type": "\u2200 {\u03b1 : Type} [Ord \u03b1] [BEq \u03b1], ElementPriorityQueue \u03b1 \u2192 Option (\u03b1 \u00d7 ElementPriorityQueue \u03b1)"
+            }
+          ],
+          "specs": [
+            "spec_fpq_empty_dequeue",
+            "spec_fpq_fifo_within_priority",
+            "spec_fpq_enqueue_valid_priority_appends",
+            "spec_fpq_priority_order",
+            "spec_fpq_invalid_priority_noop",
+            "spec_epq_empty_dequeue",
+            "spec_epq_enqueue_appends",
+            "spec_epq_dequeue_returns_min_and_erases"
+          ],
+          "spec_helpers": [
+            "spec_fpq_enqueue_dequeue_p0",
+            "spec_fpq_enqueue_dequeue_p1",
+            "spec_fpq_enqueue_dequeue_p2",
+            "spec_fpq_priority_zero_wins",
+            "spec_epq_enqueue_dequeue_singleton",
+            "spec_epq_dequeue_minimum_5_3",
+            "spec_epq_dequeue_minimum_7_9",
+            "spec_epq_dequeue_minimum_4_1_8"
+          ]
+        },
+        {
+          "name": "QueueByList",
+          "impl": "Queues/Impl/QueueByList.lean",
+          "spec": "Queues/Spec/QueueByList.lean",
+          "apis": [
+            {
+              "name": "length",
+              "sig": "LengthSig",
+              "type": "\u2200 {\u03b1 : Type}, QueueByList \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "put",
+              "sig": "PutSig",
+              "type": "\u2200 {\u03b1 : Type}, QueueByList \u03b1 \u2192 \u03b1 \u2192 QueueByList \u03b1"
+            },
+            {
+              "name": "get",
+              "sig": "GetSig",
+              "type": "\u2200 {\u03b1 : Type}, QueueByList \u03b1 \u2192 Option (\u03b1 \u00d7 QueueByList \u03b1)"
+            },
+            {
+              "name": "rotate",
+              "sig": "RotateSig",
+              "type": "\u2200 {\u03b1 : Type}, QueueByList \u03b1 \u2192 Nat \u2192 QueueByList \u03b1"
+            },
+            {
+              "name": "getFront",
+              "sig": "GetFrontSig",
+              "type": "\u2200 {\u03b1 : Type} [Inhabited \u03b1], QueueByList \u03b1 \u2192 \u03b1"
+            }
+          ],
+          "specs": [
+            "spec_qbl_empty_queue_law",
+            "spec_qbl_put_changes_length",
+            "spec_qbl_get_fromList_preserves_head",
+            "spec_qbl_put_after_fromList",
+            "spec_qbl_rotate_preserves_length",
+            "spec_qbl_rotate_fromList_matches_list_rotation",
+            "spec_qbl_getFront_fromList_matches_head"
+          ],
+          "spec_helpers": [
+            "spec_qbl_length_three",
+            "spec_qbl_put_singleton",
+            "spec_qbl_put_appends",
+            "spec_qbl_put_increments_length",
+            "spec_qbl_get_returns_head",
+            "spec_qbl_get_singleton",
+            "spec_qbl_rotate_empty",
+            "spec_qbl_rotate_one",
+            "spec_qbl_rotate_full_is_identity",
+            "spec_qbl_getFront_empty",
+            "spec_qbl_getFront_returns_head"
+          ]
+        },
+        {
+          "name": "QueueByTwoStacks",
+          "impl": "Queues/Impl/QueueByTwoStacks.lean",
+          "spec": "Queues/Spec/QueueByTwoStacks.lean",
+          "apis": [
+            {
+              "name": "length",
+              "sig": "LengthSig",
+              "type": "\u2200 {\u03b1 : Type}, QueueByTwoStacks \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "put",
+              "sig": "PutSig",
+              "type": "\u2200 {\u03b1 : Type}, QueueByTwoStacks \u03b1 \u2192 \u03b1 \u2192 QueueByTwoStacks \u03b1"
+            },
+            {
+              "name": "get",
+              "sig": "GetSig",
+              "type": "\u2200 {\u03b1 : Type}, QueueByTwoStacks \u03b1 \u2192 Option (\u03b1 \u00d7 QueueByTwoStacks \u03b1)"
+            }
+          ],
+          "specs": [
+            "spec_qbts_empty_queue_law",
+            "spec_qbts_put_changes_length",
+            "spec_qbts_get_fromList_preserves_head",
+            "spec_qbts_put_after_fromList"
+          ],
+          "spec_helpers": [
+            "spec_qbts_length_three",
+            "spec_qbts_put_singleton",
+            "spec_qbts_put_appends",
+            "spec_qbts_put_increments_length",
+            "spec_qbts_get_returns_head",
+            "spec_qbts_put_then_get_roundtrip"
+          ]
+        },
+        {
+          "name": "QueueOnPseudoStack",
+          "impl": "Queues/Impl/QueueOnPseudoStack.lean",
+          "spec": "Queues/Spec/QueueOnPseudoStack.lean",
+          "apis": [
+            {
+              "name": "put",
+              "sig": "PutSig",
+              "type": "\u2200 {\u03b1 : Type}, Queue \u03b1 \u2192 \u03b1 \u2192 Queue \u03b1"
+            },
+            {
+              "name": "get",
+              "sig": "GetSig",
+              "type": "\u2200 {\u03b1 : Type}, Queue \u03b1 \u2192 Option (\u03b1 \u00d7 Queue \u03b1)"
+            },
+            {
+              "name": "rotate",
+              "sig": "RotateSig",
+              "type": "\u2200 {\u03b1 : Type}, Queue \u03b1 \u2192 Nat \u2192 Queue \u03b1"
+            },
+            {
+              "name": "front",
+              "sig": "FrontSig",
+              "type": "\u2200 {\u03b1 : Type} [Inhabited \u03b1], Queue \u03b1 \u2192 \u03b1"
+            },
+            {
+              "name": "size",
+              "sig": "SizeSig",
+              "type": "\u2200 {\u03b1 : Type}, Queue \u03b1 \u2192 Nat"
+            }
+          ],
+          "specs": [
+            "spec_qops_empty_queue_law",
+            "spec_qops_put_changes_size",
+            "spec_qops_get_fromList_preserves_head",
+            "spec_qops_put_after_fromList",
+            "spec_qops_rotate_preserves_size",
+            "spec_qops_rotate_fromList_matches_list_rotation",
+            "spec_qops_front_fromList_matches_head"
+          ],
+          "spec_helpers": [
+            "spec_qops_size_three",
+            "spec_qops_put_singleton",
+            "spec_qops_put_appends",
+            "spec_qops_put_increments_size",
+            "spec_qops_get_returns_head",
+            "spec_qops_get_singleton",
+            "spec_qops_rotate_empty",
+            "spec_qops_rotate_one",
+            "spec_qops_rotate_full_is_identity",
+            "spec_qops_front_empty",
+            "spec_qops_front_returns_head"
+          ]
+        }
+      ]
+    }
+  ]
+}

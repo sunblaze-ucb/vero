@@ -1,0 +1,8 @@
+name = "primefac"
+version = "0.1.0"
+defaultTargets = ["Primefac"]
+
+[[lean_lib]]
+name = "Primefac"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

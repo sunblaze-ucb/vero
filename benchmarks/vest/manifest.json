@@ -1,0 +1,516 @@
+{
+  "benchmark_id": "vest_v2",
+  "description": "Vest v2: scoped parser/serializer benchmark derived from the prior hand-curated Vest baseline.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "name": "vest",
+    "repo_url": "https://github.com/secure-foundations/vest.git",
+    "commit_hash": "db63c23b1a6316652d34c54ef21419eeed61aa46",
+    "path": "src",
+    "language": "verus",
+    "scope_note": "Scoped baseline-derived Vest parser/serializer surface; not the full higher-order/generic Vest combinator trait surface. Three over-generalized support/background helper specs exposed as false by proof eval are deferred from the active scored surface."
+  },
+  "curation": {
+    "date": "2026-04-25"
+  },
+  "root_package": "VestV2",
+  "files": {
+    "root_hub": "VestV2.lean",
+    "harness": "VestV2/Harness.lean",
+    "test": "VestV2/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "VestV2",
+      "bundle": "VestV2/Bundle.lean",
+      "bundle_type": "VestV2Bundle",
+      "repo_impl_field": "vest",
+      "modules": [
+        {
+          "name": "BufTraits",
+          "impl": "VestV2/Impl/BufTraits.lean",
+          "spec": "VestV2/Spec/BufTraits.lean",
+          "apis": [],
+          "benchmark_role": "support",
+          "specs": [],
+          "obligation_specs": [],
+          "background_specs": []
+        },
+        {
+          "name": "Errors",
+          "impl": "VestV2/Impl/Errors.lean",
+          "spec": "VestV2/Spec/Errors.lean",
+          "apis": [
+            {
+              "name": "fromParseError",
+              "sig": "FromParseErrorSig",
+              "type": "ParseError \u2192 Error"
+            },
+            {
+              "name": "fromSerializeError",
+              "sig": "FromSerializeErrorSig",
+              "type": "SerializeError \u2192 Error"
+            }
+          ],
+          "benchmark_role": "live_api",
+          "specs": [
+            "spec_from_parse_error_correct",
+            "spec_from_serialize_error_correct"
+          ],
+          "obligation_specs": [
+            "spec_from_parse_error_correct",
+            "spec_from_serialize_error_correct"
+          ],
+          "background_specs": []
+        },
+        {
+          "name": "Properties",
+          "impl": "VestV2/Impl/Properties.lean",
+          "spec": "VestV2/Spec/Properties.lean",
+          "apis": [],
+          "benchmark_role": "support",
+          "specs": [],
+          "obligation_specs": [],
+          "background_specs": []
+        },
+        {
+          "name": "Utils",
+          "impl": "VestV2/Impl/Utils.lean",
+          "spec": "VestV2/Spec/Utils.lean",
+          "apis": [
+            {
+              "name": "setRange",
+              "sig": "SetRangeSig",
+              "type": "List UInt8 \u2192 Nat \u2192 List UInt8 \u2192 List UInt8"
+            },
+            {
+              "name": "compareSlice",
+              "sig": "CompareSliceSig",
+              "type": "List UInt8 \u2192 List UInt8 \u2192 Bool"
+            },
+            {
+              "name": "initVecU8",
+              "sig": "InitVecU8Sig",
+              "type": "Nat \u2192 List UInt8"
+            }
+          ],
+          "benchmark_role": "live_api",
+          "specs": [
+            "spec_set_range_correct",
+            "spec_compare_slice_correct",
+            "spec_init_vec_u8_length"
+          ],
+          "obligation_specs": [
+            "spec_set_range_correct",
+            "spec_compare_slice_correct",
+            "spec_init_vec_u8_length"
+          ],
+          "background_specs": []
+        },
+        {
+          "name": "RegularBytes",
+          "impl": "VestV2/Impl/RegularBytes.lean",
+          "spec": "VestV2/Spec/RegularBytes.lean",
+          "apis": [
+            {
+              "name": "variableParse",
+              "sig": "VariableParseSig",
+              "type": "Variable \u2192 List UInt8 \u2192 Except ParseError (Nat \u00d7 List UInt8)"
+            },
+            {
+              "name": "variableSerialize",
+              "sig": "VariableSerializeSig",
+              "type": "Variable \u2192 List UInt8 \u2192 List UInt8 \u2192 Nat \u2192 Except SerializeError Nat"
+            },
+            {
+              "name": "fixedParse",
+              "sig": "FixedParseSig",
+              "type": "Fixed \u2192 List UInt8 \u2192 Except ParseError (Nat \u00d7 List UInt8)"
+            },
+            {
+              "name": "fixedSerialize",
+              "sig": "FixedSerializeSig",
+              "type": "Fixed \u2192 List UInt8 \u2192 List UInt8 \u2192 Nat \u2192 Except SerializeError Nat"
+            },
+            {
+              "name": "tailParse",
+              "sig": "TailParseSig",
+              "type": "List UInt8 \u2192 Except ParseError (Nat \u00d7 List UInt8)"
+            },
+            {
+              "name": "tailSerialize",
+              "sig": "TailSerializeSig",
+              "type": "List UInt8 \u2192 List UInt8 \u2192 Nat \u2192 Except SerializeError Nat"
+            }
+          ],
+          "benchmark_role": "mixed",
+          "specs": [
+            "spec_bytes_parse_serialize_roundtrip",
+            "spec_bytes_serialize_parse_roundtrip",
+            "spec_variable_parse_correct",
+            "spec_variable_serialize_correct",
+            "spec_fixed_parse_correct",
+            "spec_fixed_serialize_correct",
+            "spec_tail_parse_correct",
+            "spec_tail_serialize_correct"
+          ],
+          "obligation_specs": [
+            "spec_variable_parse_correct",
+            "spec_variable_serialize_correct",
+            "spec_fixed_parse_correct",
+            "spec_fixed_serialize_correct",
+            "spec_tail_parse_correct",
+            "spec_tail_serialize_correct"
+          ],
+          "background_specs": [
+            "spec_bytes_parse_serialize_roundtrip",
+            "spec_bytes_serialize_parse_roundtrip"
+          ]
+        },
+        {
+          "name": "RegularEnd",
+          "impl": "VestV2/Impl/RegularEnd.lean",
+          "spec": "VestV2/Spec/RegularEnd.lean",
+          "apis": [
+            {
+              "name": "endParse",
+              "sig": "EndParseSig",
+              "type": "List UInt8 \u2192 Except ParseError (Nat \u00d7 Unit)"
+            },
+            {
+              "name": "endSerialize",
+              "sig": "EndSerializeSig",
+              "type": "Unit \u2192 List UInt8 \u2192 Nat \u2192 Except SerializeError Nat"
+            }
+          ],
+          "benchmark_role": "mixed",
+          "specs": [
+            "spec_end_secure_combinator",
+            "spec_end_parse_correct",
+            "spec_end_serialize_zero"
+          ],
+          "obligation_specs": [
+            "spec_end_parse_correct",
+            "spec_end_serialize_zero"
+          ],
+          "background_specs": [
+            "spec_end_secure_combinator"
+          ]
+        },
+        {
+          "name": "RegularFail",
+          "impl": "VestV2/Impl/RegularFail.lean",
+          "spec": "VestV2/Spec/RegularFail.lean",
+          "apis": [
+            {
+              "name": "failParse",
+              "sig": "FailParseSig",
+              "type": "List UInt8 \u2192 Except ParseError (Nat \u00d7 Unit)"
+            },
+            {
+              "name": "failSerialize",
+              "sig": "FailSerializeSig",
+              "type": "Unit \u2192 List UInt8 \u2192 Nat \u2192 Except SerializeError Nat"
+            }
+          ],
+          "benchmark_role": "live_api",
+          "specs": [
+            "spec_fail_always_fails",
+            "spec_fail_serialize_always_fails"
+          ],
+          "obligation_specs": [
+            "spec_fail_always_fails",
+            "spec_fail_serialize_always_fails"
+          ],
+          "background_specs": []
+        },
+        {
+          "name": "RegularSuccess",
+          "impl": "VestV2/Impl/RegularSuccess.lean",
+          "spec": "VestV2/Spec/RegularSuccess.lean",
+          "apis": [
+            {
+              "name": "successParse",
+              "sig": "SuccessParseSig",
+              "type": "List UInt8 \u2192 Except ParseError (Nat \u00d7 Unit)"
+            },
+            {
+              "name": "successSerialize",
+              "sig": "SuccessSerializeSig",
+              "type": "Unit \u2192 List UInt8 \u2192 Nat \u2192 Except SerializeError Nat"
+            }
+          ],
+          "benchmark_role": "live_api",
+          "specs": [
+            "spec_success_always_succeeds",
+            "spec_success_serialize_zero"
+          ],
+          "obligation_specs": [
+            "spec_success_always_succeeds",
+            "spec_success_serialize_zero"
+          ],
+          "background_specs": []
+        },
+        {
+          "name": "RegularLeb128",
+          "impl": "VestV2/Impl/RegularLeb128.lean",
+          "spec": "VestV2/Spec/RegularLeb128.lean",
+          "apis": [
+            {
+              "name": "leb128Parse",
+              "sig": "Leb128ParseSig",
+              "type": "List UInt8 \u2192 Except ParseError (Nat \u00d7 Nat)"
+            }
+          ],
+          "benchmark_role": "mixed",
+          "specs": [
+            "spec_leb128_value_fits",
+            "spec_leb128_roundtrip",
+            "spec_leb128_parse_serialize_roundtrip",
+            "spec_leb128_parse_correct"
+          ],
+          "obligation_specs": [
+            "spec_leb128_parse_correct"
+          ],
+          "background_specs": [
+            "spec_leb128_value_fits",
+            "spec_leb128_roundtrip",
+            "spec_leb128_parse_serialize_roundtrip"
+          ]
+        },
+        {
+          "name": "RegularLeb128Rec",
+          "impl": "VestV2/Impl/RegularLeb128Rec.lean",
+          "spec": "VestV2/Spec/RegularLeb128Rec.lean",
+          "apis": [],
+          "benchmark_role": "support",
+          "specs": [],
+          "obligation_specs": [],
+          "background_specs": []
+        },
+        {
+          "name": "RegularLeb128Unrolled",
+          "impl": "VestV2/Impl/RegularLeb128Unrolled.lean",
+          "spec": "VestV2/Spec/RegularLeb128Unrolled.lean",
+          "apis": [],
+          "benchmark_role": "support",
+          "specs": [],
+          "obligation_specs": [],
+          "background_specs": []
+        },
+        {
+          "name": "RegularRepetition",
+          "impl": "VestV2/Impl/RegularRepetition.lean",
+          "spec": "VestV2/Spec/RegularRepetition.lean",
+          "apis": [],
+          "benchmark_role": "support",
+          "spec_helpers": [
+            "spec_repetition_repeatn_roundtrip"
+          ],
+          "specs": [],
+          "obligation_specs": [],
+          "background_specs": []
+        },
+        {
+          "name": "RegularModifier",
+          "impl": "VestV2/Impl/RegularModifier.lean",
+          "spec": "VestV2/Spec/RegularModifier.lean",
+          "apis": [],
+          "benchmark_role": "support",
+          "specs": [
+            "spec_iso_roundtrip",
+            "spec_mapped_roundtrip"
+          ],
+          "obligation_specs": [],
+          "background_specs": [
+            "spec_iso_roundtrip",
+            "spec_mapped_roundtrip"
+          ]
+        },
+        {
+          "name": "RegularUints",
+          "impl": "VestV2/Impl/RegularUints.lean",
+          "spec": "VestV2/Spec/RegularUints.lean",
+          "apis": [],
+          "benchmark_role": "support",
+          "specs": [
+            "spec_size_of_facts",
+            "spec_u8_roundtrip"
+          ],
+          "obligation_specs": [],
+          "background_specs": [
+            "spec_size_of_facts",
+            "spec_u8_roundtrip"
+          ]
+        },
+        {
+          "name": "RegularDisjoint",
+          "impl": "VestV2/Impl/RegularDisjoint.lean",
+          "spec": "VestV2/Spec/RegularDisjoint.lean",
+          "apis": [],
+          "benchmark_role": "support",
+          "spec_helpers": [
+            "spec_disjoint_from_parse_exclusion"
+          ],
+          "specs": [],
+          "obligation_specs": [],
+          "background_specs": []
+        },
+        {
+          "name": "RegularSequence",
+          "impl": "VestV2/Impl/RegularSequence.lean",
+          "spec": "VestV2/Spec/RegularSequence.lean",
+          "apis": [],
+          "benchmark_role": "support",
+          "spec_helpers": [
+            "spec_pair_roundtrip"
+          ],
+          "specs": [],
+          "obligation_specs": [],
+          "background_specs": []
+        },
+        {
+          "name": "RegularVariant",
+          "impl": "VestV2/Impl/RegularVariant.lean",
+          "spec": "VestV2/Spec/RegularVariant.lean",
+          "apis": [],
+          "benchmark_role": "support",
+          "specs": [
+            "spec_choice_left_parse",
+            "spec_choice_right_parse"
+          ],
+          "obligation_specs": [],
+          "background_specs": [
+            "spec_choice_left_parse",
+            "spec_choice_right_parse"
+          ]
+        },
+        {
+          "name": "RegularClone",
+          "impl": "VestV2/Impl/RegularClone.lean",
+          "spec": "VestV2/Spec/RegularClone.lean",
+          "apis": [
+            {
+              "name": "cloneU8",
+              "sig": "CloneU8Sig",
+              "type": "U8 \u2192 U8"
+            },
+            {
+              "name": "cloneU16Le",
+              "sig": "CloneU16LeSig",
+              "type": "U16Le \u2192 U16Le"
+            },
+            {
+              "name": "cloneU32Le",
+              "sig": "CloneU32LeSig",
+              "type": "U32Le \u2192 U32Le"
+            },
+            {
+              "name": "cloneU64Le",
+              "sig": "CloneU64LeSig",
+              "type": "U64Le \u2192 U64Le"
+            },
+            {
+              "name": "cloneTail",
+              "sig": "CloneTailSig",
+              "type": "Tail \u2192 Tail"
+            },
+            {
+              "name": "cloneVariable",
+              "sig": "CloneVariableSig",
+              "type": "Variable \u2192 Variable"
+            },
+            {
+              "name": "cloneFixed",
+              "sig": "CloneFixedSig",
+              "type": "Fixed \u2192 Fixed"
+            }
+          ],
+          "benchmark_role": "live_api",
+          "specs": [
+            "spec_clone_reflexive"
+          ],
+          "obligation_specs": [
+            "spec_clone_reflexive"
+          ],
+          "background_specs": []
+        },
+        {
+          "name": "RegularTag",
+          "impl": "VestV2/Impl/RegularTag.lean",
+          "spec": "VestV2/Spec/RegularTag.lean",
+          "apis": [
+            {
+              "name": "tagParse",
+              "sig": "TagParseSig",
+              "type": "UInt8 \u2192 List UInt8 \u2192 Except ParseError (Nat \u00d7 Unit)"
+            },
+            {
+              "name": "tagSerialize",
+              "sig": "TagSerializeSig",
+              "type": "UInt8 \u2192 Unit \u2192 List UInt8 \u2192 Nat \u2192 Except SerializeError Nat"
+            }
+          ],
+          "benchmark_role": "mixed",
+          "specs": [
+            "spec_tag_parse_correct",
+            "spec_tag_serialize_parse_roundtrip",
+            "spec_tag_parse_u8_correct",
+            "spec_tag_serialize_u8_correct"
+          ],
+          "obligation_specs": [
+            "spec_tag_parse_u8_correct",
+            "spec_tag_serialize_u8_correct"
+          ],
+          "background_specs": [
+            "spec_tag_parse_correct",
+            "spec_tag_serialize_parse_roundtrip"
+          ]
+        },
+        {
+          "name": "BitcoinVarint",
+          "impl": "VestV2/Impl/BitcoinVarint.lean",
+          "spec": "VestV2/Spec/BitcoinVarint.lean",
+          "apis": [
+            {
+              "name": "btcVarintParse",
+              "sig": "BtcVarintParseSig",
+              "type": "List UInt8 \u2192 Except ParseError (Nat \u00d7 VarInt)"
+            },
+            {
+              "name": "btcVarintSerialize",
+              "sig": "BtcVarintSerializeSig",
+              "type": "VarInt \u2192 List UInt8 \u2192 Nat \u2192 Except SerializeError Nat"
+            }
+          ],
+          "benchmark_role": "mixed",
+          "specs": [
+            "spec_btcvarint_u8_roundtrip",
+            "spec_btcvarint_parse_length_bounds",
+            "spec_btcvarint_u16_range",
+            "spec_btcvarint_u32_range",
+            "spec_btcvarint_u64_range",
+            "spec_btcvarint_parse_correct",
+            "spec_btcvarint_serialize_size_correct"
+          ],
+          "obligation_specs": [
+            "spec_btcvarint_parse_correct",
+            "spec_btcvarint_serialize_size_correct"
+          ],
+          "background_specs": [
+            "spec_btcvarint_u8_roundtrip",
+            "spec_btcvarint_parse_length_bounds",
+            "spec_btcvarint_u16_range",
+            "spec_btcvarint_u32_range",
+            "spec_btcvarint_u64_range"
+          ]
+        }
+      ]
+    }
+  ]
+}

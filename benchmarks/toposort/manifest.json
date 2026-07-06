@@ -1,0 +1,66 @@
+{
+  "benchmark_id": "toposort/sort",
+  "description": "Topological sorting implementation for Python dependency graphs.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "language": "python",
+    "repo_url": "https://gitlab.com/ericvsmith/toposort",
+    "commit_hash": "9fcd043736d3b670ec47534ef9d6ebdfd846790f",
+    "path": "toposort.py"
+  },
+  "curation": {
+    "date": "2026-04-26"
+  },
+  "root_package": "ToposortSort",
+  "files": {
+    "root_hub": "ToposortSort.lean",
+    "harness": "ToposortSort/Harness.lean",
+    "test": "ToposortSort/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "ToposortSort",
+      "bundle": "ToposortSort/Bundle.lean",
+      "bundle_type": "ToposortSortBundle",
+      "repo_impl_field": "toposortSort",
+      "modules": [
+        {
+          "name": "Toposort",
+          "impl": "ToposortSort/Impl/Toposort.lean",
+          "spec": "ToposortSort/Spec/Toposort.lean",
+          "apis": [
+            {
+              "name": "toposort",
+              "sig": "ToposortSig",
+              "type": "Std.HashMap α (Std.HashSet α) → Option (List (Std.HashSet α))"
+            },
+            {
+              "name": "toposort_flatten",
+              "sig": "ToposortFlattenSig",
+              "type": "[Ord α] → Std.HashMap α (Std.HashSet α) → Bool → Option (List α)"
+            }
+          ],
+          "specs": [
+            "spec_toposort_empty",
+            "spec_toposort_flatten_empty",
+            "spec_toposort_self_loop_not_cycle",
+            "spec_toposort_cycle_returns_none",
+            "spec_toposort_implicit_vertex",
+            "spec_layers_mention_graph_items",
+            "spec_layers_cover_graph_items",
+            "spec_layers_are_dependency_free_internally",
+            "spec_flatten_failure_consistency",
+            "spec_flatten_matches_layered_output_sorted",
+            "spec_flatten_matches_layered_output_unsorted",
+            "spec_flatten_output_has_no_duplicates",
+            "spec_flatten_respects_dependency_order",
+            "spec_toposort_total_on_acyclic",
+            "spec_toposort_sources_in_first_layer"
+          ]
+        }
+      ]
+    }
+  ]
+}

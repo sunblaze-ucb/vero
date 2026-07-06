@@ -1,0 +1,101 @@
+{
+  "benchmark_id": "croniter",
+  "description": "Cron next-fire computation modelled on the croniter library: cronMatches/nextFire/prevFire on a discretised minute/hour/day-of-week clock, with witness-minimality (and symmetric witness-maximality) specs anchored on the frozen field extractors minOf/hourOf/dowOf. Beyond the witness/extremal specs the suite carries hidden-invariant families that require a discovered strengthened induction hypothesis: forward and backward aggregate window-count laws (gap/step/k-th counts, multi-week density = k·per-week count), nextFire/prevFire adjacency and inverse laws on firing minutes, prevFire monotonicity, multi-week shift-equivariance, and a one-period-of-fires-spans-one-week iteration law. Scope: this models a parsed 3-field (minute / hour / day-of-week) scheduler over `Nat` absolute minutes — there is no cron-expression parser, no seconds / year / day-of-month / month fields, and no `day_or` / timezone handling.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/kiorky/croniter",
+    "commit_hash": "9810279c20030954e2f1ed2cf5f1d34b98c6b07f",
+    "path": "src/croniter/croniter.py",
+    "name": "croniter"
+  },
+  "curation": {
+    "date": "2026-06-28"
+  },
+  "root_package": "Croniter",
+  "files": {
+    "root_hub": "Croniter.lean",
+    "harness": "Croniter/Harness.lean",
+    "test": "Croniter/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Croniter",
+      "bundle": "Croniter/Bundle.lean",
+      "bundle_type": "CroniterBundle",
+      "repo_impl_field": "croniter",
+      "modules": [
+        {
+          "name": "Cron",
+          "impl": "Croniter/Impl/Cron.lean",
+          "spec": "Croniter/Spec/Cron.lean",
+          "apis": [
+            {"name": "cronMatches", "sig": "CronMatchesSig", "type": "CronSpec → Nat → Bool"},
+            {"name": "nextFire",    "sig": "NextFireSig",    "type": "CronSpec → Nat → Nat"},
+            {"name": "prevFire",    "sig": "PrevFireSig",    "type": "CronSpec → Nat → Nat"}
+          ],
+          "specs": [
+            "spec_cronMatches_iff",
+            "spec_cronMatches_fields",
+            "spec_cronMatches_full_minutes",
+            "spec_cronMatches_full_all",
+            "spec_nextFire_matches",
+            "spec_nextFire_minimal",
+            "spec_nextFire_gt",
+            "spec_nextFire_self_matches",
+            "spec_nextFire_step",
+            "spec_nextFire_bounded",
+            "spec_nextFire_monotone",
+            "spec_prevFire_matches",
+            "spec_prevFire_maximal",
+            "spec_prevFire_lt",
+            "spec_prevFire_self_matches",
+            "spec_prevFire_bounded",
+            "spec_no_match_between",
+            "spec_prevFire_nextFire_roundtrip",
+            "spec_cronMatches_periodic",
+            "spec_nextFire_shift",
+            "spec_nthFire_matches",
+            "spec_nthFire_monotone",
+            "spec_nthFire_no_gap",
+            "spec_nextFire_skip_count",
+            "spec_countMatch_window_card",
+            "spec_countMatch_subset_mono",
+            "spec_nthFire_shift",
+            "spec_nthFire_telescope",
+            "spec_cronMatches_subset_mono",
+            "spec_nextFire_subset_le",
+            "spec_nextFire_gap_count_zero",
+            "spec_nthFire_step_count_one",
+            "spec_nextFire_kth_count",
+            "spec_nextFire_kweek_shift",
+            "spec_prevFire_gap_count_zero",
+            "spec_prevFire_monotone",
+            "spec_prevFire_nextFire_eq",
+            "spec_nextFire_prevFire_eq",
+            "spec_nextFire_prevFire_pred",
+            "spec_countMatch_kweek",
+            "spec_nextFire_period_iterate",
+            "spec_countMatch_calendar_partition",
+            "spec_nextFire_head_week_list",
+            "spec_nextFire_get_week_list",
+            "spec_nextFire_week_list_eq",
+            "spec_prevFire_reverse_week_list",
+            "spec_normalize_api_frame",
+            "spec_nextFire_first_hit_unique",
+            "spec_prevFire_last_hit_unique",
+            "spec_nextFire_stable_before_first_hit",
+            "spec_prevFire_stable_after_last_hit",
+            "spec_nextFire_strict_mono_crosses_match",
+            "spec_prevFire_strict_mono_crosses_match",
+            "spec_nextFire_pred_fixpoint",
+            "spec_prevFire_succ_fixpoint"
+          ]
+        }
+      ]
+    }
+  ]
+}

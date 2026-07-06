@@ -1,0 +1,2701 @@
+{
+  "benchmark_id": "verified-bitmasks",
+  "description": "Verified bitmask library translated from Dafny. Covers machine-word bitwise operations, abstract bitmask interfaces, and three concrete implementations (sequence, fixed-chunk, array).",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "dafny",
+    "repo_url": "https://github.com/achreto/verified-bitmasks.git",
+    "commit_hash": "cce6985c3d9949241de629e582d0b750e31cf33b",
+    "path": "src"
+  },
+  "curation": {
+    "date": "2026-04-29"
+  },
+  "root_package": "VerifiedBitmasks",
+  "files": {
+    "root_hub": "VerifiedBitmasks.lean",
+    "harness": "VerifiedBitmasks/Harness.lean",
+    "test": "VerifiedBitmasks/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "VerifiedBitmasks",
+      "bundle": "VerifiedBitmasks/Bundle.lean",
+      "bundle_type": "VerifiedBitmasksBundle",
+      "repo_impl_field": "verifiedBitmasks",
+      "modules": [
+        {
+          "name": "MachineTypes",
+          "impl": "VerifiedBitmasks/Impl/MachineTypes.lean",
+          "spec": "VerifiedBitmasks/Spec/MachineTypes.lean",
+          "apis": [],
+          "specs": [],
+          "spec_helpers": [
+            {
+              "name": "uint64",
+              "source_name": "uint64",
+              "source_file": "src/BitFields/Spec/MachineTypes.s.dfy",
+              "source_id": "src/BitFields/Spec/MachineTypes.s.dfy:uint64:1309",
+              "source_signature": "newtype{:nativeType \"ulong\"}  uint64 = i:nat | 0 <= i <= 0xffff_ffff_ffff_ffff",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "uint32",
+              "source_name": "uint32",
+              "source_file": "src/BitFields/Spec/MachineTypes.s.dfy",
+              "source_id": "src/BitFields/Spec/MachineTypes.s.dfy:uint32:1392",
+              "source_signature": "newtype{:nativeType \"uint\"}   uint32 = i:nat | 0 <= i <= 0xffff_ffff",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "uint16",
+              "source_name": "uint16",
+              "source_file": "src/BitFields/Spec/MachineTypes.s.dfy",
+              "source_id": "src/BitFields/Spec/MachineTypes.s.dfy:uint16:1465",
+              "source_signature": "newtype{:nativeType \"ushort\"} uint16 = i:nat | 0 <= i <= 0xffff",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "uint8",
+              "source_name": "uint8",
+              "source_file": "src/BitFields/Spec/MachineTypes.s.dfy",
+              "source_id": "src/BitFields/Spec/MachineTypes.s.dfy:uint8:1533",
+              "source_signature": "newtype{:nativeType \"byte\"}   uint8  = i:nat | 0 <= i <= 0xff",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "UINT64_MAX",
+              "source_name": "UINT64_MAX",
+              "source_file": "src/BitFields/Spec/MachineTypes.s.dfy",
+              "source_id": "src/BitFields/Spec/MachineTypes.s.dfy:UINT64_MAX:1793",
+              "source_signature": "function UINT64_MAX() : nat { 0xffff_ffff_ffff_ffff }",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "UINT32_MAX",
+              "source_name": "UINT32_MAX",
+              "source_file": "src/BitFields/Spec/MachineTypes.s.dfy",
+              "source_id": "src/BitFields/Spec/MachineTypes.s.dfy:UINT32_MAX:1851",
+              "source_signature": "function UINT32_MAX() : nat { 0xffff_ffff }",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "UINT16_MAX",
+              "source_name": "UINT16_MAX",
+              "source_file": "src/BitFields/Spec/MachineTypes.s.dfy",
+              "source_id": "src/BitFields/Spec/MachineTypes.s.dfy:UINT16_MAX:1899",
+              "source_signature": "function UINT16_MAX() : nat { 0xffff }",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "UINT8_MAX",
+              "source_name": "UINT8_MAX",
+              "source_file": "src/BitFields/Spec/MachineTypes.s.dfy",
+              "source_id": "src/BitFields/Spec/MachineTypes.s.dfy:UINT8_MAX:1942",
+              "source_signature": "function UINT8_MAX()  : nat { 0xff }",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "WORD_SIZE",
+              "source_name": "WORD_SIZE",
+              "source_file": "src/BitFields/Spec/MachineTypes.s.dfy",
+              "source_id": "src/BitFields/Spec/MachineTypes.s.dfy:WORD_SIZE:2005",
+              "source_signature": "function WORD_SIZE() : nat { 64 }",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            }
+          ]
+        },
+        {
+          "name": "BitFieldsAxioms",
+          "impl": "VerifiedBitmasks/Impl/BitFieldsAxioms.lean",
+          "spec": "VerifiedBitmasks/Spec/BitFieldsAxioms.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "BitFields",
+          "impl": "VerifiedBitmasks/Impl/BitFields.lean",
+          "spec": "VerifiedBitmasks/Spec/BitFields.lean",
+          "apis": [],
+          "specs": [],
+          "spec_helpers": [
+            {
+              "name": "lemma_BitAnd_group",
+              "source_name": "lemma_BitAndSelf",
+              "source_file": "src/BitFields/BitFields.i.dfy",
+              "source_id": "src/BitFields/BitFields.i.dfy:lemma_BitAndSelf:11523",
+              "source_signature": "lemma lemma_BitAndSelf(a: BV)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "lemma_BitOr_group",
+              "source_name": "lemma_BitOrSelf",
+              "source_file": "src/BitFields/BitFields.i.dfy",
+              "source_id": "src/BitFields/BitFields.i.dfy:lemma_BitOrSelf:14476",
+              "source_signature": "lemma lemma_BitOrSelf(a: BV)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "lemma_BitXor_group",
+              "source_name": "lemma_BitXorSelf",
+              "source_file": "src/BitFields/BitFields.i.dfy",
+              "source_id": "src/BitFields/BitFields.i.dfy:lemma_BitXorSelf:16636",
+              "source_signature": "lemma lemma_BitXorSelf(a: BV)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "lemma_BitNotComp_group",
+              "source_name": "BitNotCompEq",
+              "source_file": "src/BitFields/BitFields.i.dfy",
+              "source_id": "src/BitFields/BitFields.i.dfy:BitNotCompEq:18489",
+              "source_signature": "lemma BitNotCompEq(a: BV)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "lemma_BitConstructor_group",
+              "source_name": "lemma_BitNotZero",
+              "source_file": "src/BitFields/BitFields.i.dfy",
+              "source_id": "src/BitFields/BitFields.i.dfy:lemma_BitNotZero:19488",
+              "source_signature": "lemma lemma_BitNotZero(i: I)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "lemma_BitEquality_group",
+              "source_name": "lemma_BitEq",
+              "source_file": "src/BitFields/BitFields.i.dfy",
+              "source_id": "src/BitFields/BitFields.i.dfy:lemma_BitEq:24202",
+              "source_signature": "lemma lemma_BitEq(a: BV, b: BV)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "lemma_BitDistribution_group",
+              "source_name": "lemma_BitAndOrDist",
+              "source_file": "src/BitFields/BitFields.i.dfy",
+              "source_id": "src/BitFields/BitFields.i.dfy:lemma_BitAndOrDist:26831",
+              "source_signature": "lemma lemma_BitAndOrDist(a: BV, b: BV, c: BV)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            }
+          ]
+        },
+        {
+          "name": "MachineWords",
+          "impl": "VerifiedBitmasks/Impl/MachineWords.lean",
+          "spec": "VerifiedBitmasks/Spec/MachineWords.lean",
+          "apis": [
+            {
+              "name": "bitwiseBit",
+              "sig": "BitwiseBitSig",
+              "type": "UInt64 \u2192 UInt64",
+              "source_name": "BitwiseBit",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseBit:4284",
+              "source_signature": "function method {:opaque} BitwiseBit(i: uint64) : uint64",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseOnes",
+              "sig": "BitwiseOnesSig",
+              "type": "UInt64",
+              "source_name": "BitwiseOnes",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseOnes:4412",
+              "source_signature": "function method BitwiseOnes() : uint64",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseZeros",
+              "sig": "BitwiseZerosSig",
+              "type": "UInt64",
+              "source_name": "BitwiseZeros",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseZeros:4504",
+              "source_signature": "function method BitwiseZeros() : uint64",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseMask",
+              "sig": "BitwiseMaskSig",
+              "type": "UInt64 \u2192 UInt64",
+              "source_name": "BitwiseMask",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseMask:4579",
+              "source_signature": "function method {:opaque} BitwiseMask(i: uint64) : uint64",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseGetBit",
+              "sig": "BitwiseGetBitSig",
+              "type": "UInt64 \u2192 UInt64 \u2192 Bool",
+              "source_name": "BitwiseGetBit",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseGetBit:4954",
+              "source_signature": "predicate method {:opaque} BitwiseGetBit(a: uint64, i: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseSetBit",
+              "sig": "BitwiseSetBitSig",
+              "type": "UInt64 \u2192 UInt64 \u2192 UInt64",
+              "source_name": "BitwiseSetBit",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseSetBit:5105",
+              "source_signature": "function method {:opaque} BitwiseSetBit(a: uint64, i: uint64) : (r: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseClearBit",
+              "sig": "BitwiseClearBitSig",
+              "type": "UInt64 \u2192 UInt64 \u2192 UInt64",
+              "source_name": "BitwiseClearBit",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseClearBit:5616",
+              "source_signature": "function method {:opaque} BitwiseClearBit(a: uint64, i: uint64) : (r: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseToggleBit",
+              "sig": "BitwiseToggleBitSig",
+              "type": "UInt64 \u2192 UInt64 \u2192 UInt64",
+              "source_name": "BitwiseToggleBit",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseToggleBit:6134",
+              "source_signature": "function method {:opaque} BitwiseToggleBit(a: uint64, i: uint64) : (r: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseAnd",
+              "sig": "BitwiseAndSig",
+              "type": "UInt64 \u2192 UInt64 \u2192 UInt64",
+              "source_name": "BitwiseAnd",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseAnd:6640",
+              "source_signature": "function method {:opaque} BitwiseAnd(a: uint64, b: uint64) : (r: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseOr",
+              "sig": "BitwiseOrSig",
+              "type": "UInt64 \u2192 UInt64 \u2192 UInt64",
+              "source_name": "BitwiseOr",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseOr:6873",
+              "source_signature": "function method {:opaque} BitwiseOr(a: uint64, b: uint64) : (r: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseXor",
+              "sig": "BitwiseXorSig",
+              "type": "UInt64 \u2192 UInt64 \u2192 UInt64",
+              "source_name": "BitwiseXor",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseXor:7104",
+              "source_signature": "function method {:opaque} BitwiseXor(a: uint64, b: uint64) : (r: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseNot",
+              "sig": "BitwiseNotSig",
+              "type": "UInt64 \u2192 UInt64",
+              "source_name": "BitwiseNot",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseNot:7337",
+              "source_signature": "function method {:opaque} BitwiseNot(a: uint64) : (r: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseComp",
+              "sig": "BitwiseCompSig",
+              "type": "UInt64 \u2192 UInt64",
+              "source_name": "BitwiseComp",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseComp:7516",
+              "source_signature": "function method {:opaque} BitwiseComp(a: uint64) : (r: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseLeftShift",
+              "sig": "BitwiseLeftShiftSig",
+              "type": "UInt64 \u2192 UInt64 \u2192 UInt64",
+              "source_name": "BitwiseLeftShift",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseLeftShift:7912",
+              "source_signature": "function method {:opaque} BitwiseLeftShift(a: uint64, i: uint64) : (r: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseRightShift",
+              "sig": "BitwiseRightShiftSig",
+              "type": "UInt64 \u2192 UInt64 \u2192 UInt64",
+              "source_name": "BitwiseRightShift",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseRightShift:8151",
+              "source_signature": "function method {:opaque} BitwiseRightShift(a: uint64, i: uint64) : (r: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseAdd",
+              "sig": "BitwiseAddSig",
+              "type": "UInt64 \u2192 UInt64 \u2192 UInt64",
+              "source_name": "BitwiseAdd",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseAdd:8611",
+              "source_signature": "function method BitwiseAdd(a: uint64, b:uint64) : uint64",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseSub",
+              "sig": "BitwiseSubSig",
+              "type": "UInt64 \u2192 UInt64 \u2192 UInt64",
+              "source_name": "BitwiseSub",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseSub:8756",
+              "source_signature": "function method BitwiseSub(a: uint64, b:uint64) : uint64",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseMul",
+              "sig": "BitwiseMulSig",
+              "type": "UInt64 \u2192 UInt64 \u2192 UInt64",
+              "source_name": "BitwiseMul",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseMul:8868",
+              "source_signature": "function method BitwiseMul(a: uint64, b:uint64) : uint64",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseDiv",
+              "sig": "BitwiseDivSig",
+              "type": "UInt64 \u2192 UInt64 \u2192 UInt64",
+              "source_name": "BitwiseDiv",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseDiv:9013",
+              "source_signature": "function method BitwiseDiv(a: uint64, b:uint64) : uint64",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bitwiseMod",
+              "sig": "BitwiseModSig",
+              "type": "UInt64 \u2192 UInt64 \u2192 UInt64",
+              "source_name": "BitwiseMod",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:BitwiseMod:9125",
+              "source_signature": "function method BitwiseMod(a: uint64, b:uint64) : uint64",
+              "equivalence_status": "translated"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_bitwise_and_self",
+              "source_name": "lemma_BitwiseAndSelf",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseAndSelf:9462",
+              "source_signature": "lemma lemma_BitwiseAndSelf(a: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_and_zero",
+              "source_name": "lemma_BitwiseAndZero",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseAndZero:9696",
+              "source_signature": "lemma lemma_BitwiseAndZero(a: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_and_ones",
+              "source_name": "lemma_BitwiseAndOnes",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseAndOnes:10006",
+              "source_signature": "lemma lemma_BitwiseAndOnes(a: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_and_ones_eq",
+              "source_name": "lemma_BitwiseAndOnesEq",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseAndOnesEq:10450",
+              "source_signature": "lemma lemma_BitwiseAndOnesEq(a: uint64, b: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_and_comm",
+              "source_name": "lemma_BitwiseAndComm",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseAndComm:10677",
+              "source_signature": "lemma lemma_BitwiseAndComm(a: uint64, b: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_and_assoc",
+              "source_name": "lemma_BitwiseAndAssoc",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseAndAssoc:10939",
+              "source_signature": "lemma lemma_BitwiseAndAssoc(a: uint64, b: uint64, c: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_and_dist",
+              "source_name": "lemma_BitwiseAndDist",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseAndDist:11408",
+              "source_signature": "lemma lemma_BitwiseAndDist(a: uint64, b: uint64, c: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_and_comp_self",
+              "source_name": "lemma_BitwiseAndCompSelf",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseAndCompSelf:11950",
+              "source_signature": "lemma lemma_BitwiseAndCompSelf(a: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_and_not_self",
+              "source_name": "lemma_BitwiseAndNotSelf",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseAndNotSelf:12310",
+              "source_signature": "lemma lemma_BitwiseAndNotSelf(a: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_and_bit_dist",
+              "source_name": "lemma_BitwiseAndBitDist",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseAndBitDist:12666",
+              "source_signature": "lemma lemma_BitwiseAndBitDist(a: uint64, b: uint64, i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_and_is_intersection",
+              "source_name": "lemma_BitwiseAndIsIntersection",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseAndIsIntersection:13388",
+              "source_signature": "lemma lemma_BitwiseAndIsIntersection(a: uint64, b: uint64, i : uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_or_self",
+              "source_name": "lemma_BitwiseOrSelf",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseOrSelf:14083",
+              "source_signature": "lemma lemma_BitwiseOrSelf(a: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_or_zero",
+              "source_name": "lemma_BitwiseOrZero",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseOrZero:14314",
+              "source_signature": "lemma lemma_BitwiseOrZero(a: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_or_ones",
+              "source_name": "lemma_BitwiseOrOnes",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseOrOnes:14597",
+              "source_signature": "lemma lemma_BitwiseOrOnes(a: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_or_comm",
+              "source_name": "lemma_BitwiseOrComm",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseOrComm:15030",
+              "source_signature": "lemma lemma_BitwiseOrComm(a: uint64, b: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_or_assoc",
+              "source_name": "lemma_BitwiseOrAssoc",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseOrAssoc:15287",
+              "source_signature": "lemma lemma_BitwiseOrAssoc(a: uint64, b: uint64, c: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_or_dist",
+              "source_name": "lemma_BitwiseOrDist",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseOrDist:15747",
+              "source_signature": "lemma lemma_BitwiseOrDist(a: uint64, b: uint64, c: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_or_zero_implies_args",
+              "source_name": "lemma_BitwiseOrZeroImpliesArgs",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseOrZeroImpliesArgs:16278",
+              "source_signature": "lemma lemma_BitwiseOrZeroImpliesArgs(a: uint64, b: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_or_is_union",
+              "source_name": "lemma_Bitwise1OrIsUnion",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_Bitwise1OrIsUnion:16653",
+              "source_signature": "lemma lemma_Bitwise1OrIsUnion(a: uint64, b: uint64, i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_xor_self",
+              "source_name": "lemma_BitwiseXorSelf",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseXorSelf:17332",
+              "source_signature": "lemma lemma_BitwiseXorSelf(a: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_xor_zero",
+              "source_name": "lemma_BitwiseXorZero",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseXorZero:17578",
+              "source_signature": "lemma lemma_BitwiseXorZero(a: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_xor_ones",
+              "source_name": "lemma_BitwiseXorOnes",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseXorOnes:17865",
+              "source_signature": "lemma lemma_BitwiseXorOnes(a: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_xor_comm",
+              "source_name": "lemma_BitwiseXorComm",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseXorComm:18324",
+              "source_signature": "lemma lemma_BitwiseXorComm(a: uint64, b: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_xor_assoc",
+              "source_name": "lemma_BitwiseXorAssoc",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseXorAssoc:18586",
+              "source_signature": "lemma lemma_BitwiseXorAssoc(a: uint64, b: uint64, c: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_xor_zero_implies_args",
+              "source_name": "lemma_BitwiseXorZeroImpliesArgs",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseXorZeroImpliesArgs:19055",
+              "source_signature": "lemma lemma_BitwiseXorZeroImpliesArgs(a: uint64, b:uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_xor_is_not_eq",
+              "source_name": "lemma_BitwiseXorIsNotEq",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseXorIsNotEq:19597",
+              "source_signature": "lemma lemma_BitwiseXorIsNotEq(a: uint64, b: uint64, i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_not_comp_eq",
+              "source_name": "lemma_BitwiseNotCompEq",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseNotCompEq:20288",
+              "source_signature": "lemma lemma_BitwiseNotCompEq(a: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_not_not",
+              "source_name": "lemma_BitwiseNotNot",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseNotNot:20513",
+              "source_signature": "lemma lemma_BitwiseNotNot(a: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_comp_comp",
+              "source_name": "lemma_BitwiseCompComp",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseCompComp:20854",
+              "source_signature": "lemma lemma_BitwiseCompComp(a: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_not_is_not",
+              "source_name": "lemma_BitwiseNotIsNot",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseNotIsNot:21074",
+              "source_signature": "lemma lemma_BitwiseNotIsNot(a: uint64, i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_not_ones",
+              "source_name": "lemma_BitwiseNotOnes",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseNotOnes:21430",
+              "source_signature": "lemma lemma_BitwiseNotOnes()",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_bit_not_zero",
+              "source_name": "lemma_BitwiseBitNotZero",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseBitNotZero:22230",
+              "source_signature": "lemma lemma_BitwiseBitNotZero(i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_bit_is_set",
+              "source_name": "lemma_BitBitIsSet",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitBitIsSet:22476",
+              "source_signature": "lemma lemma_BitBitIsSet(i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_bit_not_set",
+              "source_name": "lemma_BitNotSetBits",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitNotSetBits:22750",
+              "source_signature": "lemma lemma_BitNotSetBits(i: uint64, j: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_not_equal_and_zero",
+              "source_name": "lemma_BitwiseNotEqualAndZero",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseNotEqualAndZero:23101",
+              "source_signature": "lemma lemma_BitwiseNotEqualAndZero(i: uint64, j: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_ones_bit_is_set",
+              "source_name": "lemma_BitwiseOnesBitIsSet",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseOnesBitIsSet:23575",
+              "source_signature": "lemma lemma_BitwiseOnesBitIsSet(i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_zeros_not_bit_is_set",
+              "source_name": "lemma_BitwiseZerosNotBitIsSet",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseZerosNotBitIsSet:23915",
+              "source_signature": "lemma lemma_BitwiseZerosNotBitIsSet(i: uint64   )",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_mask_is_ones",
+              "source_name": "lemma_BitwiseMaskIsOnes",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseMaskIsOnes:24271",
+              "source_signature": "lemma lemma_BitwiseMaskIsOnes()",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_mask_is_zeros",
+              "source_name": "lemma_BitwiseMaskIsZeros",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseMaskIsZeros:24509",
+              "source_signature": "lemma lemma_BitwiseMaskIsZeros()",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_mask_extend_bit_or",
+              "source_name": "lemma_BitwiseMaskExtendBitOr",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseMaskExtendBitOr:24755",
+              "source_signature": "lemma lemma_BitwiseMaskExtendBitOr(i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_mask_extend_bit_or_less",
+              "source_name": "lemma_BitwiseMaskExtendBitOrLess",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseMaskExtendBitOrLess:25138",
+              "source_signature": "lemma lemma_BitwiseMaskExtendBitOrLess(i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_mask_extend_bit_set",
+              "source_name": "lemma_BitwiseMaskExtendBitSet",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseMaskExtendBitSet:25540",
+              "source_signature": "lemma lemma_BitwiseMaskExtendBitSet(i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_mask_extend_bit_set_less",
+              "source_name": "lemma_BitwiseMaskExtendBitSetLess",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseMaskExtendBitSetLess:25852",
+              "source_signature": "lemma lemma_BitwiseMaskExtendBitSetLess(i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_set_self",
+              "source_name": "lemma_BitwiseSetSelf",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseSetSelf:27992",
+              "source_signature": "lemma lemma_BitwiseSetSelf(a: uint64, i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_set_other",
+              "source_name": "lemma_BitwiseSetOther",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseSetOther:28145",
+              "source_signature": "lemma lemma_BitwiseSetOther(a: uint64, i: uint64, j: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_clear_self",
+              "source_name": "lemma_BitwiseClearSelf",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseClearSelf:28587",
+              "source_signature": "lemma lemma_BitwiseClearSelf(a: uint64, i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_clear_other",
+              "source_name": "lemma_BitwiseClearOther",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseClearOther:28745",
+              "source_signature": "lemma lemma_BitwiseClearOther(a: uint64, i: uint64, j: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_set_not_change_others",
+              "source_name": "lemma_BitwiseSetNotChangeOthers",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseSetNotChangeOthers:29197",
+              "source_signature": "lemma lemma_BitwiseSetNotChangeOthers(a: uint64, i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_clear_not_change_others",
+              "source_name": "lemma_BitwiseClearNotChangeOthers",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseClearNotChangeOthers:29792",
+              "source_signature": "lemma lemma_BitwiseClearNotChangeOthers(a: uint64, i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_toggle_not_change_others",
+              "source_name": "lemma_BitwiseToggleNotChangeOthers",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseToggleNotChangeOthers:30399",
+              "source_signature": "lemma lemma_BitwiseToggleNotChangeOthers(a: uint64, i: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_and_or_dist",
+              "source_name": "lemma_BitwiseAndOrDist",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseAndOrDist:31203",
+              "source_signature": "lemma lemma_BitwiseAndOrDist(a: uint64, b: uint64, c: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_or_and_dist",
+              "source_name": "lemma_BitwiseOrAndDist",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseOrAndDist:31766",
+              "source_signature": "lemma lemma_BitwiseOrAndDist(a: uint64, b: uint64, c: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_or_and_self",
+              "source_name": "lemma_BitwiseOrAndSelf",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseOrAndSelf:32327",
+              "source_signature": "lemma lemma_BitwiseOrAndSelf(a: uint64, b: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_demorgan_not_or",
+              "source_name": "lemma_BitwiseDeMorgan_NotOr",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseDeMorgan_NotOr:32937",
+              "source_signature": "lemma lemma_BitwiseDeMorgan_NotOr(a: uint64, b: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_demorgan_not_and",
+              "source_name": "lemma_BitwiseDeMorgan_NotAnd",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseDeMorgan_NotAnd:33457",
+              "source_signature": "lemma lemma_BitwiseDeMorgan_NotAnd(a: uint64, b: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitwise_comp_not_equal",
+              "source_name": "lemma_BitwiseCompNotEqual",
+              "source_file": "src/BitFields/MachineWords.i.dfy",
+              "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseCompNotEqual:34196",
+              "source_signature": "lemma lemma_BitwiseCompNotEqual(i: uint64, j: uint64)",
+              "source_note": "Lean spec tracks the corresponding Dafny lemma contract.",
+              "equivalence_status": "translated"
+            }
+          ]
+        },
+        {
+          "name": "BitmaskSpec",
+          "impl": "VerifiedBitmasks/Impl/BitmaskSpec.lean",
+          "spec": "VerifiedBitmasks/Spec/BitmaskSpec.lean",
+          "apis": [],
+          "specs": [],
+          "spec_helpers": [
+            {
+              "name": "spec_popcnt_dist",
+              "source_name": "PopcntDist",
+              "source_file": "src/BitMask/Spec/BitmaskSpec.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskSpec.s.dfy:PopcntDist:4450",
+              "source_signature": "lemma PopcntDist(A: T, B: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitmask_split_concat",
+              "source_name": "lemma_bitmask_split_concat",
+              "source_file": "src/BitMask/Spec/BitmaskSpec.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskSpec.s.dfy:lemma_bitmask_split_concat:3717",
+              "source_signature": "lemma lemma_bitmask_split_concat(A: T, B: T, i: nat)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitmask_zeros_popcnt",
+              "source_name": "lemma_BitmaskZerosPopCnt",
+              "source_file": "src/BitMask/Spec/BitmaskSpec.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskSpec.s.dfy:lemma_BitmaskZerosPopCnt:6354",
+              "source_signature": "lemma lemma_BitmaskZerosPopCnt(A: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bitmask_ones_popcnt",
+              "source_name": "lemma_BitmaskOnesPopCnt",
+              "source_file": "src/BitMask/Spec/BitmaskSpec.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskSpec.s.dfy:lemma_BitmaskOnesPopCnt:6564",
+              "source_signature": "lemma lemma_BitmaskOnesPopCnt(A: T)",
+              "equivalence_status": "translated"
+            }
+          ]
+        },
+        {
+          "name": "BitmaskIF",
+          "impl": "VerifiedBitmasks/Impl/BitmaskIF.lean",
+          "spec": "VerifiedBitmasks/Spec/BitmaskIF.lean",
+          "apis": [
+            {
+              "name": "bIF_newZeros",
+              "sig": "BIFNewZerosSig",
+              "type": "Nat \u2192 T",
+              "source_name": "bitmask_new_zeros",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_new_zeros:2460",
+              "source_signature": "function bitmask_new_zeros(M: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIF_newOnes",
+              "sig": "BIFNewOnesSig",
+              "type": "Nat \u2192 T",
+              "source_name": "bitmask_new_ones",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_new_ones:2636",
+              "source_signature": "function bitmask_new_ones(M: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIF_concat",
+              "sig": "BIFConcatSig",
+              "type": "T \u2192 T \u2192 T",
+              "source_name": "bitmask_concat",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_concat:2845",
+              "source_signature": "function bitmask_concat(A: T, B: T) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIF_split",
+              "sig": "BIFSplitSig",
+              "type": "T \u2192 Nat \u2192 T \u00d7 T",
+              "source_name": "bitmask_split",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_split:3081",
+              "source_signature": "function bitmask_split(A: T, i: nat) : (r:(T, T))",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIF_nbits",
+              "sig": "BIFNbitsSig",
+              "type": "T \u2192 Nat",
+              "source_name": "bitmask_nbits",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_nbits:3729",
+              "source_signature": "function bitmask_nbits(A: T) : (r: nat)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIF_popcnt",
+              "sig": "BIFPopcntSig",
+              "type": "T \u2192 Nat",
+              "source_name": "bitmask_popcnt",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_popcnt:3798",
+              "source_signature": "function bitmask_popcnt(A: T) : (r: nat)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIF_getBit",
+              "sig": "BIFGetBitSig",
+              "type": "T \u2192 Nat \u2192 Bool",
+              "source_name": "bitmask_get_bit",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_get_bit:4113",
+              "source_signature": "function bitmask_get_bit(A: T, i: nat) : (r: bool)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIF_setBit",
+              "sig": "BIFSetBitSig",
+              "type": "T \u2192 Nat \u2192 T",
+              "source_name": "bitmask_set_bit",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_set_bit:4231",
+              "source_signature": "function bitmask_set_bit(A: T, i: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIF_clearBit",
+              "sig": "BIFClearBitSig",
+              "type": "T \u2192 Nat \u2192 T",
+              "source_name": "bitmask_clear_bit",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_clear_bit:4460",
+              "source_signature": "function bitmask_clear_bit(A: T, i: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIF_toggleBit",
+              "sig": "BIFToggleBitSig",
+              "type": "T \u2192 Nat \u2192 T",
+              "source_name": "bitmask_toggle_bit",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_toggle_bit:4692",
+              "source_signature": "function bitmask_toggle_bit(A: T, i: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIF_and",
+              "sig": "BIFAndSig",
+              "type": "T \u2192 T \u2192 T",
+              "source_name": "bitmask_and",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_and:5588",
+              "source_signature": "function bitmask_and(A: T, B: T) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIF_or",
+              "sig": "BIFOrSig",
+              "type": "T \u2192 T \u2192 T",
+              "source_name": "bitmask_or",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_or:5799",
+              "source_signature": "function bitmask_or(A: T, B: T) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIF_xor",
+              "sig": "BIFXorSig",
+              "type": "T \u2192 T \u2192 T",
+              "source_name": "bitmask_xor",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_xor:6009",
+              "source_signature": "function bitmask_xor(A: T, B: T) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIF_not",
+              "sig": "BIFNotSig",
+              "type": "T \u2192 T",
+              "source_name": "bitmask_not",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_not:6220",
+              "source_signature": "function bitmask_not(A: T) : (r: T)",
+              "equivalence_status": "translated"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_bIF_split_concat",
+              "source_name": "bitmask_split",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_split:3081",
+              "source_signature": "function bitmask_split(A: T, i: nat) : (r:(T, T))",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            }
+          ],
+          "spec_helpers": [
+            {
+              "name": "bIF_eq",
+              "source_name": "bitmask_eq",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_eq:5150",
+              "source_signature": "predicate bitmask_eq(A: T, B: T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "bIF_isZeros",
+              "source_name": "bitmask_is_zeros",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_is_zeros:5267",
+              "source_signature": "predicate bitmask_is_zeros(A: T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "bIF_isOnes",
+              "source_name": "bitmask_is_ones",
+              "source_file": "src/BitMask/Spec/BitmaskIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskIF.s.dfy:bitmask_is_ones:5329",
+              "source_signature": "predicate bitmask_is_ones(A: T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            }
+          ]
+        },
+        {
+          "name": "BitmaskImplIF",
+          "impl": "VerifiedBitmasks/Impl/BitmaskImplIF.lean",
+          "spec": "VerifiedBitmasks/Spec/BitmaskImplIF.lean",
+          "apis": [
+            {
+              "name": "bIIF_newZeros",
+              "sig": "BIIFNewZerosSig",
+              "type": "Nat \u2192 T",
+              "source_name": "bitmask_new_zeros",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_new_zeros:2492",
+              "source_signature": "function bitmask_new_zeros(M: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIIF_newOnes",
+              "sig": "BIIFNewOnesSig",
+              "type": "Nat \u2192 T",
+              "source_name": "bitmask_new_ones",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_new_ones:2685",
+              "source_signature": "function bitmask_new_ones(M: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIIF_nbits",
+              "sig": "BIIFNbitsSig",
+              "type": "T \u2192 Nat",
+              "source_name": "bitmask_nbits",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_nbits:3064",
+              "source_signature": "function bitmask_nbits(A: T) : (r: nat)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIIF_popcnt",
+              "sig": "BIIFPopcntSig",
+              "type": "T \u2192 Nat",
+              "source_name": "bitmask_popcnt",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_popcnt:3179",
+              "source_signature": "function bitmask_popcnt(A: T) : (r: nat)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIIF_getBit",
+              "sig": "BIIFGetBitSig",
+              "type": "T \u2192 Nat \u2192 Bool",
+              "source_name": "bitmask_get_bit",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_get_bit:3540",
+              "source_signature": "function bitmask_get_bit(A: T, i: nat) : (r: bool)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIIF_setBit",
+              "sig": "BIIFSetBitSig",
+              "type": "T \u2192 Nat \u2192 T",
+              "source_name": "bitmask_set_bit",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_set_bit:3727",
+              "source_signature": "function bitmask_set_bit(A: T, i: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIIF_clearBit",
+              "sig": "BIIFClearBitSig",
+              "type": "T \u2192 Nat \u2192 T",
+              "source_name": "bitmask_clear_bit",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_clear_bit:3914",
+              "source_signature": "function bitmask_clear_bit(A: T, i: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIIF_toggleBit",
+              "sig": "BIIFToggleBitSig",
+              "type": "T \u2192 Nat \u2192 T",
+              "source_name": "bitmask_toggle_bit",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_toggle_bit:4105",
+              "source_signature": "function bitmask_toggle_bit(A: T, i: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIIF_and",
+              "sig": "BIIFAndSig",
+              "type": "T \u2192 T \u2192 T",
+              "source_name": "bitmask_and",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_and:5136",
+              "source_signature": "function bitmask_and(A: T, B: T) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIIF_or",
+              "sig": "BIIFOrSig",
+              "type": "T \u2192 T \u2192 T",
+              "source_name": "bitmask_or",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_or:5403",
+              "source_signature": "function bitmask_or(A: T, B: T) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIIF_xor",
+              "sig": "BIIFXorSig",
+              "type": "T \u2192 T \u2192 T",
+              "source_name": "bitmask_xor",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_xor:5668",
+              "source_signature": "function bitmask_xor(A: T, B: T) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bIIF_not",
+              "sig": "BIIFNotSig",
+              "type": "T \u2192 T",
+              "source_name": "bitmask_not",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_not:5935",
+              "source_signature": "function bitmask_not(A: T) : (r: T)",
+              "equivalence_status": "translated"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_bIIF_newZeros_correct",
+              "source_name": "bitmask_new_zeros",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_new_zeros:2492",
+              "source_signature": "function bitmask_new_zeros(M: nat) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_newZeros_nbits",
+              "source_name": "bitmask_new_zeros",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_new_zeros:2492",
+              "source_signature": "function bitmask_new_zeros(M: nat) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_newZeros_is_zeros",
+              "source_name": "bitmask_new_zeros",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_new_zeros:2492",
+              "source_signature": "function bitmask_new_zeros(M: nat) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_newOnes_correct",
+              "source_name": "bitmask_new_ones",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_new_ones:2685",
+              "source_signature": "function bitmask_new_ones(M: nat) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_newOnes_nbits",
+              "source_name": "bitmask_new_ones",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_new_ones:2685",
+              "source_signature": "function bitmask_new_ones(M: nat) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_newOnes_is_ones",
+              "source_name": "bitmask_new_ones",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_new_ones:2685",
+              "source_signature": "function bitmask_new_ones(M: nat) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_nbits_correct",
+              "source_name": "bitmask_nbits",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_nbits:3064",
+              "source_signature": "function bitmask_nbits(A: T) : (r: nat)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_popcnt_correct",
+              "source_name": "bitmask_popcnt",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_popcnt:3179",
+              "source_signature": "function bitmask_popcnt(A: T) : (r: nat)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_popcnt_bounded",
+              "source_name": "bitmask_popcnt",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_popcnt:3179",
+              "source_signature": "function bitmask_popcnt(A: T) : (r: nat)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_getBit_correct",
+              "source_name": "bitmask_get_bit",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_get_bit:3540",
+              "source_signature": "function bitmask_get_bit(A: T, i: nat) : (r: bool)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_setBit_correct",
+              "source_name": "bitmask_set_bit",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_set_bit:3727",
+              "source_signature": "function bitmask_set_bit(A: T, i: nat) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_clearBit_correct",
+              "source_name": "bitmask_clear_bit",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_clear_bit:3914",
+              "source_signature": "function bitmask_clear_bit(A: T, i: nat) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_toggleBit_correct",
+              "source_name": "bitmask_toggle_bit",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_toggle_bit:4105",
+              "source_signature": "function bitmask_toggle_bit(A: T, i: nat) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_and_correct",
+              "source_name": "bitmask_and",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_and:5136",
+              "source_signature": "function bitmask_and(A: T, B: T) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_and_nbits_preserved",
+              "source_name": "bitmask_and",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_and:5136",
+              "source_signature": "function bitmask_and(A: T, B: T) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_or_correct",
+              "source_name": "bitmask_or",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_or:5403",
+              "source_signature": "function bitmask_or(A: T, B: T) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_or_nbits_preserved",
+              "source_name": "bitmask_or",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_or:5403",
+              "source_signature": "function bitmask_or(A: T, B: T) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_xor_correct",
+              "source_name": "bitmask_xor",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_xor:5668",
+              "source_signature": "function bitmask_xor(A: T, B: T) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_xor_nbits_preserved",
+              "source_name": "bitmask_xor",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_xor:5668",
+              "source_signature": "function bitmask_xor(A: T, B: T) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_not_correct",
+              "source_name": "bitmask_not",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_not:5935",
+              "source_signature": "function bitmask_not(A: T) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bIIF_not_nbits_preserved",
+              "source_name": "bitmask_not",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_not:5935",
+              "source_signature": "function bitmask_not(A: T) : (r: T)",
+              "source_note": "Lean spec encodes a contract clause of this Dafny interface item.",
+              "equivalence_status": "translated"
+            }
+          ],
+          "spec_helpers": [
+            {
+              "name": "bIIF_eq",
+              "source_name": "bitmask_eq",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_eq:4498",
+              "source_signature": "predicate bitmask_eq(A: T, B: T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "bIIF_isZeros",
+              "source_name": "bitmask_is_zeros",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_is_zeros:4681",
+              "source_signature": "predicate bitmask_is_zeros(A: T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "bIIF_isOnes",
+              "source_name": "bitmask_is_ones",
+              "source_file": "src/BitMask/Spec/BitmaskImplIF.s.dfy",
+              "source_id": "src/BitMask/Spec/BitmaskImplIF.s.dfy:bitmask_is_ones:4812",
+              "source_signature": "predicate bitmask_is_ones(A: T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            }
+          ]
+        },
+        {
+          "name": "BitmaskFixedChunks",
+          "impl": "VerifiedBitmasks/Impl/BitmaskFixedChunks.lean",
+          "spec": "VerifiedBitmasks/Spec/BitmaskFixedChunks.lean",
+          "apis": [
+            {
+              "name": "bFC_newZeros",
+              "sig": "BFCNewZerosSig",
+              "type": "Nat \u2192 BFC_T",
+              "source_name": "bitmask_new_zeros",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_new_zeros:5168",
+              "source_signature": "function bitmask_new_zeros(M: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bFC_newOnes",
+              "sig": "BFCNewOnesSig",
+              "type": "Nat \u2192 BFC_T",
+              "source_name": "bitmask_new_ones",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_new_ones:5508",
+              "source_signature": "function bitmask_new_ones(M: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bFC_nbits",
+              "sig": "BFCNbitsSig",
+              "type": "BFC_T \u2192 Nat",
+              "source_name": "bitmask_nbits",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_nbits:6032",
+              "source_signature": "function bitmask_nbits(A: T) : (r: nat)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bFC_popcnt",
+              "sig": "BFCPopcntSig",
+              "type": "BFC_T \u2192 Nat",
+              "source_name": "bitmask_popcnt",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_popcnt:6427",
+              "source_signature": "function bitmask_popcnt(A: T) : (r: nat)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bFC_getBit",
+              "sig": "BFCGetBitSig",
+              "type": "BFC_T \u2192 Nat \u2192 Bool",
+              "source_name": "bitmask_get_bit",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_get_bit:7396",
+              "source_signature": "function bitmask_get_bit(A: T, i: nat) : (r: bool)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bFC_setBit",
+              "sig": "BFCSetBitSig",
+              "type": "BFC_T \u2192 Nat \u2192 BFC_T",
+              "source_name": "bitmask_set_bit",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_set_bit:7637",
+              "source_signature": "function bitmask_set_bit(A: T, i: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bFC_clearBit",
+              "sig": "BFCClearBitSig",
+              "type": "BFC_T \u2192 Nat \u2192 BFC_T",
+              "source_name": "bitmask_clear_bit",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_clear_bit:7963",
+              "source_signature": "function bitmask_clear_bit(A: T, i: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bFC_toggleBit",
+              "sig": "BFCToggleBitSig",
+              "type": "BFC_T \u2192 Nat \u2192 BFC_T",
+              "source_name": "bitmask_toggle_bit",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_toggle_bit:8294",
+              "source_signature": "function bitmask_toggle_bit(A: T, i: nat) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bFC_and",
+              "sig": "BFCAndSig",
+              "type": "BFC_T \u2192 BFC_T \u2192 BFC_T",
+              "source_name": "bitmask_and",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_and:9976",
+              "source_signature": "function bitmask_and(A: T, B: T) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bFC_or",
+              "sig": "BFCOrSig",
+              "type": "BFC_T \u2192 BFC_T \u2192 BFC_T",
+              "source_name": "bitmask_or",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_or:10402",
+              "source_signature": "function bitmask_or(A: T, B: T) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bFC_xor",
+              "sig": "BFCXorSig",
+              "type": "BFC_T \u2192 BFC_T \u2192 BFC_T",
+              "source_name": "bitmask_xor",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_xor:10825",
+              "source_signature": "function bitmask_xor(A: T, B: T) : (r: T)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bFC_not",
+              "sig": "BFCNotSig",
+              "type": "BFC_T \u2192 BFC_T",
+              "source_name": "bitmask_not",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_not:11251",
+              "source_signature": "function bitmask_not(A: T) : (r: T)",
+              "equivalence_status": "translated"
+            }
+          ],
+          "specs": [],
+          "spec_helpers": [
+            {
+              "name": "BFC_T",
+              "source_name": "T",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:T:1715",
+              "source_signature": "type T = seq<seq<bool>>",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "BFC_CHUNK_SIZE",
+              "source_name": "CHUNK_SIZE",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:CHUNK_SIZE:1745",
+              "source_signature": "const CHUNK_SIZE : nat := 64",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "BFC_GetChunk",
+              "source_name": "GetChunk",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:GetChunk:1805",
+              "source_signature": "function GetChunk(i: nat) : nat",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "BFC_GetChunkOffset",
+              "source_name": "GetChunkOffset",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:GetChunkOffset:1873",
+              "source_signature": "function GetChunkOffset(i: nat) : nat",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "BFC_Flatten",
+              "source_name": "Flatten",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:Flatten:3984",
+              "source_signature": "function Flatten(A: T) : seq<bool>",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "BFC_I",
+              "source_name": "I",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:I:2021",
+              "source_signature": "function I(A: T) : (r: S.T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "BFC_Inv",
+              "source_name": "Inv",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:Inv:4645",
+              "source_signature": "predicate Inv(A: T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "BFC_ValidSize",
+              "source_name": "ValidSize",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:ValidSize:4792",
+              "source_signature": "predicate ValidSize(n: nat)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "lemma_BFC_FlattenIsI",
+              "source_name": "lemma_FLattenIsI",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:lemma_FLattenIsI:4093",
+              "source_signature": "lemma lemma_FLattenIsI(A: T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "lemma_BFC_IResult",
+              "source_name": "IResult",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:IResult:2217",
+              "source_signature": "lemma IResult(A: T, i: nat)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "lemma_BFC_IStep",
+              "source_name": "lemma_IStep",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:lemma_IStep:4457",
+              "source_signature": "lemma lemma_IStep(A:T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "lemma_BFC_IEqual",
+              "source_name": "IEqual",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:IEqual:2388",
+              "source_signature": "lemma IEqual(A: T, B: T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "bFC_popcntChunk",
+              "source_name": "bitmask_popcnt_chunk",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_popcnt_chunk:6184",
+              "source_signature": "function bitmask_popcnt_chunk(A: seq<bool>) : (r: nat)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "bFC_eq",
+              "source_name": "bitmask_eq",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_eq:8830",
+              "source_signature": "predicate bitmask_eq(A: T, B: T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "bFC_isZeros",
+              "source_name": "bitmask_is_zeros",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_is_zeros:9062",
+              "source_signature": "predicate bitmask_is_zeros(A: T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "bFC_isOnes",
+              "source_name": "bitmask_is_ones",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:bitmask_is_ones:9417",
+              "source_signature": "predicate bitmask_is_ones(A: T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "spec_bFC_IEqual",
+              "source_name": "IEqual",
+              "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+              "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:IEqual:2388",
+              "source_signature": "lemma IEqual(A: T, B: T)",
+              "equivalence_status": "translated"
+            }
+          ]
+        },
+        {
+          "name": "BitmaskSeq",
+          "impl": "VerifiedBitmasks/Impl/BitmaskSeq.lean",
+          "spec": "VerifiedBitmasks/Spec/BitmaskSeq.lean",
+          "apis": [
+            {
+              "name": "bSeq_cNewZeros",
+              "sig": "BSeqCNewZerosSig",
+              "type": "UInt64 \u2192 T",
+              "source_name": "CNewZeros",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:CNewZeros:2284",
+              "source_signature": "constructor CNewZeros(n: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bSeq_cNewOnes",
+              "sig": "BSeqCNewOnesSig",
+              "type": "UInt64 \u2192 T",
+              "source_name": "CNewOnes",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:CNewOnes:2592",
+              "source_signature": "constructor CNewOnes(n: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bSeq_nbits",
+              "sig": "BSeqNbitsSig",
+              "type": "T \u2192 UInt64",
+              "source_name": "nbits",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:nbits:3101",
+              "source_signature": "function method nbits() : (r: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bSeq_popcnt",
+              "sig": "BSeqPopcntSig",
+              "type": "T \u2192 UInt64",
+              "source_name": "popcnt",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:popcnt:3306",
+              "source_signature": "method popcnt() returns (r: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bSeq_getBit",
+              "sig": "BSeqGetBitSig",
+              "type": "T \u2192 UInt64 \u2192 Bool",
+              "source_name": "get_bit",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:get_bit:4764",
+              "source_signature": "function method get_bit(i: uint64) : (r: bool)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bSeq_setBit",
+              "sig": "BSeqSetBitSig",
+              "type": "T \u2192 UInt64 \u2192 T",
+              "source_name": "set_bit",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:set_bit:4988",
+              "source_signature": "method set_bit(i: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bSeq_clearBit",
+              "sig": "BSeqClearBitSig",
+              "type": "T \u2192 UInt64 \u2192 T",
+              "source_name": "clear_bit",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:clear_bit:5382",
+              "source_signature": "method clear_bit(i: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bSeq_toggleBit",
+              "sig": "BSeqToggleBitSig",
+              "type": "T \u2192 UInt64 \u2192 T",
+              "source_name": "toggle_bit",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:toggle_bit:5744",
+              "source_signature": "method toggle_bit(i: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bSeq_eq",
+              "sig": "BSeqEqSig",
+              "type": "T \u2192 T \u2192 Bool",
+              "source_name": "eq",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:eq:6326",
+              "source_signature": "method eq(other: BitmaskArray) returns (r: bool)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bSeq_isZeros",
+              "sig": "BSeqIsZerosSig",
+              "type": "T \u2192 Bool",
+              "source_name": "is_zeros",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:is_zeros:7009",
+              "source_signature": "method is_zeros() returns (r: bool)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bSeq_isOnes",
+              "sig": "BSeqIsOnesSig",
+              "type": "T \u2192 Bool",
+              "source_name": "is_ones",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:is_ones:7586",
+              "source_signature": "method is_ones() returns (r: bool)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bSeq_and",
+              "sig": "BSeqAndSig",
+              "type": "T \u2192 T \u2192 T",
+              "source_name": "and",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:and:8368",
+              "source_signature": "method and(other:BitmaskArray)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bSeq_or",
+              "sig": "BSeqOrSig",
+              "type": "T \u2192 T \u2192 T",
+              "source_name": "or",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:or:8985",
+              "source_signature": "method or(other:BitmaskArray)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bSeq_xor",
+              "sig": "BSeqXorSig",
+              "type": "T \u2192 T \u2192 T",
+              "source_name": "xor",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:xor:9647",
+              "source_signature": "method xor(other:BitmaskArray)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bSeq_not",
+              "sig": "BSeqNotSig",
+              "type": "T \u2192 T",
+              "source_name": "not",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:not:10312",
+              "source_signature": "method not()",
+              "equivalence_status": "translated"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_bSeq_cNewZeros_correct",
+              "source_name": "CNewZeros",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:CNewZeros:2284",
+              "source_signature": "constructor CNewZeros(n: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_cNewZeros_nbits",
+              "source_name": "CNewZeros",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:CNewZeros:2284",
+              "source_signature": "constructor CNewZeros(n: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_cNewZeros_is_zeros",
+              "source_name": "CNewZeros",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:CNewZeros:2284",
+              "source_signature": "constructor CNewZeros(n: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_cNewOnes_correct",
+              "source_name": "CNewOnes",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:CNewOnes:2592",
+              "source_signature": "constructor CNewOnes(n: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_cNewOnes_nbits",
+              "source_name": "CNewOnes",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:CNewOnes:2592",
+              "source_signature": "constructor CNewOnes(n: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_cNewOnes_is_ones",
+              "source_name": "CNewOnes",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:CNewOnes:2592",
+              "source_signature": "constructor CNewOnes(n: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_nbits_correct",
+              "source_name": "nbits",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:nbits:3101",
+              "source_signature": "function method nbits() : (r: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_popcnt_correct",
+              "source_name": "popcnt",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:popcnt:3306",
+              "source_signature": "method popcnt() returns (r: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_popcnt_bounded",
+              "source_name": "popcnt",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:popcnt:3306",
+              "source_signature": "method popcnt() returns (r: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_getBit_correct",
+              "source_name": "get_bit",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:get_bit:4764",
+              "source_signature": "function method get_bit(i: uint64) : (r: bool)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_setBit_correct",
+              "source_name": "set_bit",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:set_bit:4988",
+              "source_signature": "method set_bit(i: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_setBit_get",
+              "source_name": "set_bit",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:set_bit:4988",
+              "source_signature": "method set_bit(i: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_clearBit_correct",
+              "source_name": "clear_bit",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:clear_bit:5382",
+              "source_signature": "method clear_bit(i: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_clearBit_get",
+              "source_name": "clear_bit",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:clear_bit:5382",
+              "source_signature": "method clear_bit(i: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_toggleBit_correct",
+              "source_name": "toggle_bit",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:toggle_bit:5744",
+              "source_signature": "method toggle_bit(i: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_eq_correct",
+              "source_name": "eq",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:eq:6326",
+              "source_signature": "method eq(other: BitmaskArray) returns (r: bool)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_eq_refl",
+              "source_name": "eq",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:eq:6326",
+              "source_signature": "method eq(other: BitmaskArray) returns (r: bool)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_isZeros_correct",
+              "source_name": "is_zeros",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:is_zeros:7009",
+              "source_signature": "method is_zeros() returns (r: bool)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_isOnes_correct",
+              "source_name": "is_ones",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:is_ones:7586",
+              "source_signature": "method is_ones() returns (r: bool)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_and_correct",
+              "source_name": "and",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:and:8368",
+              "source_signature": "method and(other:BitmaskArray)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_and_nbits_preserved",
+              "source_name": "and",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:and:8368",
+              "source_signature": "method and(other:BitmaskArray)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_or_correct",
+              "source_name": "or",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:or:8985",
+              "source_signature": "method or(other:BitmaskArray)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_or_nbits_preserved",
+              "source_name": "or",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:or:8985",
+              "source_signature": "method or(other:BitmaskArray)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_xor_correct",
+              "source_name": "xor",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:xor:9647",
+              "source_signature": "method xor(other:BitmaskArray)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_xor_nbits_preserved",
+              "source_name": "xor",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:xor:9647",
+              "source_signature": "method xor(other:BitmaskArray)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_not_correct",
+              "source_name": "not",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:not:10312",
+              "source_signature": "method not()",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_not_nbits_preserved",
+              "source_name": "not",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:not:10312",
+              "source_signature": "method not()",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bSeq_not_involutive",
+              "source_name": "not",
+              "source_file": "src/BitMask/BitmaskSeq.i.dfy",
+              "source_id": "src/BitMask/BitmaskSeq.i.dfy:not:10312",
+              "source_signature": "method not()",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            }
+          ]
+        },
+        {
+          "name": "BitmaskArray",
+          "impl": "VerifiedBitmasks/Impl/BitmaskArray.lean",
+          "spec": "VerifiedBitmasks/Spec/BitmaskArray.lean",
+          "apis": [
+            {
+              "name": "bArr_cNewZeros",
+              "sig": "BArrCNewZerosSig",
+              "type": "UInt64 \u2192 BArr_T",
+              "source_name": "CNewZeros",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:CNewZeros:2437",
+              "source_signature": "constructor CNewZeros(n: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bArr_cNewOnes",
+              "sig": "BArrCNewOnesSig",
+              "type": "UInt64 \u2192 BArr_T",
+              "source_name": "CNewOnes",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:CNewOnes:3054",
+              "source_signature": "constructor CNewOnes(n: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bArr_nbits",
+              "sig": "BArrNbitsSig",
+              "type": "BArr_T \u2192 UInt64",
+              "source_name": "nbits",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:nbits:3870",
+              "source_signature": "function method nbits() : (r: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bArr_popcnt",
+              "sig": "BArrPopcntSig",
+              "type": "BArr_T \u2192 UInt64",
+              "source_name": "popcnt",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:popcnt:4080",
+              "source_signature": "method popcnt() returns (r: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bArr_getBit",
+              "sig": "BArrGetBitSig",
+              "type": "BArr_T \u2192 UInt64 \u2192 Bool",
+              "source_name": "get_bit",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:get_bit:5538",
+              "source_signature": "function method get_bit(i: uint64) : (r: bool)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bArr_setBit",
+              "sig": "BArrSetBitSig",
+              "type": "BArr_T \u2192 UInt64 \u2192 BArr_T",
+              "source_name": "set_bit",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:set_bit:5762",
+              "source_signature": "method set_bit(i: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bArr_clearBit",
+              "sig": "BArrClearBitSig",
+              "type": "BArr_T \u2192 UInt64 \u2192 BArr_T",
+              "source_name": "clear_bit",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:clear_bit:6148",
+              "source_signature": "method clear_bit(i: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bArr_toggleBit",
+              "sig": "BArrToggleBitSig",
+              "type": "BArr_T \u2192 UInt64 \u2192 BArr_T",
+              "source_name": "toggle_bit",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:toggle_bit:6502",
+              "source_signature": "method toggle_bit(i: uint64)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bArr_eq",
+              "sig": "BArrEqSig",
+              "type": "BArr_T \u2192 BArr_T \u2192 Bool",
+              "source_name": "eq",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:eq:7076",
+              "source_signature": "method eq(other: BitmaskArray) returns (r: bool)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bArr_isZeros",
+              "sig": "BArrIsZerosSig",
+              "type": "BArr_T \u2192 Bool",
+              "source_name": "is_zeros",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:is_zeros:7811",
+              "source_signature": "method is_zeros() returns (r: bool)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bArr_isOnes",
+              "sig": "BArrIsOnesSig",
+              "type": "BArr_T \u2192 Bool",
+              "source_name": "is_ones",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:is_ones:8388",
+              "source_signature": "method is_ones() returns (r: bool)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bArr_and",
+              "sig": "BArrAndSig",
+              "type": "BArr_T \u2192 BArr_T \u2192 BArr_T",
+              "source_name": "and",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:and:9170",
+              "source_signature": "method and(other:BitmaskArray)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bArr_or",
+              "sig": "BArrOrSig",
+              "type": "BArr_T \u2192 BArr_T \u2192 BArr_T",
+              "source_name": "or",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:or:10195",
+              "source_signature": "method or(other:BitmaskArray)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bArr_xor",
+              "sig": "BArrXorSig",
+              "type": "BArr_T \u2192 BArr_T \u2192 BArr_T",
+              "source_name": "xor",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:xor:11216",
+              "source_signature": "method xor(other:BitmaskArray)",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "bArr_not",
+              "sig": "BArrNotSig",
+              "type": "BArr_T \u2192 BArr_T",
+              "source_name": "not",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:not:12240",
+              "source_signature": "method not()",
+              "equivalence_status": "translated"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_bArr_cNewZeros_correct",
+              "source_name": "CNewZeros",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:CNewZeros:2437",
+              "source_signature": "constructor CNewZeros(n: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_cNewZeros_nbits",
+              "source_name": "CNewZeros",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:CNewZeros:2437",
+              "source_signature": "constructor CNewZeros(n: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_cNewOnes_correct",
+              "source_name": "CNewOnes",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:CNewOnes:3054",
+              "source_signature": "constructor CNewOnes(n: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_cNewOnes_nbits",
+              "source_name": "CNewOnes",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:CNewOnes:3054",
+              "source_signature": "constructor CNewOnes(n: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_nbits_correct",
+              "source_name": "nbits",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:nbits:3870",
+              "source_signature": "function method nbits() : (r: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_popcnt_correct",
+              "source_name": "popcnt",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:popcnt:4080",
+              "source_signature": "method popcnt() returns (r: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_popcnt_bounded",
+              "source_name": "popcnt",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:popcnt:4080",
+              "source_signature": "method popcnt() returns (r: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_getBit_correct",
+              "source_name": "get_bit",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:get_bit:5538",
+              "source_signature": "function method get_bit(i: uint64) : (r: bool)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_setBit_correct",
+              "source_name": "set_bit",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:set_bit:5762",
+              "source_signature": "method set_bit(i: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_clearBit_correct",
+              "source_name": "clear_bit",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:clear_bit:6148",
+              "source_signature": "method clear_bit(i: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_toggleBit_correct",
+              "source_name": "toggle_bit",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:toggle_bit:6502",
+              "source_signature": "method toggle_bit(i: uint64)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_eq_correct",
+              "source_name": "eq",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:eq:7076",
+              "source_signature": "method eq(other: BitmaskArray) returns (r: bool)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_isZeros_correct",
+              "source_name": "is_zeros",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:is_zeros:7811",
+              "source_signature": "method is_zeros() returns (r: bool)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_isOnes_correct",
+              "source_name": "is_ones",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:is_ones:8388",
+              "source_signature": "method is_ones() returns (r: bool)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_and_correct",
+              "source_name": "and",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:and:9170",
+              "source_signature": "method and(other:BitmaskArray)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_or_correct",
+              "source_name": "or",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:or:10195",
+              "source_signature": "method or(other:BitmaskArray)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_xor_correct",
+              "source_name": "xor",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:xor:11216",
+              "source_signature": "method xor(other:BitmaskArray)",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            },
+            {
+              "name": "spec_bArr_not_correct",
+              "source_name": "not",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:not:12240",
+              "source_signature": "method not()",
+              "source_note": "Lean spec encodes a postcondition/invariant clause of this Dafny class member.",
+              "equivalence_status": "translated"
+            }
+          ],
+          "spec_helpers": [
+            {
+              "name": "BArr_T",
+              "source_name": "BitmaskArray",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:BitmaskArray:1355",
+              "source_signature": "module BitmaskArray refines BitmaskCodeIF",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "BitmaskArray.Inv",
+              "source_name": "Inv",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:Inv:1952",
+              "source_signature": "predicate Inv()",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            },
+            {
+              "name": "BitmaskArray.I",
+              "source_name": "I",
+              "source_file": "src/BitMask/BitmaskArray.i.dfy",
+              "source_id": "src/BitMask/BitmaskArray.i.dfy:I:1606",
+              "source_signature": "function I() : (r: S.T)",
+              "source_note": "Manifest helper provenance added during verified-bitmasks rerun cleanup.",
+              "equivalence_status": "translated",
+              "kind": "helper"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "trusted_axioms": [
+    "axiom_as_bv16_as_uint16",
+    "axiom_as_bv32_as_uint32",
+    "axiom_as_bv64_as_uint64",
+    "axiom_as_bv8_as_uint8",
+    "axiom_as_uint16_as_bv16",
+    "axiom_as_uint32_as_bv32",
+    "axiom_as_uint64_as_bv64",
+    "axiom_as_uint8_as_bv8",
+    "lemma_BFC_IEqual",
+    "lemma_BFC_IResult",
+    "lemma_BFC_IStep",
+    "lemma_BitsToSeqToBits",
+    "lemma_BitwiseAllBitsEqualBVEq",
+    "lemma_BitwiseEq",
+    "lemma_SeqToBitsToSeq"
+  ],
+  "trusted_axiom_sources": {
+    "axiom_as_uint64_as_bv64": {
+      "source_name": "axiom_as_uint64_as_bv64",
+      "source_id": "src/BitFields/Spec/BitFields.s.dfy:axiom_as_uint64_as_bv64:1574",
+      "source_file": "src/BitFields/Spec/BitFields.s.dfy",
+      "source_signature": "lemma {:axiom} axiom_as_uint64_as_bv64(a: bv64)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    },
+    "axiom_as_bv64_as_uint64": {
+      "source_name": "axiom_as_bv64_as_uint64",
+      "source_id": "src/BitFields/Spec/BitFields.s.dfy:axiom_as_bv64_as_uint64:1670",
+      "source_file": "src/BitFields/Spec/BitFields.s.dfy",
+      "source_signature": "lemma {:axiom} axiom_as_bv64_as_uint64(a: uint64)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    },
+    "axiom_as_uint32_as_bv32": {
+      "source_name": "axiom_as_uint32_as_bv32",
+      "source_id": "src/BitFields/Spec/BitFields.s.dfy:axiom_as_uint32_as_bv32:1768",
+      "source_file": "src/BitFields/Spec/BitFields.s.dfy",
+      "source_signature": "lemma {:axiom} axiom_as_uint32_as_bv32(a: bv32)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    },
+    "axiom_as_bv32_as_uint32": {
+      "source_name": "axiom_as_bv32_as_uint32",
+      "source_id": "src/BitFields/Spec/BitFields.s.dfy:axiom_as_bv32_as_uint32:1868",
+      "source_file": "src/BitFields/Spec/BitFields.s.dfy",
+      "source_signature": "lemma {:axiom} axiom_as_bv32_as_uint32(a: uint32)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    },
+    "axiom_as_uint16_as_bv16": {
+      "source_name": "axiom_as_uint16_as_bv16",
+      "source_id": "src/BitFields/Spec/BitFields.s.dfy:axiom_as_uint16_as_bv16:1966",
+      "source_file": "src/BitFields/Spec/BitFields.s.dfy",
+      "source_signature": "lemma {:axiom} axiom_as_uint16_as_bv16(a: bv16)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    },
+    "axiom_as_bv16_as_uint16": {
+      "source_name": "axiom_as_bv16_as_uint16",
+      "source_id": "src/BitFields/Spec/BitFields.s.dfy:axiom_as_bv16_as_uint16:2066",
+      "source_file": "src/BitFields/Spec/BitFields.s.dfy",
+      "source_signature": "lemma {:axiom} axiom_as_bv16_as_uint16(a: uint16)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    },
+    "axiom_as_uint8_as_bv8": {
+      "source_name": "axiom_as_uint8_as_bv8",
+      "source_id": "src/BitFields/Spec/BitFields.s.dfy:axiom_as_uint8_as_bv8:2164",
+      "source_file": "src/BitFields/Spec/BitFields.s.dfy",
+      "source_signature": "lemma {:axiom} axiom_as_uint8_as_bv8(a: bv8)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    },
+    "axiom_as_bv8_as_uint8": {
+      "source_name": "axiom_as_bv8_as_uint8",
+      "source_id": "src/BitFields/Spec/BitFields.s.dfy:axiom_as_bv8_as_uint8:2259",
+      "source_file": "src/BitFields/Spec/BitFields.s.dfy",
+      "source_signature": "lemma {:axiom} axiom_as_bv8_as_uint8(a: uint8)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    },
+    "lemma_SeqToBitsToSeq": {
+      "source_name": "lemma_SeqToBitsToSeq",
+      "source_id": "src/BitFields/BitFields.i.dfy:lemma_SeqToBitsToSeq:6728",
+      "source_file": "src/BitFields/BitFields.i.dfy",
+      "source_signature": "lemma lemma_SeqToBitsToSeq(b: seq<bool>)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    },
+    "lemma_BitsToSeqToBits": {
+      "source_name": "lemma_BitsToSeqToBits",
+      "source_id": "src/BitFields/BitFields.i.dfy:lemma_BitsToSeqToBits:6880",
+      "source_file": "src/BitFields/BitFields.i.dfy",
+      "source_signature": "lemma lemma_BitsToSeqToBits(b: BV)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    },
+    "lemma_BitwiseAllBitsEqualBVEq": {
+      "source_name": "lemma_BitwiseAllBitsEqualBVEq",
+      "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseAllBitsEqualBVEq:27146",
+      "source_file": "src/BitFields/MachineWords.i.dfy",
+      "source_signature": "lemma lemma_BitwiseAllBitsEqualBVEq(a: uint64, b: uint64)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    },
+    "lemma_BitwiseEq": {
+      "source_name": "lemma_BitwiseEq",
+      "source_id": "src/BitFields/MachineWords.i.dfy:lemma_BitwiseEq:27642",
+      "source_file": "src/BitFields/MachineWords.i.dfy",
+      "source_signature": "lemma lemma_BitwiseEq(a: uint64, b: uint64)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    },
+    "lemma_BFC_IResult": {
+      "source_name": "IResult",
+      "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:IResult:2217",
+      "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+      "source_signature": "lemma IResult(A: T, i: nat)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    },
+    "lemma_BFC_IStep": {
+      "source_name": "lemma_IStep",
+      "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:lemma_IStep:4457",
+      "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+      "source_signature": "lemma lemma_IStep(A:T)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    },
+    "lemma_BFC_IEqual": {
+      "source_name": "IEqual",
+      "source_id": "src/BitMask/BitmaskFixedChunks.i.dfy:IEqual:2388",
+      "source_file": "src/BitMask/BitmaskFixedChunks.i.dfy",
+      "source_signature": "lemma IEqual(A: T, B: T)",
+      "reason": "Frozen proof/helper boundary carried from the Dafny source; represented explicitly for trusted-surface validation."
+    }
+  }
+}

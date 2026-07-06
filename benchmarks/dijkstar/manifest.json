@@ -1,0 +1,104 @@
+{
+ "benchmark_id": "dijkstar",
+ "description": "Single-source shortest-path cost modelled on the dijkstar library: findPathCost/edgeWeight/reachable with witness-minimality specs anchored on a frozen walk notion (isWalk/walkCost). The reference impl is Bellman-Ford relaxation; minimality is the load-bearing obligation. The achievability (witness), minimality, completeness, and walk-reachability obligations are stated in their strongest UNBOUNDED form — quantifying over walks of arbitrary length, so each subsumes the corresponding fuel-bounded statement (the bounded variants are not stated separately). Beyond the single-graph optimality laws (witness with a bounded simple-walk certificate, unbounded minimality, unbounded completeness, triangle, both-leg sub-path optimality, predecessor tightness, all-pairs subadditivity), the suite includes hidden-invariant obligations whose clean end-statements conceal a discovered strengthened induction hypothesis: append monotonicity of cost and reachability (cross-graph walk-lifting — appended edges never worsen an optimum), front-edge relaxation and tight-first-hop laws (the source-side mirror of the predecessor/triangle bounds, via a first-edge walk peel), and prefix-node reachability. Scope: the benchmark models shortest-path COST only (`find_path(...).total_cost`), NOT path reconstruction — there is no returned node/edge sequence. `edgeWeight` and `reachable` are derived observers, and edge weights are nonnegative `Nat`.",
+ "lean_version": "4.29.1",
+ "modes_supported": [
+  "proof",
+  "codeproof"
+ ],
+ "source": {
+  "kind": "translated",
+  "language": "python",
+  "repo_url": "https://github.com/wylee/dijkstar",
+  "commit_hash": "aa1237a8de390f9f8cd49577925fc96669346028",
+  "path": "src/dijkstar/algorithm.py",
+  "name": "dijkstar"
+ },
+ "curation": {
+  "date": "2026-06-28"
+ },
+ "root_package": "Dijkstar",
+ "files": {
+  "root_hub": "Dijkstar.lean",
+  "harness": "Dijkstar/Harness.lean",
+  "test": "Dijkstar/Test.lean",
+  "lakefile": "lakefile.toml"
+ },
+ "packages": [
+  {
+   "name": "Dijkstar",
+   "bundle": "Dijkstar/Bundle.lean",
+   "bundle_type": "DijkstarBundle",
+   "repo_impl_field": "dijkstar",
+   "modules": [
+    {
+     "name": "ShortestPath",
+     "impl": "Dijkstar/Impl/ShortestPath.lean",
+     "spec": "Dijkstar/Spec/ShortestPath.lean",
+     "apis": [
+      {
+       "name": "findPathCost",
+       "sig": "FindPathCostSig",
+       "type": "Graph → Nat → Nat → Option Nat"
+      },
+      {
+       "name": "edgeWeight",
+       "sig": "EdgeWeightSig",
+       "type": "Graph → Nat → Nat → Option Nat"
+      },
+      {
+       "name": "reachable",
+       "sig": "ReachableSig",
+       "type": "Graph → Nat → Nat → Bool"
+      }
+     ],
+     "specs": [
+      "spec_cost_self_zero",
+      "spec_cost_le_edge",
+      "spec_edge_weight_mem",
+      "spec_edge_weight_first_match",
+      "spec_none_iff_unreachable",
+      "spec_reachable_edge",
+      "spec_reachable_self",
+      "spec_reachable_iff_cost",
+      "spec_edge_weight_correct",
+      "spec_cost_minimal_unbounded",
+      "spec_cost_complete_unbounded",
+      "spec_cost_le_walk",
+      "spec_cost_triangle",
+      "spec_subpath_optimal",
+      "spec_reachable_trans",
+      "spec_reachable_of_walk_unbounded",
+      "spec_edge_weight_none_iff_absent",
+      "spec_cost_subadditive",
+      "spec_cost_predecessor_tight",
+      "spec_cost_optimal_split",
+      "spec_cost_exact_simple_witness",
+      "spec_cost_append_monotone",
+      "spec_reachable_append_monotone",
+      "spec_cost_first_edge",
+      "spec_cost_first_hop_tight",
+      "spec_prefix_node_reachable",
+      "spec_reachable_census_closure",
+      "spec_walk_first_occurrence_prefix",
+      "spec_cost_table_closed",
+      "spec_reachable_reverse_closure",
+      "spec_cost_rows_sorted_unique",
+      "spec_append_nonimproving_exact",
+      "spec_reachable_forward_edge_closed",
+      "spec_reachable_backward_edge_closed",
+      "spec_reachable_forward_closure_exact",
+      "spec_cost_table_two_pass_idempotent_at_node",
+      "spec_append_zero_self_loop_cost_neutral",
+      "spec_cost_predecessor_min_exact",
+      "spec_append_dominated_edge_irrelevant",
+      "spec_zero_edge_new_source_shift",
+      "spec_cost_le_concatenated_walk",
+      "spec_optimal_walk_edge_weight_le_cost",
+      "spec_weight_inflate_monotone"
+     ]
+    }
+   ]
+  }
+ ]
+}

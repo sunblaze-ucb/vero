@@ -1,0 +1,117 @@
+{
+  "benchmark_id": "intervaltree",
+  "description": "Interval-set algebra modelled on the intervaltree library: mergeOverlaps (merge_overlaps strict=False, coalescing touching intervals)/overlaps/chop over half-open Int intervals, with witness (same point set) and canonicality (sorted, nonempty, strict-gap disjoint) specs for mergeOverlaps anchored on the frozen `covered` point-membership predicate. Scope: `mergeOverlaps` models `merge_overlaps(strict=False)` — it coalesces touching (not just overlapping) intervals; interval `data` payloads and merge reducers are dropped (bare `[lo, hi)` intervals only). The benchmark curates the SET-ALGEBRA subset (overlaps / mergeOverlaps / chop), NOT the searchable IntervalTree query API (`at` / `overlap` / `envelop`). Beyond the headline witness+canonicality obligations the suite includes a deep hidden-invariant layer: canonical-form UNIQUENESS (coverage determines the literal output list), per-output endpoint saturation/maximality (`saturated_lo`/`saturated_hi`, left/right gap-boundary uncoveredness, run-solidity), the union homomorphism and concat-closure laws on point sets, the whole-shape `disjointSortedNonempty` invariant, and cross-API `mergeOverlaps`x`chop` list-equality laws (pre-merge absorption, chop idempotence-up-to-canonical, chop coverage-determines). Each clean END statement hides a discovered strengthened induction hypothesis (the strict-gap separation engine, the per-member boundary lemmas, the coverage-uniqueness bridge) whose machinery lives only in the curator soundness proof.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/chaimleib/intervaltree",
+    "commit_hash": "1bc406e1f441577c4e421fc51aba2ab67fbd97fb",
+    "path": ["intervaltree/intervaltree.py", "intervaltree/interval.py"],
+    "name": "intervaltree"
+  },
+  "curation": {
+    "date": "2026-06-28"
+  },
+  "root_package": "Intervaltree",
+  "files": {
+    "root_hub": "Intervaltree.lean",
+    "harness": "Intervaltree/Harness.lean",
+    "test": "Intervaltree/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Intervaltree",
+      "bundle": "Intervaltree/Bundle.lean",
+      "bundle_type": "IntervaltreeBundle",
+      "repo_impl_field": "intervaltree",
+      "modules": [
+        {
+          "name": "Merge",
+          "impl": "Intervaltree/Impl/Merge.lean",
+          "spec": "Intervaltree/Spec/Merge.lean",
+          "apis": [
+            {
+              "name": "overlaps",
+              "sig": "OverlapsSig",
+              "type": "Iv \u2192 Iv \u2192 Bool"
+            },
+            {
+              "name": "mergeOverlaps",
+              "sig": "MergeOverlapsSig",
+              "type": "List Iv \u2192 List Iv"
+            },
+            {
+              "name": "chop",
+              "sig": "ChopSig",
+              "type": "Int \u2192 Int \u2192 List Iv \u2192 List Iv"
+            }
+          ],
+          "specs": [
+            "spec_overlaps_symm",
+            "spec_overlaps_self_nonempty",
+            "spec_overlaps_self_empty",
+            "spec_overlaps_disjoint_false",
+            "spec_overlaps_iff_common_point",
+            "spec_merge_coverage",
+            "spec_merge_disjoint_strict",
+            "spec_merge_nil",
+            "spec_merge_singleton",
+            "spec_merge_all_empty_nil",
+            "spec_merge_output_nonempty",
+            "spec_merge_sorted_lo",
+            "spec_merge_length_le",
+            "spec_merge_idempotent",
+            "spec_merge_exact_idempotent",
+            "spec_merge_totalLen_le",
+            "spec_merge_totalLen_disjoint_eq",
+            "spec_merge_hull_lo",
+            "spec_merge_hull_hi",
+            "spec_merge_chop_coverage",
+            "spec_merge_reverse_eq",
+            "spec_chop_removes",
+            "spec_chop_pointwise",
+            "spec_chop_empty_range_id",
+            "spec_chop_idempotent",
+            "spec_merge_canonical_unique",
+            "spec_merge_coverage_determines",
+            "spec_merge_saturated_lo",
+            "spec_merge_concat_closure",
+            "spec_merge_is_canonical",
+            "spec_merge_saturated_hi",
+            "spec_merge_run_solid",
+            "spec_merge_lo_pred_uncovered",
+            "spec_merge_hi_uncovered",
+            "spec_merge_append_coverage",
+            "spec_merge_concat_closure_right",
+            "spec_merge_self_union_idem",
+            "spec_merge_chop_merge",
+            "spec_merge_chop_idempotent",
+            "spec_merge_chop_coverage_determines",
+            "spec_merge_coveredCount_le_one",
+            "spec_merge_coveredCount_exact",
+            "spec_merge_loEndpoints_nodup",
+            "spec_merge_getElem?_lo_split",
+            "spec_merge_perm_eq_any",
+            "spec_merge_pairwise_strict_gap_all",
+            "spec_merge_consecutive_gap_witness",
+            "spec_merge_coverage_monotone",
+            "spec_overlaps_merge_same_run",
+            "spec_chop_canonical_preserves_canonical",
+            "spec_chop_canonical_sorted_lo",
+            "spec_chop_canonical_pairwise_strict_gap",
+            "spec_chop_canonical_merge_fixpoint",
+            "spec_chop_totalLen_le_clamped",
+            "spec_chop_append_coverage",
+            "spec_chop_coveredCount_cut_complement"
+          ]
+        }
+      ]
+    }
+  ]
+}

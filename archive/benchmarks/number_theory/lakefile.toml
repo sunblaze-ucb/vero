@@ -1,0 +1,8 @@
+name = "NumberTheory"
+version = "0.1.0"
+defaultTargets = ["NumberTheory"]
+
+[[lean_lib]]
+name = "NumberTheory"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

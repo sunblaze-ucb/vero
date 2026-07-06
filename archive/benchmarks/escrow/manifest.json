@@ -1,0 +1,86 @@
+{
+  "benchmark_id": "escrow-v2",
+  "description": "Scoped Lean 4 benchmark for the ConCert Escrow contract. Active obligations cover concrete init/receive branch behavior; full ConCert trace correctness, extraction equivalence, and QuickChick/conjecture surfaces are deferred and review-gated.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "coq",
+    "repo_url": "https://github.com/AU-COBRA/ConCert.git",
+    "commit_hash": "341f440abb955b58066c269ebe0a231e8172e403",
+    "path": "examples/escrow"
+  },
+  "curation": {
+    "date": "2026-06-12",
+    "artifact_level": "scoped-pilot",
+    "notes": [
+      "Active specs are branch-level companion behavior specs for Escrow.v init/receive.",
+      "EscrowCorrect.v trace/economic-rationality theorems, extraction equivalence, and QuickChick conjecture/test harness are recorded in the curation plan as deferred review-gated source surfaces, not scored obligations."
+    ]
+  },
+  "root_package": "EscrowV2",
+  "files": {
+    "root_hub": "EscrowV2.lean",
+    "harness": "EscrowV2/Harness.lean",
+    "test": "EscrowV2/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "EscrowV2",
+      "bundle": "EscrowV2/Bundle.lean",
+      "bundle_type": "EscrowV2Bundle",
+      "repo_impl_field": "escrowV2",
+      "modules": [
+        {
+          "name": "Escrow",
+          "impl": "EscrowV2/Impl/Escrow.lean",
+          "spec": "EscrowV2/Spec/Escrow.lean",
+          "upstream_files": [
+            "Escrow.v"
+          ],
+          "apis": [
+            {
+              "name": "init",
+              "sig": "InitSig",
+              "type": "Chain → ContractCallContext → Setup → Except Error State"
+            },
+            {
+              "name": "receive",
+              "sig": "ReceiveSig",
+              "type": "Chain → ContractCallContext → State → Option Msg → Except Error (State × List ActionBody)"
+            }
+          ],
+          "specs": [
+            "spec_init_buyer_eq_seller_fails",
+            "spec_init_zero_amount_fails",
+            "spec_init_odd_amount_fails",
+            "spec_init_next_step",
+            "spec_init_state_fields",
+            "spec_receive_commit_wrong_sender_fails",
+            "spec_receive_commit_underfunded_balance_fails",
+            "spec_receive_commit_success",
+            "spec_receive_commit_wrong_amount_fails",
+            "spec_receive_confirm_wrong_sender_fails",
+            "spec_receive_confirm_nonzero_amount_fails",
+            "spec_receive_confirm_success",
+            "spec_receive_withdraw_nonzero_amount_fails",
+            "spec_receive_withdraw_unauthorized_fails",
+            "spec_receive_withdraw_buyer_success",
+            "spec_receive_withdraw_buyer_no_funds_fails",
+            "spec_receive_withdraw_seller_success",
+            "spec_receive_withdraw_seller_no_funds_fails",
+            "spec_receive_seller_exit_nonzero_amount_fails",
+            "spec_receive_seller_exit_deadline_fails",
+            "spec_receive_seller_exit_wrong_sender_fails",
+            "spec_receive_seller_exit_success",
+            "spec_receive_none_msg_fails"
+          ]
+        }
+      ]
+    }
+  ]
+}

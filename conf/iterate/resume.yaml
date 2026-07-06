@@ -1,0 +1,46 @@
+# iterate=resume — two-axis run: ITERATIONS (anti-laziness) × time-CHUNKS
+# (checkpointing). Chunks resume from each other so solved-count accumulates as
+# compute-time accrues; iterations restart the agent when it gives up.
+#
+# TWO AXES:
+#   • iteration_time_chunk_seconds — the per-invocation wall-clock cap. Each
+#     CHUNK resumes from the prior one's filled slots — a MEASUREMENT/checkpoint
+#     boundary, NOT the agent giving up. One perf-vs-time point per chunk.
+#   • iteration_max_time_seconds — one ITERATION's total budget: keep chunking
+#     (resume-continue) until cumulative time reaches this, OR the agent gives up.
+#   • max — the anti-laziness outer loop: how many iterations (max+1 total). When
+#     the agent EXITS EARLY (before a chunk's cutoff = gave up) the iteration ends
+#     and the next iteration resumes + re-nudges.
+#
+# Example — 30-min iterations, 5-min checkpoints, up to 4 iterations:
+#   vero run ... iterate=resume \
+#     iterate.iteration_time_chunk_seconds=300 \
+#     iterate.iteration_max_time_seconds=1800 \
+#     iterate.max=3
+#   → each iteration chunks 6×5min (resuming); an iteration also ends early if
+#     the agent gives up before a chunk cutoff; up to 4 iterations. perf_vs_time.md
+#     charts cum-minutes → passed/total across every chunk (ended_by ∈
+#     timeout|gave_up|all_pass).
+#
+# Notes:
+#   • Setting iteration_time_chunk_seconds implies resume=true (chunks continue).
+#   • It overrides agent.timeout_seconds per chunk; leave chunk unset for the
+#     older "one invocation per iteration capped by agent.timeout_seconds" mode.
+#   • mode=eval grades each chunk (perf points + stop_on_done). feedback=false:
+#     no grader-report/re-entry nudge WITHIN an iteration's chunks; the between-
+#     ITERATION nudge still fires (that's the anti-laziness). The base
+#     INSTRUCTION always carries "keep working until done".
+#   • A chunk whose artifact does not build does NOT seed the next chunk — the
+#     next resumes from the last CLEAN chunk (build-safe net).
+
+max: 3
+mode: eval
+feedback: false
+resume: true
+stop_on_done: true
+budget_usd: null
+time_budget_seconds: null
+iteration_time_chunk_seconds: 300    # 5-min checkpoints
+iteration_max_time_seconds: 1800     # 30-min iterations
+max_transient_retries: 15            # bounded retries on transient 404/disconnect per chunk
+transient_backoff_seconds: 60        # backoff between transient retries (engine recovery)

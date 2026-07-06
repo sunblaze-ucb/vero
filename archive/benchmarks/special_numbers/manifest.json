@@ -1,0 +1,365 @@
+{
+  "benchmark_id": "special_numbers",
+  "description": "Special number classification and generation algorithms from TheAlgorithms/Python. Covers 29 APIs across 18 modules: GCD, Armstrong/Pluperfect/Narcissistic, Automorphic, Bell, Carmichael, Catalan, Hamming, Happy, Harshad, Hexagonal, Krishnamurthy, Perfect, Polygonal, Pronic, Proth, Triangular, Ugly, and Weird numbers.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/TheAlgorithms/Python.git",
+    "commit_hash": "7a0fee401d2990bd5904e94cd5d3a62c50a8b682",
+    "path": "maths/special_numbers"
+  },
+  "curation": {
+    "date": "2026-04-26"
+  },
+  "root_package": "SpecialNumbers",
+  "files": {
+    "root_hub": "SpecialNumbers.lean",
+    "harness": "SpecialNumbers/Harness.lean",
+    "test": "SpecialNumbers/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "SpecialNumbers",
+      "bundle": "SpecialNumbers/Bundle.lean",
+      "bundle_type": "SpecialNumbersBundle",
+      "repo_impl_field": "specialNumbers",
+      "modules": [
+        {
+          "name": "GreatestCommonDivisor",
+          "impl": "SpecialNumbers/Impl/GreatestCommonDivisor.lean",
+          "spec": "SpecialNumbers/Spec/GreatestCommonDivisor.lean",
+          "apis": [
+            {
+              "name": "greatest_common_divisor",
+              "sig": "GreatestCommonDivisorSig",
+              "type": "Int \u2192 Int \u2192 Int"
+            },
+            {
+              "name": "gcd_by_iterative",
+              "sig": "GcdByIterativeSig",
+              "type": "Int \u2192 Int \u2192 Int"
+            }
+          ],
+          "specs": [
+            "spec_gcd_implementations_agree",
+            "spec_gcd_divides_inputs"
+          ]
+        },
+        {
+          "name": "ArmstrongNumbers",
+          "impl": "SpecialNumbers/Impl/ArmstrongNumbers.lean",
+          "spec": "SpecialNumbers/Spec/ArmstrongNumbers.lean",
+          "apis": [
+            {
+              "name": "armstrong_number",
+              "sig": "ArmstrongNumberSig",
+              "type": "Int \u2192 Bool"
+            },
+            {
+              "name": "pluperfect_number",
+              "sig": "PluperfectNumberSig",
+              "type": "Int \u2192 Bool"
+            },
+            {
+              "name": "narcissistic_number",
+              "sig": "NarcissisticNumberSig",
+              "type": "Int \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_armstrong_checkers_agree"
+          ]
+        },
+        {
+          "name": "AutomorphicNumber",
+          "impl": "SpecialNumbers/Impl/AutomorphicNumber.lean",
+          "spec": "SpecialNumbers/Spec/AutomorphicNumber.lean",
+          "apis": [
+            {
+              "name": "is_automorphic_number",
+              "sig": "IsAutomorphicNumberSig",
+              "type": "Int \u2192 Bool"
+            }
+          ],
+          "specs": []
+        },
+        {
+          "name": "BellNumbers",
+          "impl": "SpecialNumbers/Impl/BellNumbers.lean",
+          "spec": "SpecialNumbers/Spec/BellNumbers.lean",
+          "apis": [
+            {
+              "name": "bell_numbers",
+              "sig": "BellNumbersSig",
+              "type": "Int \u2192 List Int"
+            }
+          ],
+          "specs": [
+            "spec_bell_length"
+          ]
+        },
+        {
+          "name": "CarmichaelNumber",
+          "impl": "SpecialNumbers/Impl/CarmichaelNumber.lean",
+          "spec": "SpecialNumbers/Spec/CarmichaelNumber.lean",
+          "apis": [
+            {
+              "name": "power",
+              "sig": "PowerSig",
+              "type": "Int \u2192 Int \u2192 Int \u2192 Int"
+            },
+            {
+              "name": "is_carmichael_number",
+              "sig": "IsCarmichaelNumberSig",
+              "type": "Int \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_power_zero_exponent",
+            "spec_carmichael_uses_power_and_gcd"
+          ],
+          "spec_helpers": [
+            "spec_carmichael_implies_composite"
+          ]
+        },
+        {
+          "name": "CatalanNumber",
+          "impl": "SpecialNumbers/Impl/CatalanNumber.lean",
+          "spec": "SpecialNumbers/Spec/CatalanNumber.lean",
+          "apis": [
+            {
+              "name": "catalan",
+              "sig": "CatalanSig",
+              "type": "Int \u2192 Int"
+            }
+          ],
+          "specs": []
+        },
+        {
+          "name": "HammingNumbers",
+          "impl": "SpecialNumbers/Impl/HammingNumbers.lean",
+          "spec": "SpecialNumbers/Spec/HammingNumbers.lean",
+          "apis": [
+            {
+              "name": "hamming",
+              "sig": "HammingSig",
+              "type": "Int \u2192 List Nat"
+            }
+          ],
+          "specs": [
+            "spec_hamming_sequence_shape",
+            "spec_hamming_length"
+          ]
+        },
+        {
+          "name": "HappyNumber",
+          "impl": "SpecialNumbers/Impl/HappyNumber.lean",
+          "spec": "SpecialNumbers/Spec/HappyNumber.lean",
+          "apis": [
+            {
+              "name": "is_happy_number",
+              "sig": "IsHappyNumberSig",
+              "type": "Int \u2192 Bool"
+            }
+          ],
+          "specs": []
+        },
+        {
+          "name": "HarshadNumbers",
+          "impl": "SpecialNumbers/Impl/HarshadNumbers.lean",
+          "spec": "SpecialNumbers/Spec/HarshadNumbers.lean",
+          "apis": [
+            {
+              "name": "int_to_base",
+              "sig": "IntToBaseSig",
+              "type": "Int \u2192 Int \u2192 String"
+            },
+            {
+              "name": "sum_of_digits",
+              "sig": "SumOfDigitsSig",
+              "type": "Int \u2192 Int \u2192 String"
+            },
+            {
+              "name": "harshad_numbers_in_base",
+              "sig": "HarshadNumbersInBaseSig",
+              "type": "Int \u2192 Int \u2192 List String"
+            },
+            {
+              "name": "is_harshad_number_in_base",
+              "sig": "IsHarshadNumberInBaseSig",
+              "type": "Int \u2192 Int \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_harshad_generator_checker_agreement",
+            "spec_harshad_digit_sum_nonzero"
+          ]
+        },
+        {
+          "name": "HexagonalNumber",
+          "impl": "SpecialNumbers/Impl/HexagonalNumber.lean",
+          "spec": "SpecialNumbers/Spec/HexagonalNumber.lean",
+          "apis": [
+            {
+              "name": "hexagonal",
+              "sig": "HexagonalSig",
+              "type": "Int \u2192 Int"
+            }
+          ],
+          "specs": [
+            "spec_hexagonal_triangular_bridge"
+          ]
+        },
+        {
+          "name": "KrishnamurthyNumber",
+          "impl": "SpecialNumbers/Impl/KrishnamurthyNumber.lean",
+          "spec": "SpecialNumbers/Spec/KrishnamurthyNumber.lean",
+          "apis": [
+            {
+              "name": "factorial",
+              "sig": "FactorialSig",
+              "type": "Int \u2192 Int"
+            },
+            {
+              "name": "krishnamurthy",
+              "sig": "KrishnamurthySig",
+              "type": "Int \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_factorial_recurrence",
+            "spec_krishnamurthy_single_digit_factorial"
+          ]
+        },
+        {
+          "name": "PerfectNumber",
+          "impl": "SpecialNumbers/Impl/PerfectNumber.lean",
+          "spec": "SpecialNumbers/Spec/PerfectNumber.lean",
+          "apis": [
+            {
+              "name": "perfect",
+              "sig": "PerfectSig",
+              "type": "Int \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_perfect_not_abundant"
+          ]
+        },
+        {
+          "name": "PolygonalNumbers",
+          "impl": "SpecialNumbers/Impl/PolygonalNumbers.lean",
+          "spec": "SpecialNumbers/Spec/PolygonalNumbers.lean",
+          "apis": [
+            {
+              "name": "polygonal_num",
+              "sig": "PolygonalNumSig",
+              "type": "Int \u2192 Int \u2192 Int"
+            }
+          ],
+          "specs": [
+            "spec_polygonal_specializations_agree"
+          ]
+        },
+        {
+          "name": "PronicNumber",
+          "impl": "SpecialNumbers/Impl/PronicNumber.lean",
+          "spec": "SpecialNumbers/Spec/PronicNumber.lean",
+          "apis": [
+            {
+              "name": "is_pronic",
+              "sig": "IsPronicSig",
+              "type": "Int \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_pronic_witness"
+          ]
+        },
+        {
+          "name": "ProthNumber",
+          "impl": "SpecialNumbers/Impl/ProthNumber.lean",
+          "spec": "SpecialNumbers/Spec/ProthNumber.lean",
+          "apis": [
+            {
+              "name": "proth",
+              "sig": "ProthSig",
+              "type": "Int \u2192 Int"
+            }
+          ],
+          "specs": [
+            "spec_proth_positive_odd",
+            "spec_proth_invalid"
+          ]
+        },
+        {
+          "name": "TriangularNumbers",
+          "impl": "SpecialNumbers/Impl/TriangularNumbers.lean",
+          "spec": "SpecialNumbers/Spec/TriangularNumbers.lean",
+          "apis": [
+            {
+              "name": "triangular_number",
+              "sig": "TriangularNumberSig",
+              "type": "Int \u2192 Int"
+            }
+          ],
+          "specs": [
+            "spec_triangular_recurrence"
+          ]
+        },
+        {
+          "name": "UglyNumbers",
+          "impl": "SpecialNumbers/Impl/UglyNumbers.lean",
+          "spec": "SpecialNumbers/Spec/UglyNumbers.lean",
+          "apis": [
+            {
+              "name": "ugly_numbers",
+              "sig": "UglyNumbersSig",
+              "type": "Int \u2192 Int"
+            }
+          ],
+          "specs": [
+            "spec_ugly_agrees_with_hamming"
+          ]
+        },
+        {
+          "name": "WeirdNumber",
+          "impl": "SpecialNumbers/Impl/WeirdNumber.lean",
+          "spec": "SpecialNumbers/Spec/WeirdNumber.lean",
+          "apis": [
+            {
+              "name": "factors",
+              "sig": "FactorsSig",
+              "type": "Int \u2192 List Int"
+            },
+            {
+              "name": "abundant",
+              "sig": "AbundantSig",
+              "type": "Int \u2192 Bool"
+            },
+            {
+              "name": "semi_perfect",
+              "sig": "SemiPerfectSig",
+              "type": "Int \u2192 Bool"
+            },
+            {
+              "name": "weird",
+              "sig": "WeirdSig",
+              "type": "Int \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_factors_are_positive_divisors",
+            "spec_weird_decomposes_into_abundant_not_semiperfect"
+          ]
+        }
+      ]
+    }
+  ]
+}

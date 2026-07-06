@@ -1,0 +1,8 @@
+name = "Bidict"
+version = "0.1.0"
+defaultTargets = ["Bidict"]
+
+[[lean_lib]]
+name = "Bidict"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

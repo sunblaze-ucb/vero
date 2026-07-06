@@ -1,0 +1,8 @@
+name = "ToposortSort"
+version = "0.1.0"
+defaultTargets = ["ToposortSort"]
+
+[[lean_lib]]
+name = "ToposortSort"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

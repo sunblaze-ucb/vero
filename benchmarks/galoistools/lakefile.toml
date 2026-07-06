@@ -1,0 +1,8 @@
+name = "galoistools"
+version = "0.1.0"
+defaultTargets = ["Galoistools"]
+
+[[lean_lib]]
+name = "Galoistools"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

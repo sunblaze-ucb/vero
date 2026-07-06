@@ -1,0 +1,342 @@
+{
+  "benchmark_id": "boolean_algebra",
+  "description": "Python-from-JSON scaffold for `boolean_algebra`.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/TheAlgorithms/Python.git",
+    "commit_hash": "8f1a6b0ca0cbe563ea3f48c43695a07959b923a1",
+    "path": [
+      "boolean_algebra/and_gate.py",
+      "boolean_algebra/imply_gate.py",
+      "boolean_algebra/karnaugh_map_simplification.py",
+      "boolean_algebra/multiplexer.py",
+      "boolean_algebra/nand_gate.py",
+      "boolean_algebra/nimply_gate.py",
+      "boolean_algebra/nor_gate.py",
+      "boolean_algebra/not_gate.py",
+      "boolean_algebra/or_gate.py",
+      "boolean_algebra/quine_mc_cluskey.py",
+      "boolean_algebra/xnor_gate.py",
+      "boolean_algebra/xor_gate.py"
+    ]
+  },
+  "curation": {
+    "date": "2026-04-25"
+  },
+  "root_package": "BooleanAlgebra",
+  "files": {
+    "root_hub": "BooleanAlgebra.lean",
+    "harness": "BooleanAlgebra/Harness.lean",
+    "test": "BooleanAlgebra/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "BooleanAlgebra",
+      "bundle": "BooleanAlgebra/Bundle.lean",
+      "bundle_type": "BooleanAlgebraBundle",
+      "repo_impl_field": "booleanAlgebra",
+      "modules": [
+        {
+          "name": "AndGate",
+          "impl": "BooleanAlgebra/Impl/AndGate.lean",
+          "spec": "BooleanAlgebra/Spec/AndGate.lean",
+          "apis": [
+            {
+              "name": "and_gate",
+              "sig": "AndGateSig",
+              "type": "Int → Int → Int",
+              "kind": "api"
+            },
+            {
+              "name": "n_input_and_gate",
+              "sig": "NInputAndGateSig",
+              "type": "List Int → Int",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_and_gate_binary_semantics",
+            "spec_and_gate_zero_absorb",
+            "spec_n_input_and_gate_empty",
+            "spec_n_input_and_gate_singleton",
+            "spec_n_input_and_gate_vs_and"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "ImplyGate",
+          "impl": "BooleanAlgebra/Impl/ImplyGate.lean",
+          "spec": "BooleanAlgebra/Spec/ImplyGate.lean",
+          "apis": [
+            {
+              "name": "imply_gate",
+              "sig": "ImplyGateSig",
+              "type": "Int → Int → Int",
+              "kind": "api"
+            },
+            {
+              "name": "recursive_imply_list",
+              "sig": "RecursiveImplyListSig",
+              "type": "List Int → Int",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_imply_gate_binary_semantics",
+            "spec_imply_gate_reflexive",
+            "spec_imply_via_or_not",
+            "spec_recursive_imply_list_two",
+            "spec_recursive_imply_list_associativity"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "KarnaughMapSimplification",
+          "impl": "BooleanAlgebra/Impl/KarnaughMapSimplification.lean",
+          "spec": "BooleanAlgebra/Spec/KarnaughMapSimplification.lean",
+          "apis": [
+            {
+              "name": "simplify_kmap",
+              "sig": "SimplifyKmapSig",
+              "type": "List (List Int) → String",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_simplify_kmap_all_zero_general",
+            "spec_simplify_kmap_nonzero_normalization"
+          ],
+          "spec_helpers": [
+            "spec_simplify_kmap_all_zero",
+            "spec_simplify_kmap_nonzero_invariant"
+          ]
+        },
+        {
+          "name": "Multiplexer",
+          "impl": "BooleanAlgebra/Impl/Multiplexer.lean",
+          "spec": "BooleanAlgebra/Spec/Multiplexer.lean",
+          "apis": [
+            {
+              "name": "mux",
+              "sig": "MuxSig",
+              "type": "Int → Int → Int → Int",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_mux_select_0",
+            "spec_mux_select_1",
+            "spec_mux_decomposition"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "NandGate",
+          "impl": "BooleanAlgebra/Impl/NandGate.lean",
+          "spec": "BooleanAlgebra/Spec/NandGate.lean",
+          "apis": [
+            {
+              "name": "nand_gate",
+              "sig": "NandGateSig",
+              "type": "Int → Int → Int",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_nand_is_not_and",
+            "spec_nand_demorgan"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "NimplyGate",
+          "impl": "BooleanAlgebra/Impl/NimplyGate.lean",
+          "spec": "BooleanAlgebra/Spec/NimplyGate.lean",
+          "apis": [
+            {
+              "name": "nimply_gate",
+              "sig": "NimplyGateSig",
+              "type": "Int → Int → Int",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_nimply_strict_binary",
+            "spec_nimply_via_and_not"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "NorGate",
+          "impl": "BooleanAlgebra/Impl/NorGate.lean",
+          "spec": "BooleanAlgebra/Spec/NorGate.lean",
+          "apis": [
+            {
+              "name": "nor_gate",
+              "sig": "NorGateSig",
+              "type": "Int → Int → Int",
+              "kind": "api"
+            },
+            {
+              "name": "truth_table",
+              "sig": "TruthTableSig",
+              "type": "(Int → Int → Int) → String",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_nor_both_zero",
+            "spec_nor_demorgan",
+            "spec_truth_table_nor_exact"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "NotGate",
+          "impl": "BooleanAlgebra/Impl/NotGate.lean",
+          "spec": "BooleanAlgebra/Spec/NotGate.lean",
+          "apis": [
+            {
+              "name": "not_gate",
+              "sig": "NotGateSig",
+              "type": "Int → Int",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_not_gate_binary_flip",
+            "spec_not_gate_involutive_binary",
+            "spec_demorgan_and_to_or",
+            "spec_demorgan_or_to_and"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "OrGate",
+          "impl": "BooleanAlgebra/Impl/OrGate.lean",
+          "spec": "BooleanAlgebra/Spec/OrGate.lean",
+          "apis": [
+            {
+              "name": "or_gate",
+              "sig": "OrGateSig",
+              "type": "Int → Int → Int",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_or_gate_binary_semantics",
+            "spec_or_gate_strict_one"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "QuineMcCluskey",
+          "impl": "BooleanAlgebra/Impl/QuineMcCluskey.lean",
+          "spec": "BooleanAlgebra/Spec/QuineMcCluskey.lean",
+          "apis": [
+            {
+              "name": "compare_string",
+              "sig": "CompareStringSig",
+              "type": "String → String → Option String",
+              "kind": "api"
+            },
+            {
+              "name": "check",
+              "sig": "CheckSig",
+              "type": "List String → List String",
+              "kind": "api"
+            },
+            {
+              "name": "decimal_to_binary",
+              "sig": "DecimalToBinarySig",
+              "type": "Int → List Float → List String",
+              "kind": "api"
+            },
+            {
+              "name": "is_for_table",
+              "sig": "IsForTableSig",
+              "type": "String → String → Int → Bool",
+              "kind": "api"
+            },
+            {
+              "name": "selection",
+              "sig": "SelectionSig",
+              "type": "List (List Int) → List String → List String",
+              "kind": "api"
+            },
+            {
+              "name": "prime_implicant_chart",
+              "sig": "PrimeImplicantChartSig",
+              "type": "List String → List String → List (List Int)",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_compare_string_equal",
+            "spec_compare_string_symmetric",
+            "spec_check_empty",
+            "spec_check_singleton",
+            "spec_decimal_to_binary_length",
+            "spec_decimal_to_binary_width",
+            "spec_is_for_table_self",
+            "spec_is_for_table_symmetric",
+            "spec_prime_implicant_chart_empty_pis",
+            "spec_prime_implicant_chart_length",
+            "spec_prime_implicant_chart_row_lengths",
+            "spec_prime_implicant_chart_entries_bool",
+            "spec_prime_implicant_chart_singleton_correct",
+            "spec_selection_empty",
+            "spec_selection_outputs_from_pis"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "XnorGate",
+          "impl": "BooleanAlgebra/Impl/XnorGate.lean",
+          "spec": "BooleanAlgebra/Spec/XnorGate.lean",
+          "apis": [
+            {
+              "name": "xnor_gate",
+              "sig": "XnorGateSig",
+              "type": "Int → Int → Int",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_xnor_gate_binary_semantics",
+            "spec_xnor_is_not_xor",
+            "spec_xnor_self"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "XorGate",
+          "impl": "BooleanAlgebra/Impl/XorGate.lean",
+          "spec": "BooleanAlgebra/Spec/XorGate.lean",
+          "apis": [
+            {
+              "name": "xor_gate",
+              "sig": "XorGateSig",
+              "type": "Int → Int → Int",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_xor_gate_binary_semantics",
+            "spec_xor_gate_self_zero",
+            "spec_xor_gate_zero_nonzero",
+            "spec_xor_disjunctive_normal_form"
+          ],
+          "spec_helpers": []
+        }
+      ]
+    }
+  ]
+}

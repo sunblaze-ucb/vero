@@ -1,0 +1,6 @@
+name = "tiny_unsat"
+defaultTargets = ["TinyUnsat"]
+srcDir = "."
+
+[[lean_lib]]
+name = "TinyUnsat"

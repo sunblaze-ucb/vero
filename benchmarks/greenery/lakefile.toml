@@ -1,0 +1,8 @@
+name = "greenery"
+version = "0.1.0"
+defaultTargets = ["Greenery"]
+
+[[lean_lib]]
+name = "Greenery"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

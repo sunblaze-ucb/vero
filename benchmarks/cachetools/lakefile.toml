@@ -1,0 +1,8 @@
+name = "cachetools"
+version = "0.1.0"
+defaultTargets = ["Cachetools"]
+
+[[lean_lib]]
+name = "Cachetools"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

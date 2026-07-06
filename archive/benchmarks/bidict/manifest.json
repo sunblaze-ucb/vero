@@ -1,0 +1,205 @@
+{
+  "benchmark_id": "bidict",
+  "description": "Bidirectional mapping library — Python → Lean 4 curation. BidictBase, MutableBidict, OrderedBidict, FrozenBidict, Iter, OnDup, Exc.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/jab/bidict",
+    "commit_hash": "0116e5b772bd2e390267c511187e60931b733153",
+    "path": "bidict/"
+  },
+  "curation": {
+    "date": "2026-04-26"
+  },
+  "root_package": "Bidict",
+  "files": {
+    "root_hub": "Bidict.lean",
+    "harness": "Bidict/Harness.lean",
+    "test": "Bidict/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Bidict",
+      "bundle": "Bidict/Bundle.lean",
+      "bundle_type": "BidictBundle",
+      "repo_impl_field": "bidict",
+      "modules": [
+        {
+          "name": "Exc",
+          "impl": "Bidict/Impl/Exc.lean",
+          "spec": "Bidict/Spec/Exc.lean",
+          "apis": [],
+          "specs": [],
+          "spec_helpers": [
+            "spec_duplicateKeyError_distinct",
+            "spec_duplicateValueError_distinct",
+            "spec_duplicateKeyAndValueError_distinct"
+          ]
+        },
+        {
+          "name": "OnDup",
+          "impl": "Bidict/Impl/OnDup.lean",
+          "spec": "Bidict/Spec/OnDup.lean",
+          "apis": [],
+          "specs": [],
+          "spec_helpers": [
+            "spec_OnDupAction_raise_distinct",
+            "spec_OnDupAction_dropOld_distinct",
+            "spec_OnDupAction_dropNew_distinct",
+            "spec_OnDup_mk_projections"
+          ]
+        },
+        {
+          "name": "BidictBase",
+          "impl": "Bidict/Impl/BidictBase.lean",
+          "spec": "Bidict/Spec/BidictBase.lean",
+          "apis": [
+            {"name": "inverse",  "sig": "InverseSig",  "type": "BidictBase KT VT → BidictBase VT KT"},
+            {"name": "inv",      "sig": "InvSig",      "type": "BidictBase KT VT → BidictBase VT KT"},
+            {"name": "copy",     "sig": "CopySig",     "type": "BidictBase KT VT → BidictBase KT VT"},
+            {"name": "union",    "sig": "UnionSig",    "type": "BidictBase KT VT → BidictBase KT VT → BidictBase KT VT"},
+            {"name": "runion",   "sig": "RunionSig",   "type": "BidictBase KT VT → BidictBase KT VT → BidictBase KT VT"},
+            {"name": "length",   "sig": "LengthSig",   "type": "BidictBase KT VT → Nat"},
+            {"name": "iter",     "sig": "IterSig",     "type": "BidictBase KT VT → List KT"},
+            {"name": "getitem",  "sig": "GetitemSig",  "type": "BidictBase KT VT → KT → Option VT"}
+          ],
+          "specs": [
+            "spec_inverse_swaps_pairs",
+            "spec_inverse_swaps_all_pairs",
+            "spec_inverse_involution",
+            "spec_inv_eq_inverse",
+            "spec_length_eq_listLength",
+            "spec_length_inverse_symmetry",
+            "spec_copy_identity",
+            "spec_union_self_empty",
+            "spec_union_empty_self",
+            "spec_runion_self_empty",
+            "spec_runion_overrides",
+            "spec_iter_keys",
+            "spec_getitem_consistent_with_membership",
+            "spec_getitem_matches_first_key",
+            "spec_length_eq_iter_length"
+          ]
+        },
+        {
+          "name": "Iter",
+          "impl": "Bidict/Impl/Iter.lean",
+          "spec": "Bidict/Spec/Iter.lean",
+          "apis": [
+            {"name": "iteritems", "sig": "IteritemsSig", "type": "HashMap KT VT → List (KT × VT)"},
+            {"name": "inverted",  "sig": "InvertedSig",  "type": "HashMap KT VT → List (VT × KT)"}
+          ],
+          "specs": [
+            "spec_iteritems_identity",
+            "spec_inverted_swaps",
+            "spec_inverted_involution_via_iteritems",
+            "spec_inverted_eq_iteritems_swap"
+          ]
+        },
+        {
+          "name": "FrozenBidict",
+          "impl": "Bidict/Impl/FrozenBidict.lean",
+          "spec": "Bidict/Spec/FrozenBidict.lean",
+          "apis": [
+            {"name": "frozenBidictHash", "sig": "FrozenBidictHashSig", "type": "BidictBase KT VT → Int"}
+          ],
+          "specs": [
+            "spec_frozenBidictHash_empty",
+            "spec_frozenBidictHash_orderIndependent",
+            "spec_frozenBidictHash_perm_invariant"
+          ]
+        },
+        {
+          "name": "MutableBidict",
+          "impl": "Bidict/Impl/MutableBidict.lean",
+          "spec": "Bidict/Spec/MutableBidict.lean",
+          "apis": [
+            {"name": "initMutableBidict", "sig": "InitMutableBidictSig", "type": "BidictBase KT VT → OnDup → MutableBidict KT VT"},
+            {"name": "delItem",           "sig": "DelItemSig",           "type": "MutableBidict KT VT → KT → MutableBidict KT VT"},
+            {"name": "setItem",           "sig": "SetItemSig",           "type": "MutableBidict KT VT → KT → VT → Except DuplicationError (MutableBidict KT VT)"},
+            {"name": "forceput",          "sig": "ForceputSig",          "type": "MutableBidict KT VT → KT → VT → MutableBidict KT VT"},
+            {"name": "clear",             "sig": "ClearSig",             "type": "MutableBidict KT VT → MutableBidict KT VT"},
+            {"name": "pop",               "sig": "PopSig",               "type": "∀ {DT : Type}, MutableBidict KT VT → KT → DT → MutableBidict KT VT × Sum VT DT"},
+            {"name": "popitem",           "sig": "PopitemSig",           "type": "MutableBidict KT VT → Option (MutableBidict KT VT × (KT × VT))"},
+            {"name": "update",            "sig": "UpdateSig",            "type": "MutableBidict KT VT → BidictBase KT VT → Except DuplicationError (MutableBidict KT VT)"},
+            {"name": "forceupdate",       "sig": "ForceupdateSig",       "type": "MutableBidict KT VT → BidictBase KT VT → MutableBidict KT VT"},
+            {"name": "putall",            "sig": "PutallSig",            "type": "MutableBidict KT VT → BidictBase KT VT → OnDup → MutableBidict KT VT"}
+          ],
+          "specs": [
+            "spec_initMutableBidict_fields",
+            "spec_delItem_absent_noop",
+            "spec_delItem_removes_key",
+            "spec_setItem_ok_inserts",
+            "spec_setItem_keydup_raises",
+            "spec_setItem_keydup_raises_universal",
+            "spec_setItem_valuedup_raises_universal",
+            "spec_setItem_dropNew_unchanged",
+            "spec_forceput_overwrites_existing",
+            "spec_forceput_inserts_new",
+            "spec_clear_empty_data",
+            "spec_pop_present",
+            "spec_pop_absent",
+            "spec_popitem_empty",
+            "spec_popitem_nonempty",
+            "spec_update_ok_appends",
+            "spec_forceupdate_appends",
+            "spec_putall_preserves_ondup",
+            "spec_setItem_preserves_one_to_one",
+            "spec_forceput_preserves_one_to_one",
+            "spec_putall_preserves_one_to_one",
+            "spec_delItem_then_clear",
+            "spec_forceput_idempotent",
+            "spec_forceput_popitem_singleton",
+            "spec_clear_idempotent",
+            "spec_setItem_popitem_singleton",
+            "spec_forceupdate_idempotent",
+            "spec_putall_idempotent",
+            "spec_putall_popitem_singleton"
+          ]
+        },
+        {
+          "name": "OrderedBidict",
+          "impl": "Bidict/Impl/OrderedBidict.lean",
+          "spec": "Bidict/Spec/OrderedBidict.lean",
+          "apis": [
+            {"name": "initOrderedBidict",      "sig": "InitOrderedBidictSig",      "type": "BidictBase KT VT → OrderedBidict KT VT"},
+            {"name": "iterOrderedBidict",      "sig": "IterOrderedBidictSig",      "type": "OrderedBidict KT VT → Bool → List KT"},
+            {"name": "inverseOrderedBidict",   "sig": "InverseOrderedBidictSig",   "type": "OrderedBidict KT VT → OrderedBidict VT KT"},
+            {"name": "invOrderedBidict",       "sig": "InvOrderedBidictSig",       "type": "OrderedBidict KT VT → OrderedBidict VT KT"},
+            {"name": "clearOrderedBidict",     "sig": "ClearOrderedBidictSig",     "type": "OrderedBidict KT VT → OrderedBidict KT VT"},
+            {"name": "popOrderedBidict",       "sig": "PopOrderedBidictSig",       "type": "OrderedBidict KT VT → KT → Option (OrderedBidict KT VT × VT)"},
+            {"name": "popitemOrderedBidict",   "sig": "PopitemOrderedBidictSig",   "type": "OrderedBidict KT VT → Bool → Option (OrderedBidict KT VT × (KT × VT))"},
+            {"name": "moveToEndOrderedBidict", "sig": "MoveToEndOrderedBidictSig", "type": "OrderedBidict KT VT → KT → Bool → OrderedBidict KT VT"},
+            {"name": "keysOrderedBidict",      "sig": "KeysOrderedBidictSig",      "type": "OrderedBidict KT VT → List KT"},
+            {"name": "itemsOrderedBidict",     "sig": "ItemsOrderedBidictSig",     "type": "OrderedBidict KT VT → List (KT × VT)"}
+          ],
+          "specs": [
+            "spec_initOrderedBidict_data",
+            "spec_iterOrderedBidict_false_eq_keys",
+            "spec_iterOrderedBidict_true_eq_reverse",
+            "spec_inverseOrderedBidict_swaps",
+            "spec_inverseOrderedBidict_involution",
+            "spec_invOrderedBidict_eq_inverseOrderedBidict",
+            "spec_clearOrderedBidict_data_empty",
+            "spec_popOrderedBidict_present",
+            "spec_popOrderedBidict_absent",
+            "spec_popitemOrderedBidict_empty",
+            "spec_popitemOrderedBidict_first",
+            "spec_popitemOrderedBidict_last",
+            "spec_moveToEnd_absent_noop",
+            "spec_moveToEnd_last_appends",
+            "spec_moveToEnd_first_prepends",
+            "spec_keysOrderedBidict_first_proj",
+            "spec_itemsOrderedBidict_data",
+            "spec_keys_eq_items_fst",
+            "spec_inverseOrderedBidict_items_swap",
+            "spec_popOrderedBidict_returned_pair_membership"
+          ]
+        }
+      ]
+    }
+  ]
+}

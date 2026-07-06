@@ -1,0 +1,8 @@
+name = "pygtrie"
+version = "0.1.0"
+defaultTargets = ["Pygtrie"]
+
+[[lean_lib]]
+name = "Pygtrie"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

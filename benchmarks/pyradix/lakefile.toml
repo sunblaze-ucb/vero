@@ -1,0 +1,8 @@
+name = "pyradix"
+version = "0.1.0"
+defaultTargets = ["Pyradix"]
+
+[[lean_lib]]
+name = "Pyradix"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

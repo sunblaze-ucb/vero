@@ -1,0 +1,3 @@
+path: benchmarks/packaging_version
+id: packaging_version
+default_mode: proof

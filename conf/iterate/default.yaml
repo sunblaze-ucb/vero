@@ -1,0 +1,16 @@
+# iterate=default — five retries on top of the initial attempt, with evaluation feedback threaded between iterations.
+#
+# Each iteration gets its own fresh sandbox under <run>/iter-N/source/ and (because mode=eval) its own eval under <run>/iter-N/eval/<eval.name>/. Between iterations, the previous eval's report.md lands at iter-<N+1>/source/FEEDBACK.md and the rendered INSTRUCTION references it.
+#
+# Fields:
+#   max           — iterations AFTER the first (total passes = max + 1).
+#   mode          — "eval" runs eval between iters and feeds the report back; "self" skips eval and just nudges the agent to self-assess.
+#   feedback      — true (default): pass prior info into the next iter. false: blind iteration — eval still runs (for grading + stop_on_done) but the next iter sees no FEEDBACK.md / nudge.
+#   stop_on_done  — bail out as soon as all specs pass + build_ok.
+#   budget_usd    — cumulative cost cap across iterations (null = no cap). Now enforced for every backend: codex's $-cost is computed from tokens via vero.generation.pricing.
+
+max: 5
+mode: eval
+feedback: true
+stop_on_done: true
+budget_usd: null

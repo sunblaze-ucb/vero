@@ -1,0 +1,8 @@
+name = "ipaddress"
+version = "0.1.0"
+defaultTargets = ["Ipaddress"]
+
+[[lean_lib]]
+name = "Ipaddress"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

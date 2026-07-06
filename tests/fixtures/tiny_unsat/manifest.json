@@ -1,0 +1,76 @@
+{
+  "benchmark_id": "tiny_unsat",
+  "description": "Tiny fixture exercising eval's unsat_<S> and joint_unsat paths.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["codeproof"],
+  "source": {
+    "name": null,
+    "language": null,
+    "repo_url": null,
+    "commit_hash": null,
+    "path": null
+  },
+  "curation": {
+    "date": "2026-04-19"
+  },
+  "root_package": "TinyUnsat",
+  "files": {
+    "root_hub": "TinyUnsat.lean",
+    "harness": "TinyUnsat/Harness.lean",
+    "test": "TinyUnsat/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "TinyUnsat",
+      "bundle": "TinyUnsat/Bundle.lean",
+      "bundle_type": "TinyUnsatBundle",
+      "repo_impl_field": "tiny",
+      "modules": [
+        {
+          "name": "Core",
+          "impl": "TinyUnsat/Impl/Core.lean",
+          "spec": "TinyUnsat/Spec/Core.lean",
+          "apis": [
+            {
+              "name": "answer",
+              "sig": "AnswerSig",
+              "type": "Nat",
+              "source_id": "TinyUnsat/Impl/Core.lean:answer:23",
+              "source_file": "TinyUnsat/Impl/Core.lean",
+              "source_line": 23,
+              "source_signature": "def TU.answer : TU.AnswerSig",
+              "upstream_name": "answer"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_impossible",
+              "source_id": "TinyUnsat/Spec/Core.lean:spec_impossible:16",
+              "source_file": "TinyUnsat/Spec/Core.lean",
+              "source_line": 16,
+              "source_signature": "def spec_impossible (impl : RepoImpl) : Prop",
+              "source_theorem": "spec_impossible"
+            },
+            {
+              "name": "spec_answer_is_one",
+              "source_id": "TinyUnsat/Spec/Core.lean:spec_answer_is_one:20",
+              "source_file": "TinyUnsat/Spec/Core.lean",
+              "source_line": 20,
+              "source_signature": "def spec_answer_is_one (impl : RepoImpl) : Prop",
+              "source_theorem": "spec_answer_is_one"
+            },
+            {
+              "name": "spec_answer_is_two",
+              "source_id": "TinyUnsat/Spec/Core.lean:spec_answer_is_two:24",
+              "source_file": "TinyUnsat/Spec/Core.lean",
+              "source_line": 24,
+              "source_signature": "def spec_answer_is_two (impl : RepoImpl) : Prop",
+              "source_theorem": "spec_answer_is_two"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

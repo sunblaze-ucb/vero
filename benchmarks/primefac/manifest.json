@@ -1,0 +1,102 @@
+{
+  "benchmark_id": "primefac",
+  "description": "Integer prime factorization modelled on the primefac library: isprime/iterprod/primefac with a Fundamental-Theorem-of-Arithmetic closure on the factorization anchored on the frozen divisibility relation. The load-bearing anchor is spec_isprime_oracle, a biconditional pinning the primality test to the frozen `∣` (isprime n ↔ 2 ≤ n ∧ every divisor is 1 or n) — a unique mathematical characterization, NOT agreement with a copyable sieve body — so both degenerate constant predicates are rejected and every downstream factorization law inherits genuine primality. The factorization is pinned by the FTA closure (product = n via the frozen iterprod product, every element prime via the pinned isprime, output sorted nondecreasing via the frozen ≤), upgraded to a unique-answer characterization by spec_primefac_unique (any sorted prime list multiplying to n equals primefac n), so no lookup-table impl over the unbounded Nat domain can pass. The isprime completeness obligations are stated in BOTH directions (no nontrivial divisor of a prime, and primality from the absence of small divisors) and the composite-witness existential is paired with its completeness partner; the deep factorization obligations include uniqueness, prime-self (a prime factors to itself), prime-divisor membership (no prime factor is omitted), and per-element divisibility. iterprod freezes the product operation (nil/cons/append/ground-truth-agreement) so the product law cannot be satisfied by a fudged product. Scope: the benchmark models the closed package core (isprime, the list product iterprod, primefac) over Nat; it does NOT model the probabilistic primality tests, Pollard-rho/ECM factoring engines, or the multiplicity (factorint exponent-dictionary) views of the upstream library — the factorization is returned as a nondecreasing Nat list, the canonical presentation of the prime multiset.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/elliptic-shiho/primefac-fork",
+    "commit_hash": "28adf4aa306138ace64cdc812ca380d01338f8c6",
+    "path": ["primefac/primefac.py", "primefac/_primefac/__init__.py", "primefac/_primefac/_prime.py", "primefac/_primefac/_util.py", "primefac/_primefac/_arith.py"],
+    "name": "primefac"
+  },
+  "curation": {
+    "date": "2026-06-30"
+  },
+  "root_package": "Primefac",
+  "files": {
+    "root_hub": "Primefac.lean",
+    "harness": "Primefac/Harness.lean",
+    "test": "Primefac/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Primefac",
+      "bundle": "Primefac/Bundle.lean",
+      "bundle_type": "PrimefacBundle",
+      "repo_impl_field": "primefac",
+      "modules": [
+        {
+          "name": "Factor",
+          "impl": "Primefac/Impl/Factor.lean",
+          "spec": "Primefac/Spec/Factor.lean",
+          "apis": [
+            {"name": "isprime",  "sig": "IsprimeSig",  "type": "Nat → Bool"},
+            {"name": "iterprod", "sig": "IterprodSig", "type": "List Nat → Nat"},
+            {"name": "primefac", "sig": "PrimefacSig", "type": "Nat → List Nat"}
+          ],
+          "specs": [
+            "spec_isprime_oracle",
+            "spec_isprime_zero",
+            "spec_isprime_one",
+            "spec_isprime_two",
+            "spec_isprime_ge_two",
+            "spec_isprime_no_divisor",
+            "spec_isprime_of_no_small_divisor",
+            "spec_isprime_has_divisor",
+            "spec_iterprod_nil",
+            "spec_iterprod_cons",
+            "spec_iterprod_append",
+            "spec_iterprod_correct",
+            "spec_primefac_one",
+            "spec_primefac_product",
+            "spec_primefac_allprime",
+            "spec_primefac_sorted",
+            "spec_primefac_nonempty",
+            "spec_primefac_ge_two",
+            "spec_primefac_dvd",
+            "spec_primefac_unique",
+            "spec_primefac_prime_self",
+            "spec_primefac_prime_mem",
+            "spec_primefac_unique_general",
+            "spec_isprime_iff_singleton",
+            "spec_primefac_mul",
+            "spec_primefac_count_mul",
+            "spec_primefac_valuation",
+            "spec_primefac_squarefree",
+            "spec_primefac_omega_mul",
+            "spec_primefac_prime_pow",
+            "spec_primefac_count_pow",
+            "spec_primefac_omega_pow",
+            "spec_primefac_least",
+            "spec_primefac_head_le_iff",
+            "spec_primefac_first_occurrence_index",
+            "spec_primefac_prime_list_count",
+            "spec_primefac_gcd_count_min",
+            "spec_primefac_prime_power_packet_count",
+            "spec_primefac_refactor_filtered_prime_counts",
+            "spec_primefac_factor_block",
+            "spec_primefac_lcm_count_max",
+            "spec_primefac_gcd_one_iff_disjoint",
+            "spec_primefac_omega_gcd_lcm_conservation",
+            "spec_primefac_split_exact_prime_power",
+            "spec_primefac_divisor_count_product",
+            "spec_primefac_distinct_mul_inclusion",
+            "spec_primefac_radical_factorization",
+            "spec_primefac_radical_dvd",
+            "spec_primefac_radical_squarefree",
+            "spec_primefac_radical_pow_invariant",
+            "spec_primefac_radical_mul_gcd",
+            "spec_primefac_squarefree_iff_radical",
+            "spec_primefac_tau_coprime_mul",
+            "spec_primefac_tau_odd_iff_square",
+            "spec_primefac_perfect_power_iff",
+            "spec_primefac_divisor_sum_product"
+          ]
+        }
+      ]
+    }
+  ]
+}

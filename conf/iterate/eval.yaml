@@ -1,0 +1,7 @@
+# iterate=eval — identical semantics to iterate=default. Explicit alias for clarity when a config writer wants to name the mode at the call site (``vero run iterate=eval``).
+
+max: 5
+mode: eval
+feedback: true
+stop_on_done: true
+budget_usd: null

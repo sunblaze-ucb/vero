@@ -1,0 +1,8 @@
+name = "deposit_sc"
+version = "0.1.0"
+defaultTargets = ["DepositSc"]
+
+[[lean_lib]]
+name = "DepositSc"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

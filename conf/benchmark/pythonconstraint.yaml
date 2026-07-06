@@ -1,0 +1,3 @@
+path: benchmarks/pythonconstraint
+id: pythonconstraint
+default_mode: proof

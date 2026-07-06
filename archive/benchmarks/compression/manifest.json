@@ -1,0 +1,183 @@
+{
+  "benchmark_id": "compression",
+  "description": "Five classical compression / encoding algorithms from TheAlgorithms/Python: Huffman coding, Burrows-Wheeler transform, LZ77, run-length encoding, and coordinate compression.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "language": "python",
+    "repo_url": "https://github.com/TheAlgorithms/Python",
+    "commit_hash": "8f1a6b0ca0cbe563ea3f48c43695a07959b923a1",
+    "path": "compression/"
+  },
+  "curation": {
+    "date": "2026-04-26"
+  },
+  "root_package": "Compression",
+  "files": {
+    "root_hub": "Compression.lean",
+    "harness": "Compression/Harness.lean",
+    "test": "Compression/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Compression",
+      "bundle": "Compression/Bundle.lean",
+      "bundle_type": "CompressionBundle",
+      "repo_impl_field": "compression",
+      "modules": [
+        {
+          "name": "Huffman",
+          "impl": "Compression/Impl/Huffman.lean",
+          "spec": "Compression/Spec/Huffman.lean",
+          "apis": [
+            {
+              "name": "traverse_tree",
+              "sig": "TraverseTreeSig",
+              "type": "HuffmanTree \u2192 String \u2192 List (String \u00d7 String)"
+            },
+            {
+              "name": "build_tree",
+              "sig": "BuildTreeSig",
+              "type": "List Letter \u2192 Option HuffmanTree"
+            }
+          ],
+          "specs": [
+            "spec_huffman_traverse_leaf",
+            "spec_huffman_traverse_node",
+            "spec_huffman_traverse_with_prefix",
+            "spec_huffman_build_empty",
+            "spec_huffman_build_nonempty",
+            "spec_huffman_build_traverse_count",
+            "spec_huffman_build_preserves_letters",
+            "spec_huffman_build_frequency_sum",
+            "spec_huffman_build_prefix_free"
+          ]
+        },
+        {
+          "name": "BurrowsWheeler",
+          "impl": "Compression/Impl/BurrowsWheeler.lean",
+          "spec": "Compression/Spec/BurrowsWheeler.lean",
+          "apis": [
+            {
+              "name": "all_rotations",
+              "sig": "AllRotationsSig",
+              "type": "String \u2192 List String"
+            },
+            {
+              "name": "bwt_transform",
+              "sig": "BwtTransformSig",
+              "type": "String \u2192 BWTTransformDict"
+            },
+            {
+              "name": "reverse_bwt",
+              "sig": "ReverseBwtSig",
+              "type": "String \u2192 Int \u2192 String"
+            }
+          ],
+          "specs": [
+            "spec_bwt_all_rotations_length",
+            "spec_bwt_all_rotations_exact",
+            "spec_bwt_all_rotations_empty",
+            "spec_bwt_all_rotations_singleton",
+            "spec_bwt_transform_empty",
+            "spec_bwt_transform_length_preserved",
+            "spec_bwt_reverse_empty",
+            "spec_bwt_roundtrip"
+          ],
+          "spec_helpers": [
+            "spec_bwt_roundtrip_canonical",
+            "spec_bwt_roundtrip_mississippi",
+            "spec_bwt_roundtrip_all"
+          ]
+        },
+        {
+          "name": "Lz77",
+          "impl": "Compression/Impl/Lz77.lean",
+          "spec": "Compression/Spec/Lz77.lean",
+          "apis": [
+            {
+              "name": "LZ77Compressor.compress",
+              "sig": "LZ77CompressSig",
+              "type": "LZ77Compressor \u2192 String \u2192 List Token"
+            },
+            {
+              "name": "LZ77Compressor.decompress",
+              "sig": "LZ77DecompressSig",
+              "type": "LZ77Compressor \u2192 List Token \u2192 String"
+            }
+          ],
+          "specs": [
+            "spec_lz77_compress_empty",
+            "spec_lz77_decompress_empty",
+            "spec_lz77_compress_singleton",
+            "spec_lz77_roundtrip",
+            "spec_lz77_roundtrip_simple",
+            "spec_lz77_decompress_canonical"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "RunLengthEncoding",
+          "impl": "Compression/Impl/RunLengthEncoding.lean",
+          "spec": "Compression/Spec/RunLengthEncoding.lean",
+          "apis": [
+            {
+              "name": "run_length_encode",
+              "sig": "RunLengthEncodeSig",
+              "type": "String \u2192 String"
+            },
+            {
+              "name": "run_length_decode",
+              "sig": "RunLengthDecodeSig",
+              "type": "String \u2192 String"
+            }
+          ],
+          "specs": [
+            "spec_rle_encode_empty",
+            "spec_rle_decode_empty",
+            "spec_rle_encode_singleton",
+            "spec_rle_roundtrip_nondigit",
+            "spec_rle_roundtrip_concrete",
+            "spec_rle_roundtrip_long",
+            "spec_rle_decode_multidigit"
+          ],
+          "spec_helpers": [
+            "spec_rle_helper_noDigitChars"
+          ]
+        },
+        {
+          "name": "CoordinateCompression",
+          "impl": "Compression/Impl/CoordinateCompression.lean",
+          "spec": "Compression/Spec/CoordinateCompression.lean",
+          "apis": [
+            {
+              "name": "CoordinateCompressor.decompress",
+              "sig": "CoordDecompressSig",
+              "type": "CoordinateCompressor \u03b1 \u2192 Nat \u2192 Option \u03b1"
+            },
+            {
+              "name": "CoordinateCompressor.compress",
+              "sig": "CoordCompressSig",
+              "type": "CoordinateCompressor \u03b1 \u2192 \u03b1 \u2192 Option Nat"
+            }
+          ],
+          "specs": [
+            "spec_coord_compress_empty",
+            "spec_coord_decompress_empty",
+            "spec_coord_compress_present",
+            "spec_coord_compress_absent",
+            "spec_coord_decompress_in_range",
+            "spec_coord_decompress_out_of_range",
+            "spec_coord_roundtrip_present",
+            "spec_coord_compress_exact_first_index",
+            "spec_coord_decompress_exact_index"
+          ]
+        }
+      ]
+    }
+  ]
+}

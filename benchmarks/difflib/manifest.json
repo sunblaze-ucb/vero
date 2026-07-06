@@ -1,0 +1,95 @@
+{
+  "benchmark_id": "difflib",
+  "description": "Longest-contiguous-match core of CPython's difflib.SequenceMatcher (autojunk=False, isjunk=None): findLongestMatch/getMatchingBlocks/matchSize with witness-maximality-tie-break specs anchored on a frozen common-block notion (isCommonBlock, stated with List.drop/List.take). findLongestMatch returns the UNIQUE canonical longest common contiguous block (i,j,k) under the total order k maximal -> i minimal -> j minimal: the returned block is a genuine common run (witness), no common run is longer (maximality, load-bearing), and it is the canonically least such maximal block (i-min then j-min tie-break) -> unique. Witness alone is gamed by (0,0,0), so maximality and the tie-break are mandatory. getMatchingBlocks is specified by STRUCTURAL invariants anchored to findLongestMatch (every emitted block is a genuine common block, each block size <= the global longest match, monotone, sentinel (|a|,|b|,0) terminator, never empty), NOT against a reference diff. Deliberate scope: ONLY the per-call find_longest_match property + get_matching_blocks structural invariants are specified; the OVERALL Ratcliff-Obershelp diff is GREEDY, NOT a global optimum, so no spec claims global minimality of the block decomposition (that would be unsound). matchSize is a derived observer (third component of findLongestMatch). ratio/quick_ratio are excluded (Float). Sequences are List Nat.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/python/cpython",
+    "commit_hash": "669299b62f6c2176d4bedcf550fb9baaabd6a9d6",
+    "path": "Lib/difflib.py",
+    "name": "difflib"
+  },
+  "curation": {
+    "date": "2026-06-30"
+  },
+  "root_package": "Difflib",
+  "files": {
+    "root_hub": "Difflib.lean",
+    "harness": "Difflib/Harness.lean",
+    "test": "Difflib/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Difflib",
+      "bundle": "Difflib/Bundle.lean",
+      "bundle_type": "DifflibBundle",
+      "repo_impl_field": "difflib",
+      "modules": [
+        {
+          "name": "SequenceMatcher",
+          "impl": "Difflib/Impl/SequenceMatcher.lean",
+          "spec": "Difflib/Spec/SequenceMatcher.lean",
+          "apis": [
+            {"name": "findLongestMatch",  "sig": "FindLongestMatchSig",  "type": "Sequence → Sequence → Block"},
+            {"name": "getMatchingBlocks", "sig": "GetMatchingBlocksSig", "type": "Sequence → Sequence → List Block"},
+            {"name": "matchSize",         "sig": "MatchSizeSig",         "type": "Sequence → Sequence → Nat"}
+          ],
+          "specs": [
+            "spec_flm_witness",
+            "spec_flm_maximal",
+            "spec_flm_bounds",
+            "spec_flm_tiebreak_i",
+            "spec_flm_tiebreak_j",
+            "spec_flm_unique",
+            "spec_flm_empty_left",
+            "spec_flm_empty_right",
+            "spec_flm_size_pos_iff",
+            "spec_flm_size_le",
+            "spec_flm_self",
+            "spec_matchSize_correct",
+            "spec_matchSize_maximal",
+            "spec_gmb_sentinel",
+            "spec_gmb_nonempty",
+            "spec_gmb_blocks_common",
+            "spec_gmb_block_size_le_flm",
+            "spec_gmb_empty",
+            "spec_gmb_contains_flm",
+            "spec_gmb_adjacent_nonoverlap",
+            "spec_gmb_interior_positive",
+            "spec_gmb_total_len_le",
+            "spec_gmb_max_block_is_flm",
+            "spec_gmb_recursive_second_block",
+            "spec_flm_dominates_all",
+            "spec_flm_extend_blocked",
+            "spec_gmb_start_i_strict",
+            "spec_gmb_start_i_nodup",
+            "spec_gmb_start_j_strict",
+            "spec_gmb_exactly_one_zero_length",
+            "spec_flm_first_i_common",
+            "spec_flm_first_j_common",
+            "spec_gmb_left_residual_emitted",
+            "spec_gmb_left_residual_flm",
+            "spec_gmb_right_residual_emitted",
+            "spec_gmb_right_residual_flm",
+            "spec_gmb_prefix_before_first_empty",
+            "spec_gmb_gap_empty",
+            "spec_flm_left_extend_blocked",
+            "spec_flm_run_exact_at_result",
+            "spec_flm_no_diagonal_left_superblock",
+            "spec_gmb_partition_around_flm",
+            "spec_gmb_lex_order_reflects_indices",
+            "spec_gmb_length_le_shorter_plus_one",
+            "spec_gmb_each_positive_block_local_flm",
+            "spec_gmb_gap_blocks_sentinel_only",
+            "spec_gmb_neighbor_window_blocks_exact",
+            "spec_gmb_recursive_split_exact",
+            "spec_gmb_first_block_is_flm_iff_no_left_residual"
+          ]
+        }
+      ]
+    }
+  ]
+}

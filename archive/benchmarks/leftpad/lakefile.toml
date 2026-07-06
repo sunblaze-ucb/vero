@@ -1,0 +1,8 @@
+name = "Leftpad"
+version = "0.1.0"
+defaultTargets = ["Leftpad"]
+
+[[lean_lib]]
+name = "Leftpad"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

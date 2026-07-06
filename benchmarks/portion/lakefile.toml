@@ -1,0 +1,8 @@
+name = "portion"
+version = "0.1.0"
+defaultTargets = ["Portion"]
+
+[[lean_lib]]
+name = "Portion"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

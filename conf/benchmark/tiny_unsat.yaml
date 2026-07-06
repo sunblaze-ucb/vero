@@ -1,0 +1,3 @@
+path: tests/fixtures/tiny_unsat
+id: tiny_unsat
+default_mode: codeproof

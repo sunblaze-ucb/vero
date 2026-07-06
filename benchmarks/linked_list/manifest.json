@@ -1,0 +1,627 @@
+{
+  "benchmark_id": "linked_list",
+  "description": "Lean 4 benchmark for linked list data structures, translated from TheAlgorithms/Python.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/TheAlgorithms/Python.git",
+    "commit_hash": "7a0fee401d2990bd5904e94cd5d3a62c50a8b682",
+    "path": "data_structures/linked_list"
+  },
+  "curation": {
+    "date": "2026-04-26"
+  },
+  "root_package": "LinkedList",
+  "files": {
+    "root_hub": "LinkedList.lean",
+    "harness": "LinkedList/Harness.lean",
+    "test": "LinkedList/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "LinkedList",
+      "bundle": "LinkedList/Bundle.lean",
+      "bundle_type": "LinkedListBundle",
+      "repo_impl_field": "linkedList",
+      "modules": [
+        {
+          "name": "SinglyLinkedList",
+          "impl": "LinkedList/Impl/SinglyLinkedList.lean",
+          "spec": "LinkedList/Spec/SinglyLinkedList.lean",
+          "apis": [
+            {
+              "name": "sll_insertHead",
+              "sig": "SLL.InsertHeadSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "sll_insertTail",
+              "sig": "SLL.InsertTailSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "sll_insertNth",
+              "sig": "SLL.InsertNthSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Nat \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "sll_deleteHead",
+              "sig": "SLL.DeleteHeadSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option (\u03b1 \u00d7 List \u03b1)"
+            },
+            {
+              "name": "sll_deleteTail",
+              "sig": "SLL.DeleteTailSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option (\u03b1 \u00d7 List \u03b1)"
+            },
+            {
+              "name": "sll_deleteNth",
+              "sig": "SLL.DeleteNthSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Nat \u2192 Option (\u03b1 \u00d7 List \u03b1)"
+            },
+            {
+              "name": "sll_isEmpty",
+              "sig": "SLL.IsEmptySig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Bool"
+            },
+            {
+              "name": "sll_reverse",
+              "sig": "SLL.ReverseSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 List \u03b1"
+            }
+          ],
+          "specs": [
+            "spec_sll_insertHead_cons",
+            "spec_sll_insertTail_snoc",
+            "spec_sll_insertNth_split",
+            "spec_sll_deleteHead_cases",
+            "spec_sll_deleteTail_cases",
+            "spec_sll_deleteNth_cases",
+            "spec_sll_isEmpty_iff_nil",
+            "spec_sll_reverse_eq_listReverse",
+            "spec_sll_reverse_involutive",
+            "spec_sll_insert_delete_roundtrips_and_length",
+            "spec_sll_empty_list_law"
+          ]
+        },
+        {
+          "name": "FromSequence",
+          "impl": "LinkedList/Impl/FromSequence.lean",
+          "spec": "LinkedList/Spec/FromSequence.lean",
+          "apis": [
+            {
+              "name": "fromSeq_makeLinkedList",
+              "sig": "FromSeq.MakeLinkedListSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option (List \u03b1)"
+            }
+          ],
+          "specs": [
+            "spec_fromSeq_makeLinkedList_cases"
+          ]
+        },
+        {
+          "name": "DoublyLinkedList",
+          "impl": "LinkedList/Impl/DoublyLinkedList.lean",
+          "spec": "LinkedList/Spec/DoublyLinkedList.lean",
+          "apis": [
+            {
+              "name": "dll_insertAtHead",
+              "sig": "DLL.InsertAtHeadSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "dll_insertAtTail",
+              "sig": "DLL.InsertAtTailSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "dll_insertAtNth",
+              "sig": "DLL.InsertAtNthSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Nat \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "dll_deleteHead",
+              "sig": "DLL.DeleteHeadSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option (\u03b1 \u00d7 List \u03b1)"
+            },
+            {
+              "name": "dll_deleteTail",
+              "sig": "DLL.DeleteTailSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option (\u03b1 \u00d7 List \u03b1)"
+            },
+            {
+              "name": "dll_deleteAtNth",
+              "sig": "DLL.DeleteAtNthSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Nat \u2192 Option (\u03b1 \u00d7 List \u03b1)"
+            },
+            {
+              "name": "dll_deleteData",
+              "sig": "DLL.DeleteDataSig",
+              "type": "{\u03b1 : Type} \u2192 [BEq \u03b1] \u2192 List \u03b1 \u2192 \u03b1 \u2192 Option (\u03b1 \u00d7 List \u03b1)"
+            },
+            {
+              "name": "dll_isEmpty",
+              "sig": "DLL.IsEmptySig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_dll_insertAtHead_cons",
+            "spec_dll_insertAtTail_snoc",
+            "spec_dll_insertAtNth_split",
+            "spec_dll_deleteHead_cases",
+            "spec_dll_deleteTail_cases",
+            "spec_dll_deleteAtNth_cases",
+            "spec_dll_deleteData_first_match",
+            "spec_dll_isEmpty_iff_nil",
+            "spec_dll_matches_sll_on_shared_ops",
+            "spec_dll_empty_list_law",
+            "spec_dll_insertAtHead_deleteHead_roundtrip",
+            "spec_dll_insertAtTail_deleteTail_roundtrip"
+          ]
+        },
+        {
+          "name": "CircularLinkedList",
+          "impl": "LinkedList/Impl/CircularLinkedList.lean",
+          "spec": "LinkedList/Spec/CircularLinkedList.lean",
+          "apis": [
+            {
+              "name": "cll_insertHead",
+              "sig": "CLL.InsertHeadSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "cll_insertTail",
+              "sig": "CLL.InsertTailSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "cll_insertNth",
+              "sig": "CLL.InsertNthSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Nat \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "cll_deleteFront",
+              "sig": "CLL.DeleteFrontSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option (\u03b1 \u00d7 List \u03b1)"
+            },
+            {
+              "name": "cll_deleteTail",
+              "sig": "CLL.DeleteTailSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option (\u03b1 \u00d7 List \u03b1)"
+            },
+            {
+              "name": "cll_deleteNth",
+              "sig": "CLL.DeleteNthSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Nat \u2192 Option (\u03b1 \u00d7 List \u03b1)"
+            },
+            {
+              "name": "cll_isEmpty",
+              "sig": "CLL.IsEmptySig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_cll_insertHead_cons",
+            "spec_cll_insertTail_snoc",
+            "spec_cll_insertNth_split",
+            "spec_cll_deleteFront_cases",
+            "spec_cll_deleteTail_cases",
+            "spec_cll_deleteNth_cases",
+            "spec_cll_isEmpty_iff_nil",
+            "spec_cll_matches_sll",
+            "spec_cll_empty_list_law",
+            "spec_cll_insertHead_deleteFront_roundtrip",
+            "spec_cll_insertTail_deleteTail_roundtrip"
+          ]
+        },
+        {
+          "name": "DequeDoubly",
+          "impl": "LinkedList/Impl/DequeDoubly.lean",
+          "spec": "LinkedList/Spec/DequeDoubly.lean",
+          "apis": [
+            {
+              "name": "deque_first",
+              "sig": "Deque.FirstSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option \u03b1"
+            },
+            {
+              "name": "deque_last",
+              "sig": "Deque.LastSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option \u03b1"
+            },
+            {
+              "name": "deque_addFirst",
+              "sig": "Deque.AddFirstSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "deque_addLast",
+              "sig": "Deque.AddLastSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "deque_removeFirst",
+              "sig": "Deque.RemoveFirstSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option (\u03b1 \u00d7 List \u03b1)"
+            },
+            {
+              "name": "deque_removeLast",
+              "sig": "Deque.RemoveLastSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option (\u03b1 \u00d7 List \u03b1)"
+            },
+            {
+              "name": "deque_isEmpty",
+              "sig": "Deque.IsEmptySig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_deque_first_head",
+            "spec_deque_last_getLast",
+            "spec_deque_addFirst_cons",
+            "spec_deque_addLast_snoc",
+            "spec_deque_removeFirst_cases",
+            "spec_deque_removeLast_cases",
+            "spec_deque_isEmpty_iff_nil",
+            "spec_deque_addFirst_first_inverse",
+            "spec_deque_addLast_last_inverse",
+            "spec_deque_empty_list_law"
+          ]
+        },
+        {
+          "name": "MiddleElementOfLinkedList",
+          "impl": "LinkedList/Impl/MiddleElementOfLinkedList.lean",
+          "spec": "LinkedList/Spec/MiddleElementOfLinkedList.lean",
+          "apis": [
+            {
+              "name": "midll_push",
+              "sig": "MidLL.PushSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "midll_middleElement",
+              "sig": "MidLL.MiddleElementSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option \u03b1"
+            }
+          ],
+          "specs": [
+            "spec_midll_push_cons",
+            "spec_midll_middleElement_cases",
+            "spec_midll_middleElement_singleton"
+          ]
+        },
+        {
+          "name": "LinkedListInit",
+          "impl": "LinkedList/Impl/LinkedListInit.lean",
+          "spec": "LinkedList/Spec/LinkedListInit.lean",
+          "apis": [
+            {
+              "name": "lli_add",
+              "sig": "LLI.AddSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 \u03b1 \u2192 Nat \u2192 List \u03b1"
+            },
+            {
+              "name": "lli_remove",
+              "sig": "LLI.RemoveSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option (\u03b1 \u00d7 List \u03b1)"
+            },
+            {
+              "name": "lli_isEmpty",
+              "sig": "LLI.IsEmptySig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Bool"
+            },
+            {
+              "name": "lli_length",
+              "sig": "LLI.LengthSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Nat"
+            }
+          ],
+          "specs": [
+            "spec_lli_add_split",
+            "spec_lli_remove_cases",
+            "spec_lli_isEmpty_iff_nil",
+            "spec_lli_length_eq_listLength",
+            "spec_lli_add_increases_length"
+          ]
+        },
+        {
+          "name": "SkipList",
+          "impl": "LinkedList/Impl/SkipList.lean",
+          "spec": "LinkedList/Spec/SkipList.lean",
+          "apis": [
+            {
+              "name": "skipl_insert",
+              "sig": "SkipL.InsertSig",
+              "type": "{\u03ba \u03bd : Type} \u2192 [Ord \u03ba] \u2192 List (\u03ba \u00d7 \u03bd) \u2192 \u03ba \u2192 \u03bd \u2192 List (\u03ba \u00d7 \u03bd)"
+            },
+            {
+              "name": "skipl_delete",
+              "sig": "SkipL.DeleteSig",
+              "type": "{\u03ba \u03bd : Type} \u2192 [Ord \u03ba] \u2192 List (\u03ba \u00d7 \u03bd) \u2192 \u03ba \u2192 List (\u03ba \u00d7 \u03bd)"
+            },
+            {
+              "name": "skipl_find",
+              "sig": "SkipL.FindSig",
+              "type": "{\u03ba \u03bd : Type} \u2192 [Ord \u03ba] \u2192 List (\u03ba \u00d7 \u03bd) \u2192 \u03ba \u2192 Option \u03bd"
+            }
+          ],
+          "specs": [
+            "spec_skipl_find_empty",
+            "spec_skipl_find_insert_same",
+            "spec_skipl_find_insert_different",
+            "spec_skipl_find_delete_same",
+            "spec_skipl_lookup_consistency",
+            "spec_skipl_find_delete_different"
+          ]
+        },
+        {
+          "name": "SwapNodes",
+          "impl": "LinkedList/Impl/SwapNodes.lean",
+          "spec": "LinkedList/Spec/SwapNodes.lean",
+          "apis": [
+            {
+              "name": "swap_push",
+              "sig": "Swap.PushSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "swap_swapNodes",
+              "sig": "Swap.SwapNodesSig",
+              "type": "{\u03b1 : Type} \u2192 [BEq \u03b1] \u2192 List \u03b1 \u2192 \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            }
+          ],
+          "specs": [
+            "spec_swap_push_cons",
+            "spec_swap_swapNodes_self_id",
+            "spec_swap_swapNodes_missing_noop",
+            "spec_swap_swapNodes_involutive",
+            "spec_swap_swapNodes_first_occurrence_model"
+          ]
+        },
+        {
+          "name": "DoublyLinkedListTwo",
+          "impl": "LinkedList/Impl/DoublyLinkedListTwo.lean",
+          "spec": "LinkedList/Spec/DoublyLinkedListTwo.lean",
+          "apis": [
+            {
+              "name": "dll2_setHead",
+              "sig": "DLL2.SetHeadSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "dll2_setTail",
+              "sig": "DLL2.SetTailSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "dll2_insert",
+              "sig": "DLL2.InsertSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "dll2_insertAtPosition",
+              "sig": "DLL2.InsertAtPositionSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Nat \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "dll2_deleteValue",
+              "sig": "DLL2.DeleteValueSig",
+              "type": "{\u03b1 : Type} \u2192 [DecidableEq \u03b1] \u2192 List \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "dll2_isEmpty",
+              "sig": "DLL2.IsEmptySig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Bool"
+            },
+            {
+              "name": "dll2_headData",
+              "sig": "DLL2.HeadDataSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option \u03b1"
+            },
+            {
+              "name": "dll2_tailData",
+              "sig": "DLL2.TailDataSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Option \u03b1"
+            }
+          ],
+          "specs": [
+            "spec_dll2_setHead_replaces_head",
+            "spec_dll2_setTail_none_dropLast",
+            "spec_dll2_setTail_some_cases",
+            "spec_dll2_insert_cons",
+            "spec_dll2_insertAtPosition_split",
+            "spec_dll2_deleteValue_filters_all",
+            "spec_dll2_isEmpty_iff_nil",
+            "spec_dll2_headData_eq_head",
+            "spec_dll2_tailData_eq_getLast"
+          ]
+        },
+        {
+          "name": "MergeTwoLists",
+          "impl": "LinkedList/Impl/MergeTwoLists.lean",
+          "spec": "LinkedList/Spec/MergeTwoLists.lean",
+          "apis": [
+            {
+              "name": "merge_fromList",
+              "sig": "Merge.FromListSig",
+              "type": "List Int \u2192 List Int"
+            },
+            {
+              "name": "merge_mergeLists",
+              "sig": "Merge.MergeListsSig",
+              "type": "List Int \u2192 List Int \u2192 List Int"
+            }
+          ],
+          "specs": [
+            "spec_merge_fromList_empty",
+            "spec_merge_fromList_sorted",
+            "spec_merge_fromList_perm",
+            "spec_merge_fromList_idempotent",
+            "spec_merge_mergeLists_left_id",
+            "spec_merge_mergeLists_right_id",
+            "spec_merge_sorted_preserves_shape",
+            "spec_merge_mergeLists_perm_append",
+            "spec_merge_mergeLists_length"
+          ],
+          "spec_helpers": [
+            "spec_helper_isSortedAsc"
+          ]
+        },
+        {
+          "name": "ReverseKGroup",
+          "impl": "LinkedList/Impl/ReverseKGroup.lean",
+          "spec": "LinkedList/Spec/ReverseKGroup.lean",
+          "apis": [
+            {
+              "name": "revk_append",
+              "sig": "RevK.AppendSig",
+              "type": "List Int \u2192 Int \u2192 List Int"
+            },
+            {
+              "name": "revk_reverseKNodes",
+              "sig": "RevK.ReverseKNodesSig",
+              "type": "List Int \u2192 Nat \u2192 List Int"
+            }
+          ],
+          "specs": [
+            "spec_revk_append_snoc",
+            "spec_revk_reverseKNodes_zero",
+            "spec_revk_reverseKNodes_one",
+            "spec_revk_reverseKNodes_short_id",
+            "spec_revk_reverseKNodes_full",
+            "spec_revk_reverseKNodes_length",
+            "spec_revk_reverseKNodes_chunk_model"
+          ]
+        },
+        {
+          "name": "HasLoop",
+          "impl": "LinkedList/Impl/HasLoop.lean",
+          "spec": "LinkedList/Spec/HasLoop.lean",
+          "apis": [
+            {
+              "name": "hasLoop_hasLoop",
+              "sig": "HasLoop.HasLoopSig",
+              "type": "{\u03b1 : Type} \u2192 [BEq \u03b1] \u2192 List \u03b1 \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_hasLoop_detects_duplicate_values",
+            "spec_hasLoop_eq_floyd"
+          ],
+          "spec_helpers": [
+            "spec_helper_hasDuplicate"
+          ]
+        },
+        {
+          "name": "RotateToTheRight",
+          "impl": "LinkedList/Impl/RotateToTheRight.lean",
+          "spec": "LinkedList/Spec/RotateToTheRight.lean",
+          "apis": [
+            {
+              "name": "rotate_insertNode",
+              "sig": "Rotate.InsertNodeSig",
+              "type": "List Int \u2192 Int \u2192 List Int"
+            },
+            {
+              "name": "rotate_rotateToTheRight",
+              "sig": "Rotate.RotateToTheRightSig",
+              "type": "List Int \u2192 Nat \u2192 List Int"
+            }
+          ],
+          "specs": [
+            "spec_rotate_insertNode_snoc",
+            "spec_rotate_zero_id",
+            "spec_rotate_empty_id",
+            "spec_rotate_full_id",
+            "spec_rotate_length_preserved",
+            "spec_rotate_split_form"
+          ]
+        },
+        {
+          "name": "FloydsCycleDetection",
+          "impl": "LinkedList/Impl/FloydsCycleDetection.lean",
+          "spec": "LinkedList/Spec/FloydsCycleDetection.lean",
+          "apis": [
+            {
+              "name": "floyd_addNode",
+              "sig": "Floyd.AddNodeSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "floyd_detectCycle",
+              "sig": "Floyd.DetectCycleSig",
+              "type": "{\u03b1 : Type} \u2192 [BEq \u03b1] \u2192 List \u03b1 \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_floyd_addNode_snoc",
+            "spec_floyd_detectCycle_detects_duplicate_values",
+            "spec_floyd_detectCycle_eq_hasLoop"
+          ],
+          "spec_helpers": [
+            "spec_helper_hasDuplicate"
+          ]
+        },
+        {
+          "name": "IsPalindrome",
+          "impl": "LinkedList/Impl/IsPalindrome.lean",
+          "spec": "LinkedList/Spec/IsPalindrome.lean",
+          "apis": [
+            {
+              "name": "palindrome_isPalindrome",
+              "sig": "Palindrome.IsPalindromeSig",
+              "type": "List Int \u2192 Bool"
+            },
+            {
+              "name": "palindrome_isPalindromeStack",
+              "sig": "Palindrome.IsPalindromeStackSig",
+              "type": "List Int \u2192 Bool"
+            },
+            {
+              "name": "palindrome_isPalindromeDict",
+              "sig": "Palindrome.IsPalindromeDict",
+              "type": "List Int \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_palindrome_isPalindrome_eq_reverse",
+            "spec_palindrome_isPalindromeStack_agrees",
+            "spec_palindrome_isPalindromeDict_agrees",
+            "spec_palindrome_agrees_with_print_reverse",
+            "spec_palindrome_palindrome_lists_true",
+            "spec_palindrome_iff_reverse"
+          ]
+        },
+        {
+          "name": "PrintReverse",
+          "impl": "LinkedList/Impl/PrintReverse.lean",
+          "spec": "LinkedList/Spec/PrintReverse.lean",
+          "apis": [
+            {
+              "name": "printrev_makeLinkedList",
+              "sig": "PrintRev.MakeLinkedListSig",
+              "type": "List Int \u2192 List Int"
+            },
+            {
+              "name": "printrev_inReverse",
+              "sig": "PrintRev.InReverseSig",
+              "type": "List Int \u2192 List Int"
+            }
+          ],
+          "specs": [
+            "spec_printrev_makeLinkedList_id",
+            "spec_printrev_inReverse_eq_reverse",
+            "spec_printrev_inReverse_involutive"
+          ]
+        }
+      ]
+    }
+  ]
+}

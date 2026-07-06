@@ -1,0 +1,111 @@
+{
+  "benchmark_id": "galoistools",
+  "description": "SymPy galoistools core: univariate polynomials over the prime field GF(p), represented as big-endian coefficient lists of Nat (head = leading coefficient, [] = zero polynomial; all coefficients reduced modulo p, no leading zeros). Translated from sympy/polys/galoistools.py. Two modules. Ring (gfAdd/gfSub/gfMul/gfNeg/gfMonic): the GF(p)[x] ring operations, pinned by a commutative-group additive structure (add commutativity/associativity/identity, additive inverse, subtraction=add-of-negation) and a multiplicative structure anchored SEMANTICALLY through the frozen evaluation map polyEval (the ring homomorphism GF(p)[x] -> GF(p) at a point): multiplication is characterized by the evaluation homomorphism polyEval (gfMul f g) x = (polyEval f x * polyEval g x) % p, from which commutativity/associativity/distributivity follow at every field point. gfMonic is pinned to producing a leading coefficient of 1 (leadCoeff (gfMonic f).2 = 1 when the leading coefficient is a unit). Division (gfDiv/gfRem/gfQuo/gfGcd/gfPowMod): the headline gfDiv is Euclidean division f = q*g + r, characterized by the recomposition identity gfAdd (gfMul q g) r = f over a normalized monic divisor together with the remainder degree bound (r = [] or deg r < deg g); gfRem/gfQuo are its projections; gfGcd is the MONIC gcd, pinned to divide both inputs (gfRem f gcd = [] and gfRem g gcd = []), to be MAXIMAL (every common divisor of f and g divides the gcd), to be monic (leadCoeff = 1 when nonzero), to be empty exactly at the double-zero input, and to equal the monic associate at the zero and self boundaries; gfGcdex is extended Euclid, pinned by the BEZOUT identity — writing (s, t, h) = gfGcdex f g p, the cofactors recompose the gcd as gfAdd (gfMul s f) (gfMul t g) = h with h = gfGcd f g (over a prime field with normalized inputs) — plus its double-zero and left-zero boundary laws; gfPowMod is modular exponentiation by repeated squaring, pinned by the zero-exponent unit, the recurrence f^(n+1) mod g = (f^n mod g * f) mod g, and reducedness of the result. All specs anchored on frozen operations (gfStrip, gfDegree, leadCoeff, gfTrunc, polyEval and the frozen ring ops) so each pins a unique answer; the field laws that require an invertible modulus carry a frozen PrimeField p hypothesis (1 < p with trial-division primality), since SymPy's GF(p) requires a prime modulus. Everything is discrete Nat/Int over %, *, +, -; no Float. invMod is total/terminating via a fuel-bounded extended Euclid; division/gcd/powmod loops are fuel-bounded. Scope: the benchmark models the ring operations, Euclidean division with its identity + uniqueness + degree bound, the monic gcd divide-both/maximality/normalization/boundary laws, extended-Euclid Bezout (gfGcdex: s*f + t*g = h = gfGcd), and modular exponentiation recurrence/reducedness. Full modular-exponentiation multiplicativity (f^n mod g as a semantic power via polyEval) is OUT of scope (mathlib-scale ring-theory proof).",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/sympy/sympy",
+    "commit_hash": "2f9c274d2021b5a43de627f703d3a8f8955a1038",
+    "path": ["sympy/polys/galoistools.py"],
+    "name": "sympy"
+  },
+  "curation": {
+    "date": "2026-07-04"
+  },
+  "root_package": "Galoistools",
+  "files": {
+    "root_hub": "Galoistools.lean",
+    "harness": "Galoistools/Harness.lean",
+    "test": "Galoistools/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Galoistools",
+      "bundle": "Galoistools/Bundle.lean",
+      "bundle_type": "GaloistoolsBundle",
+      "repo_impl_field": "galoistools",
+      "modules": [
+        {
+          "name": "Ring",
+          "impl": "Galoistools/Impl/Ring.lean",
+          "spec": "Galoistools/Spec/Ring.lean",
+          "apis": [
+            {"name": "gfAdd",   "sig": "GfAddSig",   "type": "List Nat → List Nat → Nat → List Nat"},
+            {"name": "gfSub",   "sig": "GfSubSig",   "type": "List Nat → List Nat → Nat → List Nat"},
+            {"name": "gfMul",   "sig": "GfMulSig",   "type": "List Nat → List Nat → Nat → List Nat"},
+            {"name": "gfNeg",   "sig": "GfNegSig",   "type": "List Nat → Nat → List Nat"},
+            {"name": "gfMonic", "sig": "GfMonicSig", "type": "List Nat → Nat → (Nat × List Nat)"}
+          ],
+          "specs": [
+            "spec_add_zero",
+            "spec_add_comm",
+            "spec_add_assoc_eval",
+            "spec_add_neg_cancel",
+            "spec_sub_eq_add_neg",
+            "spec_mul_one",
+            "spec_mul_zero",
+            "spec_mul_degree_add",
+            "spec_mul_zero_iff",
+            "spec_mul_eval_hom",
+            "spec_sub_eval_hom",
+            "spec_mul_comm_eval",
+            "spec_mul_assoc_eval",
+            "spec_mul_add_distrib_eval",
+            "spec_monic_leadCoeff_one",
+            "spec_monic_already",
+            "spec_monic_mul_associate"
+          ]
+        },
+        {
+          "name": "Division",
+          "impl": "Galoistools/Impl/Division.lean",
+          "spec": "Galoistools/Spec/Division.lean",
+          "apis": [
+            {"name": "gfDiv",    "sig": "GfDivSig",    "type": "List Nat → List Nat → Nat → (List Nat × List Nat)"},
+            {"name": "gfRem",    "sig": "GfRemSig",    "type": "List Nat → List Nat → Nat → List Nat"},
+            {"name": "gfQuo",    "sig": "GfQuoSig",    "type": "List Nat → List Nat → Nat → List Nat"},
+            {"name": "gfGcd",    "sig": "GfGcdSig",    "type": "List Nat → List Nat → Nat → List Nat"},
+            {"name": "gfGcdex",  "sig": "GfGcdexSig",  "type": "List Nat → List Nat → Nat → (List Nat × List Nat × List Nat)"},
+            {"name": "gfPowMod", "sig": "GfPowModSig", "type": "List Nat → Nat → List Nat → Nat → List Nat"}
+          ],
+          "specs": [
+            "spec_rem_is_div_snd",
+            "spec_quo_is_div_fst",
+            "spec_div_identity",
+            "spec_div_unique",
+            "spec_div_deg_bound",
+            "spec_div_small",
+            "spec_rem_idempotent",
+            "spec_gcd_divides_both",
+            "spec_gcd_maximal",
+            "spec_gcd_monic",
+            "spec_gcd_self",
+            "spec_gcd_zero_right",
+            "spec_gcd_empty_iff",
+            "spec_powmod_zero",
+            "spec_powmod_recurrence",
+            "spec_powmod_reduced",
+            "spec_gcdex_both_empty",
+            "spec_gcdex_left_zero_gcd",
+            "spec_gcdex_bezout",
+            "spec_rem_add_congr",
+            "spec_rem_mul_congr",
+            "spec_rem_coset_invariant",
+            "spec_exact_quo_mul",
+            "spec_div_eval_reconstruction",
+            "spec_gcd_comm",
+            "spec_gcd_degree_le_inputs",
+            "spec_gcd_roots_common",
+            "spec_gcdex_cofactor_deg_bound",
+            "spec_powmod_add_exponent",
+            "spec_powmod_mul_exponent",
+            "spec_powmod_frobenius"
+          ]
+        }
+      ]
+    }
+  ]
+}

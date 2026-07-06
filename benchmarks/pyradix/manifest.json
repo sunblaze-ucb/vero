@@ -1,0 +1,101 @@
+{
+  "benchmark_id": "pyradix",
+  "description": "Radix-tree longest-prefix-match modelled on the py-radix library: searchBest/searchWorst/searchExact/add/delete/covered over a CIDR prefix table, with witness-maximality specs anchored on a frozen integer-masking coverage notion (bitsAbove/coversBits/sameBlock). Coverage is numeric bit-prefix containment over a fixed-width (W=32) Nat address space — a genuine radix/CIDR model, DISTINCT from a list-prefix trie. searchBest (the longest-prefix match) is the load-bearing operation: its obligations are stated as witness (the returned entry is stored and covers the query), maximality (no covering stored entry is more specific), completeness (none iff nothing covers the query), and a full IsFirstBest iff that pins both the maximal length and the canonical left-to-right tie-break. searchWorst is the least-specific dual; covered is the canonical contained-subset (bidirectional). Beyond the single-table optimality laws, the suite includes deeper obligations: the best match prefix-dominates the whole covering chain (it sits at the bottom of the containment chain, requiring the maximality fact), covered-subtree common-ancestor nesting, searchBest distribution over table concatenation via a longest-wins combine, non-covering-insert frame, add/delete exact-lookup interaction laws (read-after-add, overwrite-erases, delete-then-miss, delete-frame), and exact/best lower-bound bridges. The maximality conjunct is mandatory everywhere: witness-only is gamed by returning any covering entry, a first-match impl dies on maximality, and a constant-none impl dies on completeness. Scope: fixed IPv4 width over Nat addresses, no IPv6/variable-width or packed-byte parsing; the radix tree is an abstract association list of (net, plen, value) entries, PATRICIA node identity is not exposed.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/mjschultz/py-radix",
+    "commit_hash": "b5e4e93031475fdaf2360bceb8bc2390bb56d0c7",
+    "path": "radix/radix.py",
+    "name": "py-radix"
+  },
+  "curation": {
+    "date": "2026-06-30"
+  },
+  "root_package": "Pyradix",
+  "files": {
+    "root_hub": "Pyradix.lean",
+    "harness": "Pyradix/Harness.lean",
+    "test": "Pyradix/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Pyradix",
+      "bundle": "Pyradix/Bundle.lean",
+      "bundle_type": "PyradixBundle",
+      "repo_impl_field": "pyradix",
+      "modules": [
+        {
+          "name": "Radix",
+          "impl": "Pyradix/Impl/Radix.lean",
+          "spec": "Pyradix/Spec/Radix.lean",
+          "apis": [
+            {"name": "searchBest",  "sig": "SearchBestSig",  "type": "Table → Nat → Option Prefix"},
+            {"name": "searchWorst", "sig": "SearchWorstSig", "type": "Table → Nat → Option Prefix"},
+            {"name": "searchExact", "sig": "SearchExactSig", "type": "Table → Nat → Nat → Option Prefix"},
+            {"name": "add",         "sig": "AddSig",         "type": "Table → Prefix → Table"},
+            {"name": "delete",      "sig": "DeleteSig",      "type": "Table → Nat → Nat → Table"},
+            {"name": "covered",     "sig": "CoveredSig",     "type": "Table → Nat → Nat → List Prefix"}
+          ],
+          "specs": [
+            "spec_searchBest_covers",
+            "spec_searchBest_maximal",
+            "spec_searchBest_complete",
+            "spec_searchBest_witness_iff",
+            "spec_searchWorst_covers",
+            "spec_searchWorst_minimal",
+            "spec_searchWorst_complete",
+            "spec_searchWorst_witness_iff",
+            "spec_best_ge_worst",
+            "spec_best_some_iff_worst_some",
+            "spec_searchExact_mem",
+            "spec_searchExact_none_iff_absent",
+            "spec_add_searchExact_eq",
+            "spec_add_overwrite",
+            "spec_delete_searchExact_none",
+            "spec_delete_searchExact_ne",
+            "spec_delete_mem_iff",
+            "spec_add_searchBest_lower_bound",
+            "spec_covered_canonical",
+            "spec_covered_sound",
+            "spec_covered_length_le",
+            "spec_covered_append",
+            "spec_searchBest_empty",
+            "spec_searchBest_some_of_cover",
+            "spec_searchExact_best_lower_bound",
+            "spec_covered_chain",
+            "spec_searchBest_dominates_chain",
+            "spec_searchBest_append_combine",
+            "spec_add_irrelevant",
+            "spec_searchWorst_dominates_chain",
+            "spec_worst_covers_best",
+            "spec_searchBest_requery_own",
+            "spec_add_searchBest_exact",
+            "spec_covered_nested",
+            "spec_covered_count_exact",
+            "spec_delete_count_exact",
+            "spec_add_count_exact",
+            "spec_searchExact_findIdx_get",
+            "spec_add_blockKey_nodup",
+            "spec_searchBest_and_extremal",
+            "spec_delete_search_frame_noncover",
+            "spec_delete_searchBest_winner_drops",
+            "spec_covered_filter_eq",
+            "spec_delete_eq_filter",
+            "spec_delete_sublist",
+            "spec_covered_after_delete_filter",
+            "spec_covered_length_countP",
+            "spec_add_delete_commute_ne",
+            "spec_delete_idempotent_and_commute",
+            "spec_delete_add_same",
+            "spec_covered_nested_sublist_count",
+            "spec_searchExact_count_and_best_self_covered"
+          ]
+        }
+      ]
+    }
+  ]
+}

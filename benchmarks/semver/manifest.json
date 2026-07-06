@@ -1,0 +1,124 @@
+{
+  "benchmark_id": "semver",
+  "description": "SemVer 2.0.0 precedence + constraint selection modelled on the python-semanticversion library: compareV/versionLt/versionEq/satisfies/select over (major, minor, patch, pre-release identifier list, build metadata), with total-order axioms (swap/refl/transitivity, trichotomy, lt-irreflexive/transitive, eq an equivalence) plus the frozen SemVer field-precedence relation. The two load-bearing SemVer discriminators are pinned by spec: a pre-release version has strictly LOWER precedence than the same major.minor.patch without one (the empty pre-release list is GREATEST, the opposite of a naive list order), and build metadata is ENTIRELY ignored in precedence (full order-transparency against an arbitrary third version). The pre-release identifier rules are frozen-op-anchored through preCmp/identCmp (numeric below alphanumeric, numeric compared numerically, alphanumeric in ASCII order, longer set wins on equal prefix), and select is pinned by a witness clause (selected satisfies the constraint and is in the list) together with a MAXIMALITY clause (no satisfying member is strictly greater) and a UNIQUENESS-up-to-eq clause — jointly making select the unique greatest matching version. Scope: this models the already-PARSED SemVer precedence core (no version-string parser); constraints are desugared clause lists (Op ⋄ Version), the SimpleSpec surface syntax treated as grounded input. SemVer precedence is DISTINCT from PEP 440 (packaging_version): no epoch, no trailing-zero trimming, empty pre-release greatest, numeric identifiers below alphanumeric, build metadata dropped.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/rbarrois/python-semanticversion",
+    "commit_hash": "2cbbee3154d9011cee873ae3a020cd17c669f6df",
+    "path": "semantic_version/base.py",
+    "name": "semantic_version"
+  },
+  "curation": {
+    "date": "2026-06-30"
+  },
+  "root_package": "Semver",
+  "files": {
+    "root_hub": "Semver.lean",
+    "harness": "Semver/Harness.lean",
+    "test": "Semver/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Semver",
+      "bundle": "Semver/Bundle.lean",
+      "bundle_type": "SemverBundle",
+      "repo_impl_field": "semver",
+      "modules": [
+        {
+          "name": "Version",
+          "impl": "Semver/Impl/Version.lean",
+          "spec": "Semver/Spec/Version.lean",
+          "apis": [
+            {
+              "name": "compareV",
+              "sig": "CompareVSig",
+              "type": "Version → Version → Ordering"
+            },
+            {
+              "name": "versionLt",
+              "sig": "VersionLtSig",
+              "type": "Version → Version → Bool"
+            },
+            {
+              "name": "versionEq",
+              "sig": "VersionEqSig",
+              "type": "Version → Version → Bool"
+            },
+            {
+              "name": "satisfies",
+              "sig": "SatisfiesSig",
+              "type": "List Clause → Version → Bool"
+            },
+            {
+              "name": "select",
+              "sig": "SelectSig",
+              "type": "List Clause → List Version → Option Version"
+            }
+          ],
+          "specs": [
+            "spec_compare_swap",
+            "spec_compare_refl",
+            "spec_compare_trans",
+            "spec_lt_eq_compare",
+            "spec_trichotomy",
+            "spec_lt_irrefl",
+            "spec_lt_trans",
+            "spec_eq_refl",
+            "spec_eq_symm",
+            "spec_eq_trans",
+            "spec_major_dominates",
+            "spec_minor_dominates",
+            "spec_patch_dominates",
+            "spec_core_eq_reduces_to_pre",
+            "spec_prerelease_lowers",
+            "spec_pre_numeric_below_alpha",
+            "spec_pre_longer_greater",
+            "spec_build_ignored",
+            "spec_eq_characterisation",
+            "spec_semver_chain_strict",
+            "spec_satisfies_nil",
+            "spec_satisfies_ge",
+            "spec_satisfies_lt",
+            "spec_satisfies_le",
+            "spec_satisfies_gt",
+            "spec_satisfies_eq",
+            "spec_satisfies_conj",
+            "spec_select_witness",
+            "spec_select_maximal",
+            "spec_select_unique",
+            "spec_select_none",
+            "spec_select_perm",
+            "spec_select_filter",
+            "spec_satisfies_clause_multiset",
+            "spec_select_satisfying_multiset",
+            "spec_select_sorted_getLast",
+            "spec_select_build_frame",
+            "spec_select_none_iff_satisfying_count_zero",
+            "spec_select_constraint_weakening_monotone",
+            "spec_select_eq_class_filter_fixed",
+            "spec_select_erase_duplicate_preserves_eq",
+            "spec_select_nodup_erase_selected_none_iff_unique_satisfying",
+            "spec_select_perm_winning_eq_class_count",
+            "spec_eq_order_congruence",
+            "spec_compare_lex_tuple_lt",
+            "spec_pre_common_prefix_cancels",
+            "spec_pre_first_difference_controls",
+            "spec_pre_equal_identifier_reduces_to_tail",
+            "spec_pre_equal_length_suffix_preserves",
+            "spec_pre_eq_same_core_iff_pre_list_eq",
+            "spec_core_translation_preserves_order",
+            "spec_eq_lt_eq_composition",
+            "spec_le_lt_le_tower"
+          ]
+        }
+      ]
+    }
+  ]
+}

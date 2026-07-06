@@ -1,0 +1,4886 @@
+{
+  "benchmark_id": "huffman",
+  "description": null,
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "coq",
+    "repo_url": "https://github.com/rocq-community/huffman.git",
+    "commit_hash": "cc7d4cc41ef623f85b417e723cd8e4c2e5be1f6a",
+    "path": "theories"
+  },
+  "curation": {
+    "date": "2026-05-27"
+  },
+  "root_package": "Huffman",
+  "files": {
+    "root_hub": "Huffman.lean",
+    "harness": "Huffman/Harness.lean",
+    "test": "Huffman/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Huffman",
+      "bundle": "Huffman/Bundle.lean",
+      "bundle_type": "HuffmanBundle",
+      "repo_impl_field": "huffman",
+      "modules": [
+        {
+          "name": "BTree",
+          "impl": "Huffman/Impl/BTree.lean",
+          "spec": "Huffman/Spec/BTree.lean",
+          "apis": [
+            {
+              "name": "all_leaves",
+              "sig": "AllLeavesSig",
+              "type": "(A : Type) \u2192 BTree A \u2192 List A",
+              "source_id": "BTree.v:all_leaves:4882",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            },
+            {
+              "name": "compute_code",
+              "sig": "ComputeCodeSig",
+              "type": "(A : Type) \u2192 BTree A \u2192 Code A",
+              "source_id": "BTree.v:compute_code:7872",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_all_leaves_NoDup",
+              "source_id": "BTree.v:all_leaves_NoDup:7113",
+              "source_theorem": "all_leaves_NoDup",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_leaves"
+              ],
+              "spec_helpers_referenced": [
+                "distinct_leaves"
+              ]
+            },
+            {
+              "name": "spec_all_leaves_in",
+              "source_id": "BTree.v:all_leaves_in:5063",
+              "source_theorem": "all_leaves_in",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_leaves"
+              ],
+              "spec_helpers_referenced": [
+                "inb"
+              ]
+            },
+            {
+              "name": "spec_all_leaves_inb",
+              "source_id": "BTree.v:all_leaves_inb:5336",
+              "source_theorem": "all_leaves_inb",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_leaves"
+              ],
+              "spec_helpers_referenced": [
+                "inb"
+              ]
+            },
+            {
+              "name": "spec_all_leaves_unique",
+              "source_id": "BTree.v:all_leaves_unique:6547",
+              "source_theorem": "all_leaves_unique",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_leaves"
+              ],
+              "spec_helpers_referenced": [
+                "distinct_leaves"
+              ]
+            },
+            {
+              "name": "spec_btree_unique_prefix1",
+              "source_id": "BTree.v:btree_unique_prefix1:10938",
+              "source_theorem": "btree_unique_prefix1",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_code"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "is_prefix"
+              ]
+            },
+            {
+              "name": "spec_btree_unique_prefix2",
+              "source_id": "BTree.v:btree_unique_prefix2:13097",
+              "source_theorem": "btree_unique_prefix2",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_code"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "Code",
+                "distinct_leaves",
+                "unique_key"
+              ]
+            },
+            {
+              "name": "spec_btree_unique_prefix",
+              "source_id": "BTree.v:btree_unique_prefix:13993",
+              "source_theorem": "btree_unique_prefix",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_leaves",
+                "compute_code"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "distinct_leaves",
+                "inb",
+                "number_of_nodes",
+                "unique_prefix"
+              ]
+            },
+            {
+              "name": "spec_inCompute_inb",
+              "source_id": "BTree.v:inCompute_inb:8809",
+              "source_theorem": "inCompute_inb",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_code"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "Code",
+                "inb"
+              ]
+            },
+            {
+              "name": "spec_in_alphabet_compute_code",
+              "source_id": "BTree.v:in_alphabet_compute_code:10539",
+              "source_theorem": "in_alphabet_compute_code",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_code"
+              ],
+              "spec_helpers_referenced": [
+                "in_alphabet",
+                "inb"
+              ]
+            },
+            {
+              "name": "spec_inb_compute_ex",
+              "source_id": "BTree.v:inb_compute_ex:9547",
+              "source_theorem": "inb_compute_ex",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "inb"
+              ]
+            },
+            {
+              "name": "spec_length_compute_lt_O",
+              "source_id": "BTree.v:length_compute_lt_O:8321",
+              "source_theorem": "length_compute_lt_O",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code"
+              ]
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_distinct_leaves_l",
+              "source_id": "BTree.v:distinct_leaves_l:6031",
+              "source_theorem": "distinct_leaves_l",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "distinct_leaves"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_distinct_leaves_leaf",
+              "source_id": "BTree.v:distinct_leaves_leaf:5804",
+              "source_theorem": "distinct_leaves_leaf",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "distinct_leaves"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_distinct_leaves_r",
+              "source_id": "BTree.v:distinct_leaves_r:6263",
+              "source_theorem": "distinct_leaves_r",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "distinct_leaves"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_inb_antisym",
+              "source_id": "BTree.v:inb_antisym:2918",
+              "source_theorem": "inb_antisym",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "inb",
+                "number_of_nodes"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_inb_ex",
+              "source_id": "BTree.v:inb_ex:2155",
+              "source_theorem": "inb_ex",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "inb"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_inb_trans",
+              "source_id": "BTree.v:inb_trans:1956",
+              "source_theorem": "inb_trans",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "inb"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_number_of_nodes_inb_le",
+              "source_id": "BTree.v:number_of_nodes_inb_le:2563",
+              "source_theorem": "number_of_nodes_inb_le",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "inb",
+                "number_of_nodes"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "Code",
+          "impl": "Huffman/Impl/Code.lean",
+          "spec": "Huffman/Spec/Code.lean",
+          "apis": [
+            {
+              "name": "decode",
+              "sig": "DecodeSig",
+              "type": "(A : Type) \u2192 [DecidableEq A] \u2192 Code A \u2192 List Bool \u2192 List A",
+              "source_id": "Code.v:decode:18151",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            },
+            {
+              "name": "encode",
+              "sig": "EncodeSig",
+              "type": "(A : Type) \u2192 [DecidableEq A] \u2192 Code A \u2192 List A \u2192 List Bool",
+              "source_id": "Code.v:encode:14833",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            },
+            {
+              "name": "find_code",
+              "sig": "FindCodeSig",
+              "type": "(A : Type) \u2192 [DecidableEq A] \u2192 A \u2192 Code A \u2192 List Bool",
+              "source_id": "Code.v:find_code:8681",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            },
+            {
+              "name": "find_val",
+              "sig": "FindValSig",
+              "type": "(A : Type) \u2192 [DecidableEq A] \u2192 List Bool \u2192 Code A \u2192 Option A",
+              "source_id": "Code.v:find_val:12920",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_correct_encoding",
+              "source_id": "Code.v:correct_encoding:18616",
+              "source_theorem": "correct_encoding",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "decode",
+                "encode",
+                "find_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "in_alphabet",
+                "not_null",
+                "unique_prefix"
+              ]
+            },
+            {
+              "name": "spec_decode_aux_correct",
+              "source_id": "Code.v:decode_aux_correct:16819",
+              "source_theorem": "decode_aux_correct",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_val"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "decode_aux",
+                "not_null",
+                "unique_prefix"
+              ]
+            },
+            {
+              "name": "spec_decode_correct",
+              "source_id": "Code.v:decode_correct:18264",
+              "source_theorem": "decode_correct",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "decode",
+                "find_val"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "not_null",
+                "unique_prefix"
+              ]
+            },
+            {
+              "name": "spec_encode_app",
+              "source_id": "Code.v:encode_app:15028",
+              "source_theorem": "encode_app",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "encode"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_encode_cons_inv",
+              "source_id": "Code.v:encode_cons_inv:15270",
+              "source_theorem": "encode_cons_inv",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "encode"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_encode_permutation",
+              "source_id": "Code.v:encode_permutation:15639",
+              "source_theorem": "encode_permutation",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "encode"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "unique_prefix"
+              ]
+            },
+            {
+              "name": "spec_encode_permutation_val",
+              "source_id": "Code.v:encode_permutation_val:15986",
+              "source_theorem": "encode_permutation_val",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "decode",
+                "encode"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_find_code_app",
+              "source_id": "Code.v:find_code_app:10362",
+              "source_theorem": "find_code_app",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_code"
+              ],
+              "spec_helpers_referenced": [
+                "not_null"
+              ]
+            },
+            {
+              "name": "spec_find_code_correct1",
+              "source_id": "Code.v:find_code_correct1:8941",
+              "source_theorem": "find_code_correct1",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code"
+              ]
+            },
+            {
+              "name": "spec_find_code_correct2",
+              "source_id": "Code.v:find_code_correct2:9368",
+              "source_theorem": "find_code_correct2",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "unique_key"
+              ]
+            },
+            {
+              "name": "spec_find_code_permutation",
+              "source_id": "Code.v:find_code_permutation:10869",
+              "source_theorem": "find_code_permutation",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "unique_prefix"
+              ]
+            },
+            {
+              "name": "spec_find_val_correct1",
+              "source_id": "Code.v:find_val_correct1:13210",
+              "source_theorem": "find_val_correct1",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_val"
+              ],
+              "spec_helpers_referenced": [
+                "Code"
+              ]
+            },
+            {
+              "name": "spec_find_val_correct2",
+              "source_id": "Code.v:find_val_correct2:13643",
+              "source_theorem": "find_val_correct2",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_val"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "unique_prefix"
+              ]
+            },
+            {
+              "name": "spec_frequency_not_null",
+              "source_id": "Code.v:frequency_not_null:19471",
+              "source_theorem": "frequency_not_null",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "decode",
+                "encode",
+                "find_code",
+                "find_val",
+                "frequency_list"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "in_alphabet",
+                "is_prefix",
+                "not_null",
+                "unique_prefix"
+              ]
+            },
+            {
+              "name": "spec_in_find_map",
+              "source_id": "Code.v:in_find_map:11736",
+              "source_theorem": "in_find_map",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_code"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_not_in_find_code",
+              "source_id": "Code.v:not_in_find_code:10011",
+              "source_theorem": "not_in_find_code",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_code"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_not_in_find_map",
+              "source_id": "Code.v:not_in_find_map:12329",
+              "source_theorem": "not_in_find_map",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code"
+              ]
+            },
+            {
+              "name": "spec_not_null_find_val",
+              "source_id": "Code.v:not_null_find_val:14387",
+              "source_theorem": "not_null_find_val",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_code",
+                "find_val"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "not_null"
+              ]
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_in_alphabet_cons",
+              "source_id": "Code.v:in_alphabet_cons:2482",
+              "source_theorem": "in_alphabet_cons",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "in_alphabet"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_in_alphabet_incl",
+              "source_id": "Code.v:in_alphabet_incl:2043",
+              "source_theorem": "in_alphabet_incl",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "Code",
+                "in_alphabet"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_in_alphabet_inv",
+              "source_id": "Code.v:in_alphabet_inv:2805",
+              "source_theorem": "in_alphabet_inv",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "Code",
+                "in_alphabet"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_in_alphabet_nil",
+              "source_id": "Code.v:in_alphabet_nil:2275",
+              "source_theorem": "in_alphabet_nil",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "Code",
+                "in_alphabet"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_is_prefix_refl",
+              "source_id": "Code.v:is_prefix_refl:6130",
+              "source_theorem": "is_prefix_refl",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "Code",
+                "is_prefix"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_not_null_app",
+              "source_id": "Code.v:not_null_app:4826",
+              "source_theorem": "not_null_app",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "Code",
+                "not_null"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_not_null_cons",
+              "source_id": "Code.v:not_null_cons:4450",
+              "source_theorem": "not_null_cons",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "not_null"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_not_null_inv",
+              "source_id": "Code.v:not_null_inv:4180",
+              "source_theorem": "not_null_inv",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "not_null"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_not_null_map",
+              "source_id": "Code.v:not_null_map:5337",
+              "source_theorem": "not_null_map",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "not_null"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_unique_prefix1",
+              "source_id": "Code.v:unique_prefix1:6815",
+              "source_theorem": "unique_prefix1",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "Code",
+                "is_prefix",
+                "unique_prefix"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_unique_prefix2",
+              "source_id": "Code.v:unique_prefix2:7103",
+              "source_theorem": "unique_prefix2",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "Code",
+                "unique_key",
+                "unique_prefix"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_unique_prefix_inv",
+              "source_id": "Code.v:unique_prefix_inv:7241",
+              "source_theorem": "unique_prefix_inv",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "Code",
+                "not_null",
+                "unique_prefix"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_unique_prefix_nil",
+              "source_id": "Code.v:unique_prefix_nil:6574",
+              "source_theorem": "unique_prefix_nil",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "Code",
+                "unique_prefix"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_unique_prefix_not_null",
+              "source_id": "Code.v:unique_prefix_not_null:7594",
+              "source_theorem": "unique_prefix_not_null",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "Code",
+                "in_alphabet",
+                "not_null",
+                "unique_prefix"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_unique_prefix_permutation",
+              "source_id": "Code.v:unique_prefix_permutation:8136",
+              "source_theorem": "unique_prefix_permutation",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "Code",
+                "unique_prefix"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "PBTree",
+          "impl": "Huffman/Impl/PBTree.lean",
+          "spec": "Huffman/Spec/PBTree.lean",
+          "apis": [
+            {
+              "name": "all_pbleaves",
+              "sig": "AllPbleavesSig",
+              "type": "(A : Type) \u2192 PBTree A \u2192 List A",
+              "source_id": "PBTree.v:all_pbleaves:25423",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            },
+            {
+              "name": "compute_pbcode",
+              "sig": "ComputePbcodeSig",
+              "type": "(A : Type) \u2192 PBTree A \u2192 Code A",
+              "source_id": "PBTree.v:compute_pbcode:7483",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            },
+            {
+              "name": "pbadd",
+              "sig": "PbaddSig",
+              "type": "(A : Type) \u2192 A \u2192 PBTree A \u2192 List Bool \u2192 PBTree A",
+              "source_id": "PBTree.v:pbadd:16251",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            },
+            {
+              "name": "pbbuild",
+              "sig": "PbbuildSig",
+              "type": "(A : Type) \u2192 A \u2192 Code A \u2192 PBTree A",
+              "source_id": "PBTree.v:pbbuild:32820",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_NoDup_pbadd_prop2",
+              "source_id": "PBTree.v:NoDup_pbadd_prop2:28902",
+              "source_theorem": "NoDup_pbadd_prop2",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_pbleaves",
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "inpb"
+              ]
+            },
+            {
+              "name": "spec_all_pbleaves_NoDup",
+              "source_id": "PBTree.v:all_pbleaves_NoDup:26927",
+              "source_theorem": "all_pbleaves_NoDup",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_pbleaves"
+              ],
+              "spec_helpers_referenced": [
+                "distinct_pbleaves"
+              ]
+            },
+            {
+              "name": "spec_all_pbleaves_compute_pb",
+              "source_id": "PBTree.v:all_pbleaves_compute_pb:34857",
+              "source_theorem": "all_pbleaves_compute_pb",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_pbleaves",
+                "compute_pbcode"
+              ],
+              "spec_helpers_referenced": [
+                "Code"
+              ]
+            },
+            {
+              "name": "spec_all_pbleaves_in",
+              "source_id": "PBTree.v:all_pbleaves_in:25682",
+              "source_theorem": "all_pbleaves_in",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_pbleaves"
+              ],
+              "spec_helpers_referenced": [
+                "inpb"
+              ]
+            },
+            {
+              "name": "spec_all_pbleaves_inpb",
+              "source_id": "PBTree.v:all_pbleaves_inpb:26051",
+              "source_theorem": "all_pbleaves_inpb",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_pbleaves"
+              ],
+              "spec_helpers_referenced": [
+                "inpb"
+              ]
+            },
+            {
+              "name": "spec_all_pbleaves_pbadd",
+              "source_id": "PBTree.v:all_pbleaves_pbadd:27536",
+              "source_theorem": "all_pbleaves_pbadd",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_pbleaves",
+                "pbadd"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_all_pbleaves_pbbuild",
+              "source_id": "PBTree.v:all_pbleaves_pbbuild:37359",
+              "source_theorem": "all_pbleaves_pbbuild",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_pbleaves",
+                "compute_pbcode",
+                "pbbuild"
+              ],
+              "spec_helpers_referenced": [
+                "unique_prefix"
+              ]
+            },
+            {
+              "name": "spec_all_pbleaves_pbleaf",
+              "source_id": "PBTree.v:all_pbleaves_pbleaf:28638",
+              "source_theorem": "all_pbleaves_pbleaf",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_pbleaves",
+                "pbadd"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_all_pbleaves_unique",
+              "source_id": "PBTree.v:all_pbleaves_unique:26371",
+              "source_theorem": "all_pbleaves_unique",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_pbleaves"
+              ],
+              "spec_helpers_referenced": [
+                "distinct_pbleaves"
+              ]
+            },
+            {
+              "name": "spec_compute_pbcode_not_null",
+              "source_id": "PBTree.v:compute_pbcode_not_null:8241",
+              "source_theorem": "compute_pbcode_not_null",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_pbcode"
+              ],
+              "spec_helpers_referenced": [
+                "Code"
+              ]
+            },
+            {
+              "name": "spec_distinct_pbleaves_pbadd_prop1",
+              "source_id": "PBTree.v:distinct_pbleaves_pbadd_prop1:21578",
+              "source_theorem": "distinct_pbleaves_pbadd_prop1",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "distinct_pbleaves"
+              ]
+            },
+            {
+              "name": "spec_distinct_pbleaves_pbadd_prop2",
+              "source_id": "PBTree.v:distinct_pbleaves_pbadd_prop2:30687",
+              "source_theorem": "distinct_pbleaves_pbadd_prop2",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "distinct_pbleaves",
+                "inpb"
+              ]
+            },
+            {
+              "name": "spec_fold_pbadd_prop_left",
+              "source_id": "PBTree.v:fold_pbadd_prop_left:31005",
+              "source_theorem": "fold_pbadd_prop_left",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "PBTree"
+              ]
+            },
+            {
+              "name": "spec_fold_pbadd_prop_node",
+              "source_id": "PBTree.v:fold_pbadd_prop_node:32227",
+              "source_theorem": "fold_pbadd_prop_node",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "PBTree"
+              ]
+            },
+            {
+              "name": "spec_fold_pbadd_prop_right",
+              "source_id": "PBTree.v:fold_pbadd_prop_right:31608",
+              "source_theorem": "fold_pbadd_prop_right",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "PBTree"
+              ]
+            },
+            {
+              "name": "spec_in_pbcompute_inpb",
+              "source_id": "PBTree.v:in_pbcompute_inpb:8585",
+              "source_theorem": "in_pbcompute_inpb",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_pbcode"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "PBTree",
+                "inpb"
+              ]
+            },
+            {
+              "name": "spec_in_pbleaf_node",
+              "source_id": "PBTree.v:in_pbleaf_node:21841",
+              "source_theorem": "in_pbleaf_node",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "inpb"
+              ]
+            },
+            {
+              "name": "spec_inpb_compute_ex",
+              "source_id": "PBTree.v:inpb_compute_ex:9663",
+              "source_theorem": "inpb_compute_ex",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_pbcode"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "inpb"
+              ]
+            },
+            {
+              "name": "spec_inpb_pbadd",
+              "source_id": "PBTree.v:inpb_pbadd:23749",
+              "source_theorem": "inpb_pbadd",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "inpb"
+              ]
+            },
+            {
+              "name": "spec_inpb_pbadd_ex",
+              "source_id": "PBTree.v:inpb_pbadd_ex:24159",
+              "source_theorem": "inpb_pbadd_ex",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "inpb"
+              ]
+            },
+            {
+              "name": "spec_inpb_pbbuild_inv",
+              "source_id": "PBTree.v:inpb_pbbuild_inv:37776",
+              "source_theorem": "inpb_pbbuild_inv",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbbuild"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "inpb"
+              ]
+            },
+            {
+              "name": "spec_inpbleaf_eq",
+              "source_id": "PBTree.v:inpbleaf_eq:22351",
+              "source_theorem": "inpbleaf_eq",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "inpb"
+              ]
+            },
+            {
+              "name": "spec_inpbleaf_pbadd_inv",
+              "source_id": "PBTree.v:inpbleaf_pbadd_inv:22792",
+              "source_theorem": "inpbleaf_pbadd_inv",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "inpb"
+              ]
+            },
+            {
+              "name": "spec_pb_unique_key",
+              "source_id": "PBTree.v:pb_unique_key:14165",
+              "source_theorem": "pb_unique_key",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_pbcode"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "distinct_pbleaves",
+                "unique_key"
+              ]
+            },
+            {
+              "name": "spec_pb_unique_prefix1",
+              "source_id": "PBTree.v:pb_unique_prefix1:11166",
+              "source_theorem": "pb_unique_prefix1",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_pbcode"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "PBTree",
+                "is_prefix"
+              ]
+            },
+            {
+              "name": "spec_pb_unique_prefix",
+              "source_id": "PBTree.v:pb_unique_prefix:15310",
+              "source_theorem": "pb_unique_prefix",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_pbcode"
+              ],
+              "spec_helpers_referenced": [
+                "PBTree",
+                "distinct_pbleaves",
+                "unique_prefix"
+              ]
+            },
+            {
+              "name": "spec_pbadd_prop1",
+              "source_id": "PBTree.v:pbadd_prop1:16905",
+              "source_theorem": "pbadd_prop1",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_pbcode",
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "Code"
+              ]
+            },
+            {
+              "name": "spec_pbadd_prop2",
+              "source_id": "PBTree.v:pbadd_prop2:17287",
+              "source_theorem": "pbadd_prop2",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_pbcode",
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "pbfree"
+              ]
+            },
+            {
+              "name": "spec_pbbuild_compute_peq",
+              "source_id": "PBTree.v:pbbuild_compute_peq:39325",
+              "source_theorem": "pbbuild_compute_peq",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_pbcode",
+                "pbbuild"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "distinct_pbleaves"
+              ]
+            },
+            {
+              "name": "spec_pbbuild_compute_perm",
+              "source_id": "PBTree.v:pbbuild_compute_perm:35598",
+              "source_theorem": "pbbuild_compute_perm",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_pbcode",
+                "pbadd",
+                "pbbuild"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "is_prefix",
+                "pbfree",
+                "unique_prefix"
+              ]
+            },
+            {
+              "name": "spec_pbbuild_distinct_pbleaves",
+              "source_id": "PBTree.v:pbbuild_distinct_pbleaves:38577",
+              "source_theorem": "pbbuild_distinct_pbleaves",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbbuild"
+              ],
+              "spec_helpers_referenced": [
+                "distinct_pbleaves",
+                "inpb",
+                "unique_prefix"
+              ]
+            },
+            {
+              "name": "spec_pbbuild_pbnode",
+              "source_id": "PBTree.v:pbbuild_pbnode:40854",
+              "source_theorem": "pbbuild_pbnode",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_pbleaves",
+                "compute_pbcode",
+                "pbadd",
+                "pbbuild"
+              ],
+              "spec_helpers_referenced": [
+                "distinct_pbleaves",
+                "inpb",
+                "inpb_dec",
+                "pbfree"
+              ]
+            },
+            {
+              "name": "spec_pbbuild_true_pbright",
+              "source_id": "PBTree.v:pbbuild_true_pbright:40418",
+              "source_theorem": "pbbuild_true_pbright",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbbuild"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_pbfree_pbadd_prop1",
+              "source_id": "PBTree.v:pbfree_pbadd_prop1:19424",
+              "source_theorem": "pbfree_pbadd_prop1",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "is_prefix",
+                "pbfree"
+              ]
+            },
+            {
+              "name": "spec_pbfree_pbadd_prop2",
+              "source_id": "PBTree.v:pbfree_pbadd_prop2:20068",
+              "source_theorem": "pbfree_pbadd_prop2",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbadd"
+              ],
+              "spec_helpers_referenced": [
+                "is_prefix",
+                "pbfree"
+              ]
+            },
+            {
+              "name": "spec_pbfree_pbbuild_prop1",
+              "source_id": "PBTree.v:pbfree_pbbuild_prop1:33024",
+              "source_theorem": "pbfree_pbbuild_prop1",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "pbbuild"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "pbfree",
+                "unique_prefix"
+              ]
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_distinct_pbleaves_Leaf",
+              "source_id": "PBTree.v:distinct_pbleaves_Leaf:5296",
+              "source_theorem": "distinct_pbleaves_Leaf",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "distinct_pbleaves"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_distinct_pbleaves_l",
+              "source_id": "PBTree.v:distinct_pbleaves_l:5570",
+              "source_theorem": "distinct_pbleaves_l",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "PBTree",
+                "distinct_pbleaves"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_distinct_pbleaves_pbleaf",
+              "source_id": "PBTree.v:distinct_pbleaves_pbleaf:6634",
+              "source_theorem": "distinct_pbleaves_pbleaf",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "distinct_pbleaves"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_distinct_pbleaves_pbleft",
+              "source_id": "PBTree.v:distinct_pbleaves_pbleft:6893",
+              "source_theorem": "distinct_pbleaves_pbleft",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "distinct_pbleaves"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_distinct_pbleaves_pbright",
+              "source_id": "PBTree.v:distinct_pbleaves_pbright:7158",
+              "source_theorem": "distinct_pbleaves_pbright",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "Code",
+                "distinct_pbleaves"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_distinct_pbleaves_pl",
+              "source_id": "PBTree.v:distinct_pbleaves_pl:6131",
+              "source_theorem": "distinct_pbleaves_pl",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "PBTree",
+                "distinct_pbleaves"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_distinct_pbleaves_pr",
+              "source_id": "PBTree.v:distinct_pbleaves_pr:6402",
+              "source_theorem": "distinct_pbleaves_pr",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "PBTree",
+                "distinct_pbleaves"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_distinct_pbleaves_r",
+              "source_id": "PBTree.v:distinct_pbleaves_r:5851",
+              "source_theorem": "distinct_pbleaves_r",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "PBTree",
+                "distinct_pbleaves"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_inpb_ex",
+              "source_id": "PBTree.v:inpb_ex:4808",
+              "source_theorem": "inpb_ex",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "PBTree",
+                "inpb"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_inpb_trans",
+              "source_id": "PBTree.v:inpb_trans:4602",
+              "source_theorem": "inpb_trans",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "inpb"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_pbleaf_or_not",
+              "source_id": "PBTree.v:pbleaf_or_not:1970",
+              "source_theorem": "pbleaf_or_not",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "AuxLib",
+          "impl": "Huffman/Impl/AuxLib.lean",
+          "spec": "Huffman/Spec/AuxLib.lean",
+          "apis": [],
+          "specs": [],
+          "api_helpers": [
+            {
+              "name": "helper_list_length_ind",
+              "upstream_name": "helper_list_length_ind",
+              "source_id": "generated:helper_list_length_ind:1",
+              "source_file": "generated",
+              "source_line": 1,
+              "source_kind": "generated_helper",
+              "source_signature": "helper_list_length_ind",
+              "role": "api_helper",
+              "disposition": "provided",
+              "category": "api_helper",
+              "kind": "api_helper"
+            },
+            {
+              "name": "helper_permutation_all_permutations_aux",
+              "upstream_name": "helper_permutation_all_permutations_aux",
+              "source_id": "generated:helper_permutation_all_permutations_aux:1",
+              "source_file": "generated",
+              "source_line": 1,
+              "source_kind": "generated_helper",
+              "source_signature": "helper_permutation_all_permutations_aux",
+              "role": "api_helper",
+              "disposition": "provided",
+              "category": "api_helper",
+              "kind": "api_helper"
+            }
+          ],
+          "spec_helpers": [
+            {
+              "name": "spec_NoDup_app",
+              "source_id": "AuxLib.v:NoDup_app:5848",
+              "source_theorem": "NoDup_app",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_NoDup_app_inv",
+              "source_id": "AuxLib.v:NoDup_app_inv:6304",
+              "source_theorem": "NoDup_app_inv",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_NoDup_app_inv_l",
+              "source_id": "AuxLib.v:NoDup_app_inv_l:6617",
+              "source_theorem": "NoDup_app_inv_l",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_NoDup_app_inv_r",
+              "source_id": "AuxLib.v:NoDup_app_inv_r:6886",
+              "source_theorem": "NoDup_app_inv_r",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "map2"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_Permutation_transposition",
+              "source_id": "AuxLib.v:Permutation_transposition:18739",
+              "source_theorem": "Permutation_transposition",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "Permutation_dec",
+                "all_permutations",
+                "split_one"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_all_permutations_aux_permutation",
+              "source_id": "AuxLib.v:all_permutations_aux_permutation:15916",
+              "source_theorem": "all_permutations_aux_permutation",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "all_permutations_aux"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_all_permutations_permutation",
+              "source_id": "AuxLib.v:all_permutations_permutation:16843",
+              "source_theorem": "all_permutations_permutation",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "all_permutations"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_app_inv_app2",
+              "source_id": "AuxLib.v:app_inv_app2:3567",
+              "source_theorem": "app_inv_app2",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_app_inv_app",
+              "source_id": "AuxLib.v:app_inv_app:3019",
+              "source_theorem": "app_inv_app",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_exist_first_max",
+              "source_id": "AuxLib.v:exist_first_max:9660",
+              "source_theorem": "exist_first_max",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_find_max_correct",
+              "source_id": "AuxLib.v:find_max_correct:12495",
+              "source_theorem": "find_max_correct",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "find_max",
+                "find_min"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_find_min_correct",
+              "source_id": "AuxLib.v:find_min_correct:11376",
+              "source_theorem": "find_min_correct",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "find_min"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_firstn_le_app1",
+              "source_id": "AuxLib.v:firstn_le_app1:7945",
+              "source_theorem": "firstn_le_app1",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_firstn_le_app2",
+              "source_id": "AuxLib.v:firstn_le_app2:8323",
+              "source_theorem": "firstn_le_app2",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_firstn_le_length_eq",
+              "source_id": "AuxLib.v:firstn_le_length_eq:8669",
+              "source_theorem": "firstn_le_length_eq",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_fold_left_eta",
+              "source_id": "AuxLib.v:fold_left_eta:1484",
+              "source_theorem": "fold_left_eta",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_fold_left_init",
+              "source_id": "AuxLib.v:fold_left_init:1897",
+              "source_theorem": "fold_left_init",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_fold_left_map",
+              "source_id": "AuxLib.v:fold_left_map:1698",
+              "source_theorem": "fold_left_map",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_fold_left_permutation",
+              "source_id": "AuxLib.v:fold_left_permutation:13357",
+              "source_theorem": "fold_left_permutation",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_in_flat_map_ex",
+              "source_id": "AuxLib.v:in_flat_map_ex:5678",
+              "source_theorem": "in_flat_map_ex",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_in_flat_map_in",
+              "source_id": "AuxLib.v:in_flat_map_in:5501",
+              "source_theorem": "in_flat_map_in",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_in_map_fst_inv",
+              "source_id": "AuxLib.v:in_map_fst_inv:5144",
+              "source_theorem": "in_map_fst_inv",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_map2_app",
+              "source_id": "AuxLib.v:map2_app:7383",
+              "source_theorem": "map2_app",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "map2"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_permutation_all_permutations",
+              "source_id": "AuxLib.v:permutation_all_permutations:18124",
+              "source_theorem": "permutation_all_permutations",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "all_permutations",
+                "helper_permutation_all_permutations_aux"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_same_length_ex",
+              "source_id": "AuxLib.v:same_length_ex:4460",
+              "source_theorem": "same_length_ex",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_skipn_le_app1",
+              "source_id": "AuxLib.v:skipn_le_app1:8999",
+              "source_theorem": "skipn_le_app1",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_skipn_le_app2",
+              "source_id": "AuxLib.v:skipn_le_app2:9323",
+              "source_theorem": "skipn_le_app2",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_split_one_in_ex",
+              "source_id": "AuxLib.v:split_one_in_ex:15029",
+              "source_theorem": "split_one_in_ex",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "split_one"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_split_one_permutation",
+              "source_id": "AuxLib.v:split_one_permutation:14363",
+              "source_theorem": "split_one_permutation",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "split_one"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "Build",
+          "impl": "Huffman/Impl/Build.lean",
+          "spec": "Huffman/Spec/Build.lean",
+          "apis": [
+            {
+              "name": "build_fun",
+              "sig": "BuildFunSig",
+              "type": "(A : Type) \u2192 (f : A \u2192 Nat) \u2192 (l : List (BTree A)) \u2192 l \u2260 [] \u2192 {t : BTree A // cover_min A f l t}",
+              "source_id": "Build.v:build_fun:10923",
+              "role": "requires_human_review",
+              "disposition": "axiomatized",
+              "opaque": true
+            },
+            {
+              "name": "buildf",
+              "sig": "BuildfSig",
+              "type": "(A : Type) \u2192 (f : A \u2192 Nat) \u2192 (l : List (BTree A)) \u2192 l \u2260 [] \u2192 {t : BTree A // build f l t}",
+              "source_id": "Build.v:buildf:5787",
+              "role": "requires_human_review",
+              "disposition": "axiomatized",
+              "opaque": true
+            },
+            {
+              "name": "obuildf",
+              "sig": "ObuildfSig",
+              "type": "(A : Type) \u2192 (f : A \u2192 Nat) \u2192 (l : List (BTree A)) \u2192 l \u2260 [] \u2192 ordered (fun x y => Huffman.sum_leaves A f x \u2264 Huffman.sum_leaves A f y) l \u2192 {t : BTree A // build f l t}",
+              "source_id": "Build.v:obuildf:4596",
+              "role": "requires_human_review",
+              "disposition": "axiomatized",
+              "opaque": true
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_build_comp",
+              "source_id": "Build.v:build_comp:2217",
+              "source_theorem": "build_comp",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "sum_leaves",
+                "weight",
+                "weight_tree",
+                "weight_tree_list"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "build",
+                "same_sum_leaves"
+              ]
+            },
+            {
+              "name": "spec_build_same_weight_tree",
+              "source_id": "Build.v:build_same_weight_tree:3741",
+              "source_theorem": "build_same_weight_tree",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "weight_tree"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "build"
+              ]
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_build_correct",
+              "source_id": "Build.v:build_correct:6481",
+              "source_theorem": "build_correct",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "buildf",
+                "isort",
+                "sum_leaves",
+                "weight",
+                "weight_tree"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "build",
+                "cover",
+                "cover_min",
+                "helper_list_length_ind",
+                "le_sum",
+                "ordered",
+                "sum_order"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_build_cover",
+              "source_id": "Build.v:build_cover:1898",
+              "source_theorem": "build_cover",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "weight"
+              ],
+              "spec_helpers_referenced": [
+                "build",
+                "cover"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_build_permutation",
+              "source_id": "Build.v:build_permutation:4060",
+              "source_theorem": "build_permutation",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "build"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "Cover",
+          "impl": "Huffman/Impl/Cover.lean",
+          "spec": "Huffman/Spec/Cover.lean",
+          "apis": [],
+          "specs": [
+            {
+              "name": "spec_cover_all_leaves",
+              "source_id": "Cover.v:cover_all_leaves:12007",
+              "source_theorem": "cover_all_leaves",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_leaves"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "cover"
+              ]
+            }
+          ],
+          "api_helpers": [
+            {
+              "name": "helper_cover_all_cover_aux",
+              "upstream_name": "helper_cover_all_cover_aux",
+              "source_id": "generated:helper_cover_all_cover_aux:1",
+              "source_file": "generated",
+              "source_line": 1,
+              "source_kind": "generated_helper",
+              "source_signature": "helper_cover_all_cover_aux",
+              "role": "api_helper",
+              "disposition": "provided",
+              "category": "api_helper",
+              "kind": "api_helper"
+            },
+            {
+              "name": "helper_cover_inv_app_aux",
+              "upstream_name": "helper_cover_inv_app_aux",
+              "source_id": "generated:helper_cover_inv_app_aux:1",
+              "source_file": "generated",
+              "source_line": 1,
+              "source_kind": "generated_helper",
+              "source_signature": "helper_cover_inv_app_aux",
+              "role": "api_helper",
+              "disposition": "provided",
+              "category": "api_helper",
+              "kind": "api_helper"
+            },
+            {
+              "name": "helper_cover_inv_leaf_aux",
+              "upstream_name": "helper_cover_inv_leaf_aux",
+              "source_id": "generated:helper_cover_inv_leaf_aux:1",
+              "source_file": "generated",
+              "source_line": 1,
+              "source_kind": "generated_helper",
+              "source_signature": "helper_cover_inv_leaf_aux",
+              "role": "api_helper",
+              "disposition": "provided",
+              "category": "api_helper",
+              "kind": "api_helper"
+            }
+          ],
+          "spec_helpers": [
+            {
+              "name": "spec_all_cover_aux_cover",
+              "source_id": "Cover.v:all_cover_aux_cover:9650",
+              "source_theorem": "all_cover_aux_cover",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "all_cover_aux",
+                "cover"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_all_cover_cover",
+              "source_id": "Cover.v:all_cover_cover:10579",
+              "source_theorem": "all_cover_cover",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "all_cover",
+                "cover"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_cover_all_cover",
+              "source_id": "Cover.v:cover_all_cover:11467",
+              "source_theorem": "cover_all_cover",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "all_cover",
+                "cover",
+                "helper_cover_all_cover_aux"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_cover_app",
+              "source_id": "Cover.v:cover_app:8027",
+              "source_theorem": "cover_app",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "cover"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_cover_cons_l",
+              "source_id": "Cover.v:cover_cons_l:2349",
+              "source_theorem": "cover_cons_l",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "cover"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_cover_in_inb",
+              "source_id": "Cover.v:cover_in_inb:4348",
+              "source_theorem": "cover_in_inb",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "cover",
+                "inb"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_cover_in_inb_inb",
+              "source_id": "Cover.v:cover_in_inb_inb:3667",
+              "source_theorem": "cover_in_inb_inb",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "cover",
+                "inb"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_cover_inv_app",
+              "source_id": "Cover.v:cover_inv_app:7690",
+              "source_theorem": "cover_inv_app",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "cover",
+                "helper_cover_inv_app_aux"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_cover_inv_leaf",
+              "source_id": "Cover.v:cover_inv_leaf:4833",
+              "source_theorem": "cover_inv_leaf",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "cover",
+                "helper_cover_inv_leaf_aux"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_cover_not_nil",
+              "source_id": "Cover.v:cover_not_nil:2878",
+              "source_theorem": "cover_not_nil",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "cover"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_cover_number_of_nodes",
+              "source_id": "Cover.v:cover_number_of_nodes:8514",
+              "source_theorem": "cover_number_of_nodes",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "cover",
+                "number_of_nodes"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_cover_one_inv",
+              "source_id": "Cover.v:cover_one_inv:5043",
+              "source_theorem": "cover_one_inv",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "cover"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_cover_permutation",
+              "source_id": "Cover.v:cover_permutation:1946",
+              "source_theorem": "cover_permutation",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "cover"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_one_cover_ex",
+              "source_id": "Cover.v:one_cover_ex:3268",
+              "source_theorem": "one_cover_ex",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "cover"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "CoverMin",
+          "impl": "Huffman/Impl/CoverMin.lean",
+          "spec": "Huffman/Spec/CoverMin.lean",
+          "apis": [],
+          "specs": [],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_cover_min_ex",
+              "source_id": "CoverMin.v:cover_min_ex:2499",
+              "source_theorem": "cover_min_ex",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "weight_tree"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "all_cover",
+                "cover_min",
+                "find_min"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_cover_min_one",
+              "source_id": "CoverMin.v:cover_min_one:1771",
+              "source_theorem": "cover_min_one",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "cover_min"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_cover_min_permutation",
+              "source_id": "CoverMin.v:cover_min_permutation:2074",
+              "source_theorem": "cover_min_permutation",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "cover",
+                "cover_min"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "Frequency",
+          "impl": "Huffman/Impl/Frequency.lean",
+          "spec": "Huffman/Spec/Frequency.lean",
+          "apis": [
+            {
+              "name": "add_frequency_list",
+              "sig": "AddFrequencyListSig",
+              "type": "(A : Type) \u2192 [DecidableEq A] \u2192 A \u2192 List (A \u00d7 Nat) \u2192 List (A \u00d7 Nat)",
+              "source_id": "Frequency.v:add_frequency_list:1844",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            },
+            {
+              "name": "frequency_list",
+              "sig": "FrequencyListSig",
+              "type": "(A : Type) \u2192 [DecidableEq A] \u2192 List A \u2192 List (A \u00d7 Nat)",
+              "source_id": "Frequency.v:frequency_list:5835",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            },
+            {
+              "name": "number_of_occurrences",
+              "sig": "NumberOfOccurrencesSig",
+              "type": "(A : Type) \u2192 [DecidableEq A] \u2192 A \u2192 List A \u2192 Nat",
+              "source_id": "Frequency.v:number_of_occurrences:8047",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_add_frequency_list_1",
+              "source_id": "Frequency.v:add_frequency_list_1:4315",
+              "source_theorem": "add_frequency_list_1",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "add_frequency_list"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_add_frequency_list_in",
+              "source_id": "Frequency.v:add_frequency_list_in:4799",
+              "source_theorem": "add_frequency_list_in",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "add_frequency_list"
+              ],
+              "spec_helpers_referenced": [
+                "unique_key"
+              ]
+            },
+            {
+              "name": "spec_add_frequency_list_in_inv",
+              "source_id": "Frequency.v:add_frequency_list_in_inv:3038",
+              "source_theorem": "add_frequency_list_in_inv",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "add_frequency_list"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_add_frequency_list_not_in",
+              "source_id": "Frequency.v:add_frequency_list_not_in:5432",
+              "source_theorem": "add_frequency_list_not_in",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "add_frequency_list"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_add_frequency_list_perm",
+              "source_id": "Frequency.v:add_frequency_list_perm:2227",
+              "source_theorem": "add_frequency_list_perm",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "add_frequency_list"
+              ],
+              "spec_helpers_referenced": [
+                "id_list"
+              ]
+            },
+            {
+              "name": "spec_add_frequency_list_unique_key",
+              "source_id": "Frequency.v:add_frequency_list_unique_key:3559",
+              "source_theorem": "add_frequency_list_unique_key",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "add_frequency_list"
+              ],
+              "spec_helpers_referenced": [
+                "unique_key"
+              ]
+            },
+            {
+              "name": "spec_frequency_list_in",
+              "source_id": "Frequency.v:frequency_list_in:6041",
+              "source_theorem": "frequency_list_in",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "frequency_list"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_frequency_list_perm",
+              "source_id": "Frequency.v:frequency_list_perm:6396",
+              "source_theorem": "frequency_list_perm",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "frequency_list"
+              ],
+              "spec_helpers_referenced": [
+                "id_list"
+              ]
+            },
+            {
+              "name": "spec_frequency_list_unique",
+              "source_id": "Frequency.v:frequency_list_unique:6687",
+              "source_theorem": "frequency_list_unique",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "frequency_list"
+              ],
+              "spec_helpers_referenced": [
+                "unique_key"
+              ]
+            },
+            {
+              "name": "spec_frequency_number_of_occurrences",
+              "source_id": "Frequency.v:frequency_number_of_occurrences:10394",
+              "source_theorem": "frequency_number_of_occurrences",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "add_frequency_list",
+                "frequency_list",
+                "number_of_occurrences"
+              ],
+              "spec_helpers_referenced": [
+                "id_list"
+              ]
+            },
+            {
+              "name": "spec_in_frequency_map",
+              "source_id": "Frequency.v:in_frequency_map:6996",
+              "source_theorem": "in_frequency_map",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "frequency_list"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_in_frequency_map_inv",
+              "source_id": "Frequency.v:in_frequency_map_inv:7700",
+              "source_theorem": "in_frequency_map_inv",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "frequency_list"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_number_of_occurrences_O",
+              "source_id": "Frequency.v:number_of_occurrences_O:8362",
+              "source_theorem": "number_of_occurrences_O",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "number_of_occurrences"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_number_of_occurrences_app",
+              "source_id": "Frequency.v:number_of_occurrences_app:9483",
+              "source_theorem": "number_of_occurrences_app",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "number_of_occurrences"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_number_of_occurrences_permutation",
+              "source_id": "Frequency.v:number_of_occurrences_permutation:9815",
+              "source_theorem": "number_of_occurrences_permutation",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "number_of_occurrences"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_number_of_occurrences_permutation_ex",
+              "source_id": "Frequency.v:number_of_occurrences_permutation_ex:8648",
+              "source_theorem": "number_of_occurrences_permutation_ex",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "number_of_occurrences"
+              ],
+              "spec_helpers_referenced": [
+                "id_list"
+              ]
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": []
+        },
+        {
+          "name": "HeightPred",
+          "impl": "Huffman/Impl/HeightPred.lean",
+          "spec": "Huffman/Spec/HeightPred.lean",
+          "apis": [],
+          "specs": [
+            {
+              "name": "spec_height_pred_compute_code",
+              "source_id": "HeightPred.v:height_pred_compute_code:17319",
+              "source_theorem": "height_pred_compute_code",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_code",
+                "weight"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "Code",
+                "height_pred"
+              ]
+            },
+            {
+              "name": "spec_height_pred_weight",
+              "source_id": "HeightPred.v:height_pred_weight:3390",
+              "source_theorem": "height_pred_weight",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "prod2list",
+                "sum_leaves",
+                "weight_tree"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "height_pred"
+              ]
+            },
+            {
+              "name": "spec_weight_tree_compute",
+              "source_id": "HeightPred.v:weight_tree_compute:18590",
+              "source_theorem": "weight_tree_compute",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_code",
+                "encode",
+                "number_of_occurrences",
+                "prod2list",
+                "sum_leaves",
+                "weight_tree"
+              ],
+              "spec_helpers_referenced": [
+                "distinct_leaves",
+                "height_pred"
+              ]
+            }
+          ],
+          "api_helpers": [
+            {
+              "name": "helper_height_pred_disj_larger2_aux",
+              "upstream_name": "helper_height_pred_disj_larger2_aux",
+              "source_id": "generated:helper_height_pred_disj_larger2_aux:1",
+              "source_file": "generated",
+              "source_line": 1,
+              "source_kind": "generated_helper",
+              "source_signature": "helper_height_pred_disj_larger2_aux",
+              "role": "api_helper",
+              "disposition": "provided",
+              "category": "api_helper",
+              "kind": "api_helper"
+            },
+            {
+              "name": "helper_height_pred_disj_larger_aux",
+              "upstream_name": "helper_height_pred_disj_larger_aux",
+              "source_id": "generated:helper_height_pred_disj_larger_aux:1",
+              "source_file": "generated",
+              "source_line": 1,
+              "source_kind": "generated_helper",
+              "source_signature": "helper_height_pred_disj_larger_aux",
+              "role": "api_helper",
+              "disposition": "provided",
+              "category": "api_helper",
+              "kind": "api_helper"
+            },
+            {
+              "name": "helper_height_pred_shrink_aux",
+              "upstream_name": "helper_height_pred_shrink_aux",
+              "source_id": "generated:helper_height_pred_shrink_aux:1",
+              "source_file": "generated",
+              "source_line": 1,
+              "source_kind": "generated_helper",
+              "source_signature": "helper_height_pred_shrink_aux",
+              "role": "api_helper",
+              "disposition": "provided",
+              "category": "api_helper",
+              "kind": "api_helper"
+            }
+          ],
+          "spec_helpers": [
+            {
+              "name": "spec_height_pred_disj_larger2",
+              "source_id": "HeightPred.v:height_pred_disj_larger2:11127",
+              "source_theorem": "height_pred_disj_larger2",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "height_pred",
+                "helper_height_pred_disj_larger2_aux"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_height_pred_disj_larger",
+              "source_id": "HeightPred.v:height_pred_disj_larger:8424",
+              "source_theorem": "height_pred_disj_larger",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "height_pred",
+                "helper_height_pred_disj_larger_aux"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_height_pred_larger",
+              "source_id": "HeightPred.v:height_pred_larger:4324",
+              "source_theorem": "height_pred_larger",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "height_pred"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_height_pred_larger_ex",
+              "source_id": "HeightPred.v:height_pred_larger_ex:5458",
+              "source_theorem": "height_pred_larger_ex",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "height_pred"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_height_pred_larger_strict",
+              "source_id": "HeightPred.v:height_pred_larger_strict:4869",
+              "source_theorem": "height_pred_larger_strict",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "height_pred"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_height_pred_length",
+              "source_id": "HeightPred.v:height_pred_length:3005",
+              "source_theorem": "height_pred_length",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "sum_leaves",
+                "weight_tree"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "cover",
+                "height_pred"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_height_pred_not_nil1",
+              "source_id": "HeightPred.v:height_pred_not_nil1:2307",
+              "source_theorem": "height_pred_not_nil1",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "cover",
+                "height_pred"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_height_pred_not_nil2",
+              "source_id": "HeightPred.v:height_pred_not_nil2:2651",
+              "source_theorem": "height_pred_not_nil2",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "cover",
+                "height_pred"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_height_pred_ordered_cover",
+              "source_id": "HeightPred.v:height_pred_ordered_cover:2058",
+              "source_theorem": "height_pred_ordered_cover",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "height_pred",
+                "ordered_cover"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_height_pred_shrink",
+              "source_id": "HeightPred.v:height_pred_shrink:16667",
+              "source_theorem": "height_pred_shrink",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "Code",
+                "build",
+                "cover",
+                "height_pred",
+                "helper_height_pred_shrink_aux"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_ordered_cover_height_pred",
+              "source_id": "HeightPred.v:ordered_cover_height_pred:3857",
+              "source_theorem": "ordered_cover_height_pred",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "height_pred",
+                "ordered_cover"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "OneStep",
+          "impl": "Huffman/Impl/OneStep.lean",
+          "spec": "Huffman/Spec/OneStep.lean",
+          "apis": [],
+          "specs": [
+            {
+              "name": "spec_one_step_comp",
+              "source_id": "OneStep.v:one_step_comp:3628",
+              "source_theorem": "one_step_comp",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "sum_leaves",
+                "weight_tree_list"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "one_step",
+                "ordered",
+                "same_sum_leaves"
+              ]
+            },
+            {
+              "name": "spec_one_step_weight_tree_list",
+              "source_id": "OneStep.v:one_step_weight_tree_list:2010",
+              "source_theorem": "one_step_weight_tree_list",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "sum_leaves",
+                "weight_tree_list"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "one_step"
+              ]
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_one_step_same_sum_leaves",
+              "source_id": "OneStep.v:one_step_same_sum_leaves:2905",
+              "source_theorem": "one_step_same_sum_leaves",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "sum_leaves",
+                "weight"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "one_step",
+                "same_sum_leaves"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "Ordered",
+          "impl": "Huffman/Impl/Ordered.lean",
+          "spec": "Huffman/Spec/Ordered.lean",
+          "apis": [],
+          "specs": [],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_ordered_inv",
+              "source_id": "Ordered.v:ordered_inv:1930",
+              "source_theorem": "ordered_inv",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "ordered"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_ordered_inv_order",
+              "source_id": "Ordered.v:ordered_inv_order:1761",
+              "source_theorem": "ordered_inv_order",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "ordered"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_ordered_map_inv",
+              "source_id": "Ordered.v:ordered_map_inv:4824",
+              "source_theorem": "ordered_map_inv",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "ordered"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_ordered_perm_antisym_eq",
+              "source_id": "Ordered.v:ordered_perm_antisym_eq:3597",
+              "source_theorem": "ordered_perm_antisym_eq",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "ordered"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_ordered_skip",
+              "source_id": "Ordered.v:ordered_skip:2110",
+              "source_theorem": "ordered_skip",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "ordered"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_ordered_trans",
+              "source_id": "Ordered.v:ordered_trans:2558",
+              "source_theorem": "ordered_trans",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "ordered"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_ordered_trans_app",
+              "source_id": "Ordered.v:ordered_trans_app:3119",
+              "source_theorem": "ordered_trans_app",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "ordered"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "OrderedCover",
+          "impl": "Huffman/Impl/OrderedCover.lean",
+          "spec": "Huffman/Spec/OrderedCover.lean",
+          "apis": [],
+          "specs": [
+            {
+              "name": "spec_NoDup_ordered_cover",
+              "source_id": "OrderedCover.v:NoDup_ordered_cover:3479",
+              "source_theorem": "NoDup_ordered_cover",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_leaves"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "ordered_cover"
+              ]
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_cover_ordered_cover",
+              "source_id": "OrderedCover.v:cover_ordered_cover:2341",
+              "source_theorem": "cover_ordered_cover",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "cover",
+                "helper_list_length_ind",
+                "ordered",
+                "ordered_cover"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_ordered_cover_cover",
+              "source_id": "OrderedCover.v:ordered_cover_cover:2070",
+              "source_theorem": "ordered_cover_cover",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "cover",
+                "ordered",
+                "ordered_cover"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "SameSumLeaves",
+          "impl": "Huffman/Impl/SameSumLeaves.lean",
+          "spec": "Huffman/Spec/SameSumLeaves.lean",
+          "apis": [],
+          "specs": [],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_same_sum_leaves_length",
+              "source_id": "SameSumLeaves.v:same_sum_leaves_length:1691",
+              "source_theorem": "same_sum_leaves_length",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "sum_leaves"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "same_sum_leaves"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "SubstPred",
+          "impl": "Huffman/Impl/SubstPred.lean",
+          "spec": "Huffman/Spec/SubstPred.lean",
+          "apis": [],
+          "specs": [],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_height_pred_subst_pred",
+              "source_id": "SubstPred.v:height_pred_subst_pred:3627",
+              "source_theorem": "height_pred_subst_pred",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "height_pred",
+                "subst_pred"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_ordered_cover_subst_pred",
+              "source_id": "SubstPred.v:ordered_cover_subst_pred:2716",
+              "source_theorem": "ordered_cover_subst_pred",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "ordered_cover",
+                "subst_pred"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_subst_pred_length",
+              "source_id": "SubstPred.v:subst_pred_length:2395",
+              "source_theorem": "subst_pred_length",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "cover",
+                "ordered",
+                "subst_pred"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_subst_pred_ordered_cover_l",
+              "source_id": "SubstPred.v:subst_pred_ordered_cover_l:1920",
+              "source_theorem": "subst_pred_ordered_cover_l",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "cover",
+                "ordered",
+                "ordered_cover",
+                "subst_pred"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_subst_pred_ordered_cover_r",
+              "source_id": "SubstPred.v:subst_pred_ordered_cover_r:2170",
+              "source_theorem": "subst_pred_ordered_cover_r",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "ordered_cover",
+                "subst_pred"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "UniqueKey",
+          "impl": "Huffman/Impl/UniqueKey.lean",
+          "spec": "Huffman/Spec/UniqueKey.lean",
+          "apis": [],
+          "specs": [],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_NoDup_unique_key",
+              "source_id": "UniqueKey.v:NoDup_unique_key:4824",
+              "source_theorem": "NoDup_unique_key",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "unique_key"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_unique_key_NoDup",
+              "source_id": "UniqueKey.v:unique_key_NoDup:4331",
+              "source_theorem": "unique_key_NoDup",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "Code",
+                "unique_key"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_unique_key_app",
+              "source_id": "UniqueKey.v:unique_key_app:3747",
+              "source_theorem": "unique_key_app",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "unique_key"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_unique_key_in",
+              "source_id": "UniqueKey.v:unique_key_in:2062",
+              "source_theorem": "unique_key_in",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "unique_key"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_unique_key_in_inv",
+              "source_id": "UniqueKey.v:unique_key_in_inv:2255",
+              "source_theorem": "unique_key_in_inv",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "unique_key"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_unique_key_inv",
+              "source_id": "UniqueKey.v:unique_key_inv:1899",
+              "source_theorem": "unique_key_inv",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "unique_key"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_unique_key_map",
+              "source_id": "UniqueKey.v:unique_key_map:5448",
+              "source_theorem": "unique_key_map",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "unique_key"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_unique_key_perm",
+              "source_id": "UniqueKey.v:unique_key_perm:2812",
+              "source_theorem": "unique_key_perm",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "unique_key"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "WeightTree",
+          "impl": "Huffman/Impl/WeightTree.lean",
+          "spec": "Huffman/Spec/WeightTree.lean",
+          "apis": [
+            {
+              "name": "sum_leaves",
+              "sig": "SumLeavesSig",
+              "type": "(A : Type) \u2192 (A \u2192 Nat) \u2192 BTree A \u2192 Nat",
+              "source_id": "WeightTree.v:sum_leaves:1334",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            },
+            {
+              "name": "weight_tree",
+              "sig": "WeightTreeSig",
+              "type": "(A : Type) \u2192 (A \u2192 Nat) \u2192 BTree A \u2192 Nat",
+              "source_id": "WeightTree.v:weight_tree:1932",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            },
+            {
+              "name": "weight_tree_list",
+              "sig": "WeightTreeListSig",
+              "type": "(A : Type) \u2192 (A \u2192 Nat) \u2192 List (BTree A) \u2192 Nat",
+              "source_id": "WeightTree.v:weight_tree_list:2106",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_ordered_sum_leaves_eq",
+              "source_id": "WeightTree.v:ordered_sum_leaves_eq:3021",
+              "source_theorem": "ordered_sum_leaves_eq",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "sum_leaves"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "ordered",
+                "sum_order"
+              ]
+            },
+            {
+              "name": "spec_weight_tree_list_node",
+              "source_id": "WeightTree.v:weight_tree_list_node:2221",
+              "source_theorem": "weight_tree_list_node",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "sum_leaves",
+                "weight_tree_list"
+              ],
+              "spec_helpers_referenced": [
+                "BTree"
+              ]
+            },
+            {
+              "name": "spec_weight_tree_list_permutation",
+              "source_id": "WeightTree.v:weight_tree_list_permutation:2457",
+              "source_theorem": "weight_tree_list_permutation",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "sum_leaves",
+                "weight_tree",
+                "weight_tree_list"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "le_sum",
+                "ordered",
+                "sum_order"
+              ]
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_le_sum_correct1",
+              "source_id": "WeightTree.v:le_sum_correct1:1582",
+              "source_theorem": "le_sum_correct1",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "sum_leaves"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "le_sum",
+                "sum_order"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_le_sum_correct2",
+              "source_id": "WeightTree.v:le_sum_correct2:1750",
+              "source_theorem": "le_sum_correct2",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "BTree",
+                "le_sum",
+                "sum_order"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "ISort",
+          "impl": "Huffman/Impl/ISort.lean",
+          "spec": "Huffman/Spec/ISort.lean",
+          "apis": [
+            {
+              "name": "insert",
+              "sig": "InsertSig",
+              "type": "(A : Type) \u2192 (A \u2192 A \u2192 Bool) \u2192 A \u2192 List A \u2192 List A",
+              "source_id": "ISort.v:insert:1772",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            },
+            {
+              "name": "isort",
+              "sig": "IsortSig",
+              "type": "(A : Type) \u2192 (A \u2192 A \u2192 Bool) \u2192 List A \u2192 List A",
+              "source_id": "ISort.v:isort:3114",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_insert_ordered",
+              "source_id": "ISort.v:insert_ordered:2022",
+              "source_theorem": "insert_ordered",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "insert"
+              ],
+              "spec_helpers_referenced": [
+                "ordered"
+              ]
+            },
+            {
+              "name": "spec_insert_permutation",
+              "source_id": "ISort.v:insert_permutation:2761",
+              "source_theorem": "insert_permutation",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "insert"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_isort_ordered",
+              "source_id": "ISort.v:isort_ordered:3262",
+              "source_theorem": "isort_ordered",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "isort"
+              ],
+              "spec_helpers_referenced": [
+                "ordered"
+              ]
+            },
+            {
+              "name": "spec_isort_permutation",
+              "source_id": "ISort.v:isort_permutation:3475",
+              "source_theorem": "isort_permutation",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "insert",
+                "isort"
+              ],
+              "spec_helpers_referenced": []
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": []
+        },
+        {
+          "name": "PBTree2BTree",
+          "impl": "Huffman/Impl/PBTree2BTree.lean",
+          "spec": "Huffman/Spec/PBTree2BTree.lean",
+          "apis": [
+            {
+              "name": "to_btree",
+              "sig": "ToBtreeSig",
+              "type": "(A : Type) \u2192 PBTree A \u2192 BTree A",
+              "source_id": "PBTree2BTree.v:to_btree:1500",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_to_btree_all_leaves",
+              "source_id": "PBTree2BTree.v:to_btree_all_leaves:2416",
+              "source_theorem": "to_btree_all_leaves",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_leaves",
+                "all_pbleaves",
+                "to_btree"
+              ],
+              "spec_helpers_referenced": [
+                "BTree"
+              ]
+            },
+            {
+              "name": "spec_to_btree_distinct_leaves",
+              "source_id": "PBTree2BTree.v:to_btree_distinct_leaves:2690",
+              "source_theorem": "to_btree_distinct_leaves",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "to_btree"
+              ],
+              "spec_helpers_referenced": [
+                "PBTree",
+                "distinct_leaves",
+                "distinct_pbleaves"
+              ]
+            },
+            {
+              "name": "spec_to_btree_distinct_pbleaves",
+              "source_id": "PBTree2BTree.v:to_btree_distinct_pbleaves:2963",
+              "source_theorem": "to_btree_distinct_pbleaves",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "to_btree"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "PBTree",
+                "distinct_leaves",
+                "distinct_pbleaves"
+              ]
+            },
+            {
+              "name": "spec_to_btree_inb",
+              "source_id": "PBTree2BTree.v:to_btree_inb:1757",
+              "source_theorem": "to_btree_inb",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "to_btree"
+              ],
+              "spec_helpers_referenced": [
+                "inb",
+                "inpb"
+              ]
+            },
+            {
+              "name": "spec_to_btree_inpb",
+              "source_id": "PBTree2BTree.v:to_btree_inpb:2129",
+              "source_theorem": "to_btree_inpb",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "to_btree"
+              ],
+              "spec_helpers_referenced": [
+                "inb",
+                "inpb"
+              ]
+            },
+            {
+              "name": "spec_to_btree_smaller",
+              "source_id": "PBTree2BTree.v:to_btree_smaller:3268",
+              "source_theorem": "to_btree_smaller",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "compute_code",
+                "compute_pbcode",
+                "find_code",
+                "to_btree"
+              ],
+              "spec_helpers_referenced": [
+                "inpb_dec"
+              ]
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": []
+        },
+        {
+          "name": "Prod2List",
+          "impl": "Huffman/Impl/Prod2List.lean",
+          "spec": "Huffman/Spec/Prod2List.lean",
+          "apis": [
+            {
+              "name": "prod2list",
+              "sig": "Prod2listSig",
+              "type": "(A : Type) \u2192 (A \u2192 Nat) \u2192 List Nat \u2192 List (BTree A) \u2192 Nat",
+              "source_id": "Prod2List.v:prod2list:1684",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_prod2list_app",
+              "source_id": "Prod2List.v:prod2list_app:1868",
+              "source_theorem": "prod2list_app",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "prod2list"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_prod2list_eq",
+              "source_id": "Prod2List.v:prod2list_eq:5632",
+              "source_theorem": "prod2list_eq",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "prod2list"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_prod2list_le_l",
+              "source_id": "Prod2List.v:prod2list_le_l:2414",
+              "source_theorem": "prod2list_le_l",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "prod2list",
+                "sum_leaves",
+                "weight_tree"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_prod2list_le_r",
+              "source_id": "Prod2List.v:prod2list_le_r:4193",
+              "source_theorem": "prod2list_le_r",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "prod2list",
+                "sum_leaves",
+                "weight_tree"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_prod2list_reorder2",
+              "source_id": "Prod2List.v:prod2list_reorder2:9168",
+              "source_theorem": "prod2list_reorder2",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "prod2list"
+              ],
+              "spec_helpers_referenced": [
+                "ordered",
+                "sum_order"
+              ]
+            },
+            {
+              "name": "spec_prod2list_reorder",
+              "source_id": "Prod2List.v:prod2list_reorder:6317",
+              "source_theorem": "prod2list_reorder",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "prod2list"
+              ],
+              "spec_helpers_referenced": [
+                "ordered",
+                "sum_order"
+              ]
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": []
+        },
+        {
+          "name": "Restrict",
+          "impl": "Huffman/Impl/Restrict.lean",
+          "spec": "Huffman/Spec/Restrict.lean",
+          "apis": [
+            {
+              "name": "restrict_code",
+              "sig": "RestrictCodeSig",
+              "type": "(A : Type) \u2192 [DecidableEq A] \u2192 List A \u2192 Code A \u2192 Code A",
+              "source_id": "Restrict.v:restrict_code:1541",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_frequency_list_restric_code_map",
+              "source_id": "Restrict.v:frequency_list_restric_code_map:4569",
+              "source_theorem": "frequency_list_restric_code_map",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "frequency_list",
+                "restrict_code"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_restrict_code_encode",
+              "source_id": "Restrict.v:restrict_code_encode:3352",
+              "source_theorem": "restrict_code_encode",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "encode",
+                "restrict_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code"
+              ]
+            },
+            {
+              "name": "spec_restrict_code_encode_incl",
+              "source_id": "Restrict.v:restrict_code_encode_incl:2885",
+              "source_theorem": "restrict_code_encode_incl",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "encode",
+                "restrict_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code"
+              ]
+            },
+            {
+              "name": "spec_restrict_code_in",
+              "source_id": "Restrict.v:restrict_code_in:2298",
+              "source_theorem": "restrict_code_in",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_code",
+                "frequency_list",
+                "restrict_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code"
+              ]
+            },
+            {
+              "name": "spec_restrict_code_pbbuild",
+              "source_id": "Restrict.v:restrict_code_pbbuild:5522",
+              "source_theorem": "restrict_code_pbbuild",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_pbleaves",
+                "frequency_list",
+                "pbbuild",
+                "restrict_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "in_alphabet",
+                "not_null",
+                "unique_prefix"
+              ]
+            },
+            {
+              "name": "spec_restrict_code_unique_key",
+              "source_id": "Restrict.v:restrict_code_unique_key:1732",
+              "source_theorem": "restrict_code_unique_key",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_code",
+                "frequency_list",
+                "restrict_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "unique_key"
+              ]
+            },
+            {
+              "name": "spec_restrict_not_null",
+              "source_id": "Restrict.v:restrict_not_null:4936",
+              "source_theorem": "restrict_not_null",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_code",
+                "number_of_occurrences",
+                "restrict_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "build"
+              ]
+            },
+            {
+              "name": "spec_restrict_unique_prefix",
+              "source_id": "Restrict.v:restrict_unique_prefix:3646",
+              "source_theorem": "restrict_unique_prefix",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "restrict_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "in_alphabet",
+                "not_null",
+                "unique_prefix"
+              ]
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": []
+        },
+        {
+          "name": "Weight",
+          "impl": "Huffman/Impl/Weight.lean",
+          "spec": "Huffman/Spec/Weight.lean",
+          "apis": [
+            {
+              "name": "weight_restrict_code",
+              "sig": "WeightRestrictCodeSig",
+              "type": "(A : Type) \u2192 [DecidableEq A] \u2192 List A \u2192 Code A \u2192 Code A",
+              "source_id": "Weight.v:restrict_code:5343",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            },
+            {
+              "name": "weight",
+              "sig": "WeightSig",
+              "type": "(A : Type) \u2192 [DecidableEq A] \u2192 List A \u2192 Code A \u2192 Nat",
+              "source_id": "Weight.v:weight:5039",
+              "role": "scored_api",
+              "disposition": "scored",
+              "opaque": false
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_frequency_length",
+              "source_id": "Weight.v:frequency_length:2478",
+              "source_theorem": "frequency_length",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "encode",
+                "number_of_occurrences"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "id_list",
+                "unique_key"
+              ]
+            },
+            {
+              "name": "spec_length_encode_nId",
+              "source_id": "Weight.v:length_encode_nId:2188",
+              "source_theorem": "length_encode_nId",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "encode"
+              ],
+              "spec_helpers_referenced": [
+                "id_list"
+              ]
+            },
+            {
+              "name": "spec_restrict_code_encode_length",
+              "source_id": "Weight.v:restrict_code_encode_length:7429",
+              "source_theorem": "restrict_code_encode_length",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "encode",
+                "weight",
+                "weight_restrict_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code"
+              ]
+            },
+            {
+              "name": "spec_restrict_code_encode_length_inc",
+              "source_id": "Weight.v:restrict_code_encode_length_inc:7027",
+              "source_theorem": "restrict_code_encode_length_inc",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "encode",
+                "weight_restrict_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code"
+              ]
+            },
+            {
+              "name": "spec_weight_restrict_code_in",
+              "source_id": "Weight.v:restrict_code_in:6515",
+              "source_theorem": "restrict_code_in",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_code",
+                "frequency_list",
+                "weight_restrict_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code"
+              ]
+            },
+            {
+              "name": "spec_weight_restrict_code_unique_key",
+              "source_id": "Weight.v:restrict_code_unique_key:5987",
+              "source_theorem": "restrict_code_unique_key",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "find_code",
+                "frequency_list",
+                "weight_restrict_code"
+              ],
+              "spec_helpers_referenced": [
+                "Code",
+                "unique_key"
+              ]
+            },
+            {
+              "name": "spec_weight_permutation",
+              "source_id": "Weight.v:weight_permutation:5095",
+              "source_theorem": "weight_permutation",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "weight"
+              ],
+              "spec_helpers_referenced": [
+                "unique_prefix"
+              ]
+            },
+            {
+              "name": "spec_weight_append_additive",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "weight"
+              ],
+              "spec_helpers_referenced": [],
+              "curation_note": "anti-reward-hack: weight additive over message concatenation (2026-07-08)"
+            },
+            {
+              "name": "spec_weight_append_grows",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "weight",
+                "find_code"
+              ],
+              "spec_helpers_referenced": [],
+              "curation_note": "anti-reward-hack: appending a real codeword strictly grows weight; kills weight:=0 (2026-07-08)"
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_weight_NoDup_unique_key",
+              "source_id": "Weight.v:NoDup_unique_key:5498",
+              "source_theorem": "NoDup_unique_key",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "unique_key"
+              ],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_fold_plus_permutation",
+              "source_id": "Weight.v:fold_plus_permutation:1703",
+              "source_theorem": "fold_plus_permutation",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_fold_plus_split",
+              "source_id": "Weight.v:fold_plus_split:1362",
+              "source_theorem": "fold_plus_split",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "Huffman",
+          "impl": "Huffman/Impl/Huffman.lean",
+          "spec": "Huffman/Spec/Huffman.lean",
+          "apis": [
+            {
+              "name": "huffman",
+              "sig": "HuffmanSig",
+              "type": "(A : Type) \u2192 [DecidableEq A] \u2192 (empty : A) \u2192 (m : List A) \u2192 {c : Code A // unique_prefix c \u2227 in_alphabet m c \u2227 \u2200 c1 : Code A, unique_prefix c1 \u2192 in_alphabet m c1 \u2192 Huffman.weight A m c \u2264 Huffman.weight A m c1}",
+              "source_id": "Huffman.v:huffman:13046",
+              "role": "requires_human_review",
+              "disposition": "axiomatized",
+              "opaque": true
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_huffman_build_minimum",
+              "source_id": "Huffman.v:huffman_build_minimum:1990",
+              "source_theorem": "huffman_build_minimum",
+              "role": "scored_api",
+              "disposition": "scored",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "all_leaves",
+                "compute_code",
+                "compute_pbcode",
+                "encode",
+                "frequency_list",
+                "number_of_occurrences",
+                "pbbuild",
+                "restrict_code",
+                "to_btree",
+                "weight"
+              ],
+              "spec_helpers_referenced": [
+                "BTree",
+                "Code",
+                "build",
+                "cover_min",
+                "in_alphabet",
+                "unique_prefix"
+              ]
+            }
+          ],
+          "api_helpers": [],
+          "types": [
+            {
+              "name": "HuffmanAuxType",
+              "upstream_name": "HuffmanAuxType",
+              "source_id": "generated:HuffmanAuxType:1",
+              "source_file": "generated",
+              "source_line": 1,
+              "source_kind": "generated_helper",
+              "source_signature": "HuffmanAuxType",
+              "role": "semantic_model",
+              "disposition": "provided",
+              "category": "type",
+              "kind": "type"
+            }
+          ],
+          "spec_helpers": [
+            {
+              "name": "spec_not_null_m",
+              "source_id": "Huffman.v:not_null_m:1736",
+              "source_theorem": "not_null_m",
+              "role": "proof_helper_task",
+              "disposition": "hidden",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "apis_referenced": [
+                "weight"
+              ],
+              "spec_helpers_referenced": [],
+              "kind": "spec_helper",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "trusted_axioms": [
+    "Huffman.build_fun_witness",
+    "Huffman.buildf_witness",
+    "Huffman.huffman_witness",
+    "Huffman.obuildf_witness",
+    "huffman_aux",
+    "huffman_aux_F"
+  ],
+  "trusted_axiom_sources": {
+    "Huffman.build_fun_witness": {
+      "source": "Build.v:build_fun",
+      "reason": "proof-bearing Program Definition preserved as requires_human_review"
+    },
+    "Huffman.buildf_witness": {
+      "source": "Build.v:buildf",
+      "reason": "proof-bearing construction preserved as requires_human_review"
+    },
+    "Huffman.obuildf_witness": {
+      "source": "Build.v:obuildf",
+      "reason": "proof-bearing ordered construction preserved as requires_human_review"
+    },
+    "huffman_aux_F": {
+      "source": "Huffman.v:huffman_aux_F",
+      "reason": "proof-bearing recursive Program Definition preserved as requires_human_review"
+    },
+    "huffman_aux": {
+      "source": "Huffman.v:huffman_aux",
+      "reason": "proof-bearing recursive construction preserved as requires_human_review"
+    },
+    "Huffman.huffman_witness": {
+      "source": "Huffman.v:huffman",
+      "reason": "proof-bearing top-level API preserved as requires_human_review"
+    }
+  }
+}

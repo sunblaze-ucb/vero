@@ -1,0 +1,145 @@
+{
+  "benchmark_id": "cachetools",
+  "description": "LRU cache eviction modelled on the cachetools library: empty/contains/get/put/lruKey over a recency-ordered key list (MRU first), with recency (put/get move-to-front) and minimality (full-capacity put evicts exactly the LRU/last key) specs anchored on List.head?, List.getLast?, and List.contains. Scope: this is an eviction-POLICY model of `cachetools.LRUCache` \u2014 KEYS only (values are erased), with pure state-threading (each op returns a new cache) instead of Python's in-place mutation. `lruKey` is a derived observer exposing the current eviction victim (the LRU/last key); it is not Python's `popitem` (it neither removes the key nor returns a value). The spec_applyOps_* obligations characterize whole-trace behaviour over an arbitrary sequence of puts (capacity/Nodup global invariants, the closed-form lruModel contents formula, MRU-head, and membership/eviction over sequences), requiring induction over the operation sequence. The spec_applyMixed_* obligations go further: they replay an interleaved get+put trace (Op = get|put, applyMixed, the keyStep/keyModel closed form) so that get-reordering and put-eviction must both be threaded through a single trace induction (keystone spec_applyMixed_contents, plus mixed capacity/size/Nodup invariants, membership, last-put-MRU, and a get-only-suffix set-preservation law). The put-only stack-distance/reuse guarantee (spec_reuse_no_evict), the net eviction count (spec_total_evictions = max(0, #distinct - cap)), and the dup-free-prefix closure (spec_lruModel_nodup_prefix) pin the deep combinatorial structure of the dedupKeepFirst contents formula. The deepest tier are the generalize-then-induct obligations whose clean end-statements HIDE the load-bearing invariant: spec_cap_monotone_order_prefix (the cap-run order is a prefix of the cap+1-run order, proved only by carrying the exact truncation coupling order(cap)=take cap (order(cap+1)) through the fold), spec_eviction_trace_prefix_monotone (a prefix's eviction log is a prefix of the longer trace's, proved via an accumulator frame-independence law discovered by generalizing over the carried log), spec_eviction_count_cap_monotone (eviction-EVENT count is monotone in capacity for cap>0, proved by a lockstep two-run coupling carrying the order coupling plus a running count inequality \u2014 not the net-eviction closed form), and spec_evicted_persists (a dropped key stays dropped under puts of other keys, proved by propagating the absence invariant through the suffix fold). A further tier of forgetting/saturation, exact-size, and op-equivalence obligations whose clean statements again hide the load-bearing invariant: spec_suffix_saturates (a suffix introducing \u2265 cap distinct keys makes the cache FORGET its entire prefix \u2014 order(xs++ys)=order(ys) \u2014 proved via a GENERALIZED contents formula over an arbitrary within-cap Nodup start cache plus a dedupKeepFirst prefix-append absorption fact, neither of which is the empty-start contents keystone), spec_final_size_eq (exact survivor count = min cap #distinct), spec_get_only_from_empty_noop (a get-only trace from empty is the whole-STATE identity, proved by carrying the stays-empty invariant through the fold), spec_evicted_were_put (eviction provenance: every logged victim was put, via evRun_couple plus a model-side membership-frame on evStep's log), spec_get_after_put_noop (re-getting a just-put key is a whole-state no-op at every capacity, via the put-output k::tl structure), and spec_put_eq_get_present (put = get on a present within-cap key, since both move-to-front and the Nodup length bound rules out a put-eviction). A final tier of positional / frame / recency-anchor obligations pins structure the contents formulas leave implicit: spec_survivor_index (a surviving key sits at exactly its reuse-distance position in the recency order \u2014 dropping the more-recently-reused keys lands on it), spec_mru_iff_reuse_distance_zero (the head of the order is a key iff that key was put with zero intervening distinct reuse), and spec_get_absent_suffix_noop (a read-only suffix touching only currently-absent keys is a whole-STATE identity, strictly beyond the get-only membership-preservation law).",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/tkem/cachetools",
+    "commit_hash": "48284d73d0a8834c9c50f8d41bb99e6f93b2dfed",
+    "path": "src/cachetools/__init__.py",
+    "name": "cachetools"
+  },
+  "curation": {
+    "date": "2026-06-28"
+  },
+  "root_package": "Cachetools",
+  "files": {
+    "root_hub": "Cachetools.lean",
+    "harness": "Cachetools/Harness.lean",
+    "test": "Cachetools/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Cachetools",
+      "bundle": "Cachetools/Bundle.lean",
+      "bundle_type": "CachetoolsBundle",
+      "repo_impl_field": "cachetools",
+      "modules": [
+        {
+          "name": "Lru",
+          "impl": "Cachetools/Impl/Lru.lean",
+          "spec": "Cachetools/Spec/Lru.lean",
+          "apis": [
+            {
+              "name": "empty",
+              "sig": "EmptySig",
+              "type": "Nat \u2192 Lru"
+            },
+            {
+              "name": "contains",
+              "sig": "ContainsSig",
+              "type": "Lru \u2192 Nat \u2192 Bool"
+            },
+            {
+              "name": "get",
+              "sig": "GetSig",
+              "type": "Lru \u2192 Nat \u2192 Lru"
+            },
+            {
+              "name": "put",
+              "sig": "PutSig",
+              "type": "Lru \u2192 Nat \u2192 Lru"
+            },
+            {
+              "name": "lruKey",
+              "sig": "LruKeySig",
+              "type": "Lru \u2192 Option Nat"
+            }
+          ],
+          "specs": [
+            "spec_put_contains",
+            "spec_put_mru",
+            "spec_get_hit_mru",
+            "spec_get_miss_noop",
+            "spec_get_preserves_keys",
+            "spec_evict_lru",
+            "spec_capacity_preserved",
+            "spec_size_le_cap",
+            "spec_lruKey_last",
+            "spec_empty_contains",
+            "spec_empty_capacity",
+            "spec_empty_order",
+            "spec_empty_lruKey",
+            "spec_contains_iff_mem",
+            "spec_get_keeps_present",
+            "spec_put_preserves_nodup",
+            "spec_put_existing_size",
+            "spec_put_new_grows",
+            "spec_put_idempotent",
+            "spec_get_preserves_size",
+            "spec_get_preserves_capacity",
+            "spec_get_idempotent",
+            "spec_lruKey_none_iff_empty",
+            "spec_lruKey_mem",
+            "spec_evict_victim_is_lruKey",
+            "spec_applyOps_capacity",
+            "spec_applyOps_size_le_cap",
+            "spec_applyOps_nodup",
+            "spec_applyOps_contents",
+            "spec_applyOps_mru_is_last",
+            "spec_applyOps_present_iff",
+            "spec_applyOps_evicted_absent",
+            "spec_applyMixed_capacity",
+            "spec_applyMixed_size_le_cap",
+            "spec_applyMixed_nodup",
+            "spec_applyMixed_contents",
+            "spec_applyMixed_present_iff",
+            "spec_applyMixed_last_put_mru",
+            "spec_get_only_suffix_preserves_keys",
+            "spec_reuse_no_evict",
+            "spec_total_evictions",
+            "spec_lruModel_nodup_prefix",
+            "spec_cap_monotone_contents",
+            "spec_eviction_trace",
+            "spec_present_iff_reuse_distance",
+            "spec_collapse_adjacent_dup",
+            "spec_cap_monotone_order_prefix",
+            "spec_eviction_trace_prefix_monotone",
+            "spec_eviction_count_cap_monotone",
+            "spec_evicted_persists",
+            "spec_suffix_saturates",
+            "spec_final_size_eq",
+            "spec_get_only_from_empty_noop",
+            "spec_evicted_were_put",
+            "spec_get_after_put_noop",
+            "spec_put_eq_get_present",
+            "spec_get_absent_suffix_noop",
+            "spec_survivor_index",
+            "spec_mru_iff_reuse_distance_zero",
+            "spec_distinct_key_count_partition",
+            "spec_lruKey_reuse_distance_tail",
+            "spec_final_order_unique_recency_prefix",
+            "spec_applyOps_injective_rename_state",
+            "spec_put_overcap_dropLast_exact",
+            "spec_put_overcap_absent_survivors",
+            "spec_put_absent_overflow_only_drops_old_lru",
+            "spec_existing_key_split_frame",
+            "spec_get_overcap_takeBefore_frame",
+            "spec_get_non_lru_preserves_lruKey",
+            "spec_get_lru_hit_lruKey_penultimate",
+            "spec_lruKey_takeBefore_dropLast",
+            "spec_applyOps_count_dedup_prefix",
+            "spec_applyOps_lruKey_model_getLast",
+            "spec_put_order_exact"
+          ]
+        }
+      ]
+    }
+  ]
+}

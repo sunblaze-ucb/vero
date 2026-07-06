@@ -1,0 +1,100 @@
+{
+  "benchmark_id": "base58",
+  "description": "Base58 codec modelled on the base58 library (Bitcoin alphabet): decodeInt/encodeInt (integer <-> numeral) and encode/decode (bytes <-> numeral). The decode direction is pinned by a FROZEN POSITIONAL-VALUE ORACLE — decodeInt s equals the Horner fold acc -> acc*58 + idx(c) over the frozen 58-char alphabet, a closed arithmetic value unique on every input, anchored to frozen */+/58 and the frozen alphabet table (NOT to a copyable decode body). The encode direction is pinned by VALUE-AGREEMENT PAIRED WITH CANONICALITY: encodeInt n decodes back to n AND is a canonical numeral (no redundant leading '1' zero digit, the genuine zero apart); canonicality is the load-bearing clause (value-agreement alone admits non-canonical numerals), and spec_encode_int_unique states the resulting uniqueness directly (any canonical numeral of value n equals encodeInt n). The byte codec is pinned by the leading-zero boundary law (leading zero bytes map to literal '1's, the significant suffix is the big-endian integer fed to encodeInt) plus the leading-'1'-count identity. Concrete frozen vectors (golden base58 of known small ints/bytes) pin the alphabet ordering. The byte round-trip is deliberately NOT in the suite as a driver. Everything is discrete Nat/List/String/Bool, no Float, no base58check checksum layer.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/keis/base58",
+    "commit_hash": "2fae7065e3446e69e5d748c767011f05eee8400e",
+    "path": "base58/__init__.py",
+    "name": "base58"
+  },
+  "curation": {
+    "date": "2026-06-30"
+  },
+  "root_package": "Base58",
+  "files": {
+    "root_hub": "Base58.lean",
+    "harness": "Base58/Harness.lean",
+    "test": "Base58/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Base58",
+      "bundle": "Base58/Bundle.lean",
+      "bundle_type": "Base58Bundle",
+      "repo_impl_field": "base58",
+      "modules": [
+        {
+          "name": "Codec",
+          "impl": "Base58/Impl/Codec.lean",
+          "spec": "Base58/Spec/Codec.lean",
+          "apis": [
+            {"name": "decodeInt", "sig": "DecodeIntSig", "type": "String → Option Nat"},
+            {"name": "encodeInt", "sig": "EncodeIntSig", "type": "Nat → String"},
+            {"name": "encode",    "sig": "EncodeSig",    "type": "Bytes → String"},
+            {"name": "decode",    "sig": "DecodeSig",    "type": "String → Option Bytes"}
+          ],
+          "specs": [
+            "spec_decode_int_positional_value",
+            "spec_decode_int_empty",
+            "spec_decode_int_invalid_char",
+            "spec_decode_int_horner_step",
+            "spec_encode_int_value_agreement",
+            "spec_encode_int_canonical",
+            "spec_encode_int_unique",
+            "spec_encode_int_zero",
+            "spec_encode_int_no_leading_zero_digit",
+            "spec_encode_leading_zero_boundary",
+            "spec_encode_all_zeros",
+            "spec_encode_empty",
+            "spec_encode_leading_one_count",
+            "spec_decode_invalid_char",
+            "spec_decode_all_ones",
+            "spec_vector_encode_int",
+            "spec_vector_decode_int",
+            "spec_vector_encode_bytes",
+            "spec_roundtrip_bytes",
+            "spec_decode_int_injective",
+            "spec_encode_int_length_band",
+            "spec_decode_int_value_lt",
+            "spec_leading_zero_preservation",
+            "spec_numeral_roundtrip",
+            "spec_decode_int_place_value_sum",
+            "spec_encode_int_digit_count_values",
+            "spec_encode_int_support_values",
+            "spec_encode_int_msd_quotient",
+            "spec_encode_int_digit_at_place_quot_mod",
+            "spec_encode_int_msd_tail_decomposition",
+            "spec_encode_int_last_digit_divmod",
+            "spec_encode_int_place_value_self",
+            "spec_encode_int_length_exact_bounds",
+            "spec_decode_int_split_digit_contribution",
+            "spec_decode_int_canonical_value_band",
+            "spec_decode_value_bytes_decomposition",
+            "spec_encode_significant_suffix_value",
+            "spec_decode_positive_integer_payload",
+            "spec_encode_decode_canonical_inverse",
+            "spec_decode_leading_zero_count_exact",
+            "spec_encode_bytes_injective",
+            "spec_encode_byte_length_band",
+            "spec_decode_byte_length_band",
+            "spec_decode_int_concat_homomorphism",
+            "spec_decode_int_concat_div_mod",
+            "spec_encode_leading_zero_prefix_homomorphism",
+            "spec_decode_leading_one_prefix_homomorphism",
+            "spec_encode_int_fixed_width_concat",
+            "spec_encode_int_successor_carry",
+            "spec_decode_int_canonical_shortlex_order_embedding",
+            "spec_decode_int_digit_sum_mod57",
+            "spec_encode_append_big_endian_blocks",
+            "spec_decode_int_reencode_valid_canonical_form"
+          ]
+        }
+      ]
+    }
+  ]
+}

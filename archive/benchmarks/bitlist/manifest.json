@@ -1,0 +1,85 @@
+{
+  "benchmark_id": "bitlist",
+  "description": "Bit-addressable sequence library: converts integers/bytes to big-endian bool lists and supports indexing, slicing, concatenation, and integer conversion.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/lapets/bitlist",
+    "commit_hash": "6f396e5b4d6e4104a67ebf93b3524ef9d631ab84",
+    "path": "original_python/bitlist.py"
+  },
+  "curation": {
+    "date": "2026-04-26"
+  },
+  "root_package": "Bitlist",
+  "files": {
+    "root_hub": "Bitlist.lean",
+    "harness": "Bitlist/Harness.lean",
+    "test": "Bitlist/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Bitlist",
+      "bundle": "Bitlist/Bundle.lean",
+      "bundle_type": "BitlistBundle",
+      "repo_impl_field": "bitlist",
+      "modules": [
+        {
+          "name": "Bitlist",
+          "impl": "Bitlist/Impl/Bitlist.lean",
+          "spec": "Bitlist/Spec/Bitlist.lean",
+          "apis": [
+            {
+              "name": "make",
+              "sig": "MkSig",
+              "type": "List Bool → Bitlist",
+              "source_name": "Bitlist.mk",
+              "note": "Bundle field renamed from 'mk' (reserved as Lean structure-constructor name) to 'make'. Canonical wires make := Bitlist.mk."
+            },
+            {
+              "name": "length",
+              "sig": "LengthSig",
+              "type": "Bitlist → Nat"
+            },
+            {
+              "name": "add",
+              "sig": "AddSig",
+              "type": "Bitlist → Bitlist → Bitlist"
+            },
+            {
+              "name": "bitlist_getitem",
+              "sig": "GetitemSig",
+              "type": "Bitlist → Sum Int (Option Int × Option Int × Option Int) → Except String (Sum Bool Bitlist)"
+            },
+            {
+              "name": "bitlistToInt",
+              "sig": "ToIntSig",
+              "type": "Bitlist → Nat"
+            }
+          ],
+          "specs": [
+            "spec_make_identity",
+            "spec_length_matches_list",
+            "spec_length_empty",
+            "spec_add_length_distributes",
+            "spec_add_empty_left",
+            "spec_add_empty_right",
+            "spec_add_associative",
+            "spec_toInt_empty",
+            "spec_toInt_all_zeros",
+            "spec_toInt_concrete_123",
+            "spec_toInt_leading_zero_invariant",
+            "spec_toInt_bounded",
+            "spec_getitem_pos_in_range",
+            "spec_getitem_pos_out_of_range_errors",
+            "spec_getitem_full_slice_returns_self",
+            "spec_getitem_neg_one_is_last"
+          ]
+        }
+      ]
+    }
+  ]
+}

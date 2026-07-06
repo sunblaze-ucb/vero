@@ -1,0 +1,4035 @@
+{
+  "benchmark_id": "flocq",
+  "description": "Flocq: Coq floating-point library translated to Lean 4. IEEE 754 arithmetic, generic rounding, error bounds.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "coq",
+    "repo_url": "https://gitlab.inria.fr/flocq/flocq.git",
+    "commit_hash": "7aab8f55bceec0cfafc3b3bc0e77e0dbb5a70c5f",
+    "path": "src"
+  },
+  "curation": {
+    "date": "2026-04-26"
+  },
+  "root_package": "Flocq",
+  "files": {
+    "root_hub": "Flocq.lean",
+    "harness": "Flocq/Harness.lean",
+    "test": "Flocq/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Flocq",
+      "modules": [
+        {
+          "name": "Calc/Bracket",
+          "impl": "Flocq/Calc/Impl/Bracket.lean",
+          "spec": "Flocq/Calc/Spec/Bracket.lean",
+          "apis": [
+            {
+              "name": "newLocationEven",
+              "sig": "NewLocationEvenSig",
+              "type": "Int \u2192 Int \u2192 Location \u2192 Location",
+              "source_id": "Calc/Bracket.v:new_location_even:10136",
+              "source_name": "new_location_even",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_even"
+            },
+            {
+              "name": "newLocationOdd",
+              "sig": "NewLocationEvenSig",
+              "type": "Int \u2192 Int \u2192 Location \u2192 Location",
+              "source_id": "Calc/Bracket.v:new_location_odd:12030",
+              "source_name": "new_location_odd",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_odd"
+            },
+            {
+              "name": "newLocation",
+              "sig": "NewLocationEvenSig",
+              "type": "Int \u2192 Int \u2192 Location \u2192 Location",
+              "source_id": "Calc/Bracket.v:new_location:13570",
+              "source_name": "new_location",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_newLocationEven_k0_exact",
+              "source_id": "Calc/Bracket.v:new_location_even:10136",
+              "source_name": "new_location_even",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_even",
+              "source_theorem": "new_location_even",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item new_location_even in Calc/Bracket.v."
+            },
+            {
+              "name": "spec_newLocationEven_k0_inexact",
+              "source_id": "Calc/Bracket.v:new_location_even:10136",
+              "source_name": "new_location_even",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_even",
+              "source_theorem": "new_location_even",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item new_location_even in Calc/Bracket.v."
+            },
+            {
+              "name": "spec_newLocationEven_lo",
+              "source_id": "Calc/Bracket.v:new_location_even:10136",
+              "source_name": "new_location_even",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_even",
+              "source_theorem": "new_location_even",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item new_location_even in Calc/Bracket.v."
+            },
+            {
+              "name": "spec_newLocationEven_mid_exact",
+              "source_id": "Calc/Bracket.v:new_location_even:10136",
+              "source_name": "new_location_even",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_even",
+              "source_theorem": "new_location_even",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item new_location_even in Calc/Bracket.v."
+            },
+            {
+              "name": "spec_newLocationEven_mid_inexact",
+              "source_id": "Calc/Bracket.v:new_location_even:10136",
+              "source_name": "new_location_even",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_even",
+              "source_theorem": "new_location_even",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item new_location_even in Calc/Bracket.v."
+            },
+            {
+              "name": "spec_newLocationEven_hi",
+              "source_id": "Calc/Bracket.v:new_location_even:10136",
+              "source_name": "new_location_even",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_even",
+              "source_theorem": "new_location_even",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item new_location_even in Calc/Bracket.v."
+            },
+            {
+              "name": "spec_newLocationOdd_k0_exact",
+              "source_id": "Calc/Bracket.v:new_location_odd:12030",
+              "source_name": "new_location_odd",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_odd",
+              "source_theorem": "new_location_odd",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item new_location_odd in Calc/Bracket.v."
+            },
+            {
+              "name": "spec_newLocationOdd_k0_inexact",
+              "source_id": "Calc/Bracket.v:new_location_odd:12030",
+              "source_name": "new_location_odd",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_odd",
+              "source_theorem": "new_location_odd",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item new_location_odd in Calc/Bracket.v."
+            },
+            {
+              "name": "spec_newLocationOdd_lo",
+              "source_id": "Calc/Bracket.v:new_location_odd:12030",
+              "source_name": "new_location_odd",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_odd",
+              "source_theorem": "new_location_odd",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item new_location_odd in Calc/Bracket.v."
+            },
+            {
+              "name": "spec_newLocationOdd_mid_exact",
+              "source_id": "Calc/Bracket.v:new_location_odd:12030",
+              "source_name": "new_location_odd",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_odd",
+              "source_theorem": "new_location_odd",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item new_location_odd in Calc/Bracket.v."
+            },
+            {
+              "name": "spec_newLocationOdd_mid_inexact",
+              "source_id": "Calc/Bracket.v:new_location_odd:12030",
+              "source_name": "new_location_odd",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_odd",
+              "source_theorem": "new_location_odd",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item new_location_odd in Calc/Bracket.v."
+            },
+            {
+              "name": "spec_newLocationOdd_hi",
+              "source_id": "Calc/Bracket.v:new_location_odd:12030",
+              "source_name": "new_location_odd",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_odd",
+              "source_theorem": "new_location_odd",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item new_location_odd in Calc/Bracket.v."
+            },
+            {
+              "name": "spec_newLocation_even",
+              "source_id": "Calc/Bracket.v:new_location_even:10136",
+              "source_name": "new_location_even",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_even",
+              "source_theorem": "new_location_even",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_newLocation_odd",
+              "source_id": "Calc/Bracket.v:new_location_odd:12030",
+              "source_name": "new_location_odd",
+              "source_file": "Calc/Bracket.v",
+              "source_signature": "Definition new_location_odd",
+              "source_theorem": "new_location_odd",
+              "equivalence_status": "equivalent"
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "Location",
+              "source_id": "Calc/Bracket.v:new_location:13570",
+              "source_name": "new_location",
+              "source_file": "Calc/Bracket.v",
+              "kind": "helper",
+              "source_signature": "Definition new_location",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item new_location in Calc/Bracket.v."
+            }
+          ]
+        },
+        {
+          "name": "Calc/Div",
+          "impl": "Flocq/Calc/Impl/Div.lean",
+          "spec": "Flocq/Calc/Spec/Div.lean",
+          "apis": [
+            {
+              "name": "fdivCore",
+              "sig": "FdivCoreSig",
+              "type": "Radix \u2192 (Int \u2192 Int) \u2192 Int \u2192 Int \u2192 Int \u2192 Int \u2192 Int \u2192 Int \u00d7 Location",
+              "source_id": "Calc/Div.v:Fdiv_core:1954",
+              "source_name": "Fdiv_core",
+              "source_file": "Calc/Div.v",
+              "source_signature": "Definition Fdiv_core"
+            },
+            {
+              "name": "fdiv",
+              "sig": "FdivCoreSig",
+              "type": "Radix \u2192 (Int \u2192 Int) \u2192 Int \u2192 Int \u2192 Int \u2192 Int \u2192 Int \u2192 Int \u00d7 Location",
+              "source_id": "Calc/Div.v:Fdiv:4126",
+              "source_name": "Fdiv",
+              "source_file": "Calc/Div.v",
+              "source_signature": "Definition Fdiv"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_fdivCore_quotient_lo",
+              "source_id": "Calc/Div.v:Fdiv_core:1954",
+              "source_name": "Fdiv_core",
+              "source_file": "Calc/Div.v",
+              "source_signature": "Definition Fdiv_core",
+              "source_theorem": "Fdiv_core",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fdiv_core in Calc/Div.v."
+            },
+            {
+              "name": "spec_fdivCore_quotient_hi",
+              "source_id": "Calc/Div.v:Fdiv_core:1954",
+              "source_name": "Fdiv_core",
+              "source_file": "Calc/Div.v",
+              "source_signature": "Definition Fdiv_core",
+              "source_theorem": "Fdiv_core",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fdiv_core in Calc/Div.v."
+            },
+            {
+              "name": "spec_fdivCore_exact_lo",
+              "source_id": "Calc/Div.v:Fdiv_core:1954",
+              "source_name": "Fdiv_core",
+              "source_file": "Calc/Div.v",
+              "source_signature": "Definition Fdiv_core",
+              "source_theorem": "Fdiv_core",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fdiv_core in Calc/Div.v."
+            },
+            {
+              "name": "spec_fdivCore_exact_hi",
+              "source_id": "Calc/Div.v:Fdiv_core:1954",
+              "source_name": "Fdiv_core",
+              "source_file": "Calc/Div.v",
+              "source_signature": "Definition Fdiv_core",
+              "source_theorem": "Fdiv_core",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fdiv_core in Calc/Div.v."
+            },
+            {
+              "name": "spec_fdiv_exponent",
+              "source_id": "Calc/Div.v:Fdiv:4126",
+              "source_name": "Fdiv",
+              "source_file": "Calc/Div.v",
+              "source_signature": "Definition Fdiv",
+              "source_theorem": "Fdiv",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fdiv in Calc/Div.v."
+            },
+            {
+              "name": "spec_fdiv_delegation",
+              "source_id": "Calc/Div.v:Fdiv:4126",
+              "source_name": "Fdiv",
+              "source_file": "Calc/Div.v",
+              "source_signature": "Definition Fdiv",
+              "source_theorem": "Fdiv",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fdiv in Calc/Div.v."
+            }
+          ],
+          "api_helpers": []
+        },
+        {
+          "name": "Calc/Operations",
+          "impl": "Flocq/Calc/Impl/Operations.lean",
+          "spec": "Flocq/Calc/Spec/Operations.lean",
+          "apis": [
+            {
+              "name": "falign",
+              "sig": "FalignSig",
+              "type": "Radix \u2192 FloatNum \u2192 FloatNum \u2192 (Int \u00d7 Int) \u00d7 Int",
+              "source_id": "Calc/Operations.v:Falign:1003",
+              "source_name": "Falign",
+              "source_file": "Calc/Operations.v",
+              "source_signature": "Definition Falign"
+            },
+            {
+              "name": "fopp",
+              "sig": "FoppSig",
+              "type": "FloatNum \u2192 FloatNum",
+              "source_id": "Calc/Operations.v:Fopp:1918",
+              "source_name": "Fopp",
+              "source_file": "Calc/Operations.v",
+              "source_signature": "Definition Fopp"
+            },
+            {
+              "name": "fabs",
+              "sig": "FabsSig",
+              "type": "FloatNum \u2192 FloatNum",
+              "source_id": "Calc/Operations.v:Fabs:2132",
+              "source_name": "Fabs",
+              "source_file": "Calc/Operations.v",
+              "source_signature": "Definition Fabs"
+            },
+            {
+              "name": "fmult",
+              "sig": "FmultSig",
+              "type": "FloatNum \u2192 FloatNum \u2192 FloatNum",
+              "source_id": "Calc/Operations.v:Fmult:3582",
+              "source_name": "Fmult",
+              "source_file": "Calc/Operations.v",
+              "source_signature": "Definition Fmult"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_falign_exp_le",
+              "source_id": "Calc/Operations.v:Falign:1003",
+              "source_name": "Falign",
+              "source_file": "Calc/Operations.v",
+              "source_signature": "Definition Falign",
+              "source_theorem": "Falign",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Falign in Calc/Operations.v."
+            },
+            {
+              "name": "spec_falign_exp_gt",
+              "source_id": "Calc/Operations.v:Falign:1003",
+              "source_name": "Falign",
+              "source_file": "Calc/Operations.v",
+              "source_signature": "Definition Falign",
+              "source_theorem": "Falign",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Falign in Calc/Operations.v."
+            },
+            {
+              "name": "spec_falign_left_mantissa_le",
+              "source_id": "Calc/Operations.v:Falign:1003",
+              "source_name": "Falign",
+              "source_file": "Calc/Operations.v",
+              "source_signature": "Definition Falign",
+              "source_theorem": "Falign",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Falign in Calc/Operations.v."
+            },
+            {
+              "name": "spec_falign_right_mantissa_le",
+              "source_id": "Calc/Operations.v:Falign:1003",
+              "source_name": "Falign",
+              "source_file": "Calc/Operations.v",
+              "source_signature": "Definition Falign",
+              "source_theorem": "Falign",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Falign in Calc/Operations.v."
+            },
+            {
+              "name": "spec_fopp_num",
+              "source_id": "Calc/Operations.v:Fopp:1918",
+              "source_name": "Fopp",
+              "source_file": "Calc/Operations.v",
+              "source_signature": "Definition Fopp",
+              "source_theorem": "Fopp",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fopp in Calc/Operations.v."
+            },
+            {
+              "name": "spec_fopp_exp",
+              "source_id": "Calc/Operations.v:Fopp:1918",
+              "source_name": "Fopp",
+              "source_file": "Calc/Operations.v",
+              "source_signature": "Definition Fopp",
+              "source_theorem": "Fopp",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fopp in Calc/Operations.v."
+            },
+            {
+              "name": "spec_fabs_num",
+              "source_id": "Calc/Operations.v:Fabs:2132",
+              "source_name": "Fabs",
+              "source_file": "Calc/Operations.v",
+              "source_signature": "Definition Fabs",
+              "source_theorem": "Fabs",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fabs in Calc/Operations.v."
+            },
+            {
+              "name": "spec_fabs_exp",
+              "source_id": "Calc/Operations.v:Fabs:2132",
+              "source_name": "Fabs",
+              "source_file": "Calc/Operations.v",
+              "source_signature": "Definition Fabs",
+              "source_theorem": "Fabs",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fabs in Calc/Operations.v."
+            },
+            {
+              "name": "spec_fmult_mantissa",
+              "source_id": "Calc/Operations.v:Fmult:3582",
+              "source_name": "Fmult",
+              "source_file": "Calc/Operations.v",
+              "source_signature": "Definition Fmult",
+              "source_theorem": "Fmult",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fmult in Calc/Operations.v."
+            },
+            {
+              "name": "spec_fmult_exponent",
+              "source_id": "Calc/Operations.v:Fmult:3582",
+              "source_name": "Fmult",
+              "source_file": "Calc/Operations.v",
+              "source_signature": "Definition Fmult",
+              "source_theorem": "Fmult",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fmult in Calc/Operations.v."
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "powInt",
+              "source_id": "Calc/Operations.v:Falign:1003",
+              "source_name": "Falign",
+              "source_file": "Calc/Operations.v",
+              "kind": "helper",
+              "source_signature": "Definition Falign",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item Falign in Calc/Operations.v."
+            }
+          ]
+        },
+        {
+          "name": "Calc/Plus",
+          "impl": "Flocq/Calc/Impl/Plus.lean",
+          "spec": "Flocq/Calc/Spec/Plus.lean",
+          "apis": [
+            {
+              "name": "fplusCore",
+              "sig": "FplusCoreSig",
+              "type": "Radix \u2192 (Int \u2192 Int) \u2192 Int \u2192 Int \u2192 Int \u2192 Int \u2192 Int \u2192 Int \u00d7 Location",
+              "source_id": "Calc/Plus.v:Fplus_core:1018",
+              "source_name": "Fplus_core",
+              "source_file": "Calc/Plus.v",
+              "source_signature": "Definition Fplus_core"
+            },
+            {
+              "name": "fplus",
+              "sig": "FplusCoreSig",
+              "type": "Radix \u2192 (Int \u2192 Int) \u2192 Int \u2192 Int \u2192 Int \u2192 Int \u2192 Int \u2192 Int \u00d7 Location",
+              "source_id": "Calc/Plus.v:Fplus:2440",
+              "source_name": "Fplus",
+              "source_file": "Calc/Plus.v",
+              "source_signature": "Definition Fplus"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_fplusCore_mantissa_lo",
+              "source_id": "Calc/Plus.v:Fplus_core:1018",
+              "source_name": "Fplus_core",
+              "source_file": "Calc/Plus.v",
+              "source_signature": "Definition Fplus_core",
+              "source_theorem": "Fplus_core",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fplus_core in Calc/Plus.v."
+            },
+            {
+              "name": "spec_fplusCore_location_exact_lo",
+              "source_id": "Calc/Plus.v:Fplus_core:1018",
+              "source_name": "Fplus_core",
+              "source_file": "Calc/Plus.v",
+              "source_signature": "Definition Fplus_core",
+              "source_theorem": "Fplus_core",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fplus_core in Calc/Plus.v."
+            },
+            {
+              "name": "spec_fplusCore_mantissa_hi",
+              "source_id": "Calc/Plus.v:Fplus_core:1018",
+              "source_name": "Fplus_core",
+              "source_file": "Calc/Plus.v",
+              "source_signature": "Definition Fplus_core",
+              "source_theorem": "Fplus_core",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fplus_core in Calc/Plus.v."
+            },
+            {
+              "name": "spec_fplusCore_location_exact_hi",
+              "source_id": "Calc/Plus.v:Fplus_core:1018",
+              "source_name": "Fplus_core",
+              "source_file": "Calc/Plus.v",
+              "source_signature": "Definition Fplus_core",
+              "source_theorem": "Fplus_core",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fplus_core in Calc/Plus.v."
+            },
+            {
+              "name": "spec_fplus_zero_left",
+              "source_id": "Calc/Plus.v:Fplus:2440",
+              "source_name": "Fplus",
+              "source_file": "Calc/Plus.v",
+              "source_signature": "Definition Fplus",
+              "source_theorem": "Fplus",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fplus in Calc/Plus.v."
+            },
+            {
+              "name": "spec_fplus_zero_right",
+              "source_id": "Calc/Plus.v:Fplus:2440",
+              "source_name": "Fplus",
+              "source_file": "Calc/Plus.v",
+              "source_signature": "Definition Fplus",
+              "source_theorem": "Fplus",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fplus in Calc/Plus.v."
+            },
+            {
+              "name": "spec_fplus_exponent_large_gap",
+              "source_id": "Calc/Plus.v:Fplus:2440",
+              "source_name": "Fplus",
+              "source_file": "Calc/Plus.v",
+              "source_signature": "Definition Fplus",
+              "source_theorem": "Fplus",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fplus in Calc/Plus.v."
+            },
+            {
+              "name": "spec_fplus_exact_close",
+              "source_id": "Calc/Plus.v:Fplus:2440",
+              "source_name": "Fplus",
+              "source_file": "Calc/Plus.v",
+              "source_signature": "Definition Fplus",
+              "source_theorem": "Fplus",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fplus in Calc/Plus.v."
+            }
+          ],
+          "api_helpers": []
+        },
+        {
+          "name": "Calc/Round",
+          "impl": "Flocq/Calc/Impl/Round.lean",
+          "spec": "Flocq/Calc/Spec/Round.lean",
+          "apis": [
+            {
+              "name": "condIncr",
+              "sig": "CondIncrSig",
+              "type": "Bool \u2192 Int \u2192 Int",
+              "source_id": "Calc/Round.v:cond_incr:3111",
+              "source_name": "cond_incr",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition cond_incr"
+            },
+            {
+              "name": "roundSignDN",
+              "sig": "RoundSignDNSig",
+              "type": "Bool \u2192 Location \u2192 Bool",
+              "source_id": "Calc/Round.v:round_sign_DN:4797",
+              "source_name": "round_sign_DN",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition round_sign_DN"
+            },
+            {
+              "name": "roundUP",
+              "sig": "RoundUPSig",
+              "type": "Location \u2192 Bool",
+              "source_id": "Calc/Round.v:round_UP:6072",
+              "source_name": "round_UP",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition round_UP"
+            },
+            {
+              "name": "roundSignUP",
+              "sig": "RoundSignUPSig",
+              "type": "Bool \u2192 Location \u2192 Bool",
+              "source_id": "Calc/Round.v:round_sign_UP:7028",
+              "source_name": "round_sign_UP",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition round_sign_UP"
+            },
+            {
+              "name": "roundZR",
+              "sig": "RoundZRSig",
+              "type": "Bool \u2192 Location \u2192 Bool",
+              "source_id": "Calc/Round.v:round_ZR:8221",
+              "source_name": "round_ZR",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition round_ZR"
+            },
+            {
+              "name": "roundN",
+              "sig": "RoundNSig",
+              "type": "Bool \u2192 Location \u2192 Bool",
+              "source_id": "Calc/Round.v:round_N:10399",
+              "source_name": "round_N",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition round_N"
+            },
+            {
+              "name": "truncateAux",
+              "sig": "TruncateAuxSig",
+              "type": "Radix \u2192 Int \u00d7 Int \u00d7 Location \u2192 Int \u2192 Int \u00d7 Int \u00d7 Location",
+              "source_id": "Calc/Round.v:truncate_aux:15518",
+              "source_name": "truncate_aux",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition truncate_aux"
+            },
+            {
+              "name": "truncate",
+              "sig": "TruncateAuxSig",
+              "type": "Radix \u2192 Int \u00d7 Int \u00d7 Location \u2192 Int \u2192 Int \u00d7 Int \u00d7 Location",
+              "source_id": "Calc/Round.v:truncate:16485",
+              "source_name": "truncate",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition truncate"
+            },
+            {
+              "name": "truncateFIX",
+              "sig": "TruncateAuxSig",
+              "type": "Radix \u2192 Int \u00d7 Int \u00d7 Location \u2192 Int \u2192 Int \u00d7 Int \u00d7 Location",
+              "source_id": "Calc/Round.v:truncate_FIX:31376",
+              "source_name": "truncate_FIX",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition truncate_FIX"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_condIncr_true",
+              "source_id": "Calc/Round.v:cond_incr:3111",
+              "source_name": "cond_incr",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition cond_incr",
+              "source_theorem": "cond_incr",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item cond_incr in Calc/Round.v."
+            },
+            {
+              "name": "spec_condIncr_false",
+              "source_id": "Calc/Round.v:cond_incr:3111",
+              "source_name": "cond_incr",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition cond_incr",
+              "source_theorem": "cond_incr",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item cond_incr in Calc/Round.v."
+            },
+            {
+              "name": "spec_roundSignDN_exact",
+              "source_id": "Calc/Round.v:round_sign_DN:4797",
+              "source_name": "round_sign_DN",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition round_sign_DN",
+              "source_theorem": "round_sign_DN",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item round_sign_DN in Calc/Round.v."
+            },
+            {
+              "name": "spec_roundSignDN_inexact",
+              "source_id": "Calc/Round.v:round_sign_DN:4797",
+              "source_name": "round_sign_DN",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition round_sign_DN",
+              "source_theorem": "round_sign_DN",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item round_sign_DN in Calc/Round.v."
+            },
+            {
+              "name": "spec_roundUP_exact",
+              "source_id": "Calc/Round.v:round_UP:6072",
+              "source_name": "round_UP",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition round_UP",
+              "source_theorem": "round_UP",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item round_UP in Calc/Round.v."
+            },
+            {
+              "name": "spec_roundUP_inexact",
+              "source_id": "Calc/Round.v:round_UP:6072",
+              "source_name": "round_UP",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition round_UP",
+              "source_theorem": "round_UP",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item round_UP in Calc/Round.v."
+            },
+            {
+              "name": "spec_roundSignUP_inexact",
+              "source_id": "Calc/Round.v:round_sign_UP:7028",
+              "source_name": "round_sign_UP",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition round_sign_UP",
+              "source_theorem": "round_sign_UP",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item round_sign_UP in Calc/Round.v."
+            },
+            {
+              "name": "spec_roundZR_inexact",
+              "source_id": "Calc/Round.v:round_ZR:8221",
+              "source_name": "round_ZR",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition round_ZR",
+              "source_theorem": "round_ZR",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item round_ZR in Calc/Round.v."
+            },
+            {
+              "name": "spec_roundN_lt",
+              "source_id": "Calc/Round.v:round_N:10399",
+              "source_name": "round_N",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition round_N",
+              "source_theorem": "round_N",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item round_N in Calc/Round.v."
+            },
+            {
+              "name": "spec_roundN_eq",
+              "source_id": "Calc/Round.v:round_N:10399",
+              "source_name": "round_N",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition round_N",
+              "source_theorem": "round_N",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item round_N in Calc/Round.v."
+            },
+            {
+              "name": "spec_roundN_gt",
+              "source_id": "Calc/Round.v:round_N:10399",
+              "source_name": "round_N",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition round_N",
+              "source_theorem": "round_N",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item round_N in Calc/Round.v."
+            },
+            {
+              "name": "spec_truncateAux_mantissa",
+              "source_id": "Calc/Round.v:truncate_aux:15518",
+              "source_name": "truncate_aux",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition truncate_aux",
+              "source_theorem": "truncate_aux",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item truncate_aux in Calc/Round.v."
+            },
+            {
+              "name": "spec_truncateAux_exponent",
+              "source_id": "Calc/Round.v:truncate_aux:15518",
+              "source_name": "truncate_aux",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition truncate_aux",
+              "source_theorem": "truncate_aux",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item truncate_aux in Calc/Round.v."
+            },
+            {
+              "name": "spec_truncateAux_location",
+              "source_id": "Calc/Round.v:truncate_aux:15518",
+              "source_name": "truncate_aux",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition truncate_aux",
+              "source_theorem": "truncate_aux",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item truncate_aux in Calc/Round.v."
+            },
+            {
+              "name": "spec_truncate_passthrough",
+              "source_id": "Calc/Round.v:truncate:16485",
+              "source_name": "truncate",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition truncate",
+              "source_theorem": "truncate",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item truncate in Calc/Round.v."
+            },
+            {
+              "name": "spec_truncate_shifts",
+              "source_id": "Calc/Round.v:truncate:16485",
+              "source_name": "truncate",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition truncate",
+              "source_theorem": "truncate",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item truncate in Calc/Round.v."
+            },
+            {
+              "name": "spec_truncateFIX_passthrough",
+              "source_id": "Calc/Round.v:truncate_FIX:31376",
+              "source_name": "truncate_FIX",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition truncate_FIX",
+              "source_theorem": "truncate_FIX",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item truncate_FIX in Calc/Round.v."
+            },
+            {
+              "name": "spec_truncateFIX_mantissa",
+              "source_id": "Calc/Round.v:truncate_FIX:31376",
+              "source_name": "truncate_FIX",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition truncate_FIX",
+              "source_theorem": "truncate_FIX",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item truncate_FIX in Calc/Round.v."
+            },
+            {
+              "name": "spec_truncateFIX_exponent",
+              "source_id": "Calc/Round.v:truncate_FIX:31376",
+              "source_name": "truncate_FIX",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition truncate_FIX",
+              "source_theorem": "truncate_FIX",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item truncate_FIX in Calc/Round.v."
+            },
+            {
+              "name": "spec_truncateFIX_location",
+              "source_id": "Calc/Round.v:truncate_FIX:31376",
+              "source_name": "truncate_FIX",
+              "source_file": "Calc/Round.v",
+              "source_signature": "Definition truncate_FIX",
+              "source_theorem": "truncate_FIX",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item truncate_FIX in Calc/Round.v."
+            }
+          ],
+          "api_helpers": []
+        },
+        {
+          "name": "Calc/Sqrt",
+          "impl": "Flocq/Calc/Impl/Sqrt.lean",
+          "spec": "Flocq/Calc/Spec/Sqrt.lean",
+          "apis": [
+            {
+              "name": "fsqrtCore",
+              "sig": "FsqrtCoreSig",
+              "type": "Radix \u2192 Int \u2192 Int \u2192 Int \u2192 Int \u00d7 Location",
+              "source_id": "Calc/Sqrt.v:Fsqrt_core:1913",
+              "source_name": "Fsqrt_core",
+              "source_file": "Calc/Sqrt.v",
+              "source_signature": "Definition Fsqrt_core"
+            },
+            {
+              "name": "fsqrt",
+              "sig": "FsqrtCoreSig",
+              "type": "Radix \u2192 Int \u2192 Int \u2192 Int \u2192 Int \u00d7 Location",
+              "source_id": "Calc/Sqrt.v:Fsqrt:4610",
+              "source_name": "Fsqrt",
+              "source_file": "Calc/Sqrt.v",
+              "source_signature": "Definition Fsqrt"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_fsqrtCore_mantissa",
+              "source_id": "Calc/Sqrt.v:Fsqrt_core:1913",
+              "source_name": "Fsqrt_core",
+              "source_file": "Calc/Sqrt.v",
+              "source_signature": "Definition Fsqrt_core",
+              "source_theorem": "Fsqrt_core",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fsqrt_core in Calc/Sqrt.v."
+            },
+            {
+              "name": "spec_fsqrtCore_exact",
+              "source_id": "Calc/Sqrt.v:Fsqrt_core:1913",
+              "source_name": "Fsqrt_core",
+              "source_file": "Calc/Sqrt.v",
+              "source_signature": "Definition Fsqrt_core",
+              "source_theorem": "Fsqrt_core",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fsqrt_core in Calc/Sqrt.v."
+            },
+            {
+              "name": "spec_fsqrtCore_inexact_lo",
+              "source_id": "Calc/Sqrt.v:Fsqrt_core:1913",
+              "source_name": "Fsqrt_core",
+              "source_file": "Calc/Sqrt.v",
+              "source_signature": "Definition Fsqrt_core",
+              "source_theorem": "Fsqrt_core",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fsqrt_core in Calc/Sqrt.v."
+            },
+            {
+              "name": "spec_fsqrtCore_inexact_hi",
+              "source_id": "Calc/Sqrt.v:Fsqrt_core:1913",
+              "source_name": "Fsqrt_core",
+              "source_file": "Calc/Sqrt.v",
+              "source_signature": "Definition Fsqrt_core",
+              "source_theorem": "Fsqrt_core",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fsqrt_core in Calc/Sqrt.v."
+            },
+            {
+              "name": "spec_fsqrt_exponent",
+              "source_id": "Calc/Sqrt.v:Fsqrt:4610",
+              "source_name": "Fsqrt",
+              "source_file": "Calc/Sqrt.v",
+              "source_signature": "Definition Fsqrt",
+              "source_theorem": "Fsqrt",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fsqrt in Calc/Sqrt.v."
+            },
+            {
+              "name": "spec_fsqrt_delegation",
+              "source_id": "Calc/Sqrt.v:Fsqrt:4610",
+              "source_name": "Fsqrt",
+              "source_file": "Calc/Sqrt.v",
+              "source_signature": "Definition Fsqrt",
+              "source_theorem": "Fsqrt",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fsqrt in Calc/Sqrt.v."
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "zdiv2",
+              "source_id": "Calc/Sqrt.v:mag_sqrt_F2R:1643",
+              "source_name": "mag_sqrt_F2R",
+              "source_file": "Calc/Sqrt.v",
+              "kind": "helper",
+              "source_signature": "Lemma mag_sqrt_F2R",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item mag_sqrt_F2R in Calc/Sqrt.v."
+            },
+            {
+              "name": "isqrtNewton",
+              "source_id": "Calc/Sqrt.v:Fsqrt_correct:4818",
+              "source_name": "Fsqrt_correct",
+              "source_file": "Calc/Sqrt.v",
+              "kind": "helper",
+              "source_signature": "Theorem Fsqrt_correct",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item Fsqrt_correct in Calc/Sqrt.v."
+            },
+            {
+              "name": "isqrt",
+              "source_id": "Calc/Sqrt.v:Fsqrt:4610",
+              "source_name": "Fsqrt",
+              "source_file": "Calc/Sqrt.v",
+              "kind": "helper",
+              "source_signature": "Definition Fsqrt",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item Fsqrt in Calc/Sqrt.v."
+            }
+          ]
+        },
+        {
+          "name": "Core/Digits",
+          "impl": "Flocq/Core/Impl/Digits.lean",
+          "spec": "Flocq/Core/Spec/Digits.lean",
+          "apis": [
+            {
+              "name": "digits2Pnat",
+              "sig": "Digits2PnatSig",
+              "type": "Nat \u2192 Nat",
+              "source_id": "Core/Digits.v:digits2_Pnat:1028",
+              "source_name": "digits2_Pnat",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Fixpoint digits2_Pnat"
+            },
+            {
+              "name": "zsumDigit",
+              "sig": "ZsumDigitSig",
+              "type": "Int \u2192 Int \u2192 Int",
+              "source_id": "Core/Digits.v:Zsum_digit:6179",
+              "source_name": "Zsum_digit",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Fixpoint Zsum_digit"
+            },
+            {
+              "name": "zscale",
+              "sig": "ZscaleSig",
+              "type": "Radix \u2192 Int \u2192 Int \u2192 Int",
+              "source_id": "Core/Digits.v:Zscale:11233",
+              "source_name": "Zscale",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Definition Zscale"
+            },
+            {
+              "name": "zslice",
+              "sig": "ZsliceSig",
+              "type": "Radix \u2192 Int \u2192 Int \u2192 Int \u2192 Int",
+              "source_id": "Core/Digits.v:Zslice:12957",
+              "source_name": "Zslice",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Definition Zslice"
+            },
+            {
+              "name": "zdigitsAux",
+              "sig": "ZdigitsAuxSig",
+              "type": "Int \u2192 Int \u2192 Int \u2192 Int \u2192 Nat \u2192 Int",
+              "source_id": "Core/Digits.v:Zdigits_aux:17840",
+              "source_name": "Zdigits_aux",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Fixpoint Zdigits_aux"
+            },
+            {
+              "name": "zdigits",
+              "sig": "ZdigitsSig",
+              "type": "Radix \u2192 Int \u2192 Int",
+              "source_id": "Core/Digits.v:Zdigits:18077",
+              "source_name": "Zdigits",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Definition Zdigits"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_digits2Pnat_zero",
+              "source_id": "Core/Digits.v:digits2_Pnat:1028",
+              "source_name": "digits2_Pnat",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Fixpoint digits2_Pnat",
+              "source_theorem": "digits2_Pnat",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item digits2_Pnat in Core/Digits.v."
+            },
+            {
+              "name": "spec_digits2Pnat_pos",
+              "source_id": "Core/Digits.v:digits2_Pnat:1028",
+              "source_name": "digits2_Pnat",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Fixpoint digits2_Pnat",
+              "source_theorem": "digits2_Pnat",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item digits2_Pnat in Core/Digits.v."
+            },
+            {
+              "name": "spec_zsumDigit_def",
+              "source_id": "Core/Digits.v:Zsum_digit:6179",
+              "source_name": "Zsum_digit",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Fixpoint Zsum_digit",
+              "source_theorem": "Zsum_digit",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zsum_digit in Core/Digits.v."
+            },
+            {
+              "name": "spec_zscale_zero",
+              "source_id": "Core/Digits.v:Zscale:11233",
+              "source_name": "Zscale",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Definition Zscale",
+              "source_theorem": "Zscale",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zscale in Core/Digits.v."
+            },
+            {
+              "name": "spec_zscale_nonneg",
+              "source_id": "Core/Digits.v:Zscale:11233",
+              "source_name": "Zscale",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Definition Zscale",
+              "source_theorem": "Zscale",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zscale in Core/Digits.v."
+            },
+            {
+              "name": "spec_zslice_empty",
+              "source_id": "Core/Digits.v:Zslice:12957",
+              "source_name": "Zslice",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Definition Zslice",
+              "source_theorem": "Zslice",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zslice in Core/Digits.v."
+            },
+            {
+              "name": "spec_zdigitsAux_def",
+              "source_id": "Core/Digits.v:Zdigits_aux:17840",
+              "source_name": "Zdigits_aux",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Fixpoint Zdigits_aux",
+              "source_theorem": "Zdigits_aux",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zdigits_aux in Core/Digits.v."
+            },
+            {
+              "name": "spec_zdigits_zero",
+              "source_id": "Core/Digits.v:Zdigits:18077",
+              "source_name": "Zdigits",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Definition Zdigits",
+              "source_theorem": "Zdigits",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zdigits in Core/Digits.v."
+            },
+            {
+              "name": "spec_zdigits_nonneg",
+              "source_id": "Core/Digits.v:Zdigits:18077",
+              "source_name": "Zdigits",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Definition Zdigits",
+              "source_theorem": "Zdigits",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zdigits in Core/Digits.v."
+            },
+            {
+              "name": "spec_zdigits_pos",
+              "source_id": "Core/Digits.v:Zdigits:18077",
+              "source_name": "Zdigits",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Definition Zdigits",
+              "source_theorem": "Zdigits",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zdigits in Core/Digits.v."
+            },
+            {
+              "name": "spec_zdigits_opp",
+              "source_id": "Core/Digits.v:Zdigits_opp:20216",
+              "source_name": "Zdigits_opp",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Theorem Zdigits_opp",
+              "source_theorem": "Zdigits_opp",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_zdigits_correct_upper",
+              "source_id": "Core/Digits.v:Zdigits_correct:18248",
+              "source_name": "Zdigits_correct",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Theorem Zdigits_correct",
+              "source_theorem": "Zdigits_correct",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zdigits_correct in Core/Digits.v."
+            },
+            {
+              "name": "spec_zdigits_correct_lower",
+              "source_id": "Core/Digits.v:Zdigits_correct:18248",
+              "source_name": "Zdigits_correct",
+              "source_file": "Core/Digits.v",
+              "source_signature": "Theorem Zdigits_correct",
+              "source_theorem": "Zdigits_correct",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zdigits_correct in Core/Digits.v."
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "zdigitsAuxCore",
+              "source_id": "Core/Digits.v:Zdigits_aux:17840",
+              "source_name": "Zdigits_aux",
+              "source_file": "Core/Digits.v",
+              "kind": "helper",
+              "source_signature": "Fixpoint Zdigits_aux",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item Zdigits_aux in Core/Digits.v."
+            }
+          ]
+        },
+        {
+          "name": "Core/FLT",
+          "impl": "Flocq/Core/Impl/FLT.lean",
+          "spec": "Flocq/Core/Spec/FLT.lean",
+          "apis": [],
+          "specs": [
+            {
+              "name": "spec_ulp_FLT_0",
+              "source_id": "Core/FLT.v:ulp_FLT_0:6869",
+              "source_name": "ulp_FLT_0",
+              "source_file": "Core/FLT.v",
+              "source_signature": "Theorem ulp_FLT_0",
+              "source_theorem": "ulp_FLT_0",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_ulp_FLT_small",
+              "source_id": "Core/FLT.v:ulp_FLT_small:7326",
+              "source_name": "ulp_FLT_small",
+              "source_file": "Core/FLT.v",
+              "source_signature": "Theorem ulp_FLT_small",
+              "source_theorem": "ulp_FLT_small",
+              "equivalence_status": "equivalent"
+            }
+          ],
+          "api_helpers": [
+            {
+              "name": "ulp",
+              "sig": "UlpSig",
+              "type": "Radix \u2192 (Int \u2192 Int) \u2192 \u211d \u2192 \u211d",
+              "source_id": "Core/FLT.v:ulp_FLT_0:6869",
+              "source_name": "ulp_FLT_0",
+              "source_file": "Core/FLT.v",
+              "source_signature": "Theorem ulp_FLT_0"
+            }
+          ],
+          "spec_helpers": [
+            {
+              "name": "FLT_exp",
+              "source_id": "Core/FLT.v:FLT_exp:1183",
+              "source_name": "FLT_exp",
+              "source_file": "Core/FLT.v",
+              "kind": "helper",
+              "source_signature": "Definition FLT_exp"
+            },
+            {
+              "name": "spec_cexp_FLT_FLX",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Core/FLT.v:cexp_FLT_FLX:3247",
+              "source_name": "cexp_FLT_FLX",
+              "source_file": "Core/FLT.v",
+              "source_signature": "Theorem cexp_FLT_FLX",
+              "source_theorem": "cexp_FLT_FLX",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_generic_format_FLX_FLT",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Core/FLT.v:generic_format_FLX_FLT:4767",
+              "source_name": "generic_format_FLX_FLT",
+              "source_file": "Core/FLT.v",
+              "source_signature": "Theorem generic_format_FLX_FLT",
+              "source_theorem": "generic_format_FLX_FLT",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_round_FLT_FLX",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Core/FLT.v:round_FLT_FLX:5074",
+              "source_name": "round_FLT_FLX",
+              "source_file": "Core/FLT.v",
+              "source_signature": "Theorem round_FLT_FLX",
+              "source_theorem": "round_FLT_FLX",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "Core/GenericFmt",
+          "impl": "Flocq/Core/Impl/GenericFmt.lean",
+          "spec": "Flocq/Core/Spec/GenericFmt.lean",
+          "apis": [
+            {
+              "name": "znearest",
+              "sig": "ZnearestSig",
+              "type": "(Int \u2192 Bool) \u2192 \u211d \u2192 Int",
+              "source_id": "Core/Generic_fmt.v:Znearest:36129",
+              "source_name": "Znearest",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Definition Znearest"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_znearest_def",
+              "source_id": "Core/Generic_fmt.v:Znearest:36129",
+              "source_name": "Znearest",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Definition Znearest",
+              "source_theorem": "Znearest",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Znearest in Core/Generic_fmt.v."
+            },
+            {
+              "name": "spec_generic_format_round",
+              "source_id": "Core/Generic_fmt.v:generic_format_round:26744",
+              "source_name": "generic_format_round",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Theorem generic_format_round",
+              "source_theorem": "generic_format_round",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_round_DN_or_UP",
+              "source_id": "Core/Generic_fmt.v:round_DN_or_UP:19720",
+              "source_name": "round_DN_or_UP",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Theorem round_DN_or_UP",
+              "source_theorem": "round_DN_or_UP",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_round_N_opp",
+              "source_id": "Core/Generic_fmt.v:round_N_opp:47987",
+              "source_name": "round_N_opp",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Theorem round_N_opp",
+              "source_theorem": "round_N_opp",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_round_N_pt",
+              "source_id": "Core/Generic_fmt.v:round_N_pt:40433",
+              "source_name": "round_N_pt",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Theorem round_N_pt",
+              "source_theorem": "round_N_pt",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_round_bounded_large_pos",
+              "source_id": "Core/Generic_fmt.v:round_bounded_large_pos:13128",
+              "source_name": "round_bounded_large_pos",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Theorem round_bounded_large_pos",
+              "source_theorem": "round_bounded_large_pos",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_round_generic",
+              "source_id": "Core/Generic_fmt.v:round_generic:16804",
+              "source_name": "round_generic",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Theorem round_generic",
+              "source_theorem": "round_generic",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_round_le",
+              "source_id": "Core/Generic_fmt.v:round_le:20206",
+              "source_name": "round_le",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Theorem round_le",
+              "source_theorem": "round_le",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_round_le_generic",
+              "source_id": "Core/Generic_fmt.v:round_le_generic:21530",
+              "source_name": "round_le_generic",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Theorem round_le_generic",
+              "source_theorem": "round_le_generic",
+              "equivalence_status": "equivalent"
+            }
+          ],
+          "api_helpers": [
+            {
+              "name": "round",
+              "sig": "RoundSig",
+              "type": "Radix \u2192 (Int \u2192 Int) \u2192 (\u211d \u2192 Int) \u2192 \u211d \u2192 \u211d",
+              "source_id": "Core/Generic_fmt.v:round:13051",
+              "source_name": "round",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Definition round"
+            }
+          ],
+          "spec_helpers": [
+            {
+              "name": "F2R",
+              "source_id": "Core/Generic_fmt.v:generic_format_F2R:3281",
+              "source_name": "generic_format_F2R",
+              "source_file": "Core/Generic_fmt.v",
+              "kind": "helper",
+              "source_signature": "Theorem generic_format_F2R",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item generic_format_F2R in Core/Generic_fmt.v."
+            },
+            {
+              "name": "MonotoneExp",
+              "source_id": "Core/Generic_fmt.v:lt_cexp:35084",
+              "source_name": "lt_cexp",
+              "source_file": "Core/Generic_fmt.v",
+              "kind": "helper",
+              "source_signature": "Theorem lt_cexp",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item lt_cexp in Core/Generic_fmt.v."
+            },
+            {
+              "name": "RndNPt",
+              "source_id": "Core/Generic_fmt.v:round_N_pt:40433",
+              "source_name": "round_N_pt",
+              "source_file": "Core/Generic_fmt.v",
+              "kind": "helper",
+              "source_signature": "Theorem round_N_pt",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item round_N_pt in Core/Generic_fmt.v."
+            },
+            {
+              "name": "ValidExp",
+              "source_id": "Core/Generic_fmt.v:valid_exp_large:1256",
+              "source_name": "valid_exp_large",
+              "source_file": "Core/Generic_fmt.v",
+              "kind": "helper",
+              "source_signature": "Theorem valid_exp_large",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item valid_exp_large in Core/Generic_fmt.v."
+            },
+            {
+              "name": "ValidRnd",
+              "source_id": "Core/Generic_fmt.v:valid_exp_large:1256",
+              "source_name": "valid_exp_large",
+              "source_file": "Core/Generic_fmt.v",
+              "kind": "helper",
+              "source_signature": "Theorem valid_exp_large",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item valid_exp_large in Core/Generic_fmt.v."
+            },
+            {
+              "name": "cexp",
+              "source_id": "Core/Generic_fmt.v:cexp:1751",
+              "source_name": "cexp",
+              "source_file": "Core/Generic_fmt.v",
+              "kind": "helper",
+              "source_signature": "Definition cexp"
+            },
+            {
+              "name": "genericCanonical",
+              "source_id": "Core/Generic_fmt.v:canonical:1794",
+              "source_name": "canonical",
+              "source_file": "Core/Generic_fmt.v",
+              "kind": "helper",
+              "source_signature": "Definition canonical",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item canonical in Core/Generic_fmt.v."
+            },
+            {
+              "name": "genericFormat",
+              "source_id": "Core/Generic_fmt.v:generic_format:1921",
+              "source_name": "generic_format",
+              "source_file": "Core/Generic_fmt.v",
+              "kind": "helper",
+              "source_signature": "Definition generic_format"
+            },
+            {
+              "name": "scaledMantissa",
+              "source_id": "Core/Generic_fmt.v:scaled_mantissa:1861",
+              "source_name": "scaled_mantissa",
+              "source_file": "Core/Generic_fmt.v",
+              "kind": "helper",
+              "source_signature": "Definition scaled_mantissa"
+            },
+            {
+              "name": "spec_Znearest_opp",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Core/Generic_fmt.v:Znearest_opp:47187",
+              "source_name": "Znearest_opp",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Theorem Znearest_opp",
+              "source_theorem": "Znearest_opp",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_generic_format_F2R",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Core/Generic_fmt.v:generic_format_F2R:3281",
+              "source_name": "generic_format_F2R",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Theorem generic_format_F2R",
+              "source_theorem": "generic_format_F2R",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_generic_format_canonical",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Core/Generic_fmt.v:generic_format_canonical:10331",
+              "source_name": "generic_format_canonical",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Theorem generic_format_canonical",
+              "source_theorem": "generic_format_canonical",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_generic_format_opp",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Core/Generic_fmt.v:generic_format_opp:6041",
+              "source_name": "generic_format_opp",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Theorem generic_format_opp",
+              "source_theorem": "generic_format_opp",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_generic_inclusion_mag",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Core/Generic_fmt.v:generic_inclusion_mag:49572",
+              "source_name": "generic_inclusion_mag",
+              "source_file": "Core/Generic_fmt.v",
+              "source_signature": "Theorem generic_inclusion_mag",
+              "source_theorem": "generic_inclusion_mag",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "Core/Raux",
+          "impl": "Flocq/Core/Impl/Raux.lean",
+          "spec": "Flocq/Core/Spec/Raux.lean",
+          "apis": [
+            {
+              "name": "rcompare",
+              "sig": "RcompareSig",
+              "type": "\u211d \u2192 \u211d \u2192 Ordering",
+              "source_id": "Core/Raux.v:Rcompare:6815",
+              "source_name": "Rcompare",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition Rcompare"
+            },
+            {
+              "name": "rleBool",
+              "sig": "RleBoolSig",
+              "type": "\u211d \u2192 \u211d \u2192 Bool",
+              "source_id": "Core/Raux.v:Rle_bool:12148",
+              "source_name": "Rle_bool",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition Rle_bool"
+            },
+            {
+              "name": "rltBool",
+              "sig": "RltBoolSig",
+              "type": "\u211d \u2192 \u211d \u2192 Bool",
+              "source_id": "Core/Raux.v:Rlt_bool:13057",
+              "source_name": "Rlt_bool",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition Rlt_bool"
+            },
+            {
+              "name": "reqBool",
+              "sig": "ReqBoolSig",
+              "type": "\u211d \u2192 \u211d \u2192 Bool",
+              "source_id": "Core/Raux.v:Req_bool:14351",
+              "source_name": "Req_bool",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition Req_bool"
+            },
+            {
+              "name": "ztrunc",
+              "sig": "ZtruncSig",
+              "type": "\u211d \u2192 Int",
+              "source_id": "Core/Raux.v:Ztrunc:18182",
+              "source_name": "Ztrunc",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition Ztrunc"
+            },
+            {
+              "name": "zaway",
+              "sig": "ZawaySig",
+              "type": "\u211d \u2192 Int",
+              "source_id": "Core/Raux.v:Zaway:20207",
+              "source_name": "Zaway",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition Zaway"
+            },
+            {
+              "name": "condRopp",
+              "sig": "CondRoppSig",
+              "type": "Bool \u2192 \u211d \u2192 \u211d",
+              "source_id": "Core/Raux.v:cond_Ropp:45802",
+              "source_name": "cond_Ropp",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition cond_Ropp"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_Rcompare_spec",
+              "source_id": "Core/Raux.v:Rcompare_spec:7169",
+              "source_name": "Rcompare_spec",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Theorem Rcompare_spec",
+              "source_theorem": "Rcompare_spec",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_rcompare_def",
+              "source_id": "Core/Raux.v:Rcompare:6815",
+              "source_name": "Rcompare",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition Rcompare",
+              "source_theorem": "Rcompare",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Rcompare in Core/Raux.v."
+            },
+            {
+              "name": "spec_Rle_bool_spec",
+              "source_id": "Core/Raux.v:Rle_bool_spec:12410",
+              "source_name": "Rle_bool_spec",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Theorem Rle_bool_spec",
+              "source_theorem": "Rle_bool_spec",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_rleBool_def",
+              "source_id": "Core/Raux.v:Rle_bool:12148",
+              "source_name": "Rle_bool",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition Rle_bool",
+              "source_theorem": "Rle_bool",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Rle_bool in Core/Raux.v."
+            },
+            {
+              "name": "spec_Rlt_bool_spec",
+              "source_id": "Core/Raux.v:Rlt_bool_spec:13319",
+              "source_name": "Rlt_bool_spec",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Theorem Rlt_bool_spec",
+              "source_theorem": "Rlt_bool_spec",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_rltBool_def",
+              "source_id": "Core/Raux.v:Rlt_bool:13057",
+              "source_name": "Rlt_bool",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition Rlt_bool",
+              "source_theorem": "Rlt_bool",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Rlt_bool in Core/Raux.v."
+            },
+            {
+              "name": "spec_Req_bool_spec",
+              "source_id": "Core/Raux.v:Req_bool_spec:14613",
+              "source_name": "Req_bool_spec",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Theorem Req_bool_spec",
+              "source_theorem": "Req_bool_spec",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_reqBool_def",
+              "source_id": "Core/Raux.v:Req_bool:14351",
+              "source_name": "Req_bool",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition Req_bool",
+              "source_theorem": "Req_bool",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Req_bool in Core/Raux.v."
+            },
+            {
+              "name": "spec_ztrunc_def",
+              "source_id": "Core/Raux.v:Ztrunc:18182",
+              "source_name": "Ztrunc",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition Ztrunc",
+              "source_theorem": "Ztrunc",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Ztrunc in Core/Raux.v."
+            },
+            {
+              "name": "spec_zaway_def",
+              "source_id": "Core/Raux.v:Zaway:20207",
+              "source_name": "Zaway",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition Zaway",
+              "source_theorem": "Zaway",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zaway in Core/Raux.v."
+            },
+            {
+              "name": "spec_condRopp_true",
+              "source_id": "Core/Raux.v:cond_Ropp:45802",
+              "source_name": "cond_Ropp",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition cond_Ropp",
+              "source_theorem": "cond_Ropp",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item cond_Ropp in Core/Raux.v."
+            },
+            {
+              "name": "spec_condRopp_false",
+              "source_id": "Core/Raux.v:cond_Ropp:45802",
+              "source_name": "cond_Ropp",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition cond_Ropp",
+              "source_theorem": "cond_Ropp",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item cond_Ropp in Core/Raux.v."
+            },
+            {
+              "name": "spec_bpow_ge_0",
+              "source_id": "Core/Raux.v:bpow_ge_0:28266",
+              "source_name": "bpow_ge_0",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Theorem  bpow_ge_0",
+              "source_theorem": "bpow_ge_0",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_mag_bpow",
+              "source_id": "Core/Raux.v:mag_bpow:35931",
+              "source_name": "mag_bpow",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Theorem mag_bpow",
+              "source_theorem": "mag_bpow",
+              "equivalence_status": "equivalent"
+            }
+          ],
+          "api_helpers": [
+            {
+              "name": "bpow",
+              "sig": "BpowSig",
+              "type": "Radix \u2192 Int \u2192 \u211d",
+              "source_id": "Core/Raux.v:bpow:27694",
+              "source_name": "bpow",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Definition bpow"
+            }
+          ],
+          "spec_helpers": [
+            {
+              "name": "MagProp",
+              "source_id": "Core/Raux.v:mag_prop:32215",
+              "source_name": "mag_prop",
+              "source_file": "Core/Raux.v",
+              "kind": "helper",
+              "source_signature": "Record mag_prop"
+            },
+            {
+              "name": "ReqBool",
+              "source_id": "Core/Raux.v:Req_bool:14351",
+              "source_name": "Req_bool",
+              "source_file": "Core/Raux.v",
+              "kind": "helper",
+              "source_signature": "Definition Req_bool"
+            },
+            {
+              "name": "RleBool",
+              "source_id": "Core/Raux.v:Rle_bool:12148",
+              "source_name": "Rle_bool",
+              "source_file": "Core/Raux.v",
+              "kind": "helper",
+              "source_signature": "Definition Rle_bool"
+            },
+            {
+              "name": "RltBool",
+              "source_id": "Core/Raux.v:Rlt_bool:13057",
+              "source_name": "Rlt_bool",
+              "source_file": "Core/Raux.v",
+              "kind": "helper",
+              "source_signature": "Definition Rlt_bool"
+            },
+            {
+              "name": "Zceil",
+              "source_id": "Core/Raux.v:Zceil:16491",
+              "source_name": "Zceil",
+              "source_file": "Core/Raux.v",
+              "kind": "helper",
+              "source_signature": "Definition Zceil"
+            },
+            {
+              "name": "Zfloor",
+              "source_id": "Core/Raux.v:Zfloor:15229",
+              "source_name": "Zfloor",
+              "source_file": "Core/Raux.v",
+              "kind": "helper",
+              "source_signature": "Definition Zfloor"
+            },
+            {
+              "name": "mag",
+              "source_id": "Core/Raux.v:mag:32328",
+              "source_name": "mag",
+              "source_file": "Core/Raux.v",
+              "kind": "helper",
+              "source_signature": "Definition mag"
+            },
+            {
+              "name": "spec_mag_le_abs",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Core/Raux.v:mag_le_abs:34625",
+              "source_name": "mag_le_abs",
+              "source_file": "Core/Raux.v",
+              "source_signature": "Theorem mag_le_abs",
+              "source_theorem": "mag_le_abs",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "Core/RoundPred",
+          "impl": "Flocq/Core/Impl/RoundPred.lean",
+          "spec": "Flocq/Core/Spec/RoundPred.lean",
+          "apis": [],
+          "specs": [],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "RndDnPt",
+              "source_id": "Core/Round_pred.v:Rnd_DN:832",
+              "source_name": "Rnd_DN",
+              "source_file": "Core/Round_pred.v",
+              "kind": "helper",
+              "source_signature": "Definition Rnd_DN",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item Rnd_DN in Core/Round_pred.v."
+            },
+            {
+              "name": "RndUpPt",
+              "source_id": "Core/Round_pred.v:Rnd_UP:924",
+              "source_name": "Rnd_UP",
+              "source_file": "Core/Round_pred.v",
+              "kind": "helper",
+              "source_signature": "Definition Rnd_UP",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item Rnd_UP in Core/Round_pred.v."
+            },
+            {
+              "name": "RoundPredMonotone",
+              "source_id": "Core/Round_pred.v:Rnd_N_pt_monotone:9071",
+              "source_name": "Rnd_N_pt_monotone",
+              "source_file": "Core/Round_pred.v",
+              "kind": "helper",
+              "source_signature": "Theorem Rnd_N_pt_monotone",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item Rnd_N_pt_monotone in Core/Round_pred.v."
+            },
+            {
+              "name": "spec_Rnd_DN_UP_pt_split",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Core/Round_pred.v:Rnd_DN_UP_pt_split:4987",
+              "source_name": "Rnd_DN_UP_pt_split",
+              "source_file": "Core/Round_pred.v",
+              "source_signature": "Theorem Rnd_DN_UP_pt_split",
+              "source_theorem": "Rnd_DN_UP_pt_split",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_Rnd_DN_pt_unique",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Core/Round_pred.v:Rnd_DN_pt_unique:2779",
+              "source_name": "Rnd_DN_pt_unique",
+              "source_file": "Core/Round_pred.v",
+              "source_signature": "Theorem Rnd_DN_pt_unique",
+              "source_theorem": "Rnd_DN_pt_unique",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_Rnd_UP_pt_unique",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Core/Round_pred.v:Rnd_UP_pt_unique:3398",
+              "source_name": "Rnd_UP_pt_unique",
+              "source_file": "Core/Round_pred.v",
+              "source_signature": "Theorem Rnd_UP_pt_unique",
+              "source_theorem": "Rnd_UP_pt_unique",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_round_unique",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Core/Round_pred.v:round_unique:2292",
+              "source_name": "round_unique",
+              "source_file": "Core/Round_pred.v",
+              "source_signature": "Theorem round_unique",
+              "source_theorem": "round_unique",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "Core/Ulp",
+          "impl": "Flocq/Core/Impl/Ulp.lean",
+          "spec": "Flocq/Core/Spec/Ulp.lean",
+          "apis": [],
+          "specs": [
+            {
+              "name": "spec_UP_le_succ_DN",
+              "source_id": "Core/Ulp.v:UP_le_succ_DN:55994",
+              "source_name": "UP_le_succ_DN",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem UP_le_succ_DN",
+              "source_theorem": "UP_le_succ_DN",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_error_le_half_ulp",
+              "source_id": "Core/Ulp.v:error_le_half_ulp:42500",
+              "source_name": "error_le_half_ulp",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem error_le_half_ulp",
+              "source_theorem": "error_le_half_ulp",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_error_le_half_ulp_round",
+              "source_id": "Core/Ulp.v:error_le_half_ulp_round:46811",
+              "source_name": "error_le_half_ulp_round",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem error_le_half_ulp_round",
+              "source_theorem": "error_le_half_ulp_round",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_error_lt_ulp",
+              "source_id": "Core/Ulp.v:error_lt_ulp:40983",
+              "source_name": "error_lt_ulp",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem error_lt_ulp",
+              "source_theorem": "error_lt_ulp",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_error_lt_ulp_round",
+              "source_id": "Core/Ulp.v:error_lt_ulp_round:45202",
+              "source_name": "error_lt_ulp_round",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem error_lt_ulp_round",
+              "source_theorem": "error_lt_ulp_round",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_generic_format_pred",
+              "source_id": "Core/Ulp.v:generic_format_pred:17497",
+              "source_name": "generic_format_pred",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem generic_format_pred",
+              "source_theorem": "generic_format_pred",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_generic_format_succ",
+              "source_id": "Core/Ulp.v:generic_format_succ:17129",
+              "source_name": "generic_format_succ",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem generic_format_succ",
+              "source_theorem": "generic_format_succ",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_pred_UP_le_DN",
+              "source_id": "Core/Ulp.v:pred_UP_le_DN:54855",
+              "source_name": "pred_UP_le_DN",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem pred_UP_le_DN",
+              "source_theorem": "pred_UP_le_DN",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_pred_le_id",
+              "source_id": "Core/Ulp.v:pred_le_id:18892",
+              "source_name": "pred_le_id",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem pred_le_id",
+              "source_theorem": "pred_le_id",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_pred_round_le_id",
+              "source_id": "Core/Ulp.v:pred_round_le_id:62822",
+              "source_name": "pred_round_le_id",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Lemma pred_round_le_id",
+              "source_theorem": "pred_round_le_id",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_succ_ge_id",
+              "source_id": "Core/Ulp.v:succ_ge_id:18653",
+              "source_name": "succ_ge_id",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem succ_ge_id",
+              "source_theorem": "succ_ge_id",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_succ_opp",
+              "source_id": "Core/Ulp.v:succ_opp:10172",
+              "source_name": "succ_opp",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem succ_opp",
+              "source_theorem": "succ_opp",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_succ_round_ge_id",
+              "source_id": "Core/Ulp.v:succ_round_ge_id:62491",
+              "source_name": "succ_round_ge_id",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Lemma succ_round_ge_id",
+              "source_theorem": "succ_round_ge_id",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_ulp_ge_0",
+              "source_id": "Core/Ulp.v:ulp_ge_0:3817",
+              "source_name": "ulp_ge_0",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem ulp_ge_0",
+              "source_theorem": "ulp_ge_0",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_ulp_opp",
+              "source_id": "Core/Ulp.v:ulp_opp:3294",
+              "source_name": "ulp_opp",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem ulp_opp",
+              "source_theorem": "ulp_opp",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_ulp_abs",
+              "source_id": "Core/Ulp.v:ulp_abs:3568",
+              "source_name": "ulp_abs",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem ulp_abs",
+              "source_theorem": "ulp_abs",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_ulp_bpow",
+              "source_id": "Core/Ulp.v:ulp_bpow:5266",
+              "source_name": "ulp_bpow",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem ulp_bpow",
+              "source_theorem": "ulp_bpow",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_ulp_neq_0",
+              "source_id": "Core/Ulp.v:ulp_neq_0:3074",
+              "source_name": "ulp_neq_0",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Lemma ulp_neq_0",
+              "source_theorem": "ulp_neq_0",
+              "equivalence_status": "equivalent"
+            }
+          ],
+          "api_helpers": [
+            {
+              "name": "succ",
+              "sig": "SuccSig",
+              "type": "Radix \u2192 (Int \u2192 Int) \u2192 \u211d \u2192 \u211d",
+              "source_id": "Core/Ulp.v:succ:9514",
+              "source_name": "succ",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Definition succ"
+            },
+            {
+              "name": "pred",
+              "sig": "PredSig",
+              "type": "Radix \u2192 (Int \u2192 Int) \u2192 \u211d \u2192 \u211d",
+              "source_id": "Core/Ulp.v:pred:9609",
+              "source_name": "pred",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Definition pred"
+            }
+          ],
+          "spec_helpers": [
+            {
+              "name": "predPos",
+              "source_id": "Core/Ulp.v:pred_pos:9376",
+              "source_name": "pred_pos",
+              "source_file": "Core/Ulp.v",
+              "kind": "helper",
+              "source_signature": "Definition pred_pos"
+            },
+            {
+              "name": "spec_round_DN_ge_UP_gt",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Core/Ulp.v:round_DN_ge_UP_gt:54251",
+              "source_name": "round_DN_ge_UP_gt",
+              "source_file": "Core/Ulp.v",
+              "source_signature": "Theorem round_DN_ge_UP_gt",
+              "source_theorem": "round_DN_ge_UP_gt",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "Core/Zaux",
+          "impl": "Flocq/Core/Impl/Zaux.lean",
+          "spec": "Flocq/Core/Spec/Zaux.lean",
+          "apis": [
+            {
+              "name": "zfastPowPos",
+              "sig": "ZfastPowPosSig",
+              "type": "Int \u2192 Nat \u2192 Int",
+              "source_id": "Core/Zaux.v:Zfast_pow_pos:16853",
+              "source_name": "Zfast_pow_pos",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Fixpoint Zfast_pow_pos"
+            },
+            {
+              "name": "zposDivEuclAux1",
+              "sig": "ZposDivEuclAux1Sig",
+              "type": "Int \u2192 Int \u2192 Int \u00d7 Int",
+              "source_id": "Core/Zaux.v:Zpos_div_eucl_aux1:17605",
+              "source_name": "Zpos_div_eucl_aux1",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Fixpoint Zpos_div_eucl_aux1"
+            },
+            {
+              "name": "zposDivEuclAux",
+              "sig": "ZposDivEuclAuxSig",
+              "type": "Int \u2192 Int \u2192 Int \u00d7 Int",
+              "source_id": "Core/Zaux.v:Zpos_div_eucl_aux:19320",
+              "source_name": "Zpos_div_eucl_aux",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Definition Zpos_div_eucl_aux"
+            },
+            {
+              "name": "zfastDivEucl",
+              "sig": "ZfastDivEuclSig",
+              "type": "Int \u2192 Int \u2192 Int \u00d7 Int",
+              "source_id": "Core/Zaux.v:Zfast_div_eucl:19991",
+              "source_name": "Zfast_div_eucl",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Definition Zfast_div_eucl"
+            },
+            {
+              "name": "iterNat",
+              "sig": "IterNatSig",
+              "type": "{\u03b1 : Type} \u2192 (\u03b1 \u2192 \u03b1) \u2192 Nat \u2192 \u03b1 \u2192 \u03b1",
+              "source_id": "Core/Zaux.v:iter_nat:21056",
+              "source_name": "iter_nat",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Fixpoint iter_nat"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_zfastPowPos_zero",
+              "source_id": "Core/Zaux.v:Zfast_pow_pos:16853",
+              "source_name": "Zfast_pow_pos",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Fixpoint Zfast_pow_pos",
+              "source_theorem": "Zfast_pow_pos",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zfast_pow_pos in Core/Zaux.v."
+            },
+            {
+              "name": "spec_zfastPowPos_succ",
+              "source_id": "Core/Zaux.v:Zfast_pow_pos:16853",
+              "source_name": "Zfast_pow_pos",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Fixpoint Zfast_pow_pos",
+              "source_theorem": "Zfast_pow_pos",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zfast_pow_pos in Core/Zaux.v."
+            },
+            {
+              "name": "spec_Zfast_pow_pos_correct",
+              "source_id": "Core/Zaux.v:Zfast_pow_pos_correct:17037",
+              "source_name": "Zfast_pow_pos_correct",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Theorem Zfast_pow_pos_correct",
+              "source_theorem": "Zfast_pow_pos_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_zposDivEuclAux1_quot",
+              "source_id": "Core/Zaux.v:Zpos_div_eucl_aux1:17605",
+              "source_name": "Zpos_div_eucl_aux1",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Fixpoint Zpos_div_eucl_aux1",
+              "source_theorem": "Zpos_div_eucl_aux1",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zpos_div_eucl_aux1 in Core/Zaux.v."
+            },
+            {
+              "name": "spec_zposDivEuclAux1_rem",
+              "source_id": "Core/Zaux.v:Zpos_div_eucl_aux1:17605",
+              "source_name": "Zpos_div_eucl_aux1",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Fixpoint Zpos_div_eucl_aux1",
+              "source_theorem": "Zpos_div_eucl_aux1",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zpos_div_eucl_aux1 in Core/Zaux.v."
+            },
+            {
+              "name": "spec_zposDivEuclAux_small",
+              "source_id": "Core/Zaux.v:Zpos_div_eucl_aux:19320",
+              "source_name": "Zpos_div_eucl_aux",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Definition Zpos_div_eucl_aux",
+              "source_theorem": "Zpos_div_eucl_aux",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zpos_div_eucl_aux in Core/Zaux.v."
+            },
+            {
+              "name": "spec_zposDivEuclAux_equal",
+              "source_id": "Core/Zaux.v:Zpos_div_eucl_aux:19320",
+              "source_name": "Zpos_div_eucl_aux",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Definition Zpos_div_eucl_aux",
+              "source_theorem": "Zpos_div_eucl_aux",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zpos_div_eucl_aux in Core/Zaux.v."
+            },
+            {
+              "name": "spec_zfastDivEucl_quot",
+              "source_id": "Core/Zaux.v:Zfast_div_eucl:19991",
+              "source_name": "Zfast_div_eucl",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Definition Zfast_div_eucl",
+              "source_theorem": "Zfast_div_eucl",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zfast_div_eucl in Core/Zaux.v."
+            },
+            {
+              "name": "spec_zfastDivEucl_rem",
+              "source_id": "Core/Zaux.v:Zfast_div_eucl:19991",
+              "source_name": "Zfast_div_eucl",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Definition Zfast_div_eucl",
+              "source_theorem": "Zfast_div_eucl",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Zfast_div_eucl in Core/Zaux.v."
+            },
+            {
+              "name": "spec_Zfast_div_eucl_correct",
+              "source_id": "Core/Zaux.v:Zfast_div_eucl_correct:20785",
+              "source_name": "Zfast_div_eucl_correct",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Theorem Zfast_div_eucl_correct",
+              "source_theorem": "Zfast_div_eucl_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_iterNat_zero",
+              "source_id": "Core/Zaux.v:iter_nat:21056",
+              "source_name": "iter_nat",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Fixpoint iter_nat",
+              "source_theorem": "iter_nat",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item iter_nat in Core/Zaux.v."
+            },
+            {
+              "name": "spec_iterNat_succ",
+              "source_id": "Core/Zaux.v:iter_nat_S:21370",
+              "source_name": "iter_nat_S",
+              "source_file": "Core/Zaux.v",
+              "source_signature": "Lemma iter_nat_S",
+              "source_theorem": "iter_nat_S",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item iter_nat_S in Core/Zaux.v."
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "Radix",
+              "source_id": "Core/Zaux.v:radix:3225",
+              "source_name": "radix",
+              "source_file": "Core/Zaux.v",
+              "kind": "helper",
+              "source_signature": "Record radix"
+            },
+            {
+              "name": "intDivEucl",
+              "source_id": "Core/Zaux.v:Zfast_div_eucl:19991",
+              "source_name": "Zfast_div_eucl",
+              "source_file": "Core/Zaux.v",
+              "kind": "helper",
+              "source_signature": "Definition Zfast_div_eucl",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item Zfast_div_eucl in Core/Zaux.v."
+            },
+            {
+              "name": "radix2",
+              "source_id": "Core/Zaux.v:radix2:3511",
+              "source_name": "radix2",
+              "source_file": "Core/Zaux.v",
+              "kind": "helper",
+              "source_signature": "Definition radix2"
+            },
+            {
+              "name": "zpowerPos",
+              "source_id": "Core/Zaux.v:Zpower_pos_gt_0:2731",
+              "source_name": "Zpower_pos_gt_0",
+              "source_file": "Core/Zaux.v",
+              "kind": "helper",
+              "source_signature": "Theorem Zpower_pos_gt_0",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item Zpower_pos_gt_0 in Core/Zaux.v."
+            }
+          ]
+        },
+        {
+          "name": "IEEE754/Binary",
+          "impl": "Flocq/IEEE754/Impl/Binary.lean",
+          "spec": "Flocq/IEEE754/Spec/Binary.lean",
+          "apis": [
+            {
+              "name": "b2R",
+              "sig": "B2RSig",
+              "type": "\u2200 (prec emax : Int), BinaryFloat prec emax \u2192 \u211d",
+              "source_id": "IEEE754/Binary.v:B2R:5275",
+              "source_name": "B2R",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition B2R",
+              "reference_allowed": true,
+              "role": "reference_api",
+              "source_note": "Wrapper/equivalence specs intentionally compare this API with the frozen Flocq namespace reference."
+            },
+            {
+              "name": "isFinite",
+              "sig": "IsFiniteSig",
+              "type": "\u2200 (prec emax : Int), BinaryFloat prec emax \u2192 Bool",
+              "source_id": "IEEE754/Binary.v:is_finite:9751",
+              "source_name": "is_finite",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition is_finite",
+              "reference_allowed": true,
+              "role": "reference_api",
+              "source_note": "Wrapper/equivalence specs intentionally compare this API with the frozen Flocq namespace reference."
+            },
+            {
+              "name": "isNaN",
+              "sig": "IsNaNSig",
+              "type": "\u2200 (prec emax : Int), BinaryFloat prec emax \u2192 Bool",
+              "source_id": "IEEE754/Binary.v:is_nan:10904",
+              "source_name": "is_nan",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition is_nan",
+              "reference_allowed": true,
+              "role": "reference_api",
+              "source_note": "Wrapper/equivalence specs intentionally compare this API with the frozen Flocq namespace reference."
+            },
+            {
+              "name": "roundMode",
+              "sig": "RoundModeSig",
+              "type": "RoundingMode \u2192 \u211d \u2192 Int",
+              "source_id": "IEEE754/Binary.v:binary_round_correct:23416",
+              "source_name": "binary_round_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem binary_round_correct",
+              "reference_allowed": true,
+              "role": "reference_api",
+              "source_note": "Wrapper/equivalence specs intentionally compare this API with the frozen Flocq namespace reference."
+            },
+            {
+              "name": "b2FF",
+              "sig": "B2FFSig",
+              "type": "\u2200 (prec emax : Int), BinaryFloat prec emax \u2192 BinaryFloat prec emax",
+              "source_id": "IEEE754/Binary.v:B2FF:5079",
+              "source_name": "B2FF",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition B2FF"
+            },
+            {
+              "name": "ff2B",
+              "sig": "FF2BSig",
+              "type": "\u2200 (prec emax : Int), BinaryFloat prec emax \u2192 BinaryFloat prec emax",
+              "source_id": "IEEE754/Binary.v:FF2B:4808",
+              "source_name": "FF2B",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition FF2B"
+            },
+            {
+              "name": "babs",
+              "sig": "BabsSig",
+              "type": "\u2200 (prec emax : Int),",
+              "source_id": "IEEE754/Binary.v:Babs:15907",
+              "source_name": "Babs",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Babs"
+            },
+            {
+              "name": "bmaxFloat",
+              "sig": "BmaxFloatSig",
+              "type": "\u2200 (prec emax : Int), Bool \u2192 BinaryFloat prec emax",
+              "source_id": "IEEE754/Binary.v:Bmax_float:32615",
+              "source_name": "Bmax_float",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bmax_float"
+            },
+            {
+              "name": "bone",
+              "sig": "BoneSig",
+              "type": "\u2200 (prec emax : Int), BinaryFloat prec emax",
+              "source_id": "IEEE754/Binary.v:Bone:32224",
+              "source_name": "Bone",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bone"
+            },
+            {
+              "name": "bopp",
+              "sig": "BoppSig",
+              "type": "\u2200 (prec emax : Int),",
+              "source_id": "IEEE754/Binary.v:Bopp:14935",
+              "source_name": "Bopp",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bopp"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_b2R_def",
+              "source_id": "IEEE754/Binary.v:B2R:5275",
+              "source_name": "B2R",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition B2R",
+              "source_theorem": "B2R",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item B2R in IEEE754/Binary.v."
+            },
+            {
+              "name": "spec_isFinite_def",
+              "source_id": "IEEE754/Binary.v:is_finite:9751",
+              "source_name": "is_finite",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition is_finite",
+              "source_theorem": "is_finite",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item is_finite in IEEE754/Binary.v."
+            },
+            {
+              "name": "spec_isNaN_def",
+              "source_id": "IEEE754/Binary.v:is_nan:10904",
+              "source_name": "is_nan",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition is_nan",
+              "source_theorem": "is_nan",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item is_nan in IEEE754/Binary.v."
+            },
+            {
+              "name": "spec_roundMode_def",
+              "source_id": "IEEE754/Binary.v:bounded_lt_emax:17983",
+              "source_name": "bounded_lt_emax",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem bounded_lt_emax",
+              "source_theorem": "bounded_lt_emax",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item bounded_lt_emax in IEEE754/Binary.v."
+            },
+            {
+              "name": "spec_b2FF_identity",
+              "source_id": "IEEE754/Binary.v:B2FF:5079",
+              "source_name": "B2FF",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition B2FF",
+              "source_theorem": "B2FF",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item B2FF in IEEE754/Binary.v."
+            },
+            {
+              "name": "spec_ff2B_identity",
+              "source_id": "IEEE754/Binary.v:FF2B:4808",
+              "source_name": "FF2B",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition FF2B",
+              "source_theorem": "FF2B",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item FF2B in IEEE754/Binary.v."
+            },
+            {
+              "name": "spec_binaryNormalize_def",
+              "source_id": "IEEE754/Binary.v:binary_normalize:24143",
+              "source_name": "binary_normalize",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition binary_normalize",
+              "source_theorem": "binary_normalize",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item binary_normalize in IEEE754/Binary.v."
+            },
+            {
+              "name": "spec_babs_nan",
+              "source_id": "IEEE754/Binary.v:Babs:15907",
+              "source_name": "Babs",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Babs",
+              "source_theorem": "Babs",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Babs in IEEE754/Binary.v."
+            },
+            {
+              "name": "spec_babs_finite",
+              "source_id": "IEEE754/Binary.v:Babs:15907",
+              "source_name": "Babs",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Babs",
+              "source_theorem": "Babs",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Babs in IEEE754/Binary.v."
+            },
+            {
+              "name": "spec_babs_zero",
+              "source_id": "IEEE754/Binary.v:Babs:15907",
+              "source_name": "Babs",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Babs",
+              "source_theorem": "Babs",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Babs in IEEE754/Binary.v."
+            },
+            {
+              "name": "spec_bmaxFloat_def",
+              "source_id": "IEEE754/Binary.v:Bmax_float:32615",
+              "source_name": "Bmax_float",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bmax_float",
+              "source_theorem": "Bmax_float",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Bmax_float in IEEE754/Binary.v."
+            },
+            {
+              "name": "spec_bopp_nan",
+              "source_id": "IEEE754/Binary.v:Bopp:14935",
+              "source_name": "Bopp",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bopp",
+              "source_theorem": "Bopp",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Bopp in IEEE754/Binary.v."
+            },
+            {
+              "name": "spec_bopp_finite",
+              "source_id": "IEEE754/Binary.v:Bopp:14935",
+              "source_name": "Bopp",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bopp",
+              "source_theorem": "Bopp",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Bopp in IEEE754/Binary.v."
+            },
+            {
+              "name": "spec_bopp_zero",
+              "source_id": "IEEE754/Binary.v:Bopp:14935",
+              "source_name": "Bopp",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bopp",
+              "source_theorem": "Bopp",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Bopp in IEEE754/Binary.v."
+            },
+            {
+              "name": "spec_Bplus_correct",
+              "source_id": "IEEE754/Binary.v:Bplus_correct:25363",
+              "source_name": "Bplus_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem Bplus_correct",
+              "source_theorem": "Bplus_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Bminus_correct",
+              "source_id": "IEEE754/Binary.v:Bminus_correct:26725",
+              "source_name": "Bminus_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem Bminus_correct",
+              "source_theorem": "Bminus_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Bmult_correct",
+              "source_id": "IEEE754/Binary.v:Bmult_correct:21816",
+              "source_name": "Bmult_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem Bmult_correct",
+              "source_theorem": "Bmult_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Bdiv_correct",
+              "source_id": "IEEE754/Binary.v:Bdiv_correct:29371",
+              "source_name": "Bdiv_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem Bdiv_correct",
+              "source_theorem": "Bdiv_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Bsqrt_correct",
+              "source_id": "IEEE754/Binary.v:Bsqrt_correct:30635",
+              "source_name": "Bsqrt_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem Bsqrt_correct",
+              "source_theorem": "Bsqrt_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Bfma_correct",
+              "source_id": "IEEE754/Binary.v:Bfma_correct:28260",
+              "source_name": "Bfma_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem Bfma_correct",
+              "source_theorem": "Bfma_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Bldexp_correct",
+              "source_id": "IEEE754/Binary.v:Bldexp_correct:33323",
+              "source_name": "Bldexp_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem Bldexp_correct",
+              "source_theorem": "Bldexp_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Bfrexp_correct",
+              "source_id": "IEEE754/Binary.v:Bfrexp_correct:34701",
+              "source_name": "Bfrexp_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem Bfrexp_correct",
+              "source_theorem": "Bfrexp_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Bcompare_correct",
+              "source_id": "IEEE754/Binary.v:Bcompare_correct:17227",
+              "source_name": "Bcompare_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem Bcompare_correct",
+              "source_theorem": "Bcompare_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Bnearbyint_correct",
+              "source_id": "IEEE754/Binary.v:Bnearbyint_correct:31368",
+              "source_name": "Bnearbyint_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem Bnearbyint_correct",
+              "source_theorem": "Bnearbyint_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Btrunc_correct",
+              "source_id": "IEEE754/Binary.v:Btrunc_correct:32030",
+              "source_name": "Btrunc_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem Btrunc_correct",
+              "source_theorem": "Btrunc_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Bone_correct",
+              "source_id": "IEEE754/Binary.v:Bone_correct:32285",
+              "source_name": "Bone_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem Bone_correct",
+              "source_theorem": "Bone_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Bsucc_correct",
+              "source_id": "IEEE754/Binary.v:Bsucc_correct:35934",
+              "source_name": "Bsucc_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Lemma Bsucc_correct",
+              "source_theorem": "Bsucc_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Bpred_correct",
+              "source_id": "IEEE754/Binary.v:Bpred_correct:36764",
+              "source_name": "Bpred_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Lemma Bpred_correct",
+              "source_theorem": "Bpred_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Bulp_correct",
+              "source_id": "IEEE754/Binary.v:Bulp_correct:35360",
+              "source_name": "Bulp_correct",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Theorem Bulp_correct",
+              "source_theorem": "Bulp_correct",
+              "equivalence_status": "equivalent"
+            }
+          ],
+          "api_helpers": [
+            {
+              "name": "binaryNormalize",
+              "sig": "BinaryNormalizeSig",
+              "type": "\u2200 (prec emax : Int), RoundingMode \u2192 Int \u2192 Int \u2192 Bool \u2192 BinaryFloat prec emax",
+              "source_id": "IEEE754/Binary.v:binary_normalize:24143",
+              "source_name": "binary_normalize",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition binary_normalize"
+            },
+            {
+              "name": "bcompare",
+              "sig": "BcompareSig",
+              "type": "\u2200 (prec emax : Int),",
+              "source_id": "IEEE754/Binary.v:Bcompare:17110",
+              "source_name": "Bcompare",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bcompare"
+            },
+            {
+              "name": "bfrexp",
+              "sig": "BfrexpSig",
+              "type": "\u2200 (prec emax : Int), BinaryFloat prec emax \u2192 BinaryFloat prec emax \u00d7 Int",
+              "source_id": "IEEE754/Binary.v:Bfrexp:34503",
+              "source_name": "Bfrexp",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bfrexp"
+            },
+            {
+              "name": "bldexp",
+              "sig": "BldexpSig",
+              "type": "\u2200 (prec emax : Int), RoundingMode \u2192",
+              "source_id": "IEEE754/Binary.v:Bldexp:33143",
+              "source_name": "Bldexp",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bldexp"
+            },
+            {
+              "name": "bnearbyint",
+              "sig": "BnearbyintSig",
+              "type": "\u2200 (prec emax : Int), RoundingMode \u2192",
+              "source_id": "IEEE754/Binary.v:Bnearbyint:31272",
+              "source_name": "Bnearbyint",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bnearbyint"
+            },
+            {
+              "name": "bpred",
+              "sig": "BpredSig",
+              "type": "\u2200 (prec emax : Int), BinaryFloat prec emax \u2192 BinaryFloat prec emax",
+              "source_id": "IEEE754/Binary.v:Bpred:36616",
+              "source_name": "Bpred",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bpred"
+            },
+            {
+              "name": "bsucc",
+              "sig": "BsuccSig",
+              "type": "\u2200 (prec emax : Int), BinaryFloat prec emax \u2192 BinaryFloat prec emax",
+              "source_id": "IEEE754/Binary.v:Bsucc:35786",
+              "source_name": "Bsucc",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bsucc"
+            },
+            {
+              "name": "btrunc",
+              "sig": "BtruncSig",
+              "type": "\u2200 (prec emax : Int), BinaryFloat prec emax \u2192 BinaryFloat prec emax",
+              "source_id": "IEEE754/Binary.v:Btrunc:31988",
+              "source_name": "Btrunc",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Btrunc"
+            },
+            {
+              "name": "bulp",
+              "sig": "BulpSig",
+              "type": "\u2200 (prec emax : Int), BinaryFloat prec emax \u2192 BinaryFloat prec emax",
+              "source_id": "IEEE754/Binary.v:Bulp:35215",
+              "source_name": "Bulp",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bulp"
+            },
+            {
+              "name": "bdiv",
+              "sig": "BdivSig",
+              "type": "\u2200 (prec emax : Int), RoundingMode \u2192",
+              "source_id": "IEEE754/Binary.v:Bdiv:29285",
+              "source_name": "Bdiv",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bdiv"
+            },
+            {
+              "name": "bfma",
+              "sig": "BfmaSig",
+              "type": "\u2200 (prec emax : Int), RoundingMode \u2192",
+              "source_id": "IEEE754/Binary.v:Bfma:28144",
+              "source_name": "Bfma",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bfma"
+            },
+            {
+              "name": "bminus",
+              "sig": "BminusSig",
+              "type": "\u2200 (prec emax : Int), RoundingMode \u2192",
+              "source_id": "IEEE754/Binary.v:Bminus:26631",
+              "source_name": "Bminus",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bminus"
+            },
+            {
+              "name": "bmult",
+              "sig": "BmultSig",
+              "type": "\u2200 (prec emax : Int), RoundingMode \u2192",
+              "source_id": "IEEE754/Binary.v:Bmult:21726",
+              "source_name": "Bmult",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bmult"
+            },
+            {
+              "name": "bplus",
+              "sig": "BplusSig",
+              "type": "\u2200 (prec emax : Int), RoundingMode \u2192",
+              "source_id": "IEEE754/Binary.v:Bplus:25273",
+              "source_name": "Bplus",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bplus"
+            },
+            {
+              "name": "bsqrt",
+              "sig": "BsqrtSig",
+              "type": "\u2200 (prec emax : Int), RoundingMode \u2192",
+              "source_id": "IEEE754/Binary.v:Bsqrt:30559",
+              "source_name": "Bsqrt",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition Bsqrt"
+            }
+          ],
+          "spec_helpers": [
+            {
+              "name": "rndFLT",
+              "source_id": "IEEE754/Binary.v:binary_float:4241",
+              "source_name": "binary_float",
+              "source_file": "IEEE754/Binary.v",
+              "kind": "helper",
+              "source_signature": "Inductive binary_float",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item binary_float in IEEE754/Binary.v."
+            },
+            {
+              "name": "fltFexp",
+              "source_id": "IEEE754/Binary.v:Bldexp:33143",
+              "source_name": "Bldexp",
+              "source_file": "IEEE754/Binary.v",
+              "kind": "helper",
+              "source_signature": "Definition Bldexp",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item Bldexp in IEEE754/Binary.v."
+            },
+            {
+              "name": "realToFloat",
+              "source_id": "IEEE754/Binary.v:full_float:1071",
+              "source_name": "full_float",
+              "source_file": "IEEE754/Binary.v",
+              "kind": "helper",
+              "source_signature": "Inductive full_float",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item full_float in IEEE754/Binary.v."
+            }
+          ]
+        },
+        {
+          "name": "IEEE754/Bits",
+          "impl": "Flocq/IEEE754/Impl/Bits.lean",
+          "spec": "Flocq/IEEE754/Spec/Bits.lean",
+          "apis": [
+            {
+              "name": "validBinary",
+              "sig": "ValidBinarySig",
+              "type": "\u2200 (prec emax : Int), BinaryFloat prec emax \u2192 Bool",
+              "source_id": "IEEE754/Bits.v:binary32:16503",
+              "source_name": "binary32",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition binary32",
+              "reference_allowed": true,
+              "role": "reference_api",
+              "source_note": "Wrapper/equivalence specs intentionally compare this API with the frozen Flocq namespace reference."
+            },
+            {
+              "name": "binopNanPl32",
+              "sig": "BinopNanPl32Sig",
+              "type": "Binary32 \u2192 Binary32 \u2192 Binary32",
+              "source_id": "IEEE754/Bits.v:binop_nan_pl32:17118",
+              "source_name": "binop_nan_pl32",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition binop_nan_pl32",
+              "reference_allowed": true,
+              "role": "reference_api",
+              "source_note": "Wrapper/equivalence specs intentionally compare this API with the frozen Flocq namespace reference."
+            },
+            {
+              "name": "binopNanPl64",
+              "sig": "BinopNanPl64Sig",
+              "type": "Binary64 \u2192 Binary64 \u2192 Binary64",
+              "source_id": "IEEE754/Bits.v:binop_nan_pl64:19883",
+              "source_name": "binop_nan_pl64",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition binop_nan_pl64",
+              "reference_allowed": true,
+              "role": "reference_api",
+              "source_note": "Wrapper/equivalence specs intentionally compare this API with the frozen Flocq namespace reference."
+            },
+            {
+              "name": "unopNanPl32",
+              "sig": "UnopNanPl32Sig",
+              "type": "Binary32 \u2192 Binary32",
+              "source_id": "IEEE754/Bits.v:unop_nan_pl32:16902",
+              "source_name": "unop_nan_pl32",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition unop_nan_pl32",
+              "reference_allowed": true,
+              "role": "reference_api",
+              "source_note": "Wrapper/equivalence specs intentionally compare this API with the frozen Flocq namespace reference."
+            },
+            {
+              "name": "unopNanPl64",
+              "sig": "UnopNanPl64Sig",
+              "type": "Binary64 \u2192 Binary64",
+              "source_id": "IEEE754/Bits.v:unop_nan_pl64:19666",
+              "source_name": "unop_nan_pl64",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition unop_nan_pl64",
+              "reference_allowed": true,
+              "role": "reference_api",
+              "source_note": "Wrapper/equivalence specs intentionally compare this API with the frozen Flocq namespace reference."
+            },
+            {
+              "name": "ternopNanPl32",
+              "sig": "TernopNanPl32Sig",
+              "type": "Binary32 \u2192 Binary32 \u2192 Binary32 \u2192 Binary32",
+              "source_id": "IEEE754/Bits.v:ternop_nan_pl32:17431",
+              "source_name": "ternop_nan_pl32",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition ternop_nan_pl32",
+              "reference_allowed": true,
+              "role": "reference_api",
+              "source_note": "Wrapper/equivalence specs intentionally compare this API with the frozen Flocq namespace reference."
+            },
+            {
+              "name": "ternopNanPl64",
+              "sig": "TernopNanPl64Sig",
+              "type": "Binary64 \u2192 Binary64 \u2192 Binary64 \u2192 Binary64",
+              "source_id": "IEEE754/Bits.v:ternop_nan_pl64:20197",
+              "source_name": "ternop_nan_pl64",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition ternop_nan_pl64",
+              "reference_allowed": true,
+              "role": "reference_api",
+              "source_note": "Wrapper/equivalence specs intentionally compare this API with the frozen Flocq namespace reference."
+            },
+            {
+              "name": "splitBits",
+              "sig": "SplitBitsSig",
+              "type": "Nat \u2192 Nat \u2192 Int \u2192 Bool \u00d7 Int \u00d7 Int",
+              "source_id": "IEEE754/Bits.v:split_bits:2206",
+              "source_name": "split_bits",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition split_bits",
+              "reference_allowed": true,
+              "role": "reference_api",
+              "source_note": "Wrapper/equivalence specs intentionally compare this API with the frozen Flocq namespace reference."
+            },
+            {
+              "name": "splitBitsOfBinaryFloat",
+              "sig": "SplitBitsOfBinaryFloatSig",
+              "type": "(mw : Int) \u2192 (ew : Int) \u2192 BinaryFloat (mw + 1) ((2 : Int) ^ (ew - 1).toNat) \u2192 Bool \u00d7 Int \u00d7 Int",
+              "source_id": "IEEE754/Bits.v:split_bits_of_binary_float:6370",
+              "source_name": "split_bits_of_binary_float",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition split_bits_of_binary_float"
+            },
+            {
+              "name": "binaryFloatOfBitsAux",
+              "sig": "BinaryFloatOfBitsAuxSig",
+              "type": "(mw : Int) \u2192 (ew : Int) \u2192 Int \u2192 BinaryFloat (mw + 1) ((2 : Int) ^ (ew - 1).toNat)",
+              "source_id": "IEEE754/Bits.v:binary_float_of_bits_aux:9779",
+              "source_name": "binary_float_of_bits_aux",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition binary_float_of_bits_aux"
+            },
+            {
+              "name": "bitsOfBinaryFloat",
+              "sig": "BitsOfBinaryFloatSig",
+              "type": "(mw : Int) \u2192 (ew : Int) \u2192 BinaryFloat (mw + 1) ((2 : Int) ^ (ew - 1).toNat) \u2192 Int",
+              "source_id": "IEEE754/Bits.v:bits_of_binary_float:5958",
+              "source_name": "bits_of_binary_float",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition bits_of_binary_float"
+            },
+            {
+              "name": "bitsOfB32",
+              "sig": "BitsOfBinaryFloatSig",
+              "type": "(mw : Int) \u2192 (ew : Int) \u2192 BinaryFloat (mw + 1) ((2 : Int) ^ (ew - 1).toNat) \u2192 Int",
+              "source_id": "IEEE754/Bits.v:bits_of_b32:19065",
+              "source_name": "bits_of_b32",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition bits_of_b32"
+            },
+            {
+              "name": "bitsOfB64",
+              "sig": "BitsOfBinaryFloatSig",
+              "type": "(mw : Int) \u2192 (ew : Int) \u2192 BinaryFloat (mw + 1) ((2 : Int) ^ (ew - 1).toNat) \u2192 Int",
+              "source_id": "IEEE754/Bits.v:bits_of_b64:21836",
+              "source_name": "bits_of_b64",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition bits_of_b64"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_validBinary_def",
+              "source_id": "IEEE754/Bits.v:binary32:16503",
+              "source_name": "binary32",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition binary32",
+              "source_theorem": "binary32",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item binary32 in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_binopNanPl32_def",
+              "source_id": "IEEE754/Bits.v:binop_nan_pl32:17118",
+              "source_name": "binop_nan_pl32",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition binop_nan_pl32",
+              "source_theorem": "binop_nan_pl32",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item binop_nan_pl32 in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_binopNanPl64_def",
+              "source_id": "IEEE754/Bits.v:binop_nan_pl64:19883",
+              "source_name": "binop_nan_pl64",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition binop_nan_pl64",
+              "source_theorem": "binop_nan_pl64",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item binop_nan_pl64 in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_unopNanPl32_def",
+              "source_id": "IEEE754/Bits.v:unop_nan_pl32:16902",
+              "source_name": "unop_nan_pl32",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition unop_nan_pl32",
+              "source_theorem": "unop_nan_pl32",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item unop_nan_pl32 in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_unopNanPl64_def",
+              "source_id": "IEEE754/Bits.v:unop_nan_pl64:19666",
+              "source_name": "unop_nan_pl64",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition unop_nan_pl64",
+              "source_theorem": "unop_nan_pl64",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item unop_nan_pl64 in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_ternopNanPl32_def",
+              "source_id": "IEEE754/Bits.v:ternop_nan_pl32:17431",
+              "source_name": "ternop_nan_pl32",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition ternop_nan_pl32",
+              "source_theorem": "ternop_nan_pl32",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item ternop_nan_pl32 in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_ternopNanPl64_def",
+              "source_id": "IEEE754/Bits.v:ternop_nan_pl64:20197",
+              "source_name": "ternop_nan_pl64",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition ternop_nan_pl64",
+              "source_theorem": "ternop_nan_pl64",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item ternop_nan_pl64 in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_splitBits_fields",
+              "source_id": "IEEE754/Bits.v:split_bits:2206",
+              "source_name": "split_bits",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition split_bits",
+              "source_theorem": "split_bits",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item split_bits in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_split_bits_of_binary_float_correct",
+              "source_id": "IEEE754/Bits.v:split_bits_of_binary_float_correct:6758",
+              "source_name": "split_bits_of_binary_float_correct",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Theorem split_bits_of_binary_float_correct",
+              "source_theorem": "split_bits_of_binary_float_correct",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_binaryFloatOfBitsAux_agrees",
+              "source_id": "IEEE754/Bits.v:binary_float_of_bits_aux:9779",
+              "source_name": "binary_float_of_bits_aux",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition binary_float_of_bits_aux",
+              "source_theorem": "binary_float_of_bits_aux",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item binary_float_of_bits_aux in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_binary_float_of_bits_of_binary_float",
+              "source_id": "IEEE754/Bits.v:binary_float_of_bits_of_binary_float:13552",
+              "source_name": "binary_float_of_bits_of_binary_float",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Theorem binary_float_of_bits_of_binary_float",
+              "source_theorem": "binary_float_of_bits_of_binary_float",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_bits_of_binary_float_of_bits",
+              "source_id": "IEEE754/Bits.v:bits_of_binary_float_of_bits:15168",
+              "source_name": "bits_of_binary_float_of_bits",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Theorem bits_of_binary_float_of_bits",
+              "source_theorem": "bits_of_binary_float_of_bits",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_b32OfBits_def",
+              "source_id": "IEEE754/Bits.v:b32_of_bits:18951",
+              "source_name": "b32_of_bits",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b32_of_bits",
+              "source_theorem": "b32_of_bits",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item b32_of_bits in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_b64OfBits_def",
+              "source_id": "IEEE754/Bits.v:b64_of_bits:21721",
+              "source_name": "b64_of_bits",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b64_of_bits",
+              "source_theorem": "b64_of_bits",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item b64_of_bits in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_bitsOfB32_def",
+              "source_id": "IEEE754/Bits.v:bits_of_b32:19065",
+              "source_name": "bits_of_b32",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition bits_of_b32",
+              "source_theorem": "bits_of_b32",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item bits_of_b32 in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_bitsOfB64_def",
+              "source_id": "IEEE754/Bits.v:bits_of_b64:21836",
+              "source_name": "bits_of_b64",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition bits_of_b64",
+              "source_theorem": "bits_of_b64",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item bits_of_b64 in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_b32Plus_def",
+              "source_id": "IEEE754/Bits.v:b32_plus:18295",
+              "source_name": "b32_plus",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b32_plus",
+              "source_theorem": "b32_plus",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item b32_plus in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_b32Minus_def",
+              "source_id": "IEEE754/Bits.v:b32_minus:18407",
+              "source_name": "b32_minus",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b32_minus",
+              "source_theorem": "b32_minus",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item b32_minus in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_b32Mult_def",
+              "source_id": "IEEE754/Bits.v:b32_mult:18518",
+              "source_name": "b32_mult",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b32_mult",
+              "source_theorem": "b32_mult",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item b32_mult in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_b32Div_def",
+              "source_id": "IEEE754/Bits.v:b32_div:18629",
+              "source_name": "b32_div",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b32_div",
+              "source_theorem": "b32_div",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item b32_div in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_b32Sqrt_def",
+              "source_id": "IEEE754/Bits.v:b32_sqrt:18198",
+              "source_name": "b32_sqrt",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b32_sqrt",
+              "source_theorem": "b32_sqrt",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item b32_sqrt in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_b32Fma_def",
+              "source_id": "IEEE754/Bits.v:b32_fma:18740",
+              "source_name": "b32_fma",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b32_fma",
+              "source_theorem": "b32_fma",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item b32_fma in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_b64Plus_def",
+              "source_id": "IEEE754/Bits.v:b64_plus:21064",
+              "source_name": "b64_plus",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b64_plus",
+              "source_theorem": "b64_plus",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item b64_plus in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_b64Minus_def",
+              "source_id": "IEEE754/Bits.v:b64_minus:21176",
+              "source_name": "b64_minus",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b64_minus",
+              "source_theorem": "b64_minus",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item b64_minus in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_b64Mult_def",
+              "source_id": "IEEE754/Bits.v:b64_mult:21287",
+              "source_name": "b64_mult",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b64_mult",
+              "source_theorem": "b64_mult",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item b64_mult in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_b64Div_def",
+              "source_id": "IEEE754/Bits.v:b64_div:21398",
+              "source_name": "b64_div",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b64_div",
+              "source_theorem": "b64_div",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item b64_div in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_b64Sqrt_def",
+              "source_id": "IEEE754/Bits.v:b64_sqrt:20968",
+              "source_name": "b64_sqrt",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b64_sqrt",
+              "source_theorem": "b64_sqrt",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item b64_sqrt in IEEE754/Bits.v."
+            },
+            {
+              "name": "spec_b64Fma_def",
+              "source_id": "IEEE754/Bits.v:b64_fma:21509",
+              "source_name": "b64_fma",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b64_fma",
+              "source_theorem": "b64_fma",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item b64_fma in IEEE754/Bits.v."
+            }
+          ],
+          "api_helpers": [
+            {
+              "name": "binaryFloatOfBits",
+              "sig": "BinaryFloatOfBitsSig",
+              "type": "(mw : Int) \u2192 (ew : Int) \u2192 Int \u2192 BinaryFloat (mw + 1) ((2 : Int) ^ (ew - 1).toNat)",
+              "source_id": "IEEE754/Bits.v:binary_float_of_bits:13457",
+              "source_name": "binary_float_of_bits",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition binary_float_of_bits"
+            },
+            {
+              "name": "b32OfBits",
+              "sig": "B32OfBitsSig",
+              "type": "Int \u2192 Binary32",
+              "source_id": "IEEE754/Bits.v:b32_of_bits:18951",
+              "source_name": "b32_of_bits",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b32_of_bits"
+            },
+            {
+              "name": "b64OfBits",
+              "sig": "B64OfBitsSig",
+              "type": "Int \u2192 Binary64",
+              "source_id": "IEEE754/Bits.v:b64_of_bits:21721",
+              "source_name": "b64_of_bits",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b64_of_bits"
+            },
+            {
+              "name": "b32Plus",
+              "sig": "B32PlusSig",
+              "type": "RoundingMode \u2192 Binary32 \u2192 Binary32 \u2192 Binary32",
+              "source_id": "IEEE754/Bits.v:b32_plus:18295",
+              "source_name": "b32_plus",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b32_plus"
+            },
+            {
+              "name": "b32Minus",
+              "sig": "B32MinusSig",
+              "type": "RoundingMode \u2192 Binary32 \u2192 Binary32 \u2192 Binary32",
+              "source_id": "IEEE754/Bits.v:b32_minus:18407",
+              "source_name": "b32_minus",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b32_minus"
+            },
+            {
+              "name": "b32Mult",
+              "sig": "B32MinusSig",
+              "type": "RoundingMode \u2192 Binary32 \u2192 Binary32 \u2192 Binary32",
+              "source_id": "IEEE754/Bits.v:b32_mult:18518",
+              "source_name": "b32_mult",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b32_mult"
+            },
+            {
+              "name": "b32Div",
+              "sig": "B32DivSig",
+              "type": "RoundingMode \u2192 Binary32 \u2192 Binary32 \u2192 Binary32",
+              "source_id": "IEEE754/Bits.v:b32_div:18629",
+              "source_name": "b32_div",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b32_div"
+            },
+            {
+              "name": "b32Sqrt",
+              "sig": "B32SqrtSig",
+              "type": "RoundingMode \u2192 Binary32 \u2192 Binary32",
+              "source_id": "IEEE754/Bits.v:b32_sqrt:18198",
+              "source_name": "b32_sqrt",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b32_sqrt"
+            },
+            {
+              "name": "b32Fma",
+              "sig": "B32FmaSig",
+              "type": "RoundingMode \u2192 Binary32 \u2192 Binary32 \u2192 Binary32 \u2192 Binary32",
+              "source_id": "IEEE754/Bits.v:b32_fma:18740",
+              "source_name": "b32_fma",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b32_fma"
+            },
+            {
+              "name": "b64Plus",
+              "sig": "B64PlusSig",
+              "type": "RoundingMode \u2192 Binary64 \u2192 Binary64 \u2192 Binary64",
+              "source_id": "IEEE754/Bits.v:b64_plus:21064",
+              "source_name": "b64_plus",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b64_plus"
+            },
+            {
+              "name": "b64Minus",
+              "sig": "B64MinusSig",
+              "type": "RoundingMode \u2192 Binary64 \u2192 Binary64 \u2192 Binary64",
+              "source_id": "IEEE754/Bits.v:b64_minus:21176",
+              "source_name": "b64_minus",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b64_minus"
+            },
+            {
+              "name": "b64Mult",
+              "sig": "B64MinusSig",
+              "type": "RoundingMode \u2192 Binary64 \u2192 Binary64 \u2192 Binary64",
+              "source_id": "IEEE754/Bits.v:b64_mult:21287",
+              "source_name": "b64_mult",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b64_mult"
+            },
+            {
+              "name": "b64Div",
+              "sig": "B64DivSig",
+              "type": "RoundingMode \u2192 Binary64 \u2192 Binary64 \u2192 Binary64",
+              "source_id": "IEEE754/Bits.v:b64_div:21398",
+              "source_name": "b64_div",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b64_div"
+            },
+            {
+              "name": "b64Sqrt",
+              "sig": "B64SqrtSig",
+              "type": "RoundingMode \u2192 Binary64 \u2192 Binary64",
+              "source_id": "IEEE754/Bits.v:b64_sqrt:20968",
+              "source_name": "b64_sqrt",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b64_sqrt"
+            },
+            {
+              "name": "b64Fma",
+              "sig": "B64FmaSig",
+              "type": "RoundingMode \u2192 Binary64 \u2192 Binary64 \u2192 Binary64 \u2192 Binary64",
+              "source_id": "IEEE754/Bits.v:b64_fma:21509",
+              "source_name": "b64_fma",
+              "source_file": "IEEE754/Bits.v",
+              "source_signature": "Definition b64_fma"
+            }
+          ],
+          "spec_helpers": [
+            {
+              "name": "Binary64",
+              "source_id": "IEEE754/Bits.v:binary64:19262",
+              "source_name": "binary64",
+              "source_file": "IEEE754/Bits.v",
+              "kind": "helper",
+              "source_signature": "Definition binary64"
+            },
+            {
+              "name": "defaultNanPl32",
+              "source_id": "IEEE754/Bits.v:default_nan_pl32:16730",
+              "source_name": "default_nan_pl32",
+              "source_file": "IEEE754/Bits.v",
+              "kind": "helper",
+              "source_signature": "Definition default_nan_pl32"
+            },
+            {
+              "name": "defaultNanPl64",
+              "source_id": "IEEE754/Bits.v:default_nan_pl64:19492",
+              "source_name": "default_nan_pl64",
+              "source_file": "IEEE754/Bits.v",
+              "kind": "helper",
+              "source_signature": "Definition default_nan_pl64"
+            },
+            {
+              "name": "joinBits",
+              "source_id": "IEEE754/Bits.v:join_bits:1106",
+              "source_name": "join_bits",
+              "source_file": "IEEE754/Bits.v",
+              "kind": "helper",
+              "source_signature": "Definition join_bits"
+            }
+          ]
+        },
+        {
+          "name": "IEEE754/PrimFloat",
+          "impl": "Flocq/IEEE754/Impl/PrimFloat.lean",
+          "spec": "Flocq/IEEE754/Spec/PrimFloat.lean",
+          "apis": [
+            {
+              "name": "b2Prim",
+              "sig": "B2PrimSig",
+              "type": "BinaryFloat 53 1024 \u2192 Float",
+              "source_id": "IEEE754/PrimFloat.v:B2Prim:1082",
+              "source_name": "B2Prim",
+              "source_file": "IEEE754/PrimFloat.v",
+              "source_signature": "Definition B2Prim"
+            },
+            {
+              "name": "prim2B",
+              "sig": "Prim2BSig",
+              "type": "Float \u2192 BinaryFloat 53 1024",
+              "source_id": "IEEE754/PrimFloat.v:Prim2B:985",
+              "source_name": "Prim2B",
+              "source_file": "IEEE754/PrimFloat.v",
+              "source_signature": "Definition Prim2B"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_B2Prim_Prim2B",
+              "source_id": "IEEE754/PrimFloat.v:B2Prim_Prim2B:1161",
+              "source_name": "B2Prim_Prim2B",
+              "source_file": "IEEE754/PrimFloat.v",
+              "source_signature": "Lemma B2Prim_Prim2B",
+              "source_theorem": "B2Prim_Prim2B",
+              "equivalence_status": "equivalent"
+            },
+            {
+              "name": "spec_Prim2B_B2Prim",
+              "source_id": "IEEE754/PrimFloat.v:Prim2B_B2Prim:1302",
+              "source_name": "Prim2B_B2Prim",
+              "source_file": "IEEE754/PrimFloat.v",
+              "source_signature": "Lemma Prim2B_B2Prim",
+              "source_theorem": "Prim2B_B2Prim",
+              "equivalence_status": "equivalent"
+            }
+          ],
+          "api_helpers": []
+        },
+        {
+          "name": "Pff/Pff",
+          "impl": "Flocq/Pff/Impl/Pff.lean",
+          "spec": "Flocq/Pff/Spec/Pff.lean",
+          "apis": [
+            {
+              "name": "pffFopp",
+              "sig": "PffFoppSig",
+              "type": "PffFloat \u2192 PffFloat",
+              "source_id": "Pff/Pff.v:Fopp:47994",
+              "source_name": "Fopp",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Definition Fopp"
+            },
+            {
+              "name": "pffFabs",
+              "sig": "PffFabsSig",
+              "type": "PffFloat \u2192 PffFloat",
+              "source_id": "Pff/Pff.v:Fabs:48642",
+              "source_name": "Fabs",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Definition Fabs"
+            },
+            {
+              "name": "pffFplus",
+              "sig": "PffFplusSig",
+              "type": "PffFloat \u2192 PffFloat \u2192 PffFloat",
+              "source_id": "Pff/Pff.v:Fplus:47170",
+              "source_name": "Fplus",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Definition Fplus"
+            },
+            {
+              "name": "pffFmult",
+              "sig": "PffFmultSig",
+              "type": "PffFloat \u2192 PffFloat \u2192 PffFloat",
+              "source_id": "Pff/Pff.v:Fmult:52161",
+              "source_name": "Fmult",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Definition Fmult"
+            },
+            {
+              "name": "pffMZlistAux",
+              "sig": "PffMZlistAuxSig",
+              "type": "Int \u2192 Nat \u2192 List Int",
+              "source_id": "Pff/Pff.v:mZlist_aux:63910",
+              "source_name": "mZlist_aux",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Fixpoint mZlist_aux"
+            },
+            {
+              "name": "pffMZlist",
+              "sig": "PffMZlistSig",
+              "type": "Int \u2192 Int \u2192 List Int",
+              "source_id": "Pff/Pff.v:mZlist:65165",
+              "source_name": "mZlist",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Definition mZlist"
+            },
+            {
+              "name": "pffMProd",
+              "sig": "PffMProdSig",
+              "type": "(A B : Type) \u2192 List A \u2192 List B \u2192 List (A \u00d7 B)",
+              "source_id": "Pff/Pff.v:mProd:66508",
+              "source_name": "mProd",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Fixpoint mProd"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_pffFopp_num",
+              "source_id": "Pff/Pff.v:Fopp:47994",
+              "source_name": "Fopp",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Definition Fopp",
+              "source_theorem": "Fopp",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fopp in Pff/Pff.v."
+            },
+            {
+              "name": "spec_pffFopp_exp",
+              "source_id": "Pff/Pff.v:Fopp:47994",
+              "source_name": "Fopp",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Definition Fopp",
+              "source_theorem": "Fopp",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fopp in Pff/Pff.v."
+            },
+            {
+              "name": "spec_pffFabs_num",
+              "source_id": "Pff/Pff.v:Fabs:48642",
+              "source_name": "Fabs",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Definition Fabs",
+              "source_theorem": "Fabs",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fabs in Pff/Pff.v."
+            },
+            {
+              "name": "spec_pffFabs_exp",
+              "source_id": "Pff/Pff.v:Fabs:48642",
+              "source_name": "Fabs",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Definition Fabs",
+              "source_theorem": "Fabs",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fabs in Pff/Pff.v."
+            },
+            {
+              "name": "spec_pffFplus_zero_left",
+              "source_id": "Pff/Pff.v:Fplus:47170",
+              "source_name": "Fplus",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Definition Fplus",
+              "source_theorem": "Fplus",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fplus in Pff/Pff.v."
+            },
+            {
+              "name": "spec_pffFplus_zero_right",
+              "source_id": "Pff/Pff.v:Fplus:47170",
+              "source_name": "Fplus",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Definition Fplus",
+              "source_theorem": "Fplus",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fplus in Pff/Pff.v."
+            },
+            {
+              "name": "spec_pffFmult_num",
+              "source_id": "Pff/Pff.v:Fmult:52161",
+              "source_name": "Fmult",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Definition Fmult",
+              "source_theorem": "Fmult",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fmult in Pff/Pff.v."
+            },
+            {
+              "name": "spec_pffFmult_exp",
+              "source_id": "Pff/Pff.v:Fmult:52161",
+              "source_name": "Fmult",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Definition Fmult",
+              "source_theorem": "Fmult",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item Fmult in Pff/Pff.v."
+            },
+            {
+              "name": "spec_pffMZlistAux_mem",
+              "source_id": "Pff/Pff.v:mZlist_aux:63910",
+              "source_name": "mZlist_aux",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Fixpoint mZlist_aux",
+              "source_theorem": "mZlist_aux",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item mZlist_aux in Pff/Pff.v."
+            },
+            {
+              "name": "spec_pffMZlist_mem",
+              "source_id": "Pff/Pff.v:mZlist:65165",
+              "source_name": "mZlist",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Definition mZlist",
+              "source_theorem": "mZlist",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item mZlist in Pff/Pff.v."
+            },
+            {
+              "name": "spec_pffMProd_mem",
+              "source_id": "Pff/Pff.v:mProd:66508",
+              "source_name": "mProd",
+              "source_file": "Pff/Pff.v",
+              "source_signature": "Fixpoint mProd",
+              "source_theorem": "mProd",
+              "equivalence_status": "derived",
+              "source_note": "Derived/split Flocq spec mapped to nearest source item mProd in Pff/Pff.v."
+            }
+          ],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "PffFloat",
+              "source_id": "Pff/Pff.v:float:36525",
+              "source_name": "float",
+              "source_file": "Pff/Pff.v",
+              "kind": "helper",
+              "source_signature": "Record float",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item float in Pff/Pff.v."
+            },
+            {
+              "name": "fexp",
+              "source_id": "Pff/Pff.v:Fexp_le_LSB:212000",
+              "source_name": "Fexp_le_LSB",
+              "source_file": "Pff/Pff.v",
+              "kind": "helper",
+              "source_signature": "Theorem Fexp_le_LSB",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item Fexp_le_LSB in Pff/Pff.v."
+            },
+            {
+              "name": "fnum",
+              "source_id": "Pff/Pff.v:LtR0Fnum:45245",
+              "source_name": "LtR0Fnum",
+              "source_file": "Pff/Pff.v",
+              "kind": "helper",
+              "source_signature": "Theorem LtR0Fnum",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item LtR0Fnum in Pff/Pff.v."
+            },
+            {
+              "name": "pffAbs",
+              "source_id": "Pff/Pff.v:Fabs:48642",
+              "source_name": "Fabs",
+              "source_file": "Pff/Pff.v",
+              "kind": "helper",
+              "source_signature": "Definition Fabs",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item Fabs in Pff/Pff.v."
+            }
+          ]
+        },
+        {
+          "name": "Prop/DivSqrtError",
+          "impl": "Flocq/Prop/Impl/DivSqrtError.lean",
+          "spec": "Flocq/Prop/Spec/DivSqrtError.lean",
+          "apis": [],
+          "specs": [],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_divErrorFLX",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Prop/Div_sqrt_error.v:div_error_FLX:1969",
+              "source_name": "div_error_FLX",
+              "source_file": "Prop/Div_sqrt_error.v",
+              "source_signature": "Theorem div_error_FLX",
+              "source_theorem": "div_error_FLX",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_sqrtErrorFLXN",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Prop/Div_sqrt_error.v:sqrt_error_N_FLT_round_ex:23532",
+              "source_name": "sqrt_error_N_FLT_round_ex",
+              "source_file": "Prop/Div_sqrt_error.v",
+              "source_signature": "Theorem sqrt_error_N_FLT_round_ex",
+              "source_theorem": "sqrt_error_N_FLT_round_ex",
+              "equivalence_status": "derived",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "Prop/MultError",
+          "impl": "Flocq/Prop/Impl/MultError.lean",
+          "spec": "Flocq/Prop/Spec/MultError.lean",
+          "apis": [],
+          "specs": [],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "spec_multErrorFLX",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Prop/Mult_error.v:mult_error_FLX:4146",
+              "source_name": "mult_error_FLX",
+              "source_file": "Prop/Mult_error.v",
+              "source_signature": "Theorem mult_error_FLX",
+              "source_theorem": "mult_error_FLX",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_multErrorFLT",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Prop/Mult_error.v:mult_error_FLT:5499",
+              "source_name": "mult_error_FLT",
+              "source_file": "Prop/Mult_error.v",
+              "source_signature": "Theorem mult_error_FLT",
+              "source_theorem": "mult_error_FLT",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "Prop/PlusError",
+          "impl": "Flocq/Prop/Impl/PlusError.lean",
+          "spec": "Flocq/Prop/Spec/PlusError.lean",
+          "apis": [],
+          "specs": [
+            {
+              "name": "spec_plusError",
+              "source_id": "Prop/Plus_error.v:plus_error:3370",
+              "source_name": "plus_error",
+              "source_file": "Prop/Plus_error.v",
+              "source_signature": "Theorem plus_error",
+              "source_theorem": "plus_error",
+              "equivalence_status": "equivalent"
+            }
+          ],
+          "api_helpers": []
+        },
+        {
+          "name": "Prop/Relative",
+          "impl": "Flocq/Prop/Impl/Relative.lean",
+          "spec": "Flocq/Prop/Spec/Relative.lean",
+          "apis": [],
+          "specs": [],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "DN",
+              "source_id": "Prop/Relative.v:error_N_FLT:28064",
+              "source_name": "error_N_FLT",
+              "source_file": "Prop/Relative.v",
+              "kind": "helper",
+              "source_signature": "Theorem error_N_FLT",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item error_N_FLT in Prop/Relative.v."
+            },
+            {
+              "name": "NE",
+              "source_id": "Prop/Relative.v:relative_error_N_ex:7731",
+              "source_name": "relative_error_N_ex",
+              "source_file": "Prop/Relative.v",
+              "kind": "helper",
+              "source_signature": "Theorem relative_error_N_ex",
+              "source_note": "Frozen Flocq helper declaration mapped to nearest source item relative_error_N_ex in Prop/Relative.v."
+            },
+            {
+              "name": "spec_relativeError",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Prop/Relative.v:relative_error:3616",
+              "source_name": "relative_error",
+              "source_file": "Prop/Relative.v",
+              "source_signature": "Theorem relative_error",
+              "source_theorem": "relative_error",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_relativeErrorN",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Prop/Relative.v:relative_error_N:6843",
+              "source_name": "relative_error_N",
+              "source_file": "Prop/Relative.v",
+              "source_signature": "Theorem relative_error_N",
+              "source_theorem": "relative_error_N",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_errorNFLT",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Prop/Relative.v:error_N_FLT:28064",
+              "source_name": "error_N_FLT",
+              "source_file": "Prop/Relative.v",
+              "source_signature": "Theorem error_N_FLT",
+              "source_theorem": "error_N_FLT",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        },
+        {
+          "name": "Prop/Sterbenz",
+          "impl": "Flocq/Prop/Impl/Sterbenz.lean",
+          "spec": "Flocq/Prop/Spec/Sterbenz.lean",
+          "apis": [],
+          "specs": [],
+          "api_helpers": [],
+          "spec_helpers": [
+            {
+              "name": "genericFormatPlusWeak",
+              "source_id": "Prop/Sterbenz.v:generic_format_plus_weak:2724",
+              "source_name": "generic_format_plus_weak",
+              "source_file": "Prop/Sterbenz.v",
+              "kind": "helper",
+              "source_signature": "Theorem generic_format_plus_weak"
+            },
+            {
+              "name": "sterbenzAux",
+              "source_id": "Prop/Sterbenz.v:sterbenz_aux:3417",
+              "source_name": "sterbenz_aux",
+              "source_file": "Prop/Sterbenz.v",
+              "kind": "helper",
+              "source_signature": "Lemma sterbenz_aux"
+            },
+            {
+              "name": "spec_sterbenz",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Prop/Sterbenz.v:sterbenz:4080",
+              "source_name": "sterbenz",
+              "source_file": "Prop/Sterbenz.v",
+              "source_signature": "Theorem sterbenz",
+              "source_theorem": "sterbenz",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            },
+            {
+              "name": "spec_genericFormatPlus",
+              "kind": "spec_helper",
+              "role": "proof_helper_task",
+              "source_id": "Prop/Sterbenz.v:generic_format_plus:1071",
+              "source_name": "generic_format_plus",
+              "source_file": "Prop/Sterbenz.v",
+              "source_signature": "Theorem generic_format_plus",
+              "source_theorem": "generic_format_plus",
+              "equivalence_status": "equivalent",
+              "source_note": "Theorem-only/library fact preserved as a non-scored spec helper; it does not constrain RepoImpl directly."
+            }
+          ]
+        }
+      ],
+      "bundle": "Flocq/Bundle.lean",
+      "bundle_type": "FlocqBundle",
+      "repo_impl_field": "flocq"
+    }
+  ],
+  "trusted_axioms": [
+    "ZfloorValidRnd",
+    "ZceilValidRnd",
+    "ZnearestValidRnd",
+    "canonicalGenericFormat",
+    "cexpOpp",
+    "mantissaUPSmallPos",
+    "mantissaSmallPos",
+    "expSmallRound0Pos",
+    "magDN",
+    "roundUPSmallPos",
+    "magUniquePos",
+    "validBinary",
+    "binaryFloatOfBitsAux",
+    "binaryFloatOfBitsAuxCorrect",
+    "bplus",
+    "bminus",
+    "bmult",
+    "bdiv",
+    "bsqrt",
+    "bfma"
+  ],
+  "trusted_axiom_sources": {
+    "ZfloorValidRnd": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "ZceilValidRnd": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "ZnearestValidRnd": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "canonicalGenericFormat": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "cexpOpp": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "mantissaUPSmallPos": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "mantissaSmallPos": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "expSmallRound0Pos": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "magDN": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "roundUPSmallPos": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "magUniquePos": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "validBinary": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "binaryFloatOfBitsAux": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "binaryFloatOfBitsAuxCorrect": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "bplus": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "bminus": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "bmult": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "bdiv": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "bsqrt": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    },
+    "bfma": {
+      "kind": "curated_boundary",
+      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
+    }
+  }
+}

@@ -1,0 +1,8 @@
+name = "Dafnycrypto"
+version = "0.1.0"
+defaultTargets = ["Dafnycrypto"]
+
+[[lean_lib]]
+name = "Dafnycrypto"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

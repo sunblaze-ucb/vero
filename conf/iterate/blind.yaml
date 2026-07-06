@@ -1,0 +1,9 @@
+# iterate=blind — eval runs every iteration (so per-iter passed_specs is recorded and stop_on_done fires when the agent finishes early), but the agent NEVER sees the eval report. Each retry re-enters a fresh sandbox with the canonical INSTRUCTION plus a short "you're not done yet, keep working" nudge — no grader output, no failure breakdown.
+#
+# Use when measuring pass@k on an iterating agent: you want grading + early termination, but you don't want eval feedback to bias subsequent samples (a "blind retry" baseline). The nudge is there because without it the agent's first-turn reflex on a clean-looking sandbox is to declare success and stop.
+
+max: 5
+mode: eval
+feedback: false
+stop_on_done: true
+budget_usd: null

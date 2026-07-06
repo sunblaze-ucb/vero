@@ -1,0 +1,1136 @@
+{
+  "benchmark_id": "unicode-v2",
+  "description": "Source-aligned Unicode v2 Lean 4 benchmark for the Dafny dafny-lang/libraries Unicode module: core Unicode vocabulary, abstract encoding-form operations, UTF-8 and UTF-16 encoding forms, UTF-8 encoding-scheme serialization, and Unicode string conversion utilities.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "dafny",
+    "repo_url": "https://github.com/dafny-lang/libraries.git",
+    "commit_hash": "b486ff7faadbf306ed7e71386a2b0aeb1e38bd4d",
+    "path": "src/Unicode"
+  },
+  "curation": {
+    "date": "2026-06-13",
+    "artifact_level": "source-aligned-candidate",
+    "notes": [
+      "Restores the broad 8-module Unicode scope selected by curation after the prior unicode-v2 pilot was narrowed to Utf8EncodingScheme only.",
+      "Dafny refinement/subset types that erase to Lean list aliases are represented with explicit preconditions in the affected specs rather than by assuming the Lean aliases carry proofs.",
+      "The public API namespace remains Unicode while the benchmark root package and RepoImpl field are UnicodeV2/unicodeV2.",
+      "Spec/impl binding audit promoted Unicode behavior helpers that constrain scored APIs into the scored spec surface; namespace-colliding UTF-8/UTF-16 helpers are scored through unique top-level wrappers."
+    ]
+  },
+  "root_package": "UnicodeV2",
+  "files": {
+    "root_hub": "UnicodeV2.lean",
+    "harness": "UnicodeV2/Harness.lean",
+    "test": "UnicodeV2/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "UnicodeV2",
+      "is_root": true,
+      "bundle_type": "UnicodeV2Bundle",
+      "repo_impl_field": "unicodeV2",
+      "modules": [
+        {
+          "name": "Unicode",
+          "apis": [],
+          "specs": [],
+          "impl": "UnicodeV2/Impl/Unicode.lean",
+          "spec": "UnicodeV2/Spec/Unicode.lean",
+          "upstream_files": [
+            "Unicode.dfy"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "UnicodeEncodingForm",
+          "apis": [
+            {
+              "name": "uefSplitPrefixMinimalWellFormedCodeUnitSubsequence",
+              "sig": "UefSplitPrefixMinimalWellFormedCodeUnitSubsequenceSig",
+              "type": "CodeUnitSeq → Option MinimalWellFormedCodeUnitSeq",
+              "upstream_name": "SplitPrefixMinimalWellFormedCodeUnitSubsequence",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.SplitPrefixMinimalWellFormedCodeUnitSubsequence",
+              "source_id": "UnicodeEncodingForm.dfy:SplitPrefixMinimalWellFormedCodeUnitSubsequence:2400",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 67,
+              "source_role": "requires_human_review",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "review_status": "pending_promotion_review",
+              "equivalence_status": "source_backed_with_erased_refinement_preconditions",
+              "representation_policy": "Dafny subset/refinement returns are represented by transparent Lean data plus explicit well-formedness/minimality predicates in specs and guards.",
+              "requires_human_review": true
+            },
+            {
+              "name": "uefEncodeScalarValue",
+              "sig": "UefEncodeScalarValueSig",
+              "type": "ScalarValue → MinimalWellFormedCodeUnitSeq",
+              "upstream_name": "EncodeScalarValue",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.EncodeScalarValue",
+              "source_id": "UnicodeEncodingForm.dfy:EncodeScalarValue:3227",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 83,
+              "source_role": "requires_human_review",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "review_status": "pending_promotion_review",
+              "equivalence_status": "source_backed_with_erased_refinement_preconditions",
+              "representation_policy": "Dafny subset/refinement returns are represented by transparent Lean data plus explicit well-formedness/minimality predicates in specs and guards.",
+              "requires_human_review": true
+            },
+            {
+              "name": "uefDecodeMinimalWellFormedCodeUnitSubsequence",
+              "sig": "UefDecodeMinimalWellFormedCodeUnitSubsequenceSig",
+              "type": "MinimalWellFormedCodeUnitSeq → ScalarValue",
+              "upstream_name": "DecodeMinimalWellFormedCodeUnitSubsequence",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.DecodeMinimalWellFormedCodeUnitSubsequence",
+              "source_id": "UnicodeEncodingForm.dfy:DecodeMinimalWellFormedCodeUnitSubsequence:3448",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 88,
+              "source_role": "requires_human_review",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "review_status": "pending_promotion_review",
+              "equivalence_status": "source_backed_with_erased_refinement_preconditions",
+              "representation_policy": "Dafny subset/refinement returns are represented by transparent Lean data plus explicit well-formedness/minimality predicates in specs and guards.",
+              "requires_human_review": true
+            },
+            {
+              "name": "uefPartitionCodeUnitSequenceChecked",
+              "sig": "UefPartitionCodeUnitSequenceCheckedSig",
+              "type": "CodeUnitSeq → Option (List MinimalWellFormedCodeUnitSeq)",
+              "upstream_name": "PartitionCodeUnitSequenceChecked",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.PartitionCodeUnitSequenceChecked",
+              "source_id": "UnicodeEncodingForm.dfy:PartitionCodeUnitSequenceChecked:4555",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 116,
+              "source_role": "requires_human_review",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "review_status": "pending_promotion_review",
+              "equivalence_status": "source_backed_with_erased_refinement_preconditions",
+              "representation_policy": "Dafny subset/refinement returns are represented by transparent Lean data plus explicit well-formedness/minimality predicates in specs and guards.",
+              "requires_human_review": true
+            },
+            {
+              "name": "uefEncodeScalarSequence",
+              "sig": "UefEncodeScalarSequenceSig",
+              "type": "List ScalarValue → WellFormedCodeUnitSeq",
+              "upstream_name": "EncodeScalarSequence",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.EncodeScalarSequence",
+              "source_id": "UnicodeEncodingForm.dfy:EncodeScalarSequence:9902",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 254,
+              "source_role": "requires_human_review",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "review_status": "pending_promotion_review",
+              "equivalence_status": "source_backed_with_erased_refinement_preconditions",
+              "representation_policy": "Dafny subset/refinement returns are represented by transparent Lean data plus explicit well-formedness/minimality predicates in specs and guards.",
+              "requires_human_review": true
+            },
+            {
+              "name": "uefDecodeCodeUnitSequence",
+              "sig": "UefDecodeCodeUnitSequenceSig",
+              "type": "WellFormedCodeUnitSeq → List ScalarValue",
+              "upstream_name": "DecodeCodeUnitSequence",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.DecodeCodeUnitSequence",
+              "source_id": "UnicodeEncodingForm.dfy:DecodeCodeUnitSequence:10994",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 281,
+              "source_role": "requires_human_review",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "review_status": "pending_promotion_review",
+              "equivalence_status": "source_backed_with_erased_refinement_preconditions",
+              "representation_policy": "Dafny subset/refinement returns are represented by transparent Lean data plus explicit well-formedness/minimality predicates in specs and guards.",
+              "requires_human_review": true
+            },
+            {
+              "name": "uefDecodeCodeUnitSequenceChecked",
+              "sig": "UefDecodeCodeUnitSequenceCheckedSig",
+              "type": "CodeUnitSeq → Option (List ScalarValue)",
+              "upstream_name": "DecodeCodeUnitSequenceChecked",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.DecodeCodeUnitSequenceChecked",
+              "source_id": "UnicodeEncodingForm.dfy:DecodeCodeUnitSequenceChecked:11617",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 300,
+              "source_role": "requires_human_review",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "review_status": "pending_promotion_review",
+              "equivalence_status": "source_backed_with_erased_refinement_preconditions",
+              "representation_policy": "Dafny subset/refinement returns are represented by transparent Lean data plus explicit well-formedness/minimality predicates in specs and guards.",
+              "requires_human_review": true
+            },
+            {
+              "name": "uefPartitionCodeUnitSequence",
+              "sig": "UefPartitionCodeUnitSequenceSig",
+              "type": "WellFormedCodeUnitSeq → List MinimalWellFormedCodeUnitSeq",
+              "upstream_name": "PartitionCodeUnitSequence",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.PartitionCodeUnitSequence",
+              "source_id": "UnicodeEncodingForm.dfy:PartitionCodeUnitSequence:6359",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 157,
+              "source_role": "requires_human_review",
+              "disposition": "provided",
+              "role": "requires_human_review",
+              "review_status": "pending_promotion_review",
+              "requires_human_review": true,
+              "equivalence_status": "source_backed_with_erased_refinement_preconditions",
+              "representation_policy": "Dafny subset/refinement returns are represented by transparent Lean data plus explicit well-formedness/minimality predicates in specs and guards."
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_splitPrefix_inverts_prepend",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "upstream_name": "LemmaSplitPrefixMinimalWellFormedCodeUnitSubsequenceInvertsPrepend",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.LemmaSplitPrefixMinimalWellFormedCodeUnitSubsequenceInvertsPrepend",
+              "source_id": "UnicodeEncodingForm.dfy:LemmaSplitPrefixMinimalWellFormedCodeUnitSubsequenceInvertsPrepend:3861",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 99,
+              "source_role": "direct_source_lemma",
+              "equivalence_status": "source_backed_with_explicit_refinement_preconditions",
+              "semantic_bridge_required": [
+                "Lean list aliases do not carry Dafny subset-type witnesses; minimality is an explicit antecedent."
+              ],
+              "review_status": "representation_approved"
+            },
+            {
+              "name": "spec_partition_minimal_is_singleton",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "upstream_name": "LemmaPartitionMinimalWellFormedCodeUnitSubsequence",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.LemmaPartitionMinimalWellFormedCodeUnitSubsequence",
+              "source_id": "UnicodeEncodingForm.dfy:LemmaPartitionMinimalWellFormedCodeUnitSubsequence:6742",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 167,
+              "source_role": "direct_source_lemma",
+              "equivalence_status": "source_backed_with_explicit_refinement_preconditions",
+              "semantic_bridge_required": [
+                "Lean list aliases do not carry Dafny subset-type witnesses; minimality is an explicit antecedent."
+              ],
+              "review_status": "representation_approved"
+            },
+            {
+              "name": "spec_minimal_implies_wellformed",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "upstream_name": "LemmaMinimalWellFormedCodeUnitSubsequenceIsWellFormedSequence",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.LemmaMinimalWellFormedCodeUnitSubsequenceIsWellFormedSequence",
+              "source_id": "UnicodeEncodingForm.dfy:LemmaMinimalWellFormedCodeUnitSubsequenceIsWellFormedSequence:7671",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 196,
+              "source_role": "direct_source_lemma",
+              "equivalence_status": "source_backed"
+            },
+            {
+              "name": "spec_prepend_minimal_preserves_wellformed",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "upstream_name": "LemmaPrependMinimalWellFormedCodeUnitSubsequence",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.LemmaPrependMinimalWellFormedCodeUnitSubsequence",
+              "source_id": "UnicodeEncodingForm.dfy:LemmaPrependMinimalWellFormedCodeUnitSubsequence:8057",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 206,
+              "source_role": "direct_source_lemma",
+              "equivalence_status": "source_backed_with_explicit_refinement_preconditions",
+              "semantic_bridge_required": [
+                "Lean list aliases do not carry Dafny subset-type witnesses; minimality is an explicit antecedent."
+              ],
+              "review_status": "representation_approved"
+            },
+            {
+              "name": "spec_flatten_minimal_is_wellformed",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "upstream_name": "LemmaFlattenMinimalWellFormedCodeUnitSubsequences",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.LemmaFlattenMinimalWellFormedCodeUnitSubsequences",
+              "source_id": "UnicodeEncodingForm.dfy:LemmaFlattenMinimalWellFormedCodeUnitSubsequences:8552",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 217,
+              "source_role": "direct_source_lemma",
+              "equivalence_status": "source_backed_with_explicit_refinement_preconditions",
+              "semantic_bridge_required": [
+                "Lean list aliases do not carry Dafny subset-type witnesses; minimality is an explicit antecedent."
+              ],
+              "review_status": "representation_approved"
+            },
+            {
+              "name": "spec_concat_wellformed_is_wellformed",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "upstream_name": "LemmaConcatWellFormedCodeUnitSubsequences",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.LemmaConcatWellFormedCodeUnitSubsequences",
+              "source_id": "UnicodeEncodingForm.dfy:LemmaConcatWellFormedCodeUnitSubsequences:9222",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 236,
+              "source_role": "direct_source_lemma",
+              "equivalence_status": "source_backed"
+            },
+            {
+              "name": "spec_encode_decode_scalar_roundtrip",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_encode_sequence_is_wellformed",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_decode_checked_agrees_with_decode",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_partition_checked_agrees_with_partition",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            }
+          ],
+          "impl": "UnicodeV2/Impl/UnicodeEncodingForm.lean",
+          "spec": "UnicodeV2/Spec/UnicodeEncodingForm.lean",
+          "upstream_files": [
+            "UnicodeEncodingForm.dfy"
+          ],
+          "spec_helpers": [],
+          "api_helpers": [
+            {
+              "name": "uefIsMinimalWellFormedCodeUnitSubsequence",
+              "type": "CodeUnitSeq → Bool",
+              "upstream_name": "IsMinimalWellFormedCodeUnitSubsequence",
+              "qualified_name": "UnicodeEncodingForm.UnicodeEncodingForm.IsMinimalWellFormedCodeUnitSubsequence",
+              "source_id": "UnicodeEncodingForm.dfy:IsMinimalWellFormedCodeUnitSubsequence:2021",
+              "source_file": "UnicodeEncodingForm.dfy",
+              "source_line": 57,
+              "source_role": "spec_helper",
+              "role": "spec_helper",
+              "disposition": "provided",
+              "kind": "api_helper",
+              "equivalence_status": "source_helper_predicate"
+            }
+          ]
+        },
+        {
+          "name": "AbstractUnicodeStrings",
+          "apis": [
+            {
+              "name": "absToUTF8Checked",
+              "sig": "AbsToUTF8CheckedSig",
+              "type": "String → Option (List UInt8)",
+              "upstream_name": "ToUTF8Checked",
+              "qualified_name": "UnicodeStrings.AbstractUnicodeStrings.ToUTF8Checked",
+              "source_id": "UnicodeStrings.dfy:ToUTF8Checked:1601",
+              "source_file": "UnicodeStrings.dfy",
+              "source_line": 42,
+              "source_role": "scored_api",
+              "role": "scored_api",
+              "disposition": "provided"
+            },
+            {
+              "name": "absFromUTF8Checked",
+              "sig": "AbsFromUTF8CheckedSig",
+              "type": "List UInt8 → Option String",
+              "upstream_name": "FromUTF8Checked",
+              "qualified_name": "UnicodeStrings.AbstractUnicodeStrings.FromUTF8Checked",
+              "source_id": "UnicodeStrings.dfy:FromUTF8Checked:1837",
+              "source_file": "UnicodeStrings.dfy",
+              "source_line": 50,
+              "source_role": "scored_api",
+              "role": "scored_api",
+              "disposition": "provided"
+            },
+            {
+              "name": "absToUTF16Checked",
+              "sig": "AbsToUTF16CheckedSig",
+              "type": "String → Option (List UInt16)",
+              "upstream_name": "ToUTF16Checked",
+              "qualified_name": "UnicodeStrings.AbstractUnicodeStrings.ToUTF16Checked",
+              "source_id": "UnicodeStrings.dfy:ToUTF16Checked:1897",
+              "source_file": "UnicodeStrings.dfy",
+              "source_line": 52,
+              "source_role": "scored_api",
+              "role": "scored_api",
+              "disposition": "provided"
+            },
+            {
+              "name": "absFromUTF16Checked",
+              "sig": "AbsFromUTF16CheckedSig",
+              "type": "List UInt16 → Option String",
+              "upstream_name": "FromUTF16Checked",
+              "qualified_name": "UnicodeStrings.AbstractUnicodeStrings.FromUTF16Checked",
+              "source_id": "UnicodeStrings.dfy:FromUTF16Checked:2138",
+              "source_file": "UnicodeStrings.dfy",
+              "source_line": 60,
+              "source_role": "scored_api",
+              "role": "scored_api",
+              "disposition": "provided"
+            },
+            {
+              "name": "absASCIIToUTF8",
+              "sig": "AbsASCIIToUTF8Sig",
+              "type": "String → List UInt8",
+              "upstream_name": "ASCIIToUTF8",
+              "qualified_name": "UnicodeStrings.AbstractUnicodeStrings.ASCIIToUTF8",
+              "source_id": "UnicodeStrings.dfy:ASCIIToUTF8:1658",
+              "source_file": "UnicodeStrings.dfy",
+              "source_line": 44,
+              "source_role": "scored_api",
+              "disposition": "provided",
+              "role": "scored_api",
+              "equivalence_status": "source_backed_under_ascii_precondition",
+              "source_precondition": "forall i | 0 <= i < |s| :: 0 <= s[i] as int < 128"
+            },
+            {
+              "name": "absASCIIToUTF16",
+              "sig": "AbsASCIIToUTF16Sig",
+              "type": "String → List UInt16",
+              "upstream_name": "ASCIIToUTF16",
+              "qualified_name": "UnicodeStrings.AbstractUnicodeStrings.ASCIIToUTF16",
+              "source_id": "UnicodeStrings.dfy:ASCIIToUTF16:1956",
+              "source_file": "UnicodeStrings.dfy",
+              "source_line": 54,
+              "source_role": "scored_api",
+              "disposition": "provided",
+              "role": "scored_api",
+              "equivalence_status": "source_backed_under_ascii_precondition",
+              "source_precondition": "forall i | 0 <= i < |s| :: 0 <= s[i] as int < 128"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_utf8_roundtrip",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_utf8_decode_encode",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_utf16_roundtrip",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_utf16_decode_encode",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_utf8_encode_empty",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_utf8_decode_empty",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_utf16_encode_empty",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_utf16_decode_empty",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_asciiToUTF8_matches_checked_on_ascii",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_asciiToUTF16_matches_checked_on_ascii",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            }
+          ],
+          "impl": "UnicodeV2/Impl/AbstractUnicodeStrings.lean",
+          "spec": "UnicodeV2/Spec/AbstractUnicodeStrings.lean",
+          "upstream_files": [
+            "UnicodeStrings.dfy"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "Utf8EncodingForm",
+          "apis": [
+            {
+              "name": "utf8SplitPrefixMinimalWellFormedCodeUnitSubsequence",
+              "sig": "Utf8SplitPrefixMinimalWellFormedCodeUnitSubsequenceSig",
+              "type": "List Utf8CodeUnit → Option (List Utf8CodeUnit)",
+              "upstream_name": "SplitPrefixMinimalWellFormedCodeUnitSubsequence",
+              "qualified_name": "Utf8EncodingForm.Utf8EncodingForm.SplitPrefixMinimalWellFormedCodeUnitSubsequence",
+              "source_id": "Utf8EncodingForm.dfy:SplitPrefixMinimalWellFormedCodeUnitSubsequence:3739",
+              "source_file": "Utf8EncodingForm.dfy",
+              "source_line": 105,
+              "source_role": "requires_human_review",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "review_status": "pending_promotion_review",
+              "equivalence_status": "source_backed_with_erased_refinement_preconditions",
+              "representation_policy": "Dafny subset/refinement returns are represented by transparent Lean data plus explicit well-formedness/minimality predicates in specs and guards.",
+              "requires_human_review": true
+            },
+            {
+              "name": "utf8EncodeScalarValue",
+              "sig": "Utf8EncodeScalarValueSig",
+              "type": "ScalarValue → List Utf8CodeUnit",
+              "upstream_name": "EncodeScalarValue",
+              "qualified_name": "Utf8EncodingForm.Utf8EncodingForm.EncodeScalarValue",
+              "source_id": "Utf8EncodingForm.dfy:EncodeScalarValue:4344",
+              "source_file": "Utf8EncodingForm.dfy",
+              "source_line": 120,
+              "source_role": "requires_human_review",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "review_status": "pending_promotion_review",
+              "equivalence_status": "source_backed_with_erased_refinement_preconditions",
+              "representation_policy": "Dafny subset/refinement returns are represented by transparent Lean data plus explicit well-formedness/minimality predicates in specs and guards.",
+              "requires_human_review": true
+            },
+            {
+              "name": "utf8DecodeMinimalWellFormedCodeUnitSubsequence",
+              "sig": "Utf8DecodeMinimalWellFormedCodeUnitSubsequenceSig",
+              "type": "List Utf8CodeUnit → ScalarValue",
+              "upstream_name": "DecodeMinimalWellFormedCodeUnitSubsequence",
+              "qualified_name": "Utf8EncodingForm.Utf8EncodingForm.DecodeMinimalWellFormedCodeUnitSubsequence",
+              "source_id": "Utf8EncodingForm.dfy:DecodeMinimalWellFormedCodeUnitSubsequence:6870",
+              "source_file": "Utf8EncodingForm.dfy",
+              "source_line": 193,
+              "source_role": "requires_human_review",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "review_status": "pending_promotion_review",
+              "equivalence_status": "source_backed_with_erased_refinement_preconditions",
+              "representation_policy": "Dafny subset/refinement returns are represented by transparent Lean data plus explicit well-formedness/minimality predicates in specs and guards.",
+              "requires_human_review": true
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_utf8_encode_decode_roundtrip",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_role": "reviewer_promoted_behavior_obligation_wrapper",
+              "equivalence_status": "source_backed_wrapper_for_namespaced_helper",
+              "review_status": "reviewer_promoted_to_scored",
+              "nl_description": "Scored wrapper for Utf8.spec_encode_decode_roundtrip."
+            },
+            {
+              "name": "spec_utf8_encode_is_well_formed",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_role": "reviewer_promoted_behavior_obligation_wrapper",
+              "equivalence_status": "source_backed_wrapper_for_namespaced_helper",
+              "review_status": "reviewer_promoted_to_scored",
+              "nl_description": "Scored wrapper for Utf8.spec_encode_is_well_formed."
+            },
+            {
+              "name": "spec_utf8_split_prefix_is_well_formed",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_role": "reviewer_promoted_behavior_obligation_wrapper",
+              "equivalence_status": "source_backed_wrapper_for_namespaced_helper",
+              "review_status": "reviewer_promoted_to_scored",
+              "nl_description": "Scored wrapper for Utf8.spec_split_prefix_is_well_formed."
+            },
+            {
+              "name": "spec_utf8_split_prefix_is_actual_prefix",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_role": "reviewer_promoted_behavior_obligation_wrapper",
+              "equivalence_status": "source_backed_wrapper_for_namespaced_helper",
+              "review_status": "reviewer_promoted_to_scored",
+              "nl_description": "Scored wrapper for Utf8.spec_split_prefix_is_actual_prefix."
+            }
+          ],
+          "impl": "UnicodeV2/Impl/Utf8EncodingForm.lean",
+          "spec": "UnicodeV2/Spec/Utf8EncodingForm.lean",
+          "upstream_files": [
+            "Utf8EncodingForm.dfy"
+          ],
+          "spec_helpers": [
+            {
+              "name": "spec_encode_decode_roundtrip",
+              "role": "spec_helper",
+              "disposition": "provided"
+            },
+            {
+              "name": "spec_encode_is_well_formed",
+              "role": "spec_helper",
+              "disposition": "provided"
+            },
+            {
+              "name": "spec_well_formed_length_bounds",
+              "role": "spec_helper",
+              "disposition": "provided"
+            },
+            {
+              "name": "spec_split_prefix_is_well_formed",
+              "role": "spec_helper",
+              "disposition": "provided"
+            },
+            {
+              "name": "spec_split_prefix_is_actual_prefix",
+              "role": "spec_helper",
+              "disposition": "provided"
+            }
+          ],
+          "api_helpers": [
+            {
+              "name": "utf8IsMinimalWellFormedCodeUnitSubsequence",
+              "type": "List Utf8CodeUnit → Bool",
+              "upstream_name": "IsMinimalWellFormedCodeUnitSubsequence",
+              "qualified_name": "Utf8EncodingForm.Utf8EncodingForm.IsMinimalWellFormedCodeUnitSubsequence",
+              "source_id": "Utf8EncodingForm.dfy:IsMinimalWellFormedCodeUnitSubsequence:741",
+              "source_file": "Utf8EncodingForm.dfy",
+              "source_line": 24,
+              "source_role": "spec_helper",
+              "role": "spec_helper",
+              "disposition": "provided",
+              "kind": "api_helper",
+              "equivalence_status": "source_helper_predicate"
+            }
+          ]
+        },
+        {
+          "name": "Utf16EncodingForm",
+          "apis": [
+            {
+              "name": "utf16SplitPrefixMinimalWellFormedCodeUnitSubsequence",
+              "sig": "Utf16SplitPrefixMinimalWellFormedCodeUnitSubsequenceSig",
+              "type": "List Utf16CodeUnit → Option (List Utf16CodeUnit)",
+              "upstream_name": "SplitPrefixMinimalWellFormedCodeUnitSubsequence",
+              "qualified_name": "Utf16EncodingForm.Utf16EncodingForm.SplitPrefixMinimalWellFormedCodeUnitSubsequence",
+              "source_id": "Utf16EncodingForm.dfy:SplitPrefixMinimalWellFormedCodeUnitSubsequence:1579",
+              "source_file": "Utf16EncodingForm.dfy",
+              "source_line": 50,
+              "source_role": "requires_human_review",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "review_status": "pending_promotion_review",
+              "equivalence_status": "source_backed_with_erased_refinement_preconditions",
+              "representation_policy": "Dafny subset/refinement returns are represented by transparent Lean data plus explicit well-formedness/minimality predicates in specs and guards.",
+              "requires_human_review": true
+            },
+            {
+              "name": "utf16EncodeScalarValue",
+              "sig": "Utf16EncodeScalarValueSig",
+              "type": "ScalarValue → List Utf16CodeUnit",
+              "upstream_name": "EncodeScalarValue",
+              "qualified_name": "Utf16EncodingForm.Utf16EncodingForm.EncodeScalarValue",
+              "source_id": "Utf16EncodingForm.dfy:EncodeScalarValue:2378",
+              "source_file": "Utf16EncodingForm.dfy",
+              "source_line": 70,
+              "source_role": "requires_human_review",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "review_status": "pending_promotion_review",
+              "equivalence_status": "source_backed_with_erased_refinement_preconditions",
+              "representation_policy": "Dafny subset/refinement returns are represented by transparent Lean data plus explicit well-formedness/minimality predicates in specs and guards.",
+              "requires_human_review": true
+            },
+            {
+              "name": "utf16DecodeMinimalWellFormedCodeUnitSubsequence",
+              "sig": "Utf16DecodeMinimalWellFormedCodeUnitSubsequenceSig",
+              "type": "List Utf16CodeUnit → ScalarValue",
+              "upstream_name": "DecodeMinimalWellFormedCodeUnitSubsequence",
+              "qualified_name": "Utf16EncodingForm.Utf16EncodingForm.DecodeMinimalWellFormedCodeUnitSubsequence",
+              "source_id": "Utf16EncodingForm.dfy:DecodeMinimalWellFormedCodeUnitSubsequence:3633",
+              "source_file": "Utf16EncodingForm.dfy",
+              "source_line": 105,
+              "source_role": "requires_human_review",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "review_status": "pending_promotion_review",
+              "equivalence_status": "source_backed_with_erased_refinement_preconditions",
+              "representation_policy": "Dafny subset/refinement returns are represented by transparent Lean data plus explicit well-formedness/minimality predicates in specs and guards.",
+              "requires_human_review": true
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_utf16_encode_decode_roundtrip",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_role": "reviewer_promoted_behavior_obligation_wrapper",
+              "equivalence_status": "source_backed_wrapper_for_namespaced_helper",
+              "review_status": "reviewer_promoted_to_scored",
+              "nl_description": "Scored wrapper for Utf16.spec_encode_decode_roundtrip."
+            },
+            {
+              "name": "spec_utf16_encode_is_minimal_well_formed",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_role": "reviewer_promoted_behavior_obligation_wrapper",
+              "equivalence_status": "source_backed_wrapper_for_namespaced_helper",
+              "review_status": "reviewer_promoted_to_scored",
+              "nl_description": "Scored wrapper for Utf16.spec_encode_is_minimal_well_formed."
+            },
+            {
+              "name": "spec_utf16_split_prefix_empty_is_none",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_role": "reviewer_promoted_behavior_obligation_wrapper",
+              "equivalence_status": "source_backed_wrapper_for_namespaced_helper",
+              "review_status": "reviewer_promoted_to_scored",
+              "nl_description": "Scored wrapper for Utf16.spec_split_prefix_empty_is_none."
+            },
+            {
+              "name": "spec_utf16_split_prefix_some_is_well_formed",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_role": "reviewer_promoted_behavior_obligation_wrapper",
+              "equivalence_status": "source_backed_wrapper_for_namespaced_helper",
+              "review_status": "reviewer_promoted_to_scored",
+              "nl_description": "Scored wrapper for Utf16.spec_split_prefix_some_is_well_formed."
+            },
+            {
+              "name": "spec_utf16_split_prefix_is_actual_prefix",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_role": "reviewer_promoted_behavior_obligation_wrapper",
+              "equivalence_status": "source_backed_wrapper_for_namespaced_helper",
+              "review_status": "reviewer_promoted_to_scored",
+              "nl_description": "Scored wrapper for Utf16.spec_split_prefix_is_actual_prefix."
+            }
+          ],
+          "impl": "UnicodeV2/Impl/Utf16EncodingForm.lean",
+          "spec": "UnicodeV2/Spec/Utf16EncodingForm.lean",
+          "upstream_files": [
+            "Utf16EncodingForm.dfy"
+          ],
+          "spec_helpers": [
+            {
+              "name": "spec_encode_decode_roundtrip",
+              "role": "spec_helper",
+              "disposition": "provided"
+            },
+            {
+              "name": "spec_encode_is_minimal_well_formed",
+              "role": "spec_helper",
+              "disposition": "provided"
+            },
+            {
+              "name": "spec_split_prefix_empty_is_none",
+              "role": "spec_helper",
+              "disposition": "provided"
+            },
+            {
+              "name": "spec_split_prefix_some_is_well_formed",
+              "role": "spec_helper",
+              "disposition": "provided"
+            },
+            {
+              "name": "spec_split_prefix_is_actual_prefix",
+              "role": "spec_helper",
+              "disposition": "provided"
+            },
+            {
+              "name": "spec_is_minimal_single_bmp",
+              "role": "spec_helper",
+              "disposition": "provided"
+            },
+            {
+              "name": "spec_is_minimal_surrogate_pair",
+              "role": "spec_helper",
+              "disposition": "provided"
+            }
+          ],
+          "api_helpers": [
+            {
+              "name": "utf16IsMinimalWellFormedCodeUnitSubsequence",
+              "type": "List Utf16CodeUnit → Bool",
+              "upstream_name": "IsMinimalWellFormedCodeUnitSubsequence",
+              "qualified_name": "Utf16EncodingForm.Utf16EncodingForm.IsMinimalWellFormedCodeUnitSubsequence",
+              "source_id": "Utf16EncodingForm.dfy:IsMinimalWellFormedCodeUnitSubsequence:643",
+              "source_file": "Utf16EncodingForm.dfy",
+              "source_line": 21,
+              "source_role": "spec_helper",
+              "role": "spec_helper",
+              "disposition": "provided",
+              "kind": "api_helper",
+              "equivalence_status": "source_helper_predicate"
+            }
+          ]
+        },
+        {
+          "name": "Utf8EncodingScheme",
+          "apis": [
+            {
+              "name": "serialize",
+              "sig": "SerializeSig",
+              "type": "List Utf8CodeUnit → List Utf8Byte",
+              "upstream_name": "Serialize",
+              "qualified_name": "Utf8EncodingScheme.Utf8EncodingScheme.Serialize",
+              "source_id": "Utf8EncodingScheme.dfy:Serialize:1580",
+              "source_file": "Utf8EncodingScheme.dfy",
+              "source_line": 44,
+              "source_role": "scored_api",
+              "role": "scored_api",
+              "disposition": "provided"
+            },
+            {
+              "name": "deserialize",
+              "sig": "DeserializeSig",
+              "type": "List Utf8Byte → List Utf8CodeUnit",
+              "upstream_name": "Deserialize",
+              "qualified_name": "Utf8EncodingScheme.Utf8EncodingScheme.Deserialize",
+              "source_id": "Utf8EncodingScheme.dfy:Deserialize:1784",
+              "source_file": "Utf8EncodingScheme.dfy",
+              "source_line": 52,
+              "source_role": "scored_api",
+              "role": "scored_api",
+              "disposition": "provided"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_serialize_deserialize",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "upstream_name": "LemmaSerializeDeserialize",
+              "qualified_name": "Utf8EncodingScheme.Utf8EncodingScheme.LemmaSerializeDeserialize",
+              "source_id": "Utf8EncodingScheme.dfy:LemmaSerializeDeserialize:2044",
+              "source_file": "Utf8EncodingScheme.dfy",
+              "source_line": 60,
+              "source_role": "direct_source_lemma",
+              "equivalence_status": "source_backed"
+            },
+            {
+              "name": "spec_deserialize_serialize",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "upstream_name": "LemmaDeserializeSerialize",
+              "qualified_name": "Utf8EncodingScheme.Utf8EncodingScheme.LemmaDeserializeSerialize",
+              "source_id": "Utf8EncodingScheme.dfy:LemmaDeserializeSerialize:2277",
+              "source_file": "Utf8EncodingScheme.dfy",
+              "source_line": 67,
+              "source_role": "direct_source_lemma",
+              "equivalence_status": "source_backed"
+            }
+          ],
+          "impl": "UnicodeV2/Impl/Utf8EncodingScheme.lean",
+          "spec": "UnicodeV2/Spec/Utf8EncodingScheme.lean",
+          "upstream_files": [
+            "Utf8EncodingScheme.dfy"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "UnicodeStringsWithoutUnicodeChar",
+          "apis": [
+            {
+              "name": "noCharToUTF8Checked",
+              "sig": "NoCharToUTF8CheckedSig",
+              "type": "List UInt16 → Option (List UInt8)",
+              "upstream_name": "ToUTF8Checked",
+              "qualified_name": "UnicodeStringsWithoutUnicodeChar.UnicodeStrings.ToUTF8Checked",
+              "source_id": "UnicodeStringsWithoutUnicodeChar.dfy:ToUTF8Checked:717",
+              "source_file": "UnicodeStringsWithoutUnicodeChar.dfy",
+              "source_line": 24,
+              "source_role": "scored_api",
+              "role": "scored_api",
+              "disposition": "provided"
+            },
+            {
+              "name": "noCharFromUTF8Checked",
+              "sig": "NoCharFromUTF8CheckedSig",
+              "type": "List UInt8 → Option (List UInt16)",
+              "upstream_name": "FromUTF8Checked",
+              "qualified_name": "UnicodeStringsWithoutUnicodeChar.UnicodeStrings.FromUTF8Checked",
+              "source_id": "UnicodeStringsWithoutUnicodeChar.dfy:FromUTF8Checked:1056",
+              "source_file": "UnicodeStringsWithoutUnicodeChar.dfy",
+              "source_line": 31,
+              "source_role": "scored_api",
+              "role": "scored_api",
+              "disposition": "provided"
+            },
+            {
+              "name": "noCharToUTF16Checked",
+              "sig": "NoCharToUTF16CheckedSig",
+              "type": "List UInt16 → Option (List UInt16)",
+              "upstream_name": "ToUTF16Checked",
+              "qualified_name": "UnicodeStringsWithoutUnicodeChar.UnicodeStrings.ToUTF16Checked",
+              "source_id": "UnicodeStringsWithoutUnicodeChar.dfy:ToUTF16Checked:1431",
+              "source_file": "UnicodeStringsWithoutUnicodeChar.dfy",
+              "source_line": 38,
+              "source_role": "scored_api",
+              "role": "scored_api",
+              "disposition": "provided"
+            },
+            {
+              "name": "noCharFromUTF16Checked",
+              "sig": "NoCharFromUTF16CheckedSig",
+              "type": "List UInt16 → Option (List UInt16)",
+              "upstream_name": "FromUTF16Checked",
+              "qualified_name": "UnicodeStringsWithoutUnicodeChar.UnicodeStrings.FromUTF16Checked",
+              "source_id": "UnicodeStringsWithoutUnicodeChar.dfy:FromUTF16Checked:1666",
+              "source_file": "UnicodeStringsWithoutUnicodeChar.dfy",
+              "source_line": 45,
+              "source_role": "scored_api",
+              "role": "scored_api",
+              "disposition": "provided"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_noChar_utf8_roundtrip",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_noChar_utf8_decode_encode",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_noCharToUTF16_returns_input",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_noCharFromUTF16_returns_input",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_noCharToUTF16_iff_noCharFromUTF16",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_noCharToUTF8_empty",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_noCharFromUTF8_empty",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_noCharToUTF16_empty",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_noCharFromUTF16_empty",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_noCharToUTF8_none_iff_malformed",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_noCharFromUTF16_iff_toUTF16",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            }
+          ],
+          "impl": "UnicodeV2/Impl/UnicodeStringsWithoutUnicodeChar.lean",
+          "spec": "UnicodeV2/Spec/UnicodeStringsWithoutUnicodeChar.lean",
+          "upstream_files": [
+            "UnicodeStringsWithoutUnicodeChar.dfy"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "UnicodeStringsWithUnicodeChar",
+          "apis": [
+            {
+              "name": "uniCharToUTF8Checked",
+              "sig": "UniCharToUTF8CheckedSig",
+              "type": "String → Option (List UInt8)",
+              "upstream_name": "ToUTF8Checked",
+              "qualified_name": "UnicodeStringsWithUnicodeChar.UnicodeStrings.ToUTF8Checked",
+              "source_id": "UnicodeStringsWithUnicodeChar.dfy:ToUTF8Checked:1743",
+              "source_file": "UnicodeStringsWithUnicodeChar.dfy",
+              "source_line": 54,
+              "source_role": "scored_api",
+              "role": "scored_api",
+              "disposition": "provided"
+            },
+            {
+              "name": "uniCharFromUTF8Checked",
+              "sig": "UniCharFromUTF8CheckedSig",
+              "type": "List UInt8 → Option String",
+              "upstream_name": "FromUTF8Checked",
+              "qualified_name": "UnicodeStringsWithUnicodeChar.UnicodeStrings.FromUTF8Checked",
+              "source_id": "UnicodeStringsWithUnicodeChar.dfy:FromUTF8Checked:2065",
+              "source_file": "UnicodeStringsWithUnicodeChar.dfy",
+              "source_line": 63,
+              "source_role": "scored_api",
+              "role": "scored_api",
+              "disposition": "provided"
+            },
+            {
+              "name": "uniCharToUTF16Checked",
+              "sig": "UniCharToUTF16CheckedSig",
+              "type": "String → Option (List UInt16)",
+              "upstream_name": "ToUTF16Checked",
+              "qualified_name": "UnicodeStringsWithUnicodeChar.UnicodeStrings.ToUTF16Checked",
+              "source_id": "UnicodeStringsWithUnicodeChar.dfy:ToUTF16Checked:2363",
+              "source_file": "UnicodeStringsWithUnicodeChar.dfy",
+              "source_line": 70,
+              "source_role": "scored_api",
+              "role": "scored_api",
+              "disposition": "provided"
+            },
+            {
+              "name": "uniCharFromUTF16Checked",
+              "sig": "UniCharFromUTF16CheckedSig",
+              "type": "List UInt16 → Option String",
+              "upstream_name": "FromUTF16Checked",
+              "qualified_name": "UnicodeStringsWithUnicodeChar.UnicodeStrings.FromUTF16Checked",
+              "source_id": "UnicodeStringsWithUnicodeChar.dfy:FromUTF16Checked:2692",
+              "source_file": "UnicodeStringsWithUnicodeChar.dfy",
+              "source_line": 79,
+              "source_role": "scored_api",
+              "role": "scored_api",
+              "disposition": "provided"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_char_is_unicode_scalar_value",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "upstream_name": "CharIsUnicodeScalarValue",
+              "qualified_name": "UnicodeStringsWithUnicodeChar.UnicodeStrings.CharIsUnicodeScalarValue",
+              "source_id": "UnicodeStringsWithUnicodeChar.dfy:CharIsUnicodeScalarValue:516",
+              "source_file": "UnicodeStringsWithUnicodeChar.dfy",
+              "source_line": 18,
+              "source_role": "direct_source_lemma",
+              "equivalence_status": "source_backed"
+            },
+            {
+              "name": "spec_scalar_value_is_char",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "upstream_name": "UnicodeScalarValueIsChar",
+              "qualified_name": "UnicodeStringsWithUnicodeChar.UnicodeStrings.UnicodeScalarValueIsChar",
+              "source_id": "UnicodeStringsWithUnicodeChar.dfy:UnicodeScalarValueIsChar:1131",
+              "source_file": "UnicodeStringsWithUnicodeChar.dfy",
+              "source_line": 33,
+              "source_role": "direct_source_lemma",
+              "equivalence_status": "source_backed"
+            },
+            {
+              "name": "spec_uniChar_utf8_roundtrip",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            },
+            {
+              "name": "spec_uniChar_utf16_roundtrip",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "review_status": "reviewer_promoted_to_scored",
+              "source_role": "reviewer_promoted_behavior_obligation"
+            }
+          ],
+          "impl": "UnicodeV2/Impl/UnicodeStringsWithUnicodeChar.lean",
+          "spec": "UnicodeV2/Spec/UnicodeStringsWithUnicodeChar.lean",
+          "upstream_files": [
+            "UnicodeStringsWithUnicodeChar.dfy"
+          ],
+          "spec_helpers": []
+        }
+      ],
+      "bundle": "UnicodeV2/Bundle.lean"
+    }
+  ],
+  "semantic_mappings": [
+    {
+      "name": "Dafny refinement/subset type erasure policy",
+      "equivalence_status": "source_backed_with_explicit_refinement_preconditions",
+      "review_status": "pending_promotion_review",
+      "requires_human_review": true,
+      "promotion_scope": false,
+      "promotion_status": "blocked_pending_reviewer_signoff",
+      "reason": "Lean aliases such as MinimalWellFormedCodeUnitSeq and WellFormedCodeUnitSeq are transparent lists; source predicates are preserved as explicit spec antecedents and guards instead of being silently assumed by type."
+    },
+    {
+      "name": "Abstract ASCII helper functions",
+      "source_ids": [
+        "UnicodeStrings.dfy:ASCIIToUTF8:1658",
+        "UnicodeStrings.dfy:ASCIIToUTF16:1956"
+      ],
+      "equivalence_status": "source_backed_under_ascii_precondition",
+      "review_status": "included_after_reviewer_api_alignment_finding",
+      "requires_human_review": false,
+      "promotion_scope": true,
+      "reason": "ASCIIToUTF8 and ASCIIToUTF16 are now scored APIs and are guarded/spec-helper constrained under the Dafny ASCII precondition."
+    }
+  ],
+  "source_index_evidence": []
+}

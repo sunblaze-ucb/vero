@@ -1,0 +1,194 @@
+{
+  "benchmark_id": "piggybank-v2",
+  "description": null,
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "coq",
+    "repo_url": "https://github.com/AU-COBRA/ConCert.git",
+    "commit_hash": "341f440abb955b58066c269ebe0a231e8172e403",
+    "path": "examples/piggybank"
+  },
+  "curation": {
+    "date": "2026-05-20"
+  },
+  "root_package": "PiggybankV2",
+  "trusted_axioms": [
+    "ChainState",
+    "DeploymentInfo",
+    "WeakContract",
+    "Contract",
+    "ChainTrace",
+    "build_contract",
+    "toWeakContract",
+    "empty_state",
+    "reachable",
+    "env_contracts",
+    "outgoing_acts",
+    "contract_state",
+    "env_account_balances",
+    "deployment_info",
+    "deployment_from",
+    "account_balance_nonnegative"
+  ],
+  "trusted_axiom_sources": {
+    "build_contract": {
+      "source": "ConCert execution model",
+      "rationale": "Trusted shim for constructing a weak contract value from translated entrypoints."
+    },
+    "toWeakContract": {
+      "source": "ConCert execution model",
+      "rationale": "Trusted shim for erasing a contract to the weak contract representation used by chain-state predicates."
+    },
+    "empty_state": {
+      "source": "ConCert execution model",
+      "rationale": "Trusted initial chain state for scoped trace/background properties."
+    },
+    "reachable": {
+      "source": "ConCert execution model",
+      "rationale": "Trusted reachability predicate over abstract chain states; reviewed as a scoped background boundary."
+    },
+    "env_contracts": {
+      "source": "ConCert execution model",
+      "rationale": "Trusted chain-state projection for deployed contracts."
+    },
+    "outgoing_acts": {
+      "source": "ConCert execution model",
+      "rationale": "Trusted chain-state projection for queued outgoing actions."
+    },
+    "contract_state": {
+      "source": "ConCert execution model",
+      "rationale": "Trusted chain-state projection for contract-local state."
+    },
+    "env_account_balances": {
+      "source": "ConCert execution model",
+      "rationale": "Trusted chain-state projection for account balances."
+    },
+    "deployment_info": {
+      "source": "ConCert execution model",
+      "rationale": "Trusted deployment metadata lookup used by source trace-style properties."
+    },
+    "deployment_from": {
+      "source": "ConCert execution model",
+      "rationale": "Trusted projection from deployment metadata to the deployer address."
+    },
+    "account_balance_nonnegative": {
+      "source": "ConCert execution model",
+      "rationale": "Trusted account-balance invariant from the abstract chain model."
+    }
+  },
+  "files": {
+    "root_hub": "PiggybankV2.lean",
+    "harness": "PiggybankV2/Harness.lean",
+    "test": "PiggybankV2/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "PiggybankV2",
+      "bundle": "PiggybankV2/Bundle.lean",
+      "bundle_type": "PiggybankV2Bundle",
+      "repo_impl_field": "piggybankV2",
+      "modules": [
+        {
+          "name": "ConcertShim",
+          "impl": "PiggybankV2/Impl/ConcertShim.lean",
+          "spec": "PiggybankV2/Spec/ConcertShim.lean",
+          "apis": [],
+          "api_helpers": [],
+          "specs": [],
+          "spec_helpers": [
+            "address_neqb",
+            "address_eqb",
+            "build_contract",
+            "toWeakContract",
+            "empty_state",
+            "reachable",
+            "env_contracts",
+            "outgoing_acts",
+            "contract_state",
+            "env_account_balances",
+            "deployment_info",
+            "deployment_from",
+            "account_balance_nonnegative"
+          ]
+        },
+        {
+          "name": "PiggyBank",
+          "impl": "PiggybankV2/Impl/PiggyBank.lean",
+          "spec": "PiggybankV2/Spec/PiggyBank.lean",
+          "apis": [
+            {
+              "name": "insert",
+              "sig": "InsertSig",
+              "type": "State → ContractCallContext → Result"
+            },
+            {
+              "name": "smash",
+              "sig": "SmashSig",
+              "type": "State → ContractCallContext → Result"
+            },
+            {
+              "name": "init",
+              "sig": "InitSig",
+              "type": "Chain → ContractCallContext → Setup → Except Error State"
+            },
+            {
+              "name": "receive",
+              "sig": "ReceiveSig",
+              "type": "Chain → ContractCallContext → State → Option Msg → Result"
+            }
+          ],
+          "api_helpers": [],
+          "specs": [],
+          "spec_helpers": [
+            "error_no_msg",
+            "error_not_owner",
+            "error_already_smashed",
+            "error_amount_not_positive",
+            "error_amount_not_zero",
+            "is_smashed",
+            "contract"
+          ]
+        },
+        {
+          "name": "PiggyBankCorrect",
+          "impl": "PiggybankV2/Impl/PiggyBankCorrect.lean",
+          "spec": "PiggybankV2/Spec/PiggyBankCorrect.lean",
+          "apis": [],
+          "api_helpers": [],
+          "specs": [
+            "spec_insert_inserts_correct",
+            "spec_insert_negative_amount_fails",
+            "spec_insert_smashed_fails",
+            "spec_insert_intact_nonnegative_succeeds",
+            "spec_smash_transfers_correctly",
+            "spec_smash_non_owner_fails",
+            "spec_smash_smashed_fails",
+            "spec_smash_owner_intact_succeeds",
+            "spec_receive_is_correct",
+            "spec_receive_dispatch_insert",
+            "spec_receive_dispatch_smash",
+            "spec_receive_missing_msg_fails",
+            "spec_no_self_calls",
+            "spec_owner_remains",
+            "spec_owner_correct",
+            "spec_stay_smashed",
+            "spec_if_intact_then_balance_can_only_increase",
+            "spec_initializes_correctly",
+            "spec_initializes_owner_and_balance",
+            "spec_balance_on_chain",
+            "spec_no_outgoing_actions_when_intact",
+            "spec_balance_is_zero_when_smashed",
+            "spec_balance_on_pos"
+          ],
+          "spec_helpers": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "benchmark_id": "ecdsa",
+  "description": "python-ecdsa core: GF(p) modular arithmetic + elliptic-curve group law over GF(p) in affine coordinates. Translated from python-ecdsa (ecdsa/numbertheory.py + ecdsa/ellipticcurve.py). The headline obligation is inverseMod (python-ecdsa's inverse_mod): existence-and-uniqueness of the modular multiplicative inverse, stated as the frozen-op-anchored equation (a*inv)%m=1 together with the mandatory range clause 0<inv<m that pins the UNIQUE residue; the proof runs the genuine extended-Euclid Bézout identity (egcd Bézout invariant + gcd-link), so there is no copyable oracle and no self-referential round-trip. The elliptic-curve layer pins the affine group law to the frozen slope arithmetic: containsPoint is an iff against the frozen Weierstrass residue y^2 = x^3 + a*x + b (mod p); pointAdd and pointDouble are pinned to their explicit coordinate formulas (chord slope lambda=(y2-y1)*inv(x2-x1) and tangent slope lambda=(3x^2+a)*inv(2y), with x3=lambda^2-... and y3=lambda*(x-x3)-y) over the frozen inverseMod. The doubling branch is closed by its own formula spec, by the 2y=0 -> infinity vertical-tangent law, by the addition-delegates-to-doubling spec (pointAdd P P = pointDouble P), and by the scalarMult recurrence (k+1)*P = k*P + P that routes the scalar ladder through the adder and doubler. On-curve closure and group correctness are anchored by frozen golden vectors on y^2 = x^3 + 2x + 2 (mod 17) with generator (5,1): 2G=(6,3), 3G=(10,6), 4G=(3,1), -G, and scalarMult agree with the standard values and stay on-curve. The square-root obligation (sqrtModPrime squares-back) is anchored by concrete primality/Legendre-symbol vectors (isOddPrime, jacobi) plus a frozen primality iff, so it is never agent-vacuous. Scope: the benchmark models the GF(p) inverse, the on-curve characterization, the coordinate formulas, on-curve closure (anchored), and the structural identity/negation/scalar-recurrence laws — NOT signature gen/verify, full Tonelli-Shanks, or group ASSOCIATIVITY (mathlib-scale). Everything is discrete Nat/Int; no Float. inverseMod is total/terminating via a fuel-bounded extended Euclid.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/tlsfuzzer/python-ecdsa",
+    "commit_hash": "bff40c6cf2340148d410d5b3def0e949c547caf1",
+    "path": ["src/ecdsa/numbertheory.py", "src/ecdsa/ellipticcurve.py", "src/ecdsa/util.py"],
+    "name": "python-ecdsa"
+  },
+  "curation": {
+    "date": "2026-06-30"
+  },
+  "root_package": "Ecdsa",
+  "files": {
+    "root_hub": "Ecdsa.lean",
+    "harness": "Ecdsa/Harness.lean",
+    "test": "Ecdsa/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Ecdsa",
+      "bundle": "Ecdsa/Bundle.lean",
+      "bundle_type": "EcdsaBundle",
+      "repo_impl_field": "ecdsa",
+      "modules": [
+        {
+          "name": "Modular",
+          "impl": "Ecdsa/Impl/Modular.lean",
+          "spec": "Ecdsa/Spec/Modular.lean",
+          "apis": [
+            {"name": "inverseMod",   "sig": "InverseModSig",   "type": "Nat → Nat → Nat"},
+            {"name": "isOddPrime",   "sig": "IsOddPrimeSig",   "type": "Nat → Bool"},
+            {"name": "jacobi",       "sig": "JacobiSig",       "type": "Nat → Nat → Int"},
+            {"name": "sqrtModPrime", "sig": "SqrtModPrimeSig", "type": "Nat → Nat → Nat"}
+          ],
+          "specs": [
+            "spec_inverse_mod_correct",
+            "spec_inverse_mod_range",
+            "spec_inverse_mod_unique",
+            "spec_inverse_mod_one",
+            "spec_inverse_mod_involutive",
+            "spec_inverse_mod_mul_hom",
+            "spec_is_odd_prime_concrete",
+            "spec_is_odd_prime_iff",
+            "spec_jacobi_concrete",
+            "spec_jacobi_denom_one",
+            "spec_sqrt_mod_prime_squares_back",
+            "spec_sqrt_mod_prime_squares_back_general",
+            "spec_sqrt_mod_prime_greatest_root",
+            "spec_sqrt_mod_prime_nonzero_range",
+            "spec_sqrt_mod_prime_range",
+            "spec_jacobi_prime_mul",
+            "spec_jacobi_prime_zero_iff",
+            "spec_jacobi_prime_square_nonzero",
+            "spec_inverse_mod_residue_arg",
+            "spec_inverse_mod_self_iff_square_one",
+            "spec_sqrt_mod_prime_scanned_root_greatest",
+            "spec_sqrt_mod_prime_zero_iff_no_scanned_root",
+            "spec_jacobi_equidistribution"
+          ]
+        },
+        {
+          "name": "Curve",
+          "impl": "Ecdsa/Impl/Curve.lean",
+          "spec": "Ecdsa/Spec/Curve.lean",
+          "apis": [
+            {"name": "containsPoint", "sig": "ContainsPointSig", "type": "Curve → Point → Bool"},
+            {"name": "negPoint",      "sig": "NegPointSig",      "type": "Curve → Point → Point"},
+            {"name": "pointDouble",   "sig": "PointDoubleSig",   "type": "Curve → Point → Point"},
+            {"name": "pointAdd",      "sig": "PointAddSig",      "type": "Curve → Point → Point → Point"},
+            {"name": "scalarMult",    "sig": "ScalarMultSig",    "type": "Curve → Nat → Point → Point"}
+          ],
+          "specs": [
+            "spec_contains_point_iff",
+            "spec_contains_point_infinity",
+            "spec_point_double_affine_formula",
+            "spec_point_double_infinity",
+            "spec_point_double_at_infinity",
+            "spec_point_add_affine_formula",
+            "spec_point_add_eq_double",
+            "spec_point_add_vertical",
+            "spec_point_add_left_identity",
+            "spec_point_add_right_identity",
+            "spec_neg_point_formula",
+            "spec_neg_point_same_x",
+            "spec_scalar_mult_zero",
+            "spec_scalar_mult_succ",
+            "spec_scalar_mult_one",
+            "spec_curve_golden_on_curve",
+            "spec_curve_golden_values",
+            "spec_curve_golden_scalar",
+            "spec_scalar_mult_infinity_absorbs",
+            "spec_neg_point_double_reduces_y",
+            "spec_neg_point_y_sum_zero",
+            "spec_point_add_neg_point_inverse",
+            "spec_contains_point_neg_point",
+            "spec_point_double_zero_ordinate",
+            "spec_scalar_mult_inverse_sum_absorbs"
+          ]
+        }
+      ]
+    }
+  ]
+}

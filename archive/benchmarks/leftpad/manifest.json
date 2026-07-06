@@ -1,0 +1,65 @@
+{
+ "benchmark_id": "leftpad",
+ "description": "Lean 4 benchmark for a small leftpad library over polymorphic lists and strings.",
+ "lean_version": "4.29.1",
+ "modes_supported": [
+  "proof",
+  "codeproof"
+ ],
+ "source": {
+  "kind": "lean",
+  "language": "lean",
+  "repo_url": "https://github.com/hwayne/lets-prove-leftpad",
+  "commit_hash": null,
+  "path": null
+ },
+ "curation": {
+  "date": "2026-04-27",
+  "notes": [
+   "Packaged from the single-file leftpad example into the Bundle/Harness/Impl/Spec/Test benchmark format."
+  ],
+  "source_note": "Lean-native single-file example; no external upstream repo (path cleared — was a stale agent_runs path)."
+ },
+ "root_package": "Leftpad",
+ "files": {
+  "root_hub": "Leftpad.lean",
+  "harness": "Leftpad/Harness.lean",
+  "test": "Leftpad/Test.lean",
+  "lakefile": "lakefile.toml"
+ },
+ "packages": [
+  {
+   "name": "Leftpad",
+   "bundle": "Leftpad/Bundle.lean",
+   "bundle_type": "LeftpadBundle",
+   "repo_impl_field": "leftpad",
+   "modules": [
+    {
+     "name": "Leftpad",
+     "impl": "Leftpad/Impl/Leftpad.lean",
+     "spec": "Leftpad/Spec/Leftpad.lean",
+     "apis": [
+      {
+       "name": "leftpad",
+       "sig": "LeftpadSig",
+       "type": "{α : Type} → Nat → α → List α → List α"
+      },
+      {
+       "name": "leftpadString",
+       "sig": "LeftpadStringSig",
+       "type": "Nat → Char → String → String"
+      }
+     ],
+     "specs": [
+      "spec_leftpad_length",
+      "spec_leftpad_prefix",
+      "spec_leftpad_suffix",
+      "spec_leftpadString_length",
+      "spec_leftpadString_prefix",
+      "spec_leftpadString_suffix"
+     ]
+    }
+   ]
+  }
+ ]
+}
