@@ -1,0 +1,8 @@
+name = "jsonpatch"
+version = "0.1.0"
+defaultTargets = ["JsonPatch"]
+
+[[lean_lib]]
+name = "JsonPatch"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

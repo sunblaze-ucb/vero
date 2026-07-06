@@ -1,0 +1,8 @@
+name = "UnicodeV2"
+version = "0.1.0"
+defaultTargets = ["UnicodeV2"]
+
+[[lean_lib]]
+name = "UnicodeV2"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

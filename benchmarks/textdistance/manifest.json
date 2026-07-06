@@ -1,0 +1,104 @@
+{
+  "benchmark_id": "textdistance",
+  "description": "Edit-distance core modelled on the textdistance library: levenshtein (minimum insert/delete/substitute edit cost) and lcs (longest-common-subsequence length), with witness-minimality specs anchored on a frozen inductive Edit script and witness-maximality specs anchored on List.Sublist. Beyond the metric/recursion/concatenation laws, a hidden-invariant family states clean end-facts whose proofs each need a discovered, non-obvious invariant kept out of the specification: exact shared-prefix/shared-suffix LCS accounting, single-symbol LCS adjacency bounds, first-argument LCS monotonicity, reversal invariance of both operations (proved via an edit-script reversal construction for lev and a sublist-reverse involution for lcs), the joint lev/lcs upper bound 2*lcs + lev <= |a|+|b|, the LCS triangle inequality lcs a b + lcs b c <= |b| + lcs a c (proved via a positional-overlap interleaving lemma for two subsequences of a shared middle), general first-argument LCS Sublist-monotonicity, and the adjacent-block-swap edit-distance bound lev (a++b) (b++a) <= 2*min(|a|,|b|) (proved via an insert-block / keep / delete-block script composition), and a per-symbol counting family stating clean multiplicity end-facts: a symbol-count edit-distance lower bound, the constant-list LCS value min(count, n), the single-symbol filtered LCS min(count, count), a per-symbol LCS lower bound, and a multiset-intersection LCS upper bound. A further aligned-alignment family pins the joint structure of the two operations via constructed global witnesses: LCS superadditivity over aligned concatenation lcs a c + lcs b d <= lcs (a++b) (c++d), the shared-middle LCS lower bound |mid| + lcs a c + lcs b d <= lcs (a++mid++b) (c++mid++d), the two-order middle overlap lcs a m + lcs b m <= lcs (a++b) m + lcs (b++a) m, two-index single-position sensitivity bounds for both operations (interior delete-one-each and leading cons-pair Lipschitz laws), the cross-operation coupling lcs a c <= lev a b + lcs b c, an existential LCS-aligned edit script with cost s + 2*lcs = |a|+|b|, and the universal script lower bound max(|a|,|b|) <= lcs a b + cost s for every successful edit script. Scope: `levenshtein` models `textdistance.Levenshtein.distance` and `lcs` models `textdistance.LCSSeq.similarity` (the LCS length). Strings are modeled as `List Nat` symbol-code sequences; the normalized/ratio scores and all other textdistance algorithms are out of scope.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/life4/textdistance",
+    "commit_hash": "d6a68d61088a40eef5c88191ccf79323dbf34850",
+    "path": ["textdistance/algorithms/edit_based.py", "textdistance/algorithms/sequence_based.py", "textdistance/algorithms/base.py", "textdistance/algorithms/types.py", "textdistance/utils.py"],
+    "name": "textdistance"
+  },
+  "curation": {
+    "date": "2026-06-28"
+  },
+  "root_package": "Textdistance",
+  "files": {
+    "root_hub": "Textdistance.lean",
+    "harness": "Textdistance/Harness.lean",
+    "test": "Textdistance/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Textdistance",
+      "bundle": "Textdistance/Bundle.lean",
+      "bundle_type": "TextdistanceBundle",
+      "repo_impl_field": "textdistance",
+      "modules": [
+        {
+          "name": "Edit",
+          "impl": "Textdistance/Impl/Edit.lean",
+          "spec": "Textdistance/Spec/Edit.lean",
+          "apis": [
+            {"name": "levenshtein", "sig": "LevenshteinSig", "type": "Symbols → Symbols → Nat"},
+            {"name": "lcs",         "sig": "LcsSig",         "type": "Symbols → Symbols → Nat"}
+          ],
+          "specs": [
+            "spec_lev_witness",
+            "spec_lev_minimal",
+            "spec_lev_self_zero",
+            "spec_lev_empty_left",
+            "spec_lev_empty_right",
+            "spec_lev_zero_iff_eq",
+            "spec_lev_symm",
+            "spec_lev_triangle",
+            "spec_lev_le_add",
+            "spec_lev_le_max",
+            "spec_lev_len_lower_bound",
+            "spec_lev_count_lower_bound",
+            "spec_lev_cons_eq_head",
+            "spec_lev_cons_cons",
+            "spec_lcs_witness",
+            "spec_lcs_maximal",
+            "spec_lcs_empty",
+            "spec_lcs_le_min_length",
+            "spec_lcs_replicate_count",
+            "spec_lcs_filtered_count",
+            "spec_lcs_count_le",
+            "spec_lcs_counting_upper",
+            "spec_lcs_empty_right",
+            "spec_lcs_symm",
+            "spec_lcs_self",
+            "spec_lcs_cons_eq_head",
+            "spec_lcs_cons_cons",
+            "spec_lev_prefix_cancel",
+            "spec_lev_suffix_cancel",
+            "spec_lev_concat_subadditive",
+            "spec_lev_one_step",
+            "spec_lev_len_lcs_lower_bound",
+            "spec_lcs_suffix_monotone",
+            "spec_lcs_grow_prefix_right",
+            "spec_lcs_grow_suffix_right",
+            "spec_lcs_subadditive_left",
+            "spec_lcs_subadditive_right",
+            "spec_lcs_shared_prefix",
+            "spec_lcs_shared_suffix",
+            "spec_lcs_drop_left",
+            "spec_lcs_drop_right",
+            "spec_lcs_grow_suffix_left",
+            "spec_lcs_grow_prefix_left",
+            "spec_lcs_reverse",
+            "spec_lev_reverse",
+            "spec_lev_lcs_upper",
+            "spec_lcs_triangle",
+            "spec_lcs_sublist_mono_left",
+            "spec_lev_block_swap",
+            "spec_lcs_concat_superadditive",
+            "spec_lcs_shared_middle_lower",
+            "spec_lcs_two_order_middle_overlap",
+            "spec_lcs_delete_one_each_middle",
+            "spec_lev_delete_one_each_lipschitz",
+            "spec_lev_cons_pair_lipschitz",
+            "spec_lcs_cons_pair_lipschitz",
+            "spec_lcs_lev_lipschitz_left",
+            "spec_lcs_aligned_edit_witness",
+            "spec_every_script_lcs_lower"
+          ]
+        }
+      ]
+    }
+  ]
+}

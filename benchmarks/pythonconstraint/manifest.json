@@ -1,0 +1,88 @@
+{
+ "benchmark_id": "pythonconstraint",
+ "description": "python-constraint finite-domain CSP-solver core: a constraint-satisfaction problem is a list of variables (indices 0…n-1), each with a finite Nat domain (domains : List (List Nat), the i-th entry is variable i's domain), plus a list of Constraints; the solver enumerates every assignment of domain values satisfying all constraints. Translated from python-constraint/constraint/__init__.py (Gustavo Niemeyer, BSD, v1.4.0). Model is mathlib-free, all Nat/List: an assignment is a List (Nat × Nat) (association list var↦value) emitted in canonical ascending variable-index order; a Constraint is one of the library's finite-domain predicates (allDifferent | exactSum k | maxSum k | minSum k | inSet s), each carrying the variable list it constrains. python-constraint's BacktrackingSolver prunes with forward-checking and orders variables by the Degree/MRV heuristics; those choices change the ORDER solutions are produced and the search EFFICIENCY, never the solution SET — so the faithful port of the observable behavior is exhaustive cartesian-product enumeration filtered by the constraints (verified byte-identical to the library's solution set on the #guard suite, up to the noncanonical enumeration order). One module, Csp. APIs: holds (the frozen constraint evaluator on a complete assignment — a python-constraint Constraint's __call__), getSolutions (the full solution set), getSolution (one solution or none, python-constraint's Problem.getSolution), and solutionCount (how many). The specifications are anchored to frozen REFERENCE predicates built only from Spec-LOCAL frozen helpers defined inside Spec/Csp.lean itself (refEnumerate / refLookup / refValues / refSumList / refAllDistinct / refAllInSet / holdsRef / modelList) — NOT the implementation helpers, which live in agent-editable !benchmark slots and could otherwise be weakened (e.g. enumerate := fun _ _ => []) to make the reference model set vacuously empty; keeping the reference in the un-editable Spec file makes the soundness/completeness laws non-hackable. The predicates are deliberately independent of the scored APIs: respectsDomains (a is a complete, canonically-ordered cartesian-product tuple of the domains) and holdsRef/satisfiesRef/modelMember (a is a legal all-constraints-satisfying assignment — membership in the full model set). The crown properties are SOUNDNESS (spec_solutions_sound: every returned assignment is domain-respecting and satisfies every constraint) and COMPLETENESS (spec_solutions_complete: every domain-respecting assignment satisfying all constraints appears in getSolutions — the frontier-hard universal quantifier over the whole domain product, forbidding an incomplete solver that prunes too far, stops early, or returns only the first solution), fused into the two-sided set-membership law spec_solutions_eq_modelset (getSolutions enumerates EXACTLY the model set), and strengthened to the multiset level by spec_solutions_perm_model — getSolutions is a PERMUTATION of the frozen reference model list modelList (the product enumeration filtered by holdsRef), so the solver neither invents, omits, dedups, NOR duplicates a solution even when a domain lists a value more than once (a permutation, not a list equality, so any correct enumeration order — including python-constraint's noncanonical Degree/MRV order — satisfies it; it subsumes soundness, completeness, exact multiplicity, and the count). spec_no_dup_solutions makes it a duplicate-free enumeration when the domains are themselves duplicate-free (python-constraint does not dedup domain values, so the domain-Nodup guard is faithful). Constraint semantics are pinned to frozen predicates: AllDifferent ⟺ pairwise-distinct values (injectivity, spec_alldiff_iff), ExactSum k ⟺ Σ=k (spec_exactsum_iff), and holds ⟺ holdsRef for every constructor (spec_holds_ref). Cross-API laws: getSolution≠none ⟺ getSolutions≠[] (spec_getSolution_iff), getSolution ∈ getSolutions (spec_getSolution_mem), solutionCount = getSolutions.length (spec_count_eq_length), and the no-variables boundary getSolutions [] = [] (spec_no_variables_empty). All specs are general ∀-laws over arbitrary finite domains and constraint lists (NEVER a concrete-CSP-only spec), stated order-independently (the solver's enumeration order is noncanonical). Everything is discrete Nat/List; no Float. enumerate/getSolutions recursion is structural over the domain list (total, terminating). Scope: the benchmark models the solution-set semantics (soundness + completeness + model-set equality + no-duplicates), the constraint evaluator anchored to frozen predicates, and the getSolution/solutionCount cross-API laws. Search-heuristic behavior (Degree/MRV variable ordering, forward-checking domain pruning, MinConflictsSolver's stochastic search) and the mutable Problem/Domain builder API are OUT of scope — they affect enumeration order and efficiency, not the solution set the specs pin.",
+ "lean_version": "4.29.1",
+ "modes_supported": [
+  "proof",
+  "codeproof"
+ ],
+ "source": {
+  "kind": "translated",
+  "language": "python",
+  "repo_url": "https://github.com/python-constraint/python-constraint",
+  "commit_hash": "f1359ff0ff6d9a541923d071cf1c0b50f8e8925b",
+  "path": [
+   "constraint/__init__.py"
+  ],
+  "name": "python-constraint"
+ },
+ "curation": {
+  "date": "2026-07-04"
+ },
+ "root_package": "Pythonconstraint",
+ "files": {
+  "root_hub": "Pythonconstraint.lean",
+  "harness": "Pythonconstraint/Harness.lean",
+  "test": "Pythonconstraint/Test.lean",
+  "lakefile": "lakefile.toml"
+ },
+ "packages": [
+  {
+   "name": "Pythonconstraint",
+   "bundle": "Pythonconstraint/Bundle.lean",
+   "bundle_type": "PythonconstraintBundle",
+   "repo_impl_field": "pythonconstraint",
+   "modules": [
+    {
+     "name": "Csp",
+     "impl": "Pythonconstraint/Impl/Csp.lean",
+     "spec": "Pythonconstraint/Spec/Csp.lean",
+     "apis": [
+      {
+       "name": "holds",
+       "sig": "HoldsSig",
+       "type": "Constraint → Assignment → Bool"
+      },
+      {
+       "name": "getSolutions",
+       "sig": "GetSolutionsSig",
+       "type": "List (List Nat) → List Constraint → List Assignment"
+      },
+      {
+       "name": "getSolution",
+       "sig": "GetSolutionSig",
+       "type": "List (List Nat) → List Constraint → Option Assignment"
+      },
+      {
+       "name": "solutionCount",
+       "sig": "SolutionCountSig",
+       "type": "List (List Nat) → List Constraint → Nat"
+      }
+     ],
+     "specs": [
+      "spec_alldiff_iff",
+      "spec_exactsum_iff",
+      "spec_holds_ref",
+      "spec_solutions_sound",
+      "spec_solutions_complete",
+      "spec_solutions_eq_modelset",
+      "spec_solutions_perm_model",
+      "spec_no_dup_solutions",
+      "spec_getSolution_iff",
+      "spec_getSolution_mem",
+      "spec_count_eq_length",
+      "spec_no_variables_empty",
+      "spec_count_no_constraints_product",
+      "spec_cons_constraint_filter",
+      "spec_constraint_order_perm",
+      "spec_unary_inset_forward_check",
+      "spec_solutions_canonical_keys",
+      "spec_count_zero_iff_no_model",
+      "spec_alldiff_capacity_zero",
+      "spec_sum_bounds_contradiction_zero"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,154 @@
+{
+  "benchmark_id": "dafny_vmc",
+  "description": "Probabilistic verification benchmark translated from Dafny-VMC: Hurd monad, uniform/Bernoulli/Laplace/Gaussian samplers, and Fisher-Yates shuffle with measure-theoretic correctness specs.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "Dafny",
+    "repo_url": "https://github.com/dafny-lang/Dafny-VMC",
+    "commit_hash": "e3631f8d335bf7ec3648b13976fa2a96a2a5406e",
+    "path": "src/"
+  },
+  "curation": {
+    "date": "2026-04-26"
+  },
+  "root_package": "DafnyVMC",
+  "files": {
+    "root_hub": "DafnyVMC.lean",
+    "harness": "DafnyVMC/Harness.lean",
+    "test": "DafnyVMC/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "DafnyVMC",
+      "bundle": "DafnyVMC/Bundle.lean",
+      "bundle_type": "DafnyVMCBundle",
+      "repo_impl_field": "dafnyVMC",
+      "modules": [
+        {
+          "name": "Rand",
+          "impl": "DafnyVMC/Impl/Rand.lean",
+          "spec": "DafnyVMC/Spec/Rand.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Pos",
+          "impl": "DafnyVMC/Impl/Pos.lean",
+          "spec": "DafnyVMC/Spec/Pos.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Monad",
+          "impl": "DafnyVMC/Impl/Monad.lean",
+          "spec": "DafnyVMC/Spec/Monad.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Measures",
+          "impl": "DafnyVMC/Impl/Measures.lean",
+          "spec": "DafnyVMC/Spec/Measures.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Independence",
+          "impl": "DafnyVMC/Impl/Independence.lean",
+          "spec": "DafnyVMC/Spec/Independence.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "UniformPowerOfTwo",
+          "impl": "DafnyVMC/Impl/UniformPowerOfTwo.lean",
+          "spec": "DafnyVMC/Spec/UniformPowerOfTwo.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "UniformModel",
+          "impl": "DafnyVMC/Impl/UniformModel.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "UniformCorrectness",
+          "impl": "DafnyVMC/Impl/UniformCorrectness.lean",
+          "spec": "DafnyVMC/Spec/UniformCorrectness.lean",
+          "apis": [],
+          "specs": [
+            "spec_sampleIsIndepFunction",
+            "spec_sampleBound",
+            "spec_sampleIsMeasurePreserving"
+          ]
+        },
+        {
+          "name": "FisherYatesModel",
+          "impl": "DafnyVMC/Impl/FisherYatesModel.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "SpecUniformCorrectness",
+          "impl": null,
+          "spec": "DafnyVMC/Spec/SpecUniformCorrectness.lean",
+          "apis": [],
+          "specs": [
+            "spec_uniformFullCorrectness",
+            "spec_uniformFullIntervalCorrectness",
+            "spec_intervalSampleIsIndepFunction",
+            "spec_intervalSampleBound",
+            "spec_intervalSampleIsMeasurePreserving"
+          ]
+        },
+        {
+          "name": "SpecFisherYatesCorrectness",
+          "impl": null,
+          "spec": "DafnyVMC/Spec/SpecFisherYatesCorrectness.lean",
+          "apis": [],
+          "specs": [
+            "spec_correctnessFisherYates",
+            "spec_correctnessFisherYatesUniqueElements"
+          ]
+        },
+        {
+          "name": "DafnyVMCTrait",
+          "impl": "DafnyVMC/Impl/DafnyVMCTrait.lean",
+          "spec": "DafnyVMC/Spec/DafnyVMCTrait.lean",
+          "apis": [
+            {
+              "name": "uniformSample",
+              "sig": "UniformSampleSig",
+              "type": "Pos → Hurd Nat"
+            },
+            {
+              "name": "bernoulliSample",
+              "sig": "BernoulliSampleSig",
+              "type": "(num : Nat) → (den : Pos) → num ≤ den.val → Hurd Bool"
+            },
+            {
+              "name": "discreteLaplaceSample",
+              "sig": "DiscreteLaplaceSampleSig",
+              "type": "Pos → Pos → Hurd Int"
+            },
+            {
+              "name": "discreteGaussianSample",
+              "sig": "DiscreteGaussianSampleSig",
+              "type": "Pos → Pos → Nat → Hurd Int"
+            }
+          ],
+          "specs": []
+        }
+      ]
+    }
+  ]
+}

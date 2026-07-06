@@ -1,0 +1,13 @@
+name = "Huffman"
+version = "0.1.0"
+defaultTargets = ["Huffman"]
+
+[[require]]
+scope = "leanprover-community"
+name = "mathlib"
+rev = "v4.29.1"
+
+[[lean_lib]]
+name = "Huffman"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

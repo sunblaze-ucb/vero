@@ -1,0 +1,8 @@
+kind: gauss
+provider: auto                      # auto | openrouter | anthropic | openai-codex | zai | kimi-coding | minimax | minimax-cn | nous
+model: null                         # null → provider default; e.g. "claude-sonnet-4-6"
+backend: claude-code                # which CLI gauss delegates Lean work to: claude-code | codex
+timeout_seconds: 1800
+yolo: true
+worktree: false
+save_trajectories: false            # reserved; gauss chat v0.2.2 has no CLI flag. Replay happens automatically if a file appears at <sandbox>/gauss_trajectory.jsonl.

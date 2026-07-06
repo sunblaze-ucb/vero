@@ -1,0 +1,8 @@
+name = "BankLedger"
+version = "0.1.0"
+defaultTargets = ["BankLedger"]
+
+[[lean_lib]]
+name = "BankLedger"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

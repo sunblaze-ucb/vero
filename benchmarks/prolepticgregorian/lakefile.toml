@@ -1,0 +1,8 @@
+name = "prolepticgregorian"
+version = "0.1.0"
+defaultTargets = ["ProlepticGregorian"]
+
+[[lean_lib]]
+name = "ProlepticGregorian"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

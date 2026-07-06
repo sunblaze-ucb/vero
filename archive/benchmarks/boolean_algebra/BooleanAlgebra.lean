@@ -1,0 +1,14 @@
+import BooleanAlgebra.Harness
+import BooleanAlgebra.Spec.AndGate
+import BooleanAlgebra.Spec.ImplyGate
+import BooleanAlgebra.Spec.KarnaughMapSimplification
+import BooleanAlgebra.Spec.Multiplexer
+import BooleanAlgebra.Spec.NandGate
+import BooleanAlgebra.Spec.NimplyGate
+import BooleanAlgebra.Spec.NorGate
+import BooleanAlgebra.Spec.NotGate
+import BooleanAlgebra.Spec.OrGate
+import BooleanAlgebra.Spec.QuineMcCluskey
+import BooleanAlgebra.Spec.XnorGate
+import BooleanAlgebra.Spec.XorGate
+import BooleanAlgebra.Test

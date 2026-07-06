@@ -1,0 +1,8 @@
+name = "Stack"
+version = "0.1.0"
+defaultTargets = ["Stack"]
+
+[[lean_lib]]
+name = "Stack"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

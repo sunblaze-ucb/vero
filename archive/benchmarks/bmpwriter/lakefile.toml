@@ -1,0 +1,8 @@
+name = "bmpwriter"
+version = "0.1.0"
+defaultTargets = ["Bmpwriter"]
+
+[[lean_lib]]
+name = "Bmpwriter"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

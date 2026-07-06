@@ -1,0 +1,20 @@
+kind: codex
+model: null                   # null → codex picks its own default
+sandbox_mode: workspace-write # "workspace-write" | "read-only" | "danger-full-access"
+network_access: false
+skip_git_repo_check: true
+timeout_seconds: 1800
+config_overrides: []          # list of "-c key=value" overrides passed to codex exec
+# Accepted for Hydra-config parity with claude; codex exec has no
+# streaming-cost hook so this is logged-and-ignored. Use
+# iterate.budget_usd for between-iteration enforcement on codex runs.
+strict_budget_usd: null
+
+# Env / dotfile / config_files plumbing via `AgentEnvShim`. The concrete
+# values come from the active `credentials/<profile>.yaml` (default
+# `credentials=litellm`). When a profile carries `config_files`, the shim
+# materializes a per-sandbox `.codex/` and points `CODEX_HOME` at it,
+# bypassing the legacy `_prepare_codex_home` single-provider scaffolder.
+env: ${credentials.codex.env}
+dotfiles: []                                 # codex auth.json + config.toml built at launch (see codex.py)
+config_files: ${credentials.codex.config_files}

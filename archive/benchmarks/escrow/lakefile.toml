@@ -1,0 +1,8 @@
+name = "EscrowV2"
+version = "0.1.0"
+defaultTargets = ["EscrowV2"]
+
+[[lean_lib]]
+name = "EscrowV2"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

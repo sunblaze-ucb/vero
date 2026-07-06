@@ -1,0 +1,84 @@
+{
+  "benchmark_id": "bank_ledger_reference",
+  "description": "Hand-crafted reference exemplar for the curation pipeline's Lean 4 output shape.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "name": null,
+    "language": null,
+    "repo_url": null,
+    "commit_hash": null,
+    "path": null
+  },
+  "curation": {
+    "date": null
+  },
+  "root_package": "BankLedger",
+  "files": {
+    "root_hub": "BankLedger.lean",
+    "harness": "BankLedger/Harness.lean",
+    "test": "BankLedger/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "BankLedger",
+      "bundle": "BankLedger/Bundle.lean",
+      "bundle_type": "BankLedgerBundle",
+      "repo_impl_field": "bankLedger",
+      "modules": [
+        {
+          "name": "Account",
+          "impl": "BankLedger/Impl/Account.lean",
+          "spec": "BankLedger/Spec/Account.lean",
+          "apis": [
+            {"name": "createAccount",  "sig": "CreateAccountSig",  "type": "AccountId → Ledger → Ledger"},
+            {"name": "closeAccount",   "sig": "CloseAccountSig",   "type": "AccountId → Ledger → Ledger"},
+            {"name": "accountExists",  "sig": "AccountExistsSig",  "type": "AccountId → Ledger → Bool"},
+            {"name": "getBalance",     "sig": "GetBalanceSig",     "type": "AccountId → Ledger → Option Balance"}
+          ],
+          "specs": [
+            "spec_create_zero_balance",
+            "spec_create_exists",
+            "spec_close_removes",
+            "spec_close_preserves_others"
+          ]
+        },
+        {
+          "name": "Transaction",
+          "impl": "BankLedger/Impl/Transaction.lean",
+          "spec": "BankLedger/Spec/Transaction.lean",
+          "apis": [
+            {"name": "deposit",  "sig": "DepositSig",  "type": "AccountId → Balance → Ledger → Option Ledger"},
+            {"name": "withdraw", "sig": "WithdrawSig", "type": "AccountId → Balance → Ledger → Option Ledger"}
+          ],
+          "specs": [
+            "spec_deposit_increases",
+            "spec_withdraw_decreases",
+            "spec_withdraw_insufficient"
+          ]
+        },
+        {
+          "name": "Transfer",
+          "impl": "BankLedger/Impl/Transfer.lean",
+          "spec": "BankLedger/Spec/Transfer.lean",
+          "apis": [
+            {"name": "transfer", "sig": "TransferSig", "type": "AccountId → AccountId → Balance → Ledger → Option Ledger"}
+          ],
+          "specs": ["spec_transfer_preserves_total", "spec_transfer_updates_both"]
+        },
+        {
+          "name": "Ledger",
+          "impl": "BankLedger/Impl/Ledger.lean",
+          "spec": "BankLedger/Spec/Ledger.lean",
+          "apis": [
+            {"name": "totalAssets", "sig": "TotalAssetsSig", "type": "Ledger → Balance"},
+            {"name": "accountList", "sig": "AccountListSig", "type": "Ledger → List AccountId"},
+            {"name": "numAccounts", "sig": "NumAccountsSig", "type": "Ledger → Nat"}
+          ],
+          "specs": ["spec_total_create_invariant", "spec_num_matches_list"]
+        }
+      ]
+    }
+  ]
+}

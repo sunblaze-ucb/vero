@@ -1,0 +1,236 @@
+{
+  "benchmark_id": "bit_manipulation",
+  "description": "Python-from-JSON scaffold for `bit_manipulation`.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/TheAlgorithms/Python.git",
+    "commit_hash": "7a0fee401d2990bd5904e94cd5d3a62c50a8b682",
+    "path": [
+      "bit_manipulation/binary_and_operator.py",
+      "bit_manipulation/binary_or_operator.py",
+      "bit_manipulation/binary_shifts.py",
+      "bit_manipulation/binary_twos_complement.py",
+      "bit_manipulation/binary_xor_operator.py",
+      "bit_manipulation/single_bit_manipulation_operations.py"
+    ]
+  },
+  "curation": {
+    "date": "2026-04-25"
+  },
+  "root_package": "BitManipulation",
+  "files": {
+    "root_hub": "BitManipulation.lean",
+    "harness": "BitManipulation/Harness.lean",
+    "test": "BitManipulation/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "BitManipulation",
+      "bundle": "BitManipulation/Bundle.lean",
+      "bundle_type": "BitManipulationBundle",
+      "repo_impl_field": "bitManipulation",
+      "modules": [
+        {
+          "name": "BinaryAndOperator",
+          "impl": "BitManipulation/Impl/BinaryAndOperator.lean",
+          "spec": "BitManipulation/Spec/BinaryAndOperator.lean",
+          "apis": [
+            {
+              "name": "binary_and",
+              "sig": "BinaryAndSig",
+              "type": "Int → Int → String",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_and_valid_format",
+            "spec_and_value",
+            "spec_and_commutes",
+            "spec_and_matches_reference",
+            "spec_and_or_de_morgan",
+            "spec_and_or_absorption",
+            "spec_and_or_zero_identity",
+            "spec_ground_and"
+          ],
+          "spec_helpers": [
+            "spec_helper_isBinaryStr",
+            "spec_helper_parseBinary"
+          ]
+        },
+        {
+          "name": "BinaryOrOperator",
+          "impl": "BitManipulation/Impl/BinaryOrOperator.lean",
+          "spec": "BitManipulation/Spec/BinaryOrOperator.lean",
+          "apis": [
+            {
+              "name": "binary_or",
+              "sig": "BinaryOrSig",
+              "type": "Int → Int → String",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_or_valid_format",
+            "spec_or_value",
+            "spec_or_commutes",
+            "spec_or_matches_reference",
+            "spec_ground_or"
+          ]
+        },
+        {
+          "name": "BinaryShifts",
+          "impl": "BitManipulation/Impl/BinaryShifts.lean",
+          "spec": "BitManipulation/Spec/BinaryShifts.lean",
+          "apis": [
+            {
+              "name": "logical_left_shift",
+              "sig": "LogicalLeftShiftSig",
+              "type": "Int → Int → String",
+              "kind": "api"
+            },
+            {
+              "name": "logical_right_shift",
+              "sig": "LogicalRightShiftSig",
+              "type": "Int → Int → String",
+              "kind": "api"
+            },
+            {
+              "name": "arithmetic_right_shift",
+              "sig": "ArithmeticRightShiftSig",
+              "type": "Int → Int → String",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_lls_value",
+            "spec_lrs_value",
+            "spec_ars_nonneg_matches_lrs",
+            "spec_ars_valid_format",
+            "spec_lls_matches_reference",
+            "spec_lrs_matches_reference",
+            "spec_ars_matches_reference",
+            "spec_lls_valid_format",
+            "spec_lrs_valid_format",
+            "spec_left_right_shift_roundtrip",
+            "spec_shift_zero_identity",
+            "spec_shift_composition",
+            "spec_ars_sign_preservation",
+            "spec_ground_shifts"
+          ]
+        },
+        {
+          "name": "BinaryTwosComplement",
+          "impl": "BitManipulation/Impl/BinaryTwosComplement.lean",
+          "spec": "BitManipulation/Spec/BinaryTwosComplement.lean",
+          "apis": [
+            {
+              "name": "twos_complement",
+              "sig": "TwosComplementSig",
+              "type": "Int → String",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_tc_zero",
+            "spec_tc_valid_format",
+            "spec_tc_negative_value",
+            "spec_tc_matches_reference",
+            "spec_tc_negative_high_bit",
+            "spec_ground_twos_complement"
+          ]
+        },
+        {
+          "name": "BinaryXorOperator",
+          "impl": "BitManipulation/Impl/BinaryXorOperator.lean",
+          "spec": "BitManipulation/Spec/BinaryXorOperator.lean",
+          "apis": [
+            {
+              "name": "binary_xor",
+              "sig": "BinaryXorSig",
+              "type": "Int → Int → String",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_xor_value",
+            "spec_xor_commutes",
+            "spec_xor_self_zero",
+            "spec_xor_matches_reference",
+            "spec_xor_valid_format",
+            "spec_xor_via_and_or",
+            "spec_ground_xor"
+          ]
+        },
+        {
+          "name": "SingleBitManipulationOperations",
+          "impl": "BitManipulation/Impl/SingleBitManipulationOperations.lean",
+          "spec": "BitManipulation/Spec/SingleBitManipulationOperations.lean",
+          "apis": [
+            {
+              "name": "set_bit",
+              "sig": "SetBitSig",
+              "type": "Int → Int → Int",
+              "kind": "api"
+            },
+            {
+              "name": "clear_bit",
+              "sig": "ClearBitSig",
+              "type": "Int → Int → Int",
+              "kind": "api"
+            },
+            {
+              "name": "flip_bit",
+              "sig": "FlipBitSig",
+              "type": "Int → Int → Int",
+              "kind": "api"
+            },
+            {
+              "name": "is_bit_set",
+              "sig": "IsBitSetSig",
+              "type": "Int → Int → Bool",
+              "kind": "api"
+            },
+            {
+              "name": "get_bit",
+              "sig": "GetBitSig",
+              "type": "Int → Int → Int",
+              "kind": "api"
+            }
+          ],
+          "specs": [
+            "spec_set_bit_sets",
+            "spec_clear_bit_clears",
+            "spec_flip_bit_involution",
+            "spec_is_bit_set_get_bit",
+            "spec_get_bit_binary",
+            "spec_set_bit_idempotent",
+            "spec_clear_bit_idempotent",
+            "spec_set_then_clear_neutral",
+            "spec_flip_as_toggle",
+            "spec_set_bit_matches_reference",
+            "spec_clear_bit_matches_reference",
+            "spec_flip_bit_matches_reference",
+            "spec_is_bit_set_matches_reference",
+            "spec_get_bit_matches_reference",
+            "spec_clear_then_set_neutral",
+            "spec_flip_is_xor_with_mask",
+            "spec_get_after_set",
+            "spec_get_after_clear",
+            "spec_bit_operation_non_interference",
+            "spec_single_bit_agrees_with_arithmetic",
+            "spec_shift_and_mask_extracts_bit",
+            "spec_xor_equals_flip",
+            "spec_ground_single_bit"
+          ]
+        }
+      ]
+    }
+  ]
+}

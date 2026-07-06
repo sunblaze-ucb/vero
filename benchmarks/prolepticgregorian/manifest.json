@@ -1,0 +1,110 @@
+{
+  "benchmark_id": "prolepticgregorian",
+  "description": "Proleptic-Gregorian ordinal core from CPython's _pydatetime: isLeap/daysInMonth/ymd2ord/ord2ymd/weekday/validDate with an anchored order-isomorphism spec set (epoch anchor + unit step + strict monotonicity) for ymd2ord and frozen divisibility/table anchors for the leap rule and month lengths. `ord2ymd` is the inverse API (CPython's `_ord2ymd`), specced as a left/right inverse of `ymd2ord`. Includes hidden-invariant hardening specs proved via strengthened induction hypotheses kept out of the spec statements: year-boundary telescoping (Dec-31 successor, whole-year span), exact inter-year ordinal gap and leap-density bridge to a frozen leap counter, dual ≤366/≥365 gap bounds, multi-year weekday threading mod 7, and `ord2ymd` as a strictly increasing calendar walk (year-band, Jan-1 grounding, strict monotonicity, and the one-day immediate-successor step). Adds order-isomorphism biconditionals whose reverse directions hide trichotomy/injectivity and successor-reconstruction arguments (strict-order iff, immediate-successor iff), the inverse month-band uniqueness (the month analogue of the year band), and a mod-7 weekday-congruence coupling.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/python/cpython",
+    "commit_hash": "669299b62f6c2176d4bedcf550fb9baaabd6a9d6",
+    "path": "Lib/_pydatetime.py",
+    "name": "cpython _pydatetime"
+  },
+  "curation": {
+    "date": "2026-06-28"
+  },
+  "root_package": "ProlepticGregorian",
+  "files": {
+    "root_hub": "ProlepticGregorian.lean",
+    "harness": "ProlepticGregorian/Harness.lean",
+    "test": "ProlepticGregorian/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "ProlepticGregorian",
+      "bundle": "ProlepticGregorian/Bundle.lean",
+      "bundle_type": "ProlepticGregorianBundle",
+      "repo_impl_field": "prolepticGregorian",
+      "modules": [
+        {
+          "name": "Ordinal",
+          "impl": "ProlepticGregorian/Impl/Ordinal.lean",
+          "spec": "ProlepticGregorian/Spec/Ordinal.lean",
+          "apis": [
+            {"name": "isLeap",      "sig": "IsLeapSig",      "type": "Nat → Bool"},
+            {"name": "daysInMonth", "sig": "DaysInMonthSig", "type": "Nat → Nat → Nat"},
+            {"name": "ymd2ord",     "sig": "Ymd2ordSig",     "type": "Date → Nat"},
+            {"name": "weekday",     "sig": "WeekdaySig",     "type": "Date → Nat"},
+            {"name": "validDate",   "sig": "ValidDateSig",   "type": "Date → Bool"},
+            {"name": "ord2ymd",     "sig": "Ord2ymdSig",     "type": "Nat → Date"}
+          ],
+          "specs": [
+            "spec_leap_characterization",
+            "spec_days_in_month_feb",
+            "spec_days_in_month_table",
+            "spec_leap_known",
+            "spec_leap_period",
+            "spec_days_in_month_bounds",
+            "spec_days_in_month_31",
+            "spec_days_in_month_30",
+            "spec_ord_anchor",
+            "spec_ord_unit_step",
+            "spec_ord_strict_mono",
+            "spec_ord_ge_one",
+            "spec_ord_jan1",
+            "spec_ord_year_step",
+            "spec_ord_day_step",
+            "spec_ord_injective",
+            "spec_weekday_step",
+            "spec_weekday_anchor",
+            "spec_weekday_range",
+            "spec_weekday_year_step",
+            "spec_weekday_known",
+            "spec_valid_characterization",
+            "spec_valid_invalid",
+            "spec_valid_leap_feb29",
+            "spec_ord2ymd_left_inverse",
+            "spec_ord2ymd_right_inverse",
+            "spec_ord2ymd_valid",
+            "spec_weekday_period_400",
+            "spec_days_in_year_sum",
+            "spec_ord_within_year_decomp",
+            "spec_year_gap_lower",
+            "spec_leap_count_formula",
+            "spec_ord_dec31_succ",
+            "spec_ord_year_span",
+            "spec_year_gap_exact",
+            "spec_year_gap_upper",
+            "spec_leap_count_in_range",
+            "spec_weekday_year_count",
+            "spec_ord2ymd_year_band",
+            "spec_ord2ymd_jan1",
+            "spec_ord2ymd_strict_mono",
+            "spec_ord2ymd_succ_step",
+            "spec_ord_strict_mono_iff",
+            "spec_ord_succ_iff",
+            "spec_ord2ymd_month_band",
+            "spec_weekday_ord_congr",
+            "spec_leap_filter_count_gap",
+            "spec_month_ordinals_exact",
+            "spec_weekday_window_count",
+            "spec_ord2ymd_first_year_index",
+            "spec_year_weekday_surjective",
+            "spec_month_boundary_unique",
+            "spec_month_prefix_telescope",
+            "spec_whole_year_ordinals_exact",
+            "spec_ord2ymd_range_nodup",
+            "spec_leap_filter_count_range_gap",
+            "spec_year_weekday_occurrences",
+            "spec_month_weekday_counts_exact",
+            "spec_kth_weekday_in_month_index",
+            "spec_month_findidx_in_year",
+            "spec_day_of_year_unique_cover"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+name = "Eth20Dafny"
+version = "0.1.0"
+defaultTargets = ["Eth20Dafny"]
+
+[[lean_lib]]
+name = "Eth20Dafny"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

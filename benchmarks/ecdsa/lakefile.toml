@@ -1,0 +1,13 @@
+name = "ecdsa"
+version = "0.1.0"
+defaultTargets = ["Ecdsa"]
+
+[[require]]
+scope = "leanprover-community"
+name = "mathlib"
+rev = "v4.29.1"
+
+[[lean_lib]]
+name = "Ecdsa"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

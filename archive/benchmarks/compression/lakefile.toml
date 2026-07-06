@@ -1,0 +1,8 @@
+name = "Compression"
+version = "0.1.0"
+defaultTargets = ["Compression"]
+
+[[lean_lib]]
+name = "Compression"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

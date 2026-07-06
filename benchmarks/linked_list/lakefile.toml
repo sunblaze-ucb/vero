@@ -1,0 +1,8 @@
+name = "LinkedList"
+version = "0.1.0"
+defaultTargets = ["LinkedList"]
+
+[[lean_lib]]
+name = "LinkedList"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

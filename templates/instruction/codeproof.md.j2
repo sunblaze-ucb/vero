@@ -1,0 +1,64 @@
+{% extends "instruction/base.md.j2" %}
+{% block mode_body -%}
+## Your task in ``codeproof`` mode
+
+### Part A — Fill implementations in ``Impl/*.lean``
+
+Every ``!benchmark code def=<fn>`` slot currently holds a single ``sorry``.
+Replace each with a real implementation matching the declared signature (``abbrev <Fn>Sig := …`` directly above the ``def``).
+
+- Prefer simple implementations; clever ones make Part B harder.
+- ``canonical`` wires the bundle fields to your stubs, so ``spec_S canonical`` is a proposition about YOUR code.
+- ``Test.lean`` runs ``#guard`` conformance tests; ``lake build`` fails on any false assertion.
+- Trivial values (``default`` / ``[]`` / ``0``) fail ``Test.lean`` — write real code.
+
+### Part B — Discharge each spec in ``Proof/<Module>.lean``
+
+For every spec ``S``, three stubs exist:
+
+```
+theorem prove_<bare_S> : spec_<bare_S> canonical                  := by sorry
+theorem unsat_<bare_S> : ¬ ∃ impl : RepoImpl, spec_<bare_S> impl  := by sorry
+theorem sat_<bare_S>   : ∃ impl : RepoImpl, spec_<bare_S> impl    := by sorry
+```
+
+**Fill exactly one per spec.**
+
+- ``prove_<bare_S>`` — your implementation satisfies ``S``.
+- ``unsat_<bare_S>`` — ``S`` is unsatisfiable by ANY impl.
+  Reserve for specs that are actually broken.
+- ``sat_<bare_S>`` — some impl satisfies ``S``.
+  **Lone `sat_<S>` is NOT a pass** (graded ``unpaired_sat`` — trivially provable by exhibiting an ad-hoc impl, so it demonstrates nothing about YOUR code).
+  Only counts when paired with a verified ``joint_unsat`` claim (Part C) that names ``S``.
+
+**Do NOT default to `sat_<S>`** — you will score 0 with ``unpaired_sat`` × N.
+
+**A proof failure may be an Impl bug, not a tactic bug.** In ``codeproof`` mode your implementation is itself a variable. If ``prove_<S>`` refuses to compile, the goal ``spec_S canonical`` may actually be false for the Impl you wrote — the fix is to revise ``Impl/<M>.lean``, not to give up on the proof. Before reverting any proof, compile it in isolation (``lake lean <Pkg>/Proof/<Module>.lean``), read the error, and decide whether the proof or the Impl needs to change. If no reasonable Impl can satisfy ``S``, fill ``unsat_<S>`` instead; if an Impl exists but is not YOUR impl, that's the ``sat_<S>`` + ``joint_unsat`` path from Part C. **Never bulk-revert filled proofs because a later attempt broke the build** — roll back only the newest change and keep prior successful slots.
+
+### Part C (OPTIONAL) — Joint unsatisfiability
+
+A set of ≥ 2 specs may be jointly unsatisfiable even though each is individually satisfiable.
+``Proof/Joint.lean`` has one dormant slot for such claims.
+
+To make the claim:
+
+1. In the ``!solution`` body, replace ``specs=[<FILL: …>]`` with your list. No duplicates.
+2. Uncomment the ``!benchmark claim`` block with ``joint_unsat <specs> by`` (same order).
+   This only keeps the local file compiling; the grader discards it.
+3. Fill the ``!benchmark proof`` block with a tactic body proving ``¬ ∃ impl, spec_a impl ∧ spec_b impl ∧ …``.
+   The grader re-renders from your ``!solution`` list and this body.
+4. Helper lemmas go in ``!benchmark proof_aux`` at file level, before the ``claim`` block.
+5. Every listed spec must also have its ``sat_<bare_S>`` filled (that's what demonstrates the joint claim is non-trivial).
+
+To skip: leave ``Joint.lean`` untouched. No penalty.
+
+## Grading (``codeproof`` mode)
+
+A spec is **passed** iff exactly one of ``{prove_<S>, unsat_<S>, sat_<S>}`` is filled, the file compiles, and ``#print axioms`` reports only the standard axiom set.
+
+- ``summary.unpaired_sat_specs`` counts lone ``sat_<S>``'s. Those do NOT pass.
+- ``lake build`` (full library) failing on ``Test.lean`` means Part A is wrong.
+- Per-spec failure statuses: ``unfilled``, ``overfilled``, ``sorry_leaked``, ``axiom_leaked``, ``slot_body_tainted``, ``build_error``, ``unpaired_sat``.
+
+Do not claim ``unsat_<S>`` unless you can prove it axiom-clean. Do not leave joint slots partially filled — either fully wire them or leave all defaults.
+{%- endblock %}

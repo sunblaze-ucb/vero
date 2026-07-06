@@ -1,0 +1,292 @@
+{
+  "benchmark_id": "DafnyCrypto",
+  "description": null,
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "dafny",
+    "repo_url": "https://github.com/Consensys/DafnyCrypto.git",
+    "commit_hash": "b7e811d3760f70c540184c1b8d9534100ff9848f",
+    "path": "src/dafny"
+  },
+  "curation": {
+    "date": "2026-05-30"
+  },
+  "root_package": "Dafnycrypto",
+  "files": {
+    "root_hub": "Dafnycrypto.lean",
+    "harness": "Dafnycrypto/Harness.lean",
+    "test": "Dafnycrypto/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Dafnycrypto",
+      "bundle": "Dafnycrypto/Bundle.lean",
+      "bundle_type": "DafnyCryptoBundle",
+      "repo_impl_field": "dafnyCrypto",
+      "modules": [
+        {
+          "name": "Util/Math",
+          "impl": "Dafnycrypto/Impl/Util/Math.lean",
+          "spec": "Dafnycrypto/Spec/Util/Math.lean",
+          "apis": [
+            {
+              "name": "vecMul",
+              "sig": "VecMulSig",
+              "type": "List Int \u2192 List Int \u2192 List Int",
+              "source_id": "src/dafny/util/math.dfy:VecMul:953",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 33,
+              "upstream_name": "VecMul",
+              "source_signature": "function VecMul",
+              "role": "scored_api",
+              "disposition": "scored"
+            },
+            {
+              "name": "vecAdd",
+              "sig": "VecAddSig",
+              "type": "List Int \u2192 List Int \u2192 List Int",
+              "source_id": "src/dafny/util/math.dfy:VecAdd:1301",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 44,
+              "upstream_name": "VecAdd",
+              "source_signature": "function VecAdd",
+              "role": "scored_api",
+              "disposition": "scored"
+            },
+            {
+              "name": "pow",
+              "sig": "PowSig",
+              "type": "Nat \u2192 Nat \u2192 Nat",
+              "source_id": "src/dafny/util/math.dfy:Pow:1810",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 62,
+              "upstream_name": "Pow",
+              "source_signature": "function Pow",
+              "role": "scored_api",
+              "disposition": "scored"
+            },
+            {
+              "name": "powN",
+              "sig": "PowNSig",
+              "type": "Nat \u2192 Nat \u2192 List Nat",
+              "source_id": "src/dafny/util/math.dfy:PowN:4778",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 164,
+              "upstream_name": "PowN",
+              "source_signature": "function PowN",
+              "role": "scored_api",
+              "disposition": "scored"
+            },
+            {
+              "name": "modPow",
+              "sig": "ModPowSig",
+              "type": "Nat \u2192 Nat \u2192 Nat \u2192 Nat",
+              "source_id": "src/dafny/util/math.dfy:ModPow:5084",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 174,
+              "upstream_name": "ModPow",
+              "source_signature": "function ModPow",
+              "role": "scored_api",
+              "disposition": "scored"
+            },
+            {
+              "name": "gcdExtended",
+              "sig": "GcdExtendedSig",
+              "type": "Nat \u2192 Nat \u2192 Nat \u00d7 Int \u00d7 Int",
+              "source_id": "src/dafny/util/math.dfy:GcdExtended:5670",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 194,
+              "upstream_name": "GcdExtended",
+              "source_signature": "function GcdExtended",
+              "role": "scored_api",
+              "disposition": "scored"
+            },
+            {
+              "name": "inverse",
+              "sig": "InverseSig",
+              "type": "Nat \u2192 Nat \u2192 Option Nat",
+              "source_id": "src/dafny/util/math.dfy:Inverse:6067",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 206,
+              "upstream_name": "Inverse",
+              "source_signature": "function Inverse",
+              "role": "scored_api",
+              "disposition": "scored"
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_vecMul_length",
+              "source_id": "src/dafny/util/math.dfy:VecMul:953",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 33,
+              "upstream_name": "VecMul",
+              "source_signature": "function VecMul",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_theorem": "VecMul",
+              "equivalence_status": "weaker",
+              "degrade_to_structural_surrogate": true,
+              "review_status": "approved",
+              "semantic_bridge_required": [
+                "Lean spec is an API-level structural surrogate or direct restatement of the Dafny contract."
+              ]
+            },
+            {
+              "name": "spec_vecAdd_length",
+              "source_id": "src/dafny/util/math.dfy:VecAdd:1301",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 44,
+              "upstream_name": "VecAdd",
+              "source_signature": "function VecAdd",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_theorem": "VecAdd",
+              "equivalence_status": "weaker",
+              "degrade_to_structural_surrogate": true,
+              "review_status": "approved",
+              "semantic_bridge_required": [
+                "Lean spec is an API-level structural surrogate or direct restatement of the Dafny contract."
+              ]
+            },
+            {
+              "name": "spec_lemmaPow",
+              "source_id": "src/dafny/util/math.dfy:LemmaPow:2608",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 96,
+              "upstream_name": "LemmaPow",
+              "source_signature": "lemma LemmaPow",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_theorem": "LemmaPow",
+              "equivalence_status": "weaker",
+              "degrade_to_structural_surrogate": true,
+              "review_status": "approved",
+              "semantic_bridge_required": [
+                "Lean spec is an API-level structural surrogate or direct restatement of the Dafny contract."
+              ]
+            },
+            {
+              "name": "spec_powN_length",
+              "source_id": "src/dafny/util/math.dfy:PowN:4778",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 164,
+              "upstream_name": "PowN",
+              "source_signature": "function PowN",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_theorem": "PowN",
+              "equivalence_status": "weaker",
+              "degrade_to_structural_surrogate": true,
+              "review_status": "approved",
+              "semantic_bridge_required": [
+                "Lean spec is an API-level structural surrogate or direct restatement of the Dafny contract."
+              ]
+            },
+            {
+              "name": "spec_modPow_lt_modulus",
+              "source_id": "src/dafny/util/math.dfy:ModPow:5084",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 174,
+              "upstream_name": "ModPow",
+              "source_signature": "function ModPow",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_theorem": "ModPow",
+              "equivalence_status": "weaker",
+              "degrade_to_structural_surrogate": true,
+              "review_status": "approved",
+              "semantic_bridge_required": [
+                "Lean spec is an API-level structural surrogate or direct restatement of the Dafny contract."
+              ]
+            },
+            {
+              "name": "spec_gcdExtended_gcd",
+              "source_id": "src/dafny/util/math.dfy:GcdExtended:5670",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 194,
+              "upstream_name": "GcdExtended",
+              "source_signature": "function GcdExtended",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_theorem": "GcdExtended",
+              "equivalence_status": "weaker",
+              "degrade_to_structural_surrogate": true,
+              "review_status": "approved",
+              "semantic_bridge_required": [
+                "Lean spec is an API-level structural surrogate or direct restatement of the Dafny contract."
+              ]
+            },
+            {
+              "name": "spec_primeFieldsHaveInverse",
+              "source_id": "src/dafny/util/math.dfy:PrimeFieldsHaveInverse:6875",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 230,
+              "upstream_name": "PrimeFieldsHaveInverse",
+              "source_signature": "lemma PrimeFieldsHaveInverse",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_theorem": "PrimeFieldsHaveInverse",
+              "equivalence_status": "weaker",
+              "degrade_to_structural_surrogate": true,
+              "review_status": "approved",
+              "semantic_bridge_required": [
+                "Lean spec is an API-level structural surrogate or direct restatement of the Dafny contract."
+              ]
+            }
+          ],
+          "api_helpers": [
+            {
+              "name": "abs",
+              "source_id": "src/dafny/util/math.dfy:Abs:698",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 20,
+              "upstream_name": "Abs",
+              "source_signature": "function Abs",
+              "role": "api_helper",
+              "disposition": "provided"
+            },
+            {
+              "name": "vecSum",
+              "source_id": "src/dafny/util/math.dfy:VecSum:791",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 25,
+              "upstream_name": "VecSum",
+              "source_signature": "function VecSum",
+              "role": "api_helper",
+              "disposition": "provided"
+            },
+            {
+              "name": "gcdExtended_go",
+              "source_id": "src/dafny/util/math.dfy:GcdExtended:5670",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 194,
+              "upstream_name": "GcdExtended",
+              "source_signature": "function GcdExtended",
+              "role": "api_helper",
+              "disposition": "provided"
+            }
+          ],
+          "spec_helpers": [
+            {
+              "name": "IsPrime",
+              "source_id": "src/dafny/util/math.dfy:IsPrime:6700",
+              "source_file": "src/dafny/util/math.dfy",
+              "source_line": 225,
+              "upstream_name": "IsPrime",
+              "source_signature": "predicate IsPrime",
+              "role": "spec_helper",
+              "disposition": "provided"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

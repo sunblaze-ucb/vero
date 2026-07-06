@@ -1,0 +1,262 @@
+{
+  "benchmark_id": "deposit_sc",
+  "description": "Ethereum 2.0 deposit smart contract: incremental Merkle-tree construction + correctness specs. Translated from ConsenSys deposit-sc-dafny.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "dafny",
+    "repo_url": "https://github.com/ConsenSys/deposit-sc-dafny",
+    "commit_hash": "cf321d10953c675459fa97b21a2b390288a00219",
+    "path": "src/dafny/smart",
+    "name": "deposit-sc-dafny"
+  },
+  "curation": {
+    "date": "2026-04-20"
+  },
+  "root_package": "DepositSc",
+  "files": {
+    "root_hub": "DepositSc.lean",
+    "harness": "DepositSc/Harness.lean",
+    "test": "DepositSc/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "DepositSc",
+      "bundle": "DepositSc/Bundle.lean",
+      "bundle_type": "DepositScBundle",
+      "repo_impl_field": "depositSc",
+      "modules": [
+        {
+          "name": "Bits",
+          "impl": "DepositSc/Impl/Bits.lean",
+          "spec": "DepositSc/Spec/Bits.lean",
+          "apis": [
+            {
+              "name": "power2",
+              "sig": "Power2Sig",
+              "type": "Nat → Nat"
+            },
+            {
+              "name": "bitListToNat",
+              "sig": "BitListToNatSig",
+              "type": "List Bit → Nat"
+            },
+            {
+              "name": "natToBitList",
+              "sig": "NatToBitListSig",
+              "type": "Nat → Nat → List Bit"
+            },
+            {
+              "name": "nextPath",
+              "sig": "NextPathSig",
+              "type": "List Bit → List Bit"
+            },
+            {
+              "name": "zipCond",
+              "sig": "ZipCondSig",
+              "type": "List Bit → List Int → List Int → List Int"
+            },
+            {
+              "name": "defaultValue",
+              "sig": "DefaultValueSig",
+              "type": "MergeFn → Int → Nat → Int"
+            },
+            {
+              "name": "zeroes",
+              "sig": "ZeroesSig",
+              "type": "MergeFn → Int → Nat → List Int"
+            }
+          ],
+          "specs": [
+            "spec_power2",
+            "spec_bit_list_round_trip",
+            "spec_nat_to_bit_list_length",
+            "spec_nat_to_bit_list_zero",
+            "spec_next_path_succ",
+            "spec_next_path_length",
+            "spec_next_path_nat_to_bit_list",
+            "spec_zip_cond_length",
+            "spec_zip_cond_zero_left",
+            "spec_zip_cond_one_right",
+            "spec_zeroes_length",
+            "spec_zeroes_get",
+            "spec_default_value_zero",
+            "spec_default_value_succ",
+            "spec_bit_list_nat_of_snoc",
+            "spec_value_of_seq_of_ones",
+            "spec_shift_zeroes_prefix",
+            "spec_power2_add",
+            "spec_power2_div2",
+            "spec_same_nat_same_bit_list",
+            "spec_succ_is_next_path",
+            "spec_next_path_iff_succ",
+            "spec_bit_list_zero_iff_all_zero",
+            "spec_path_not_max_has_zero"
+          ]
+        },
+        {
+          "name": "Tree",
+          "impl": "DepositSc/Impl/Tree.lean",
+          "spec": "DepositSc/Spec/Tree.lean",
+          "apis": [
+            {
+              "name": "nodeAt",
+              "sig": "NodeAtSig",
+              "type": "Path → Tree Int → Tree Int"
+            },
+            {
+              "name": "siblingAt",
+              "sig": "SiblingAtSig",
+              "type": "Path → Tree Int → Tree Int"
+            },
+            {
+              "name": "siblingValueAt",
+              "sig": "SiblingValueAtSig",
+              "type": "Path → Nat → Tree Int → Option Int"
+            },
+            {
+              "name": "height",
+              "sig": "HeightSig",
+              "type": "Tree Int → Nat"
+            },
+            {
+              "name": "nodesIn",
+              "sig": "NodesInSig",
+              "type": "Tree Int → List (Tree Int)"
+            },
+            {
+              "name": "leavesIn",
+              "sig": "LeavesInSig",
+              "type": "Tree Int → List (Tree Int)"
+            }
+          ],
+          "specs": [
+            "spec_node_at_nil",
+            "spec_node_at_cons",
+            "spec_sibling_value_at_zero",
+            "spec_sibling_value_at_oor",
+            "spec_height_leaf",
+            "spec_height_node",
+            "spec_leaves_in_leaf",
+            "spec_leaves_in_node",
+            "spec_height_leaves_in",
+            "spec_height_nodes_in",
+            "spec_leaves_in_all_leaves",
+            "spec_leaves_in_subset_nodes_in",
+            "spec_height_of_node_at_le",
+            "spec_height_of_node_at_eq",
+            "spec_node_at_preserves_complete",
+            "spec_is_constant_same_values",
+            "spec_same_values_is_constant",
+            "spec_complete_same_height_same_leaf_count",
+            "spec_children_comp_same_leaf_count",
+            "spec_children_comp_height_minus_one",
+            "spec_children_comp_valid_index",
+            "spec_leaf_at_path_is_nat_of_path",
+            "spec_init_path_determines_index",
+            "spec_path_to_leaf_in_init_has_zero",
+            "spec_next_path_next_leaf",
+            "spec_all_leaves_default_imply_root_default",
+            "spec_right_siblings_of_last_path_are_default",
+            "spec_siblings_in_equiv_trees_are_equal",
+            "spec_same_leaves_same_root"
+          ]
+        },
+        {
+          "name": "Merkle",
+          "impl": "DepositSc/Impl/Merkle.lean",
+          "spec": "DepositSc/Spec/Merkle.lean",
+          "apis": [
+            {
+              "name": "buildMerkle",
+              "sig": "BuildMerkleSig",
+              "type": "List Int → Nat → MergeFn → Int → Tree Int"
+            },
+            {
+              "name": "computeRootLeftRightUpWithIndex",
+              "sig": "ComputeRootWithIndexSig",
+              "type": "Nat → Nat → List Int → List Int → MergeFn → Int → Int"
+            },
+            {
+              "name": "computeLeftSiblingsOnNextpathWithIndex",
+              "sig": "ComputeLeftSiblingsWithIndexSig",
+              "type": "Nat → Nat → List Int → List Int → MergeFn → Int → List Int"
+            },
+            {
+              "name": "computeRootPath",
+              "sig": "ComputeRootPathSig",
+              "type": "Path → List Int → MergeFn → Int → Int"
+            },
+            {
+              "name": "computeRootLeftRightUp",
+              "sig": "ComputeRootLeftRightUpSig",
+              "type": "Path → List Int → List Int → MergeFn → Int → Int"
+            },
+            {
+              "name": "computeLeftSiblingOnNextPathFromLeftRight",
+              "sig": "ComputeLeftSiblingOnNextPathFromLeftRightSig",
+              "type": "Path → List Int → List Int → MergeFn → Int → List Int"
+            }
+          ],
+          "specs": [
+            "spec_build_merkle_height",
+            "spec_build_merkle_is_complete",
+            "spec_build_merkle_is_decorated",
+            "spec_build_merkle_is_merkle",
+            "spec_build_merkle_leaves",
+            "spec_build_merkle_leaves_default",
+            "spec_build_merkle_indices",
+            "spec_node_at_root",
+            "spec_node_at_height",
+            "spec_node_at_mem_nodes_in",
+            "spec_compute_root_correct",
+            "spec_compute_left_sibling_correct",
+            "spec_compute_left_siblings_length",
+            "spec_compute_root_path_correct",
+            "spec_compute_root_up_correct",
+            "spec_compute_new_left_path_correct",
+            "spec_right_of_path_to_last_is_zero",
+            "spec_equiv_trees_same_leaves",
+            "spec_compute_root_commutes",
+            "spec_compute_root_using_next_path"
+          ]
+        },
+        {
+          "name": "Contract",
+          "impl": "DepositSc/Impl/Contract.lean",
+          "spec": "DepositSc/Spec/Contract.lean",
+          "apis": [
+            {
+              "name": "mkDeposit",
+              "sig": "MkDepositSig",
+              "type": "Nat → List Int → MergeFn → Int → DepositState"
+            },
+            {
+              "name": "deposit",
+              "sig": "DepositSig",
+              "type": "DepositState → Int → DepositState"
+            },
+            {
+              "name": "getDepositRoot",
+              "sig": "GetDepositRootSig",
+              "type": "DepositState → Int"
+            }
+          ],
+          "specs": [
+            "spec_mk_deposit_fields",
+            "spec_valid_initial",
+            "spec_deposit_preserves_valid",
+            "spec_deposit_preserves_constants",
+            "spec_deposit_root_correct",
+            "spec_incremental_equals_batch"
+          ]
+        }
+      ]
+    }
+  ]
+}

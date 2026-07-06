@@ -1,0 +1,8 @@
+name = "VerifiedBitmasks"
+version = "0.1.0"
+defaultTargets = ["VerifiedBitmasks"]
+
+[[lean_lib]]
+name = "VerifiedBitmasks"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

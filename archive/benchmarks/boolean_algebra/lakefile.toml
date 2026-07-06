@@ -1,0 +1,8 @@
+name = "BooleanAlgebra"
+version = "0.1.0"
+defaultTargets = ["BooleanAlgebra"]
+
+[[lean_lib]]
+name = "BooleanAlgebra"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

@@ -1,0 +1,8 @@
+name = "munkres"
+version = "0.1.0"
+defaultTargets = ["Munkres"]
+
+[[lean_lib]]
+name = "Munkres"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

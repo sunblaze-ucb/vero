@@ -1,0 +1,147 @@
+{
+  "benchmark_id": "number_theory",
+  "description": null,
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/TheAlgorithms/Python.git",
+    "commit_hash": "7a0fee401d2990bd5904e94cd5d3a62c50a8b682",
+    "path": "maths/"
+  },
+  "curation": {
+    "date": "2026-04-26"
+  },
+  "root_package": "NumberTheory",
+  "files": {
+    "root_hub": "NumberTheory.lean",
+    "harness": "NumberTheory/Harness.lean",
+    "test": "NumberTheory/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "NumberTheory",
+      "bundle": "NumberTheory/Bundle.lean",
+      "bundle_type": "NumberTheoryBundle",
+      "repo_impl_field": "numberTheory",
+      "modules": [
+        {
+          "name": "GreatestCommonDivisor",
+          "impl": "NumberTheory/Impl/GreatestCommonDivisor.lean",
+          "spec": "NumberTheory/Spec/GreatestCommonDivisor.lean",
+          "apis": [
+            {"name": "greatest_common_divisor", "sig": "GreatestCommonDivisorSig", "type": "Int → Int → Int"},
+            {"name": "gcd_by_iterative", "sig": "GcdByIterativeSig", "type": "Int → Int → Int"}
+          ],
+          "spec_helpers": [
+            "spec_gcd_concrete_pins",
+            "spec_gcd_iterative_concrete_pins"
+          ],
+          "specs": [
+            "spec_gcd_zero_left",
+            "spec_gcd_zero_right",
+            "spec_gcd_nonneg",
+            "spec_gcd_two_impls_agree",
+            "spec_gcd_divides_both",
+            "spec_gcd_greatest_common_divisor",
+            "spec_gcd_symmetry",
+            "spec_gcd_sign_invariance"
+          ]
+        },
+        {
+          "name": "GcdOfNNumbers",
+          "impl": "NumberTheory/Impl/GcdOfNNumbers.lean",
+          "spec": "NumberTheory/Spec/GcdOfNNumbers.lean",
+          "apis": [
+            {"name": "get_factors", "sig": "GetFactorsSig", "type": "Int → Counter → Int → Counter"},
+            {"name": "get_greatest_common_divisor", "sig": "GetGreatestCommonDivisorSig", "type": "List Int → Int"}
+          ],
+          "spec_helpers": [
+            "spec_helper_counter_product",
+            "spec_get_factors_concrete",
+            "spec_get_gcd_concrete_pins",
+            "spec_helper_all_positive",
+            "spec_helper_divides_all"
+          ],
+          "specs": [
+            "spec_get_factors_product_round_trip",
+            "spec_get_gcd_empty",
+            "spec_get_gcd_singleton",
+            "spec_get_gcd_pair_agrees_with_binary_gcd",
+            "spec_get_gcd_divides_all",
+            "spec_get_gcd_greatest"
+          ]
+        },
+        {
+          "name": "LeastCommonMultiple",
+          "impl": "NumberTheory/Impl/LeastCommonMultiple.lean",
+          "spec": "NumberTheory/Spec/LeastCommonMultiple.lean",
+          "apis": [
+            {"name": "least_common_multiple_slow", "sig": "LeastCommonMultipleSlowSig", "type": "Int → Int → Int"},
+            {"name": "least_common_multiple_fast", "sig": "LeastCommonMultipleFastSig", "type": "Int → Int → Int"}
+          ],
+          "spec_helpers": [
+            "spec_lcm_fast_concrete_pins",
+            "spec_lcm_slow_concrete_pins",
+            "spec_lcm_two_impls_agree_pos",
+            "spec_lcm_gcd_product"
+          ],
+          "specs": [
+            "spec_lcm_fast_zero",
+            "spec_lcm_is_common_multiple",
+            "spec_lcm_is_least_common_multiple",
+            "spec_lcm_implementations_agree",
+            "spec_gcd_lcm_product_identity"
+          ]
+        },
+        {
+          "name": "ExtendedEuclideanAlgorithm",
+          "impl": "NumberTheory/Impl/ExtendedEuclideanAlgorithm.lean",
+          "spec": "NumberTheory/Spec/ExtendedEuclideanAlgorithm.lean",
+          "apis": [
+            {"name": "extended_euclidean_algorithm", "sig": "ExtendedEuclideanAlgorithmSig", "type": "Int → Int → Int × Int"}
+          ],
+          "spec_helpers": [
+            "spec_eea_concrete_pins",
+            "spec_eea_bezout_at_pins"
+          ],
+          "specs": [
+            "spec_bezout_identity"
+          ]
+        },
+        {
+          "name": "ChineseRemainderTheorem",
+          "impl": "NumberTheory/Impl/ChineseRemainderTheorem.lean",
+          "spec": "NumberTheory/Spec/ChineseRemainderTheorem.lean",
+          "apis": [
+            {"name": "extended_euclid", "sig": "ExtendedEuclidSig", "type": "Int → Int → Int × Int"},
+            {"name": "chinese_remainder_theorem", "sig": "ChineseRemainderTheoremSig", "type": "Int → Int → Int → Int → Int"},
+            {"name": "invert_modulo", "sig": "InvertModuloSig", "type": "Int → Int → Int"},
+            {"name": "chinese_remainder_theorem2", "sig": "ChineseRemainderTheorem2Sig", "type": "Int → Int → Int → Int → Int"}
+          ],
+          "spec_helpers": [
+            "spec_extended_euclid_concrete_pins",
+            "spec_extended_euclid_bezout_at_pins",
+            "spec_invert_modulo_concrete_pins",
+            "spec_invert_modulo_round_trip",
+            "spec_crt_concrete_pins",
+            "spec_crt2_concrete_pins",
+            "spec_crt_two_impls_agree",
+            "spec_crt_residue_at_pins"
+          ],
+          "specs": [
+            "spec_extended_euclid_implementations_agree",
+            "spec_extended_euclid_bezout_identity",
+            "spec_crt_satisfies_first_congruence",
+            "spec_crt_satisfies_second_congruence",
+            "spec_crt_implementations_agree",
+            "spec_crt_range",
+            "spec_invert_modulo_is_inverse"
+          ]
+        }
+      ]
+    }
+  ]
+}

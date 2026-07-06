@@ -1,0 +1,85 @@
+{
+  "benchmark_id": "greenery",
+  "description": "greenery FSM-algebra core: regular languages represented as deterministic finite state machines and the Boolean algebra + canonical minimal-DFA reduction over them. Translated from greenery/fsm.py (qntm, MIT). An Fsm is modelled mathlib-free over a fixed finite Nat alphabet with a COMPLETE, deterministic transition map (an association list state -> (symbol -> dest)), matching greenery's validated Fsm invariant (frozen WF predicate: nonempty alphabet, initial/finals are states, and the map is total and complete). Two modules. Fsm (accepts/reversed/reduce): the deterministic run `accepts` (pinned to the frozen left-to-right transition fold `runFrom`), `reversed` (the reverse-language automaton built by the subset construction over the frozen `crawl` BFS), and the headline `reduce` = Brzozowski minimization (reversed ∘ reversed), producing the BYTE-CANONICAL minimal DFA — states relabeled 0..n-1 by a deterministic BFS over the sorted alphabet via `crawl`. `reduce` is pinned by idempotence (reduce (reduce m) = reduce m), language preservation (reduce m accepts exactly what m accepts, over the bounded-string helper `sameLang`), and the CROWN canonical-form law spec_reduce_canonical: two well-formed same-language machines reduce to a BYTE-IDENTICAL FSM. `reversed` is pinned to reverse the language (accepts (reversed m) s = accepts m s.reverse) and to be a language involution. Algebra (fsmUnion/fsmInter/everythingbut/equivalent): union/intersection are the product-automaton crawl (finality via any/all) reduced to canonical form, pinned SEMANTICALLY through the frozen `accepts` fold (accepts (fsmUnion a b) s = accepts a s || accepts b s; likewise &&); everythingbut is the complement (flipped finality, reduced), pinned by accepts (everythingbut m) s = ! accepts m s and the double-complement involution; the cross-API crown laws are De Morgan (~(A ∪ B) ≡ ~A ∩ ~B) and its dual (~(A ∩ B) ≡ ~A ∪ ~B) as bounded language equality, plus union commutativity/idempotence stated as BYTE-CANONICAL reduce-equality (reduce (A ∪ B) = reduce (B ∪ A); reduce (A ∪ A) = reduce A). `equivalent` is implemented FAITHFULLY as greenery's `==` = (a ^ b).empty() (the symmetric-difference automaton recognises nothing), so the crown identity spec_equivalent_iff_reduce_eq (equivalent a b = decide (reduce a = reduce b), for WF same-alphabet a,b) relates TWO independent computations (symmetric-difference-empty vs canonical-form equality) — it is a genuine Myhill–Nerode theorem, not true by definition — and `equivalent` is further characterized as exact language equality by a sound+complete pair over `sameLang`. All laws are general ∀-laws over arbitrary Fsm (never concrete-value-only); the language-level laws carry the frozen WF hypothesis exactly where greenery's completeness invariant is required (a machine with a missing transition is not a well-formed greenery FSM). Everything is discrete Nat/List; no Float. The crawl BFS worklist (crawlLoop) is a total, structurally-terminating def: it decrements an explicit fuel that each caller sets to a genuine upper bound on the reachable meta-state count (2^|states| for the subset construction in reversed; |a.states|*|b.states|+1 and |states|+1 for the single-substate product/complement constructions), so the loop always exits through the idx >= disc.length branch before fuel runs out. Scope: the benchmark models the FSM run, reverse-language automaton, byte-canonical Brzozowski reduction with its idempotence/language-preservation/canonical-form laws, the Boolean algebra (union/intersection/complement) with product-automaton language semantics + De Morgan + double-complement, and the equivalence decision via canonical form. Regex-string parsing, Kleene star / concatenation / multiplication, cardinality, and Charclass repartition of alphabets are OUT of scope (the model uses a pre-shared fixed finite alphabet, as greenery does after unify_alphabets).",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/qntm/greenery",
+    "commit_hash": "588f5e3034a6793cc9679f77fabc2ceea7659562",
+    "path": ["greenery/fsm.py"],
+    "name": "greenery"
+  },
+  "curation": {
+    "date": "2026-07-04"
+  },
+  "root_package": "Greenery",
+  "files": {
+    "root_hub": "Greenery.lean",
+    "harness": "Greenery/Harness.lean",
+    "test": "Greenery/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Greenery",
+      "bundle": "Greenery/Bundle.lean",
+      "bundle_type": "GreeneryBundle",
+      "repo_impl_field": "greenery",
+      "modules": [
+        {
+          "name": "Fsm",
+          "impl": "Greenery/Impl/Fsm.lean",
+          "spec": "Greenery/Spec/Fsm.lean",
+          "apis": [
+            {"name": "accepts",  "sig": "AcceptsSig",  "type": "Fsm → List Nat → Bool"},
+            {"name": "reversed", "sig": "ReversedSig", "type": "Fsm → Fsm"},
+            {"name": "reduce",   "sig": "ReduceSig",   "type": "Fsm → Fsm"}
+          ],
+          "specs": [
+            "spec_accepts_fold",
+            "spec_accepts_nil",
+            "spec_reduce_idempotent",
+            "spec_reduce_preserves_lang",
+            "spec_reduce_canonical",
+            "spec_reversed_lang",
+            "spec_reversed_involution",
+            "spec_reduce_state_count_minimal",
+            "spec_reduce_all_states_reachable",
+            "spec_reduce_pairwise_distinguishable",
+            "spec_reduce_dead_states_are_unique_sink",
+            "spec_reduce_ignores_added_unreachable_sink"
+          ]
+        },
+        {
+          "name": "Algebra",
+          "impl": "Greenery/Impl/Algebra.lean",
+          "spec": "Greenery/Spec/Algebra.lean",
+          "apis": [
+            {"name": "fsmUnion",      "sig": "FsmUnionSig",      "type": "Fsm → Fsm → Fsm"},
+            {"name": "fsmInter",      "sig": "FsmInterSig",      "type": "Fsm → Fsm → Fsm"},
+            {"name": "everythingbut", "sig": "EverythingButSig", "type": "Fsm → Fsm"},
+            {"name": "equivalent",    "sig": "EquivalentSig",    "type": "Fsm → Fsm → Bool"}
+          ],
+          "specs": [
+            "spec_union_lang",
+            "spec_inter_lang",
+            "spec_complement_lang",
+            "spec_double_complement",
+            "spec_demorgan",
+            "spec_equivalent_iff_reduce_eq",
+            "spec_equivalent_sound",
+            "spec_equivalent_complete",
+            "spec_demorgan_dual",
+            "spec_union_comm",
+            "spec_union_idempotent",
+            "spec_complement_partition_full",
+            "spec_complement_preserves_state_count",
+            "spec_equivalent_normal_form_contexts"
+          ]
+        }
+      ]
+    }
+  ]
+}

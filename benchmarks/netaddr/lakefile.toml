@@ -1,0 +1,8 @@
+name = "netaddr"
+version = "0.1.0"
+defaultTargets = ["Netaddr"]
+
+[[lean_lib]]
+name = "Netaddr"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

@@ -1,0 +1,8 @@
+name = "rsa"
+version = "0.1.0"
+defaultTargets = ["Rsa"]
+
+[[lean_lib]]
+name = "Rsa"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

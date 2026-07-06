@@ -1,0 +1,8 @@
+name = "BitManipulation"
+version = "0.1.0"
+defaultTargets = ["BitManipulation"]
+
+[[lean_lib]]
+name = "BitManipulation"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

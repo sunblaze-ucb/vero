@@ -1,0 +1,80 @@
+# Top-level config for `vero run`. See plan/20260420-151100-gen-eval-cli-ux.md.
+
+defaults:
+  - benchmark: bankledger
+  - agent: claude
+  # `credentials` resolves agent.env / agent.config_files for the active
+  # provider (litellm router by default — preserves prior behavior).
+  # Override with e.g. `credentials=openrouter` to route through
+  # OpenRouter, or `credentials=none` to use the user's global config.
+  - credentials: litellm
+  # Quoted so Hydra doesn't coerce "off" to the YAML boolean ``False``.
+  - iterate: "off"
+  - _self_
+
+# Which evaluation mode to target. "proof" | "codeproof".
+mode: proof
+
+# Existing run to re-target (re-eval). When set, the CLI loads that run's
+# frozen run.yaml as a base so benchmark/agent/mode auto-fill; setting
+# `run` alone implies `skip_gen: true`.
+run: null
+
+# Run identity + output location.
+name: null           # auto: ${benchmark.id}-${agent.kind}-${mode}-YYYYMMDD-HHMMSS
+root: agent_runs
+overwrite: false
+
+# Stage toggles.
+skip_agent: false    # build sandbox, don't invoke the LLM (materialize-only)
+skip_gen: false      # skip generation entirely (requires `run` set)
+skip_eval: false     # run generation, don't evaluate
+
+eval:
+  name: default      # sub-identifier under agent_runs/<name>/eval/<eval.name>/
+  timeout: 600
+  overwrite: false
+  # Opt-in anti-cheat judge: LLM-classify every `instance` / `@[instance]` site
+  # under <run>/source/**/*.lean as legit | cheat | unclear. Writes
+  # eval/<name>/instance_check.json. A deterministic prefilter auto-flags the
+  # unambiguous pattern `instance (priority := <high>) : C T := ⟨fun _ _ =>
+  # True⟩` (priority shadowing + constant body) without spending tokens; the
+  # remainder go to the LLM. Off by default because the LLM call still spends
+  # tokens on real-world runs and the grader's axiom check covers sorry-based
+  # cheats already.
+  check_instances: false
+  check_instances_model: gpt-5.5
+  check_instances_concurrency: 8
+
+  # Sampled eval — the perf-vs-time mechanism. One uninterrupted agent run + a
+  # passive background sampler that snapshots the editable source and reads
+  # codex's live cumulative token usage every `eval.sample_interval` seconds;
+  # every snapshot is graded post-hoc (after the agent ends) into a
+  # perf-vs-time row. No kill/resume, unlike the older iterate-group chunking.
+  sampled: false
+  sample_interval: 120   # seconds between snapshots + usage reads (>= 5)
+
+  # Source context shipped to the agent:
+  #   lean — the audited Lean benchmark only (default).
+  #   full — additionally ship the original upstream Python source (the
+  #          file[s] in manifest source.path, prefetched to
+  #          benchmarks/<repo>/upstream_source/ by scripts/prefetch_upstream.py)
+  #          into the sandbox under upstream_source/ as agent reference. It is
+  #          NOT graded and NOT part of the artifact — agent context only.
+  source_context: lean
+
+# Hydra self-configuration: we own our output layout, so disable hydra's
+# own outputs/ tree and cwd change.
+hydra:
+  run:
+    dir: .
+  # Multirun (`-m`) sweep lands every variant under this timestamped dir.
+  # Inside, each run still writes to `agent_runs/<name>/` per `root` above,
+  # so `vero-sweep-aggregate agent_runs_sweep/<ts>` (or the same path)
+  # collects results into `results.{csv,json,md}`.
+  sweep:
+    dir: agent_runs_sweep/${now:%Y%m%d-%H%M%S}
+    subdir: ${hydra.job.num}
+  output_subdir: null
+  job:
+    chdir: false

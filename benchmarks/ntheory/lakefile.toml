@@ -1,0 +1,8 @@
+name = "ntheory"
+version = "0.1.0"
+defaultTargets = ["Ntheory"]
+
+[[lean_lib]]
+name = "Ntheory"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

@@ -1,0 +1,8 @@
+name = "reedsolo"
+version = "0.1.0"
+defaultTargets = ["Reedsolo"]
+
+[[lean_lib]]
+name = "Reedsolo"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

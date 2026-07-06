@@ -1,0 +1,8 @@
+name = "ArithmeticV2"
+version = "0.1.0"
+defaultTargets = ["ArithmeticV2"]
+
+[[lean_lib]]
+name = "ArithmeticV2"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

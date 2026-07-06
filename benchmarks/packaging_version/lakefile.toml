@@ -1,0 +1,8 @@
+name = "packaging_version"
+version = "0.1.0"
+defaultTargets = ["PackagingVersion"]
+
+[[lean_lib]]
+name = "PackagingVersion"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

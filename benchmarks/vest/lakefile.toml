@@ -1,0 +1,8 @@
+name = "VestV2"
+version = "0.1.0"
+defaultTargets = ["VestV2"]
+
+[[lean_lib]]
+name = "VestV2"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

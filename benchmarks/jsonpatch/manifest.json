@@ -1,0 +1,84 @@
+{
+  "benchmark_id": "jsonpatch",
+  "description": "RFC 6901 JSON Pointer resolution + RFC 6902 JSON Patch application, ported from the jsonpointer (v3.0.0) and jsonpatch (v1.33) libraries (stefankoegl, Modified BSD). JSON is modelled mathlib-free as an inductive `Json` (null / bool / integer num / str / arr (List Json) / obj (List (String × Json))); an object is an association list modelling a Python dict (unique keys, insertion order, overwrite-in-place). `Json` recurses through `List (String × Json)`, so `DecidableEq` is supplied by hand (a structural boolean equality proven sound + reflexive) — frozen type-level vocabulary. A JSON Pointer is carried as a reference-token list (already-unescaped parts). Two modules. Pointer (escape / unescape / resolve): `escape` and `unescape` are the RFC 6901 `~0`/`~1` token codecs, implemented as total structural char scanners with the deliberately ASYMMETRIC replacement order (escape rewrites `~ ↦ ~0` then `/ ↦ ~1`; unescape rewrites `~1 ↦ /` then `~0 ↦ ~`) — pinned by the crown round-trip law `spec_unescape_escape_roundtrip` (unescape ∘ escape = id, general over every string; a wrong ordering breaks on inputs like `~1` / `~01` / `~10`) and by the reference-scanner pinning `spec_escape_chars`; `resolve` is the deterministic reference-token walk (`none` on a missing object member, an out-of-bounds or malformed array index, or the non-resolvable `-` end-of-list token), pinned to the frozen walk `refResolveParts` plus the empty-pointer identity and the object-member step. Patch (applyOp / apply): `applyOp` applies one of the six RFC 6902 operations returning `Option Json` (`none` = conflict / test-fail, mirroring JsonPatchConflict / JsonPatchTestFailed), and `apply` folds an operation list left-to-right with monadic short-circuit. The complex per-op laws are pinned STRUCTURALLY against frozen Spec-local reference helpers: add inserts-or-overwrites an object member (`spec_add_obj_sets`); remove deletes an existing member and conflicts when absent (`spec_remove_obj_deletes`); replace overwrites an EXISTING member and conflicts when absent — unlike add, distinguishing the two (`spec_replace_obj_requires_present`); test is the identity when the pointed value matches and a conflict otherwise, never mutating (`spec_test_identity_or_fail`). The move-vs-copy distinguishing laws force the two operations to differ: move = remove-from then add-at-target (`spec_move_is_remove_then_add`, so a move-as-copy leaves the source behind and fails), while copy preserves the source — after a copy the source still resolves to its original value (`spec_copy_preserves_source`, so a copy-as-move deletes it and fails). The op-list monoid action is pinned by the empty-patch identity (`spec_apply_nil`), the cons fold (`spec_apply_cons`), and the crown composition homomorphism `apply (p1 ++ p2) = apply p1 >=> apply p2` with conflict short-circuit (`spec_apply_append_hom`); `spec_applyOp_ref` pins the whole single-op action to the frozen RFC 6902 reference. The scope curated is the PATCH-APPLY + POINTER-RESOLVE semantics (never diff / make_patch, which would be reward-hackable via a whole-document replace). Every spec is a general ∀-law over arbitrary Json / Op / token lists, TRUE-of-canonical (all dual-verified provable against the reference implementation) and non-vacuous (mutation-checked: move-as-copy and copy-as-move each falsify their law). All spec-referenced helpers are byte-for-byte frozen `ref*` copies living inside the Spec files (never an editable Impl slot), closing the codeproof vacuity hole. Everything is discrete Int/String/List; no Float. Out of scope: floating-point JSON numbers, string-form pointer parsing (`parsePointer` — pointers are pre-parsed token lists), `set_pointer` / `make_patch` / `from_diff`, and the duplicate-key `multidict` loader.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/stefankoegl/python-json-patch",
+    "commit_hash": "0b0520328504050ee09d835d4df294838e055c38",
+    "path": ["jsonpatch.py", "jsonpointer.py"],
+    "name": "jsonpatch"
+  },
+  "curation": {
+    "date": "2026-07-04"
+  },
+  "root_package": "JsonPatch",
+  "files": {
+    "root_hub": "JsonPatch.lean",
+    "harness": "JsonPatch/Harness.lean",
+    "test": "JsonPatch/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "JsonPatch",
+      "bundle": "JsonPatch/Bundle.lean",
+      "bundle_type": "JsonPatchBundle",
+      "repo_impl_field": "jsonPatch",
+      "modules": [
+        {
+          "name": "Pointer",
+          "impl": "JsonPatch/Impl/Pointer.lean",
+          "spec": "JsonPatch/Spec/Pointer.lean",
+          "apis": [
+            {"name": "escape",   "sig": "EscapeSig",   "type": "String → String"},
+            {"name": "unescape", "sig": "UnescapeSig", "type": "String → String"},
+            {"name": "resolve",  "sig": "ResolveSig",  "type": "Json → List String → Option Json"}
+          ],
+          "specs": [
+            "spec_unescape_escape_roundtrip",
+            "spec_escape_chars",
+            "spec_resolve_walk",
+            "spec_resolve_nil",
+            "spec_resolve_obj_step",
+            "spec_resolve_append_bind",
+            "spec_escape_append_hom",
+            "spec_escape_no_raw_slash"
+          ]
+        },
+        {
+          "name": "Patch",
+          "impl": "JsonPatch/Impl/Patch.lean",
+          "spec": "JsonPatch/Spec/Patch.lean",
+          "apis": [
+            {"name": "applyOp", "sig": "ApplyOpSig", "type": "Op → Json → Option Json"},
+            {"name": "apply",   "sig": "ApplySig",   "type": "List Op → Json → Option Json"}
+          ],
+          "specs": [
+            "spec_applyOp_ref",
+            "spec_add_obj_sets",
+            "spec_remove_obj_deletes",
+            "spec_replace_obj_requires_present",
+            "spec_test_identity_or_fail",
+            "spec_move_is_remove_then_add",
+            "spec_copy_preserves_source",
+            "spec_apply_nil",
+            "spec_apply_cons",
+            "spec_apply_append_hom",
+            "spec_apply_singleton_eq_applyOp",
+            "spec_apply_three_way_composition",
+            "spec_apply_prefix_conflict_absorbing",
+            "spec_add_obj_path_reads_back",
+            "spec_add_remove_fresh_obj_path_inverse",
+            "spec_replace_resolved_value_identity",
+            "spec_test_in_patch_pure_guard",
+            "spec_move_equals_remove_add_patch",
+            "spec_copy_obj_target_reads_source"
+          ]
+        }
+      ]
+    }
+  ]
+}

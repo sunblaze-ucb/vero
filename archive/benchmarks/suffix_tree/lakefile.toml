@@ -1,0 +1,8 @@
+name = "SuffixTree"
+version = "0.1.0"
+defaultTargets = ["SuffixTree"]
+
+[[lean_lib]]
+name = "SuffixTree"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

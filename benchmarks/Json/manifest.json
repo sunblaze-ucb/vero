@@ -1,0 +1,1554 @@
+{
+  "benchmark_id": "json-v2",
+  "description": null,
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "dafny",
+    "repo_url": "https://github.com/dafny-lang/libraries.git",
+    "commit_hash": "b486ff7faadbf306ed7e71386a2b0aeb1e38bd4d",
+    "path": "src/JSON"
+  },
+  "curation": {
+    "date": "2026-06-03"
+  },
+  "root_package": "JsonV2",
+  "files": {
+    "root_hub": "JsonV2.lean",
+    "harness": "JsonV2/Harness.lean",
+    "test": "JsonV2/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "JsonV2",
+      "bundle": "JsonV2/Bundle.lean",
+      "bundle_type": "JsonV2Bundle",
+      "repo_impl_field": "json",
+      "modules": [
+        {
+          "name": "Values",
+          "impl": "JsonV2/Impl/Values.lean",
+          "spec": "JsonV2/Spec/Values.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Errors",
+          "impl": "JsonV2/Impl/Errors.lean",
+          "spec": "JsonV2/Spec/Errors.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Utils/Seq",
+          "impl": "JsonV2/Impl/Utils/Seq.lean",
+          "spec": "JsonV2/Spec/Utils/Seq.lean",
+          "apis": [],
+          "specs": [
+            {
+              "name": "spec_neutral",
+              "source_id": "Utils/Seq.dfy:Neutral:77",
+              "source_theorem": "Utils/Seq.dfy:Neutral:77",
+              "semantic_bridge_required": [],
+              "equivalence_status": "unclear",
+              "curator_intended_truth": "prove",
+              "source_file": "Utils/Seq.dfy",
+              "nl_description": "neutral",
+              "apis_referenced": [],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_assoc",
+              "source_id": "Utils/Seq.dfy:Assoc:130",
+              "source_theorem": "Utils/Seq.dfy:Assoc:130",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "source_file": "Utils/Seq.dfy",
+              "nl_description": "assoc",
+              "apis_referenced": [],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_assocprime",
+              "source_id": "Utils/Seq.dfy:Assoc':257",
+              "source_theorem": "Utils/Seq.dfy:Assoc':257",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "source_file": "Utils/Seq.dfy",
+              "nl_description": "assocprime",
+              "apis_referenced": [],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_assoc2",
+              "source_id": "Utils/Seq.dfy:Assoc2:386",
+              "source_theorem": "Utils/Seq.dfy:Assoc2:386",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "source_file": "Utils/Seq.dfy",
+              "nl_description": "assoc2",
+              "apis_referenced": [],
+              "spec_helpers_referenced": []
+            }
+          ]
+        },
+        {
+          "name": "Utils/Str",
+          "impl": "JsonV2/Impl/Utils/Str.lean",
+          "spec": "JsonV2/Spec/Utils/Str.lean",
+          "apis": [
+            {
+              "name": "parametricConversion_ToNat_any",
+              "sig": "ParametricConversion_ToNat_anySig",
+              "type": "List Char → Nat → List (Char × Nat) → Nat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Str.dfy:ToNat_any:2815",
+              "upstream_name": "JSON.Utils.Str.ToNat_any",
+              "nl_description": "Convert a digit string to a natural number using a base and digit table."
+            },
+            {
+              "name": "parametricEscaping_Escape",
+              "sig": "ParametricEscaping_EscapeSig",
+              "type": "List Char → List Char → Char → List Char",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Str.dfy:Escape:4593",
+              "upstream_name": "JSON.Utils.Str.Escape",
+              "nl_description": "Escape selected characters by prefixing an escape character."
+            },
+            {
+              "name": "parametricEscaping_Unescape",
+              "sig": "ParametricEscaping_UnescapeSig",
+              "type": "List Char → Char → Except UnescapeError (List Char)",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Str.dfy:Unescape:4899",
+              "upstream_name": "JSON.Utils.Str.Unescape",
+              "nl_description": "Undo escaping and report an escape-at-end error."
+            },
+            {
+              "name": "join",
+              "sig": "JoinSig",
+              "type": "String → List String → String",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Str.dfy:Join:7799",
+              "upstream_name": "JSON.Utils.Str.Join",
+              "nl_description": "Join strings with a separator."
+            },
+            {
+              "name": "concat",
+              "sig": "ConcatSig",
+              "type": "List String → String",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Str.dfy:Concat:7973",
+              "upstream_name": "JSON.Utils.Str.Concat",
+              "nl_description": "Concatenate strings with no separator."
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_parametricConversion_ToNat_bound",
+              "source_id": "Utils/Str.dfy:ToNat_bound:3167",
+              "source_theorem": "Utils/Str.dfy:ToNat_bound:3167",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "source_file": "Utils/Str.dfy",
+              "nl_description": "parametricConversion ToNat bound",
+              "apis_referenced": [
+                "parametricConversion_ToNat_any"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_parametricEscaping_Unescape_Escape",
+              "source_id": "Utils/Str.dfy:Unescape_Escape:5254",
+              "source_theorem": "Utils/Str.dfy:Unescape_Escape:5254",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "source_file": "Utils/Str.dfy",
+              "nl_description": "parametricEscaping Unescape Escape",
+              "apis_referenced": [
+                "parametricEscaping_Escape",
+                "parametricEscaping_Unescape"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_concat_Join",
+              "source_id": "Utils/Str.dfy:Concat_Join:8090",
+              "source_theorem": "Utils/Str.dfy:Concat_Join:8090",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "source_file": "Utils/Str.dfy",
+              "nl_description": "concat Join",
+              "apis_referenced": [
+                "concat",
+                "join"
+              ],
+              "spec_helpers_referenced": []
+            }
+          ]
+        },
+        {
+          "name": "Utils/Views",
+          "impl": "JsonV2/Impl/Utils/Views.lean",
+          "spec": "JsonV2/Spec/Utils/Views.lean",
+          "apis": [
+            {
+              "name": "view__CopyTo",
+              "sig": "View_CopyToSig",
+              "type": "View_ → List UInt8 → UInt32 → List UInt8",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Views.dfy:CopyTo:1906",
+              "upstream_name": "JSON.Utils.Views.Core.View_.CopyTo",
+              "nl_description": "Copy a byte view into a destination buffer at an offset."
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_view_copy_to_region",
+              "source_theorem": "Utils/Views.dfy:View_.CopyTo:ensures_dest_slice_equals_Bytes",
+              "semantic_bridge_required": [
+                "array_mutation_projected_to_returned_list",
+                "source_requires_Valid_and_capacity_as_Lean_antecedent",
+                "source_requires_view_valid",
+                "source_requires_uint32_capacity_bound"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "CopyTo writes the view bytes into the requested destination slice.",
+              "apis_referenced": [
+                "view__CopyTo"
+              ],
+              "spec_helpers_referenced": [
+                "view__Valid?",
+                "view__Length",
+                "view__Bytes"
+              ]
+            },
+            {
+              "name": "spec_view_copy_to_suffix_preserved",
+              "source_theorem": "Utils/Views.dfy:View_.CopyTo:ensures_dest_suffix_preserved",
+              "semantic_bridge_required": [
+                "array_mutation_projected_to_returned_list",
+                "source_requires_Valid_and_capacity_as_Lean_antecedent",
+                "source_requires_view_valid",
+                "source_requires_uint32_capacity_bound"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "CopyTo preserves the destination suffix after the copied view range.",
+              "apis_referenced": [
+                "view__CopyTo"
+              ],
+              "spec_helpers_referenced": [
+                "view__Valid?",
+                "view__Length"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Utils/Views/Writers",
+          "impl": "JsonV2/Impl/Utils/Views/Writers.lean",
+          "spec": "JsonV2/Spec/Utils/Views/Writers.lean",
+          "apis": [
+            {
+              "name": "chain_CopyTo",
+              "sig": "ChainCopyToSig",
+              "type": "Chain → List UInt8 → UInt32 → List UInt8",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Views.Writers.dfy:CopyTo:876",
+              "upstream_name": "JSON.Utils.Views.Writers.CopyTo",
+              "nl_description": "Copy a chain of views into a destination buffer ending at an offset."
+            },
+            {
+              "name": "writer__Append",
+              "sig": "WriterAppendSig",
+              "type": "Writer_ → View_ → Writer_",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Views.Writers.dfy:Append:1974",
+              "upstream_name": "JSON.Utils.Views.Writers.Append",
+              "nl_description": "Append a byte view to a writer with saturated byte counting."
+            },
+            {
+              "name": "writer__CopyTo",
+              "sig": "WriterCopyToSig",
+              "type": "Writer_ → List UInt8 → List UInt8",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Views.Writers.dfy:CopyTo:2422",
+              "upstream_name": "JSON.Utils.Views.Writers.CopyTo",
+              "nl_description": "Copy writer bytes into the front of a destination buffer."
+            },
+            {
+              "name": "writer__ToArray",
+              "sig": "WriterToArraySig",
+              "type": "Writer_ → List UInt8",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Views.Writers.dfy:ToArray:2724",
+              "upstream_name": "JSON.Utils.Views.Writers.ToArray",
+              "nl_description": "Materialize a writer into a fresh byte list."
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_chain_copy_to_prefix",
+              "source_theorem": "baseline:Utils/Views/Writers:spec_chain_copy_to_prefix",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Views/Writers:spec_chain_copy_to_prefix",
+                "source_chain_contains_valid_views"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "chain copy to prefix",
+              "apis_referenced": [
+                "chain_CopyTo"
+              ],
+              "spec_helpers_referenced": [
+                "chain__Valid?",
+                "chain__Bytes"
+              ]
+            },
+            {
+              "name": "spec_chain_copy_to_suffix",
+              "source_theorem": "baseline:Utils/Views/Writers:spec_chain_copy_to_suffix",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Views/Writers:spec_chain_copy_to_suffix",
+                "source_chain_contains_valid_views"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "chain copy to suffix",
+              "apis_referenced": [
+                "chain_CopyTo"
+              ],
+              "spec_helpers_referenced": [
+                "chain__Valid?",
+                "chain__Bytes"
+              ]
+            },
+            {
+              "name": "spec_writer_append_bytes",
+              "source_theorem": "baseline:Utils/Views/Writers:spec_writer_append_bytes",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Views/Writers:spec_writer_append_bytes",
+                "source_requires_writer_valid_and_view_valid"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "writer append bytes",
+              "apis_referenced": [
+                "writer__Append"
+              ],
+              "spec_helpers_referenced": [
+                "writer__Valid?",
+                "view__Valid?",
+                "chain__Bytes",
+                "view__Bytes"
+              ]
+            },
+            {
+              "name": "spec_writer_append_length",
+              "source_theorem": "baseline:Utils/Views/Writers:spec_writer_append_length",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Views/Writers:spec_writer_append_length",
+                "source_requires_writer_valid_and_view_valid"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "writer append length",
+              "apis_referenced": [
+                "writer__Append"
+              ],
+              "spec_helpers_referenced": [
+                "writer__Valid?",
+                "view__Valid?"
+              ]
+            },
+            {
+              "name": "spec_writer_copy_to_prefix",
+              "source_theorem": "baseline:Utils/Views/Writers:spec_writer_copy_to_prefix",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Views/Writers:spec_writer_copy_to_prefix",
+                "source_requires_writer_unsaturated"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "writer copy to prefix",
+              "apis_referenced": [
+                "writer__CopyTo"
+              ],
+              "spec_helpers_referenced": [
+                "chain__Bytes",
+                "writer__Valid?",
+                "writer__Unsaturated?"
+              ]
+            },
+            {
+              "name": "spec_writer_copy_to_suffix",
+              "source_theorem": "baseline:Utils/Views/Writers:spec_writer_copy_to_suffix",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Views/Writers:spec_writer_copy_to_suffix",
+                "source_requires_writer_unsaturated"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "writer copy to suffix",
+              "apis_referenced": [
+                "writer__CopyTo"
+              ],
+              "spec_helpers_referenced": [
+                "writer__Valid?",
+                "writer__Unsaturated?"
+              ]
+            },
+            {
+              "name": "spec_writer_to_array_correct",
+              "source_theorem": "baseline:Utils/Views/Writers:spec_writer_to_array_correct",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Views/Writers:spec_writer_to_array_correct",
+                "source_requires_writer_unsaturated"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "writer to array correct",
+              "apis_referenced": [
+                "writer__ToArray"
+              ],
+              "spec_helpers_referenced": [
+                "chain__Bytes",
+                "writer__Valid?",
+                "writer__Unsaturated?"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Utils/Lexers",
+          "impl": "JsonV2/Impl/Utils/Lexers.lean",
+          "spec": "JsonV2/Spec/Utils/Lexers.lean",
+          "apis": [
+            {
+              "name": "stringBody",
+              "sig": "StringBodySig",
+              "type": "(R : Type) → Lexer StringBodyLexerState R",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Lexers.dfy:StringBody:718",
+              "upstream_name": "JSON.Utils.Lexers.Strings.StringBody",
+              "nl_description": "Run one step of the JSON string-body lexer."
+            },
+            {
+              "name": "lexString",
+              "sig": "LexStringSig",
+              "type": "Lexer StringLexerState String",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Lexers.dfy:String:1117",
+              "upstream_name": "JSON.Utils.Lexers.Strings.String",
+              "nl_description": "Run one step of the JSON string lexer."
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_string_body_backslash_toggles_escape",
+              "source_theorem": "baseline:Utils/Lexers:spec_string_body_backslash_toggles_escape",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Lexers:spec_string_body_backslash_toggles_escape"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "string body backslash toggles escape",
+              "apis_referenced": [
+                "stringBody"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_string_body_accept_unescaped_quote",
+              "source_theorem": "baseline:Utils/Lexers:spec_string_body_accept_unescaped_quote",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Lexers:spec_string_body_accept_unescaped_quote"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "string body accept unescaped quote",
+              "apis_referenced": [
+                "stringBody"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_string_body_escaped_quote_continues",
+              "source_theorem": "baseline:Utils/Lexers:spec_string_body_escaped_quote_continues",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Lexers:spec_string_body_escaped_quote_continues"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "string body escaped quote continues",
+              "apis_referenced": [
+                "stringBody"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_lex_string_start_quote",
+              "source_theorem": "baseline:Utils/Lexers:spec_lex_string_start_quote",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Lexers:spec_lex_string_start_quote"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "lex string start quote",
+              "apis_referenced": [
+                "lexString"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_lex_string_start_non_quote_rejects",
+              "source_theorem": "baseline:Utils/Lexers:spec_lex_string_start_non_quote_rejects",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Lexers:spec_lex_string_start_non_quote_rejects"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "lex string start non quote rejects",
+              "apis_referenced": [
+                "lexString"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_lex_string_end_accepts",
+              "source_theorem": "baseline:Utils/Lexers:spec_lex_string_end_accepts",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Lexers:spec_lex_string_end_accepts"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "lex string end accepts",
+              "apis_referenced": [
+                "lexString"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_lex_string_body_backslash_toggles",
+              "source_theorem": "baseline:Utils/Lexers:spec_lex_string_body_backslash_toggles",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Lexers:spec_lex_string_body_backslash_toggles"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "lex string body backslash toggles",
+              "apis_referenced": [
+                "lexString"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_lex_string_body_unescaped_quote_ends",
+              "source_theorem": "baseline:Utils/Lexers:spec_lex_string_body_unescaped_quote_ends",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Lexers:spec_lex_string_body_unescaped_quote_ends"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "lex string body unescaped quote ends",
+              "apis_referenced": [
+                "lexString"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_lex_string_body_escaped_quote_continues",
+              "source_theorem": "baseline:Utils/Lexers:spec_lex_string_body_escaped_quote_continues",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Lexers:spec_lex_string_body_escaped_quote_continues"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "lex string body escaped quote continues",
+              "apis_referenced": [
+                "lexString"
+              ],
+              "spec_helpers_referenced": []
+            }
+          ]
+        },
+        {
+          "name": "Utils/Cursors",
+          "impl": "JsonV2/Impl/Utils/Cursors.lean",
+          "spec": "JsonV2/Spec/Utils/Cursors.lean",
+          "apis": [],
+          "specs": [
+            {
+              "name": "spec_prefixSuffixLength",
+              "source_id": "Utils/Cursors.dfy:PrefixSuffixLength:4405",
+              "source_theorem": "Utils/Cursors.dfy:PrefixSuffixLength:4405",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "source_file": "Utils/Cursors.dfy",
+              "nl_description": "prefixSuffixLength",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "cursor__Valid?"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Utils/Parsers",
+          "impl": "JsonV2/Impl/Utils/Parsers.lean",
+          "spec": "JsonV2/Spec/Utils/Parsers.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Utils/Vectors",
+          "impl": "JsonV2/Impl/Utils/Vectors.lean",
+          "spec": "JsonV2/Spec/Utils/Vectors.lean",
+          "apis": [
+            {
+              "name": "vector_Put",
+              "sig": "VectorPutSig",
+              "type": "∀ {α : Type}, JVector α → UInt32 → α → JVector α",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Vectors.dfy:Put:1585",
+              "semantic_bridge_required": [],
+              "upstream_name": "JSON.Utils.Vectors.Vector.Put",
+              "nl_description": "Update a vector element at a UInt32 index."
+            },
+            {
+              "name": "vector_Realloc",
+              "sig": "VectorReallocSig",
+              "type": "∀ {α : Type}, JVector α → UInt32 → Except VectorError (JVector α)",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Vectors.dfy:Realloc:2418",
+              "semantic_bridge_required": [
+                "vector_array_mutation_and_outcome_projection"
+              ],
+              "upstream_name": "JSON.Utils.Vectors.Vector.Realloc",
+              "nl_description": "Reallocate a vector to the requested capacity."
+            },
+            {
+              "name": "vector_PopFast",
+              "sig": "VectorPopFastSig",
+              "type": "∀ {α : Type}, JVector α → JVector α",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Vectors.dfy:PopFast:4621",
+              "semantic_bridge_required": [],
+              "upstream_name": "JSON.Utils.Vectors.Vector.PopFast",
+              "nl_description": "Remove the last vector element without reallocating."
+            },
+            {
+              "name": "vector_PushFast",
+              "sig": "VectorPushFastSig",
+              "type": "∀ {α : Type}, JVector α → α → JVector α",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Vectors.dfy:PushFast:4901",
+              "semantic_bridge_required": [],
+              "upstream_name": "JSON.Utils.Vectors.Vector.PushFast",
+              "nl_description": "Append a vector element without reallocating."
+            },
+            {
+              "name": "vector_ReallocDefault",
+              "sig": "VectorReallocDefaultSig",
+              "type": "∀ {α : Type}, JVector α → Except VectorError (JVector α)",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Vectors.dfy:ReallocDefault:3020",
+              "semantic_bridge_required": [
+                "vector_array_mutation_and_outcome_projection"
+              ],
+              "upstream_name": "JSON.Utils.Vectors.Vector.ReallocDefault",
+              "nl_description": "Grow a vector using the default growth policy."
+            },
+            {
+              "name": "vector_Ensure",
+              "sig": "VectorEnsureSig",
+              "type": "∀ {α : Type}, JVector α → UInt32 → Except VectorError (JVector α)",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Vectors.dfy:Ensure:3738",
+              "semantic_bridge_required": [
+                "vector_array_mutation_and_outcome_projection"
+              ],
+              "upstream_name": "JSON.Utils.Vectors.Vector.Ensure",
+              "nl_description": "Ensure that a vector has enough spare capacity."
+            },
+            {
+              "name": "vector_Push",
+              "sig": "VectorPushSig",
+              "type": "∀ {α : Type}, JVector α → α → Except VectorError (JVector α)",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Utils/Vectors.dfy:Push:5204",
+              "semantic_bridge_required": [
+                "vector_array_mutation_and_outcome_projection"
+              ],
+              "upstream_name": "JSON.Utils.Vectors.Vector.Push",
+              "nl_description": "Append a vector element, growing if necessary."
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_vector_put_updates_items",
+              "source_theorem": "baseline:Utils/Vectors:spec_vector_put_updates_items",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Vectors:spec_vector_put_updates_items",
+                "vector_array_mutation_and_valid_predicate_projection"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "vector put updates items",
+              "apis_referenced": [
+                "vector_Put"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_vector_put_preserves_capacity",
+              "source_theorem": "baseline:Utils/Vectors:spec_vector_put_preserves_capacity",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Vectors:spec_vector_put_preserves_capacity",
+                "vector_array_mutation_and_valid_predicate_projection"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "vector put preserves capacity",
+              "apis_referenced": [
+                "vector_Put"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_vector_realloc_ok_updates_capacity",
+              "source_theorem": "baseline:Utils/Vectors:spec_vector_realloc_ok_updates_capacity",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Vectors:spec_vector_realloc_ok_updates_capacity",
+                "source_precondition:new_capacity_gt_capacity",
+                "array_allocation_and_CopyFrom_projection"
+              ],
+              "equivalence_status": "unclear",
+              "curator_intended_truth": "prove",
+              "nl_description": "Under the Dafny Realloc precondition new_capacity > capacity, vector_Realloc succeeds and updates capacity.",
+              "apis_referenced": [
+                "vector_Realloc"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_vector_realloc_default_oom_iff_max",
+              "source_theorem": "baseline:Utils/Vectors:spec_vector_realloc_default_oom_iff_max",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Vectors:spec_vector_realloc_default_oom_iff_max",
+                "vector_array_mutation_and_valid_predicate_projection"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "vector realloc default oom iff max",
+              "apis_referenced": [
+                "vector_ReallocDefault"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_vector_realloc_default_ok_grows",
+              "source_theorem": "baseline:Utils/Vectors:spec_vector_realloc_default_ok_grows",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Vectors:spec_vector_realloc_default_ok_grows",
+                "vector_array_mutation_and_valid_predicate_projection"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "vector realloc default ok grows",
+              "apis_referenced": [
+                "vector_ReallocDefault"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_vector_ensure_ok_has_space",
+              "source_theorem": "baseline:Utils/Vectors:spec_vector_ensure_ok_has_space",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Vectors:spec_vector_ensure_ok_has_space",
+                "vector_array_mutation_and_valid_predicate_projection"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "vector ensure ok has space",
+              "apis_referenced": [
+                "vector_Ensure"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_vector_ensure_fail_overflow",
+              "source_theorem": "baseline:Utils/Vectors:spec_vector_ensure_fail_overflow",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Vectors:spec_vector_ensure_fail_overflow",
+                "vector_array_mutation_and_valid_predicate_projection"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "vector ensure fail overflow",
+              "apis_referenced": [
+                "vector_Ensure"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_vector_pop_fast_removes_last",
+              "source_theorem": "baseline:Utils/Vectors:spec_vector_pop_fast_removes_last",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Vectors:spec_vector_pop_fast_removes_last",
+                "vector_array_mutation_and_valid_predicate_projection"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "vector pop fast removes last",
+              "apis_referenced": [
+                "vector_PopFast"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_vector_pop_fast_preserves_capacity",
+              "source_theorem": "baseline:Utils/Vectors:spec_vector_pop_fast_preserves_capacity",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Vectors:spec_vector_pop_fast_preserves_capacity",
+                "vector_array_mutation_and_valid_predicate_projection"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "vector pop fast preserves capacity",
+              "apis_referenced": [
+                "vector_PopFast"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_vector_push_fast_appends",
+              "source_theorem": "baseline:Utils/Vectors:spec_vector_push_fast_appends",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Vectors:spec_vector_push_fast_appends",
+                "vector_array_mutation_and_valid_predicate_projection"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "vector push fast appends",
+              "apis_referenced": [
+                "vector_PushFast"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_vector_push_fast_preserves_capacity",
+              "source_theorem": "baseline:Utils/Vectors:spec_vector_push_fast_preserves_capacity",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Vectors:spec_vector_push_fast_preserves_capacity",
+                "vector_array_mutation_and_valid_predicate_projection"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "vector push fast preserves capacity",
+              "apis_referenced": [
+                "vector_PushFast"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_vector_push_ok_appends",
+              "source_theorem": "baseline:Utils/Vectors:spec_vector_push_ok_appends",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Vectors:spec_vector_push_ok_appends",
+                "vector_array_mutation_and_valid_predicate_projection"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "vector push ok appends",
+              "apis_referenced": [
+                "vector_Push"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_vector_push_fail_oom",
+              "source_theorem": "baseline:Utils/Vectors:spec_vector_push_fail_oom",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Utils/Vectors:spec_vector_push_fail_oom",
+                "vector_array_mutation_and_valid_predicate_projection"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "vector push fail oom",
+              "apis_referenced": [
+                "vector_Push"
+              ],
+              "spec_helpers_referenced": []
+            }
+          ]
+        },
+        {
+          "name": "Grammar",
+          "impl": "JsonV2/Impl/Grammar.lean",
+          "spec": "JsonV2/Spec/Grammar.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Spec",
+          "impl": "JsonV2/Impl/Spec.lean",
+          "spec": "JsonV2/Spec/Spec.lean",
+          "apis": [
+            {
+              "name": "intToBytes",
+              "sig": "IntToBytesSig",
+              "type": "Int → bytes",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Spec.dfy:IntToBytes:3269",
+              "upstream_name": "JSON.Spec.IntToBytes",
+              "nl_description": "Render an integer as ASCII decimal bytes."
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_ofIntOnlyASCII",
+              "source_id": "Spec.dfy:OfIntOnlyASCII:2846",
+              "source_theorem": "Spec.dfy:OfIntOnlyASCII:2846",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "source_file": "Spec.dfy",
+              "nl_description": "ofIntOnlyASCII",
+              "apis_referenced": [
+                "intToBytes"
+              ],
+              "spec_helpers_referenced": []
+            }
+          ]
+        },
+        {
+          "name": "Serializer",
+          "impl": "JsonV2/Impl/Serializer.lean",
+          "spec": "JsonV2/Spec/Serializer.lean",
+          "apis": [
+            {
+              "name": "serializer_bool",
+              "sig": "SerializerBoolSig",
+              "type": "Bool → serializerBytes",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Serializer.dfy:Bool:1088",
+              "semantic_bridge_required": [
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "upstream_name": "JSON.Serializer.Bool",
+              "nl_description": "Serialize a JSON boolean to its UTF-8 byte representation."
+            },
+            {
+              "name": "serializer_string",
+              "sig": "SerializerStringSig",
+              "type": "String → serializerResult serializerBytes",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Serializer.dfy:String:1304",
+              "semantic_bridge_required": [
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "upstream_name": "JSON.Serializer.String",
+              "nl_description": "Serialize a JSON string with quote delimiters and JSON escapes."
+            },
+            {
+              "name": "serializer_int",
+              "sig": "SerializerIntSig",
+              "type": "Int → serializerResult serializerBytes",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Serializer.dfy:Int:2108",
+              "semantic_bridge_required": [
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "upstream_name": "JSON.Serializer.Int",
+              "nl_description": "Serialize an integer to ASCII decimal bytes."
+            },
+            {
+              "name": "serializer_number",
+              "sig": "SerializerNumberSig",
+              "type": "Decimal → serializerResult serializerBytes",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Serializer.dfy:Number:2246",
+              "semantic_bridge_required": [
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "upstream_name": "JSON.Serializer.Number",
+              "nl_description": "Serialize a decimal JSON number to bytes."
+            },
+            {
+              "name": "serializer_object",
+              "sig": "SerializerObjectSig",
+              "type": "List (String × JSON) → serializerResult serializerBytes",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Serializer.dfy:Object:3488",
+              "semantic_bridge_required": [
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "upstream_name": "JSON.Serializer.Object",
+              "nl_description": "Serialize a JSON object from ordered key-value pairs."
+            },
+            {
+              "name": "serializer_array",
+              "sig": "SerializerArraySig",
+              "type": "List JSON → serializerResult serializerBytes",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Serializer.dfy:Array:3785",
+              "semantic_bridge_required": [
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "upstream_name": "JSON.Serializer.Array",
+              "nl_description": "Serialize a JSON array from its elements."
+            },
+            {
+              "name": "serializer_value",
+              "sig": "SerializerValueSig",
+              "type": "JSON → serializerResult serializerBytes",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Serializer.dfy:Value:4072",
+              "semantic_bridge_required": [
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "upstream_name": "JSON.Serializer.Value",
+              "nl_description": "Serialize any high-level JSON value to bytes."
+            },
+            {
+              "name": "serializer_keyValue",
+              "sig": "SerializerKeyValueSig",
+              "type": "String × JSON → serializerResult serializerBytes",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Serializer.dfy:KeyValue:2910",
+              "semantic_bridge_required": [
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "upstream_name": "JSON.Serializer.KeyValue",
+              "nl_description": "Serialize a JSON object key-value pair."
+            },
+            {
+              "name": "serializer_json",
+              "sig": "SerializerJsonSig",
+              "type": "JSON → serializerResult serializerBytes",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Serializer.dfy:JSON:4548",
+              "semantic_bridge_required": [
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "upstream_name": "JSON.Serializer.JSON",
+              "nl_description": "Serialize a complete high-level JSON value."
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_serializer_bool_true",
+              "source_theorem": "baseline:Serializer:spec_serializer_bool_true",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Serializer:spec_serializer_bool_true",
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "serializer bool true",
+              "apis_referenced": [
+                "serializer_bool"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_serializer_bool_false",
+              "source_theorem": "baseline:Serializer:spec_serializer_bool_false",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Serializer:spec_serializer_bool_false",
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "serializer bool false",
+              "apis_referenced": [
+                "serializer_bool"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_serializer_int_zero",
+              "source_theorem": "baseline:Serializer:spec_serializer_int_zero",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Serializer:spec_serializer_int_zero",
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "serializer int zero",
+              "apis_referenced": [
+                "serializer_int"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_serializer_int_ascii",
+              "source_theorem": "baseline:Serializer:spec_serializer_int_ascii",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Serializer:spec_serializer_int_ascii",
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "serializer int ascii",
+              "apis_referenced": [
+                "serializer_int"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_serializer_string_quotes",
+              "source_theorem": "baseline:Serializer:spec_serializer_string_quotes",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Serializer:spec_serializer_string_quotes",
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec",
+                "unicode_escape_to_utf8_matches_Dafny_Spec.EscapeToUTF8"
+              ],
+              "equivalence_status": "unclear",
+              "curator_intended_truth": "prove",
+              "nl_description": "Successful string serialization wraps exactly the JSON-escaped UTF-8 payload.",
+              "apis_referenced": [
+                "serializer_string"
+              ],
+              "spec_helpers_referenced": [
+                "jsonEscapeToUTF8"
+              ]
+            },
+            {
+              "name": "spec_serializer_string_too_long",
+              "source_theorem": "baseline:Serializer:spec_serializer_string_too_long",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Serializer:spec_serializer_string_too_long",
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec",
+                "unicode_escape_to_utf8_matches_Dafny_Spec.EscapeToUTF8"
+              ],
+              "equivalence_status": "unclear",
+              "curator_intended_truth": "prove",
+              "nl_description": "If the escaped UTF-8 payload for a string is too long, serializer_string reports stringTooLong.",
+              "apis_referenced": [
+                "serializer_string"
+              ],
+              "spec_helpers_referenced": [
+                "jsonEscapeToUTF8"
+              ]
+            },
+            {
+              "name": "spec_serializer_value_null",
+              "source_theorem": "baseline:Serializer:spec_serializer_value_null",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Serializer:spec_serializer_value_null",
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "serializer value null",
+              "apis_referenced": [
+                "serializer_value"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_serializer_value_bool",
+              "source_theorem": "baseline:Serializer:spec_serializer_value_bool",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Serializer:spec_serializer_value_bool",
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "serializer value bool",
+              "apis_referenced": [
+                "serializer_value",
+                "serializer_bool"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_serializer_value_string",
+              "source_theorem": "baseline:Serializer:spec_serializer_value_string",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Serializer:spec_serializer_value_string",
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "serializer value string",
+              "apis_referenced": [
+                "serializer_value",
+                "serializer_string"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_serializer_value_number",
+              "source_theorem": "baseline:Serializer:spec_serializer_value_number",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Serializer:spec_serializer_value_number",
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "serializer value number",
+              "apis_referenced": [
+                "serializer_value",
+                "serializer_number"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_serializer_array_empty",
+              "source_theorem": "baseline:Serializer:spec_serializer_array_empty",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Serializer:spec_serializer_array_empty",
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "serializer array empty",
+              "apis_referenced": [
+                "serializer_array"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_serializer_object_empty",
+              "source_theorem": "baseline:Serializer:spec_serializer_object_empty",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Serializer:spec_serializer_object_empty",
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "serializer object empty",
+              "apis_referenced": [
+                "serializer_object"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_serializer_json_eq_value",
+              "source_theorem": "baseline:Serializer:spec_serializer_json_eq_value",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:Serializer:spec_serializer_json_eq_value",
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "serializer json eq value",
+              "apis_referenced": [
+                "serializer_json",
+                "serializer_value"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_serializer_keyValue_composes_string_colon_value",
+              "source_theorem": "Serializer.dfy:KeyValue:composition_of_String_COLON_Value",
+              "semantic_bridge_required": [
+                "serializer_grammar_ast_to_bytes_via_ConcreteSyntax.Spec"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "KeyValue serialization composes the serialized key, colon byte, and serialized value.",
+              "apis_referenced": [
+                "serializer_keyValue",
+                "serializer_string",
+                "serializer_value"
+              ],
+              "spec_helpers_referenced": []
+            }
+          ]
+        },
+        {
+          "name": "Deserializer",
+          "impl": "JsonV2/Impl/Deserializer.lean",
+          "spec": "JsonV2/Spec/Deserializer.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "ConcreteSyntax/Spec",
+          "impl": "JsonV2/Impl/ConcreteSyntax/Spec.lean",
+          "spec": "JsonV2/Spec/ConcreteSyntax/Spec.lean",
+          "apis": [],
+          "specs": [
+            {
+              "name": "spec_unfoldValueNumber",
+              "source_id": "ConcreteSyntax.Spec.dfy:UnfoldValueNumber:2525",
+              "source_theorem": "ConcreteSyntax.Spec.dfy:UnfoldValueNumber:2525",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "source_file": "ConcreteSyntax.Spec.dfy",
+              "nl_description": "unfoldValueNumber",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "csValue",
+                "csNumber"
+              ]
+            },
+            {
+              "name": "spec_unfoldValueObject",
+              "source_id": "ConcreteSyntax.Spec.dfy:UnfoldValueObject:2711",
+              "source_theorem": "ConcreteSyntax.Spec.dfy:UnfoldValueObject:2711",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "source_file": "ConcreteSyntax.Spec.dfy",
+              "nl_description": "unfoldValueObject",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "csValue",
+                "csObject"
+              ]
+            },
+            {
+              "name": "spec_unfoldValueArray",
+              "source_id": "ConcreteSyntax.Spec.dfy:UnfoldValueArray:2897",
+              "source_theorem": "ConcreteSyntax.Spec.dfy:UnfoldValueArray:2897",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "source_file": "ConcreteSyntax.Spec.dfy",
+              "nl_description": "unfoldValueArray",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "csValue",
+                "csArray"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ConcreteSyntax/SpecProperties",
+          "impl": "JsonV2/Impl/ConcreteSyntax/SpecProperties.lean",
+          "spec": "JsonV2/Spec/ConcreteSyntax/SpecProperties.lean",
+          "apis": [],
+          "specs": [
+            {
+              "name": "spec_bracketed_Morphism",
+              "source_id": "ConcreteSyntax.SpecProperties.dfy:Bracketed_Morphism:789",
+              "source_theorem": "ConcreteSyntax.SpecProperties.dfy:Bracketed_Morphism:789",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "source_file": "ConcreteSyntax.SpecProperties.dfy",
+              "nl_description": "bracketed Morphism",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "bracketed_Morphism_Requires",
+                "JSON.csBracketed"
+              ]
+            },
+            {
+              "name": "spec_concatBytes_Morphism",
+              "source_id": "ConcreteSyntax.SpecProperties.dfy:ConcatBytes_Morphism:1229",
+              "source_theorem": "ConcreteSyntax.SpecProperties.dfy:ConcatBytes_Morphism:1229",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "source_file": "ConcreteSyntax.SpecProperties.dfy",
+              "nl_description": "concatBytes Morphism",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "JSON.csConcatBytes"
+              ]
+            },
+            {
+              "name": "spec_concatBytes_Linear",
+              "source_id": "ConcreteSyntax.SpecProperties.dfy:ConcatBytes_Linear:1552",
+              "source_theorem": "ConcreteSyntax.SpecProperties.dfy:ConcatBytes_Linear:1552",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "source_file": "ConcreteSyntax.SpecProperties.dfy",
+              "nl_description": "concatBytes Linear",
+              "apis_referenced": [],
+              "spec_helpers_referenced": [
+                "JSON.csConcatBytes"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ZeroCopy/Serializer",
+          "impl": "JsonV2/Impl/ZeroCopy/Serializer.lean",
+          "spec": "JsonV2/Spec/ZeroCopy/Serializer.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "ZeroCopy/Deserializer",
+          "impl": "JsonV2/Impl/ZeroCopy/Deserializer.lean",
+          "spec": "JsonV2/Spec/ZeroCopy/Deserializer.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "ZeroCopy/API",
+          "impl": "JsonV2/Impl/ZeroCopy/API.lean",
+          "spec": "JsonV2/Spec/ZeroCopy/API.lean",
+          "apis": [
+            {
+              "name": "zcApiSerializeAlloc",
+              "sig": "ZCApiSerializeAllocSig",
+              "type": "jSON → SerializationResult (List UInt8)",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "ZeroCopy/API.dfy:SerializeAlloc:700",
+              "semantic_bridge_required": [
+                "zero_copy_mutable_array_projection_to_returned_list",
+                "writer_unsaturated_and_buffer_capacity_preconditions"
+              ],
+              "upstream_name": "JSON.ZeroCopy.API.SerializeAlloc",
+              "nl_description": "Serialize a concrete-syntax JSON tree into a fresh byte array."
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_zcApiSerializeAlloc_always_ok",
+              "source_theorem": "baseline:ZeroCopy/API:spec_zcApiSerializeAlloc_always_ok",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:ZeroCopy/API:spec_zcApiSerializeAlloc_always_ok",
+                "jSON__Valid? precondition restores erased Grammar.JSON refinement types",
+                "writer.Unsaturated? precondition from ZeroCopy.Serializer.Serialize",
+                "ConcreteSyntax.Spec.JSON projection for zero-copy serializer"
+              ],
+              "equivalence_status": "unclear",
+              "curator_intended_truth": "prove",
+              "nl_description": "Zero-copy allocation succeeds on valid concrete-syntax JSON trees and returns their exact concrete-syntax bytes when the serialized bytes fit in the writer length counter.",
+              "apis_referenced": [
+                "zcApiSerializeAlloc"
+              ],
+              "spec_helpers_referenced": [
+                "jSON__Valid?",
+                "zeroCopyJSONBytes"
+              ]
+            },
+            {
+              "name": "spec_zcApiSerializeAlloc_rejects_invalid_grammar",
+              "source_theorem": "baseline:ZeroCopy/API:spec_zcApiSerializeAlloc_rejects_invalid_grammar",
+              "semantic_bridge_required": [
+                "jSON__Valid? precondition restores erased Grammar.JSON refinement types"
+              ],
+              "equivalence_status": "unclear",
+              "curator_intended_truth": "prove",
+              "nl_description": "Zero-copy allocation rejects concrete-syntax JSON trees whose erased Lean grammar tokens fail validity.",
+              "apis_referenced": [
+                "zcApiSerializeAlloc"
+              ],
+              "spec_helpers_referenced": [
+                "jSON__Valid?"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "API",
+          "impl": "JsonV2/Impl/API.lean",
+          "spec": "JsonV2/Spec/API.lean",
+          "apis": [
+            {
+              "name": "apiSerializeAlloc",
+              "sig": "ApiSerializeAllocSig",
+              "type": "JSON → SerializationResult (List UInt8)",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "API.dfy:SerializeAlloc:606",
+              "upstream_name": "JSON.API.SerializeAlloc",
+              "nl_description": "Serialize a high-level JSON value into a freshly allocated byte array."
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_serialize_alloc_null_ok",
+              "source_theorem": "baseline:API:spec_serialize_alloc_null_ok",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:API:spec_serialize_alloc_null_ok"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "serialize alloc null ok",
+              "apis_referenced": [
+                "apiSerializeAlloc"
+              ],
+              "spec_helpers_referenced": []
+            },
+            {
+              "name": "spec_serialize_alloc_bool_ok",
+              "source_theorem": "baseline:API:spec_serialize_alloc_bool_ok",
+              "semantic_bridge_required": [
+                "scope_delta_or_semantic_bridge:API:spec_serialize_alloc_bool_ok"
+              ],
+              "equivalence_status": "weaker",
+              "curator_intended_truth": "prove",
+              "nl_description": "serialize alloc bool ok",
+              "apis_referenced": [
+                "apiSerializeAlloc"
+              ],
+              "spec_helpers_referenced": []
+            }
+          ]
+        },
+        {
+          "name": "Tests",
+          "impl": "JsonV2/Impl/Tests.lean",
+          "spec": "JsonV2/Spec/Tests.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Tutorial",
+          "impl": "JsonV2/Impl/Tutorial.lean",
+          "spec": "JsonV2/Spec/Tutorial.lean",
+          "apis": [],
+          "specs": []
+        }
+      ]
+    }
+  ]
+}

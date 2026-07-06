@@ -1,0 +1,8 @@
+name = "intervaltree"
+version = "0.1.0"
+defaultTargets = ["Intervaltree"]
+
+[[lean_lib]]
+name = "Intervaltree"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

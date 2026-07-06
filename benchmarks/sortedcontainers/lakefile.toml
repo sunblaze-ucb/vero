@@ -1,0 +1,8 @@
+name = "SortedcontainersCore"
+version = "0.1.0"
+defaultTargets = ["SortedcontainersCore"]
+
+[[lean_lib]]
+name = "SortedcontainersCore"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

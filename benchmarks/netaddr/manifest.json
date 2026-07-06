@@ -1,0 +1,116 @@
+{
+  "benchmark_id": "netaddr",
+  "description": "IPv4 CIDR bit-algebra modelled on the `netaddr` library (BSD; ~11.2M downloads/month). Curates the operations that are distinctively netaddr's and have NO stdlib `ipaddress` counterpart: `spanningCidr` (the single smallest aligned CIDR spanning a list of blocks) and `iprangeToCidrs` (the minimal aligned-block decomposition of an inclusive address range), plus the frozen mask anchors containsAddr/networkAddr/broadcast. Every spec is anchored on frozen Nat mask arithmetic (`/`, `*`, `%`, `^`, `==`, `≤`, `<`) over the full `∀ a < 2^32` address domain. `spanningCidr`'s headline set is aligned ∧ full-domain coverage (witness) ∧ MAXIMAL-PREFIX optimality (no aligned block of strictly longer prefix covers every input — kills the `0.0.0.0/0` passthrough), with coversAll/le-each/singleton supports. `iprangeToCidrs`'s headline set is exact two-sided coverage (`covered ↔ lo ≤ a ≤ hi`, full domain) ∧ all-aligned ∧ within-range ∧ NO-ADJACENT-MERGE minimality (no two consecutive outputs are mergeable siblings — kills the all-`/32` over-split), with disjointness, endpoint witnesses, the single-aligned-block fixpoint, and the empty/point edge cases. Maximal-prefix optimality is proved via a longest-common-prefix fold whose agreement invariant is downward-closed; the no-merge minimality hinges on the hidden parent-alignment lemma (a consecutive `/p` pair tiling a `/(p-1)` block forces the lower base aligned to `p-1`, so the greedy `maxBlockAt` would have emitted the bigger block). Deliberately DISTINCT from the sibling `ipaddress` benchmark (which curates `collapse_addresses`): neither spanningCidr nor iprangeToCidrs is a contained-block-removal pass, and there is no round-trip or oracle-copy. Scope: the pure 32-bit bit-algebra core only (no IANA/DNS/glob/nmap I/O, no cidr_merge — the sibling-coalescing merge overlaps ipaddress.collapse and is omitted in favour of the two distinct drivers).",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/netaddr/netaddr",
+    "commit_hash": "d340feab548d948c5dc92cedcb05c69f57f9386e",
+    "path": [
+      "netaddr/ip/__init__.py",
+      "netaddr/strategy/ipv4.py",
+      "netaddr/strategy/__init__.py",
+      "netaddr/core.py"
+    ],
+    "name": "netaddr"
+  },
+  "curation": {
+    "date": "2026-06-30"
+  },
+  "root_package": "Netaddr",
+  "files": {
+    "root_hub": "Netaddr.lean",
+    "harness": "Netaddr/Harness.lean",
+    "test": "Netaddr/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Netaddr",
+      "bundle": "Netaddr/Bundle.lean",
+      "bundle_type": "NetaddrBundle",
+      "repo_impl_field": "netaddr",
+      "modules": [
+        {
+          "name": "Cidr",
+          "impl": "Netaddr/Impl/Cidr.lean",
+          "spec": "Netaddr/Spec/Cidr.lean",
+          "apis": [
+            {
+              "name": "containsAddr",
+              "sig": "ContainsAddrSig",
+              "type": "Addr → Cidr → Bool"
+            },
+            {
+              "name": "networkAddr",
+              "sig": "NetworkAddrSig",
+              "type": "Cidr → Addr"
+            },
+            {
+              "name": "broadcast",
+              "sig": "BroadcastSig",
+              "type": "Cidr → Addr"
+            },
+            {
+              "name": "spanningCidr",
+              "sig": "SpanningCidrSig",
+              "type": "List Cidr → Cidr"
+            },
+            {
+              "name": "iprangeToCidrs",
+              "sig": "IprangeToCidrsSig",
+              "type": "Addr → Addr → List Cidr"
+            }
+          ],
+          "specs": [
+            "spec_contains_iff_range",
+            "spec_network_addr_least",
+            "spec_broadcast_greatest",
+            "spec_network_addr_aligned",
+            "spec_broadcast_eq",
+            "spec_spanning_empty",
+            "spec_spanning_aligned",
+            "spec_spanning_covers",
+            "spec_spanning_maximal_prefix",
+            "spec_spanning_wf",
+            "spec_spanning_coversAll",
+            "spec_spanning_le_each",
+            "spec_spanning_singleton",
+            "spec_iprange_covers_exact",
+            "spec_iprange_all_aligned",
+            "spec_iprange_wf",
+            "spec_iprange_within",
+            "spec_iprange_minimal_no_merge",
+            "spec_iprange_empty",
+            "spec_iprange_point",
+            "spec_iprange_aligned_block",
+            "spec_iprange_disjoint",
+            "spec_iprange_ascending",
+            "spec_iprange_covers_endpoints",
+            "spec_iprange_contiguous",
+            "spec_iprange_head_greedy",
+            "spec_spanning_least_cover",
+            "spec_iprange_cover_count",
+            "spec_iprange_suffix_restarts",
+            "spec_iprange_spanning_roundtrip",
+            "spec_spanning_membership_invariant",
+            "spec_iprange_enumerates_range",
+            "spec_iprange_prefix_base",
+            "spec_iprange_prefix_selfsimilar",
+            "spec_iprange_nodup_count",
+            "spec_iprange_unique_cover",
+            "spec_spanning_head_survivor",
+            "spec_spanning_prefix_unique",
+            "spec_spanning_next_bit_witness",
+            "spec_spanning_ordered_run"
+          ]
+        }
+      ]
+    }
+  ]
+}

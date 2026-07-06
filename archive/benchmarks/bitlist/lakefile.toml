@@ -1,0 +1,8 @@
+name = "Bitlist"
+version = "0.1.0"
+defaultTargets = ["Bitlist"]
+
+[[lean_lib]]
+name = "Bitlist"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

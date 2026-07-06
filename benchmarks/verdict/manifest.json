@@ -1,0 +1,300 @@
+{
+  "benchmark_id": "verdict",
+  "description": "X.509 certificate-chain validator: base64 decoding + ASN.1 parse (opaque) + string normalization + signature verification + chain validation. Translated from the Microsoft Research verdict Verus project.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "verus",
+    "repo_url": "https://github.com/secure-foundations/verdict",
+    "commit_hash": "9bc18bc5a287c1608dcb74a6eee7b9ca94a62b67",
+    "path": "verdict",
+    "name": "verdict"
+  },
+  "curation": {
+    "date": "2026-04-20"
+  },
+  "root_package": "Verdict",
+  "trusted_axioms": [],
+  "files": {
+    "root_hub": "Verdict.lean",
+    "harness": "Verdict/Harness.lean",
+    "test": "Verdict/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Verdict",
+      "bundle": "Verdict/Bundle.lean",
+      "bundle_type": "VerdictBundle",
+      "repo_impl_field": "verdict",
+      "modules": [
+        {
+          "name": "Crypto",
+          "impl": "Verdict/Impl/Crypto.lean",
+          "spec": null,
+          "note": "Trusted opaque primitives — not benchmark tasks. Axioms listed in trusted_axioms.",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Asn1",
+          "impl": "Verdict/Impl/Asn1.lean",
+          "spec": null,
+          "note": "Opaque parser — not a benchmark task.",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "Base64",
+          "impl": "Verdict/Impl/Base64.lean",
+          "spec": "Verdict/Spec/Base64.lean",
+          "apis": [
+            {"name": "charToBits",      "sig": "CharToBitsSig",      "type": "UInt8 → Option (Option UInt8)"},
+            {"name": "decode6Bits",     "sig": "Decode6BitsSig",     "type": "UInt8 → UInt8 → UInt8 → UInt8 → List UInt8"},
+            {"name": "decodeBase64",    "sig": "DecodeBase64Sig",    "type": "Bytes → Option Bytes"},
+            {"name": "parseX509Base64", "sig": "ParseX509Base64Sig", "type": "Bytes → Option Certificate"}
+          ],
+          "specs": [
+            "spec_char_to_bits_upper",
+            "spec_char_to_bits_lower",
+            "spec_char_to_bits_digit",
+            "spec_char_to_bits_plus",
+            "spec_char_to_bits_slash",
+            "spec_char_to_bits_padding",
+            "spec_char_to_bits_reject",
+            "spec_decode_6_bits_length",
+            "spec_decode_6_bits_byte0",
+            "spec_decode_6_bits_byte1",
+            "spec_decode_6_bits_byte2",
+            "spec_decode_base64_length",
+            "spec_parse_x509_base64_pipeline",
+            "spec_decode_base64_empty",
+            "spec_decode_base64_requires_multiple_of_4",
+            "spec_char_to_bits_value_bound"
+          ]
+        },
+        {
+          "name": "Issue",
+          "impl": "Verdict/Impl/Issue.lean",
+          "spec": "Verdict/Spec/Issue.lean",
+          "apis": [
+            {"name": "normalizeString", "sig": "NormalizeStringSig", "type": "String → String"},
+            {"name": "verifySignature", "sig": "VerifySignatureSig", "type": "Certificate → Certificate → Bool"},
+            {"name": "issuedByRaw",     "sig": "IssuedByRawSig",     "type": "Certificate → Certificate → Bool"}
+          ],
+          "specs": [
+            "spec_normalize_ascii_length_bound",
+            "spec_normalize_no_leading_space",
+            "spec_normalize_no_trailing_space",
+            "spec_normalize_empty",
+            "spec_normalize_idempotent",
+            "spec_issued_by_raw_needs_signature",
+            "spec_issued_by_raw_names_match"
+          ]
+        },
+        {
+          "name": "Validator",
+          "impl": "Verdict/Impl/Validator.lean",
+          "spec": "Verdict/Spec/Validator.lean",
+          "apis": [
+            {"name": "isSimplePath",       "sig": "IsSimplePathSig",       "type": "BundlePath → Bool"},
+            {"name": "pathInBounds",       "sig": "PathInBoundsSig",       "type": "BundlePath → Nat → Bool"},
+            {"name": "chainFromPath",      "sig": "ChainFromPathSig",      "type": "List Certificate → BundlePath → Certificate → List Certificate"},
+            {"name": "validateX509Base64", "sig": "ValidateX509Base64Sig", "type": "List Bytes → List Bytes → Task → Except String Bool"}
+          ],
+          "specs": [
+            "spec_is_simple_path_nil",
+            "spec_is_simple_path_singleton",
+            "spec_is_simple_path_not_if_dup",
+            "spec_path_in_bounds_forall",
+            "spec_chain_from_path_shape",
+            "spec_validator_empty_bundle",
+            "spec_validator_sound",
+            "spec_validator_complete",
+            "spec_is_simple_path_tail",
+            "spec_chain_from_path_head"
+          ]
+        },
+        {
+          "name": "PolicyCommon",
+          "impl": "Verdict/Impl/PolicyCommon.lean",
+          "spec": "Verdict/Spec/PolicyCommon.lean",
+          "note": "Shared policy-layer vocabulary (AbstractCertificate, DistinguishedName, matchName, sameDN, checkAuthKeyId, etc.) consumed by Chrome/Firefox/OpenSSL and PolicyStandard. No benchmark APIs — all content is curator-given.",
+          "apis": [],
+          "specs": [
+            "spec_same_attr_normalize",
+            "spec_same_attr_exact",
+            "spec_same_dn_refl",
+            "spec_same_dn_symm",
+            "spec_same_dn_trans",
+            "spec_same_dn_strict_implies_normalized",
+            "spec_same_dn_length_mismatch",
+            "spec_same_dn_iff_same_rdn",
+            "spec_match_name_exact_only",
+            "spec_match_name_wildcard_base",
+            "spec_match_name_wildcard_single_label",
+            "spec_match_name_wildcard_multi_label_rejected",
+            "spec_permit_name_empty_constraint",
+            "spec_permit_name_dot_prefix",
+            "spec_ip_addr_in_range_ipv4",
+            "spec_check_auth_key_id_no_aki",
+            "spec_check_auth_key_id_match",
+            "spec_check_auth_key_id_mismatch",
+            "spec_check_duplicate_extensions_none"
+          ]
+        },
+        {
+          "name": "PolicyChrome",
+          "impl": "Verdict/Impl/PolicyChrome.lean",
+          "spec": "Verdict/Spec/PolicyChrome.lean",
+          "apis": [
+            {"name": "chromeCertVerifiedLeaf",         "sig": "ChromeCertVerifiedLeafSig",         "type": "Verdict.Policy.ChromePolicyEnv → Verdict.Policy.PolicyTask → Verdict.Policy.AbstractCertificate → Verdict.Policy.AbstractCertificate → Bool"},
+            {"name": "chromeCertVerifiedIntermediate", "sig": "ChromeCertVerifiedIntermediateSig", "type": "Verdict.Policy.ChromePolicyEnv → Verdict.Policy.PolicyTask → Verdict.Policy.AbstractCertificate → Nat → Bool"},
+            {"name": "chromeCertVerifiedRoot",         "sig": "ChromeCertVerifiedRootSig",         "type": "Verdict.Policy.ChromePolicyEnv → Verdict.Policy.PolicyTask → Verdict.Policy.AbstractCertificate → Verdict.Policy.AbstractCertificate → Nat → Bool"},
+            {"name": "chromeCheckAllNameConstraints",  "sig": "ChromeCheckAllNameConstraintsSig",  "type": "List Verdict.Policy.AbstractCertificate → Bool"},
+            {"name": "chromeLikelyIssued",             "sig": "ChromeLikelyIssuedSig",             "type": "Verdict.Policy.AbstractCertificate → Verdict.Policy.AbstractCertificate → Bool"},
+            {"name": "chromeValidChain",               "sig": "ChromeValidChainSig",               "type": "Verdict.Policy.ChromePolicyEnv → List Verdict.Policy.AbstractCertificate → Verdict.Policy.PolicyTask → Bool"}
+          ],
+          "specs": [
+            "spec_chrome_valid_chain_min_length",
+            "spec_chrome_valid_chain_leaf",
+            "spec_chrome_valid_chain_name_constraints",
+            "spec_chrome_likely_issued_decompose",
+            "spec_chrome_is_valid_pki_no_dsa",
+            "spec_chrome_strong_signature_rsa_sha256"
+          ]
+        },
+        {
+          "name": "PolicyFirefox",
+          "impl": "Verdict/Impl/PolicyFirefox.lean",
+          "spec": "Verdict/Spec/PolicyFirefox.lean",
+          "apis": [
+            {"name": "firefoxCertVerifiedLeaf",         "sig": "FirefoxCertVerifiedLeafSig",         "type": "Verdict.Policy.FirefoxPolicyEnv → Verdict.Policy.PolicyTask → Verdict.Policy.AbstractCertificate → Bool → Bool"},
+            {"name": "firefoxCertVerifiedIntermediate", "sig": "FirefoxCertVerifiedIntermediateSig", "type": "Verdict.Policy.FirefoxPolicyEnv → Verdict.Policy.PolicyTask → Verdict.Policy.AbstractCertificate → Verdict.Policy.AbstractCertificate → Nat → Bool"},
+            {"name": "firefoxCertVerifiedRoot",         "sig": "FirefoxCertVerifiedRootSig",         "type": "Verdict.Policy.FirefoxPolicyEnv → Verdict.Policy.PolicyTask → Verdict.Policy.AbstractCertificate → Verdict.Policy.AbstractCertificate → Verdict.Policy.AbstractCertificate → Nat → Bool"},
+            {"name": "firefoxCheckAllNameConstraints",  "sig": "FirefoxCheckAllNameConstraintsSig",  "type": "List Verdict.Policy.AbstractCertificate → Bool"},
+            {"name": "firefoxLikelyIssued",             "sig": "FirefoxLikelyIssuedSig",             "type": "Verdict.Policy.AbstractCertificate → Verdict.Policy.AbstractCertificate → Bool"},
+            {"name": "firefoxValidChain",               "sig": "FirefoxValidChainSig",               "type": "Verdict.Policy.FirefoxPolicyEnv → List Verdict.Policy.AbstractCertificate → Verdict.Policy.PolicyTask → Bool"}
+          ],
+          "specs": [
+            "spec_firefox_valid_chain_min_length",
+            "spec_firefox_valid_chain_name_constraints",
+            "spec_firefox_likely_issued_decompose",
+            "spec_firefox_check_eku_leaf_none",
+            "spec_firefox_check_key_usage_leaf_none"
+          ]
+        },
+        {
+          "name": "PolicyOpenSSL",
+          "impl": "Verdict/Impl/PolicyOpenSSL.lean",
+          "spec": "Verdict/Spec/PolicyOpenSSL.lean",
+          "apis": [
+            {"name": "opensslValidLeaf",            "sig": "OpensslValidLeafSig",            "type": "Verdict.Policy.PolicyTask → Verdict.Policy.AbstractCertificate → Bool"},
+            {"name": "opensslValidIntermediate",    "sig": "OpensslValidIntermediateSig",    "type": "Verdict.Policy.PolicyTask → Verdict.Policy.AbstractCertificate → Nat → Bool"},
+            {"name": "opensslValidRoot",            "sig": "OpensslValidRootSig",            "type": "Verdict.Policy.PolicyTask → Verdict.Policy.AbstractCertificate → Nat → Bool"},
+            {"name": "opensslCheckNameConstraints", "sig": "OpensslCheckNameConstraintsSig", "type": "List Verdict.Policy.AbstractCertificate → Bool"},
+            {"name": "opensslCheckHostname",        "sig": "OpensslCheckHostnameSig",        "type": "Verdict.Policy.AbstractCertificate → String → Bool"},
+            {"name": "opensslLikelyIssued",         "sig": "OpensslLikelyIssuedSig",         "type": "Verdict.Policy.AbstractCertificate → Verdict.Policy.AbstractCertificate → Bool"},
+            {"name": "opensslValidChain",           "sig": "OpensslValidChainSig",           "type": "List Verdict.Policy.AbstractCertificate → Verdict.Policy.PolicyTask → Bool"}
+          ],
+          "specs": [
+            "spec_openssl_valid_chain_min_length",
+            "spec_openssl_valid_chain_hostname",
+            "spec_openssl_likely_issued_decompose",
+            "spec_openssl_check_cert_key_level_rsa",
+            "spec_openssl_check_cert_time_valid",
+            "spec_openssl_check_san_none"
+          ]
+        },
+        {
+          "name": "PolicyStandard",
+          "impl": "Verdict/Impl/PolicyStandard.lean",
+          "spec": "Verdict/Spec/PolicyStandard.lean",
+          "note": "RFC 5280 conformance instantiations (Chrome / Firefox / OpenSSL). Impl side holds the 18 Prop-valued trait predicates (vocab); Spec side holds the 44 conformance theorems.",
+          "apis": [],
+          "specs": [
+            "spec_chrome_time_validity",
+            "spec_chrome_sig_alg_consistency",
+            "spec_chrome_basic_constraints_ca",
+            "spec_chrome_path_length_enforced",
+            "spec_chrome_key_usage_ca",
+            "spec_chrome_key_usage_leaf",
+            "spec_chrome_extended_key_usage_leaf",
+            "spec_chrome_unique_extensions",
+            "spec_chrome_strong_signature",
+            "spec_chrome_valid_pki",
+            "spec_chrome_chain_min_length",
+            "spec_chrome_name_constraints_respected",
+            "spec_chrome_authority_key_id_valid",
+            "spec_chrome_not_revoked",
+            "spec_chrome_subject_alt_name_present",
+            "spec_chrome_valid_version",
+            "spec_firefox_time_validity",
+            "spec_firefox_sig_alg_consistency",
+            "spec_firefox_basic_constraints_ca",
+            "spec_firefox_path_length_enforced",
+            "spec_firefox_key_usage_ca",
+            "spec_firefox_key_usage_leaf",
+            "spec_firefox_extended_key_usage_leaf",
+            "spec_firefox_unique_extensions",
+            "spec_firefox_strong_signature",
+            "spec_firefox_chain_min_length",
+            "spec_firefox_name_constraints_respected",
+            "spec_firefox_authority_key_id_valid",
+            "spec_firefox_subject_alt_name_present",
+            "spec_firefox_valid_version",
+            "spec_openssl_time_validity",
+            "spec_openssl_sig_alg_consistency",
+            "spec_openssl_basic_constraints_ca",
+            "spec_openssl_path_length_enforced",
+            "spec_openssl_key_usage_ca",
+            "spec_openssl_key_usage_leaf",
+            "spec_openssl_unique_extensions",
+            "spec_openssl_chain_min_length",
+            "spec_openssl_name_constraints_respected",
+            "spec_openssl_authority_key_id_valid",
+            "spec_openssl_valid_pki",
+            "spec_openssl_subject_alt_name_present",
+            "spec_openssl_hostname_match",
+            "spec_openssl_valid_version"
+          ]
+        },
+        {
+          "name": "Convert",
+          "impl": "Verdict/Impl/Convert.lean",
+          "spec": "Verdict/Spec/Convert.lean",
+          "note": "Certificate AST → policy-layer AbstractCertificate conversion. certFromParsed is opaque (1125 LOC in Verus convert.rs). Specs capture the three preservation properties from Certificate::spec_from ensures.",
+          "apis": [],
+          "specs": [
+            "spec_cert_from_parsed_sig_alg_outer",
+            "spec_cert_from_parsed_sig_alg_inner",
+            "spec_cert_from_parsed_validity"
+          ]
+        },
+        {
+          "name": "Hex",
+          "impl": "Verdict/Impl/Hex.lean",
+          "spec": null,
+          "note": "Hex encoding from verdict/src/hash.rs. `specToHexUpper` is curator-given vocabulary (Verus `closed spec fn spec_to_hex_upper` has a fully-specified recursive body — not a benchmark task). Only the exec-side `toHexUpper` is a benchmark API; the exec/spec agreement spec is `spec_hex_upper_agreement` in Spec/Parser.lean.",
+          "apis": [
+            {"name": "toHexUpper", "sig": "ToHexUpperSig", "type": "Bytes → String"}
+          ],
+          "specs": []
+        },
+        {
+          "name": "Parser",
+          "impl": null,
+          "spec": "Verdict/Spec/Parser.lean",
+          "note": "Residual parser-layer properties not covered in Base64 module: all-padding rejection, parseX509Der determinism, hex encoding agreement (pairs spec/exec from Hex module).",
+          "apis": [],
+          "specs": [
+            "spec_decode_base64_all_padding",
+            "spec_parse_x509_der_deterministic",
+            "spec_hex_upper_agreement"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,412 @@
+{
+  "benchmark_id": "verified_ironkv",
+  "description": null,
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "verus",
+    "repo_url": "https://github.com/verus-lang/verified-ironkv.git",
+    "commit_hash": "08be20c3c35692138b495200ec50d1035666e3a5",
+    "path": "src"
+  },
+  "curation": {
+    "date": "2026-05-30"
+  },
+  "root_package": "VerifiedIronkv",
+  "files": {
+    "root_hub": "VerifiedIronkv.lean",
+    "harness": "VerifiedIronkv/Harness.lean",
+    "test": "VerifiedIronkv/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "VerifiedIronkv",
+      "bundle": "VerifiedIronkv/Bundle.lean",
+      "bundle_type": "VerifiedIronkvBundle",
+      "repo_impl_field": "verifiedIronkv",
+      "modules": [
+        {
+          "name": "VerusExtraCloneV",
+          "impl": "VerifiedIronkv/Impl/VerusExtraCloneV.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "VerusExtraChooseV",
+          "impl": "VerifiedIronkv/Impl/VerusExtraChooseV.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "VerusExtraSeqLibV",
+          "impl": "VerifiedIronkv/Impl/VerusExtraSeqLibV.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "VerusExtraSetLibExtV",
+          "impl": "VerifiedIronkv/Impl/VerusExtraSetLibExtV.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "AbstractEndPointT",
+          "impl": "VerifiedIronkv/Impl/AbstractEndPointT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "ArgsT",
+          "impl": "VerifiedIronkv/Impl/ArgsT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "EnvironmentT",
+          "impl": "VerifiedIronkv/Impl/EnvironmentT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "KeysT",
+          "impl": "VerifiedIronkv/Impl/KeysT.lean",
+          "spec": "VerifiedIronkv/Spec/KeysT.lean",
+          "apis": [
+            {
+              "name": "clone_l151",
+              "sig": "CloneL151Sig",
+              "type": "SHTKey \u2192 SHTKey"
+            }
+          ],
+          "specs": [
+            "spec_clone_l151_preserves_key"
+          ]
+        },
+        {
+          "name": "AbstractParametersT",
+          "impl": "VerifiedIronkv/Impl/AbstractParametersT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "AppInterfaceT",
+          "impl": "VerifiedIronkv/Impl/AppInterfaceT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "IoT",
+          "impl": "VerifiedIronkv/Impl/IoT.lean",
+          "spec": "VerifiedIronkv/Spec/IoT.lean",
+          "apis": [
+            {
+              "name": "valid_physical_address",
+              "sig": "ValidPhysicalAddressSig",
+              "type": "EndPoint \u2192 Bool"
+            },
+            {
+              "name": "send",
+              "sig": "SendSig",
+              "type": "NetClient \u2192 EndPoint \u2192 List Nat \u2192 NetClient \u00d7 Except IronfleetIOError Unit"
+            }
+          ],
+          "specs": [
+            "spec_io_send_updates_state_history_over_trusted_callback",
+            "spec_valid_physical_address_matches_length_bound"
+          ]
+        },
+        {
+          "name": "MainT",
+          "impl": "VerifiedIronkv/Impl/MainT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "HashmapT",
+          "impl": "VerifiedIronkv/Impl/HashmapT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "EndpointHashmapT",
+          "impl": "VerifiedIronkv/Impl/EndpointHashmapT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "DelegationMapT",
+          "impl": "VerifiedIronkv/Impl/DelegationMapT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "DelegationMapV",
+          "impl": "VerifiedIronkv/Impl/DelegationMapV.lean",
+          "spec": "VerifiedIronkv/Spec/DelegationMapV.lean",
+          "apis": [
+            {
+              "name": "get_l1102",
+              "sig": "GetL1102Sig",
+              "type": "{K : Type} \u2192 [KeyTrait K] \u2192 [DecidableEq K] \u2192 DelegationMap K \u2192 K \u2192 ID"
+            },
+            {
+              "name": "set_l1115",
+              "sig": "SetL1115Sig",
+              "type": "{K : Type} \u2192 [KeyTrait K] \u2192 [DecidableEq K] \u2192 DelegationMap K \u2192 KeyIterator K \u2192 KeyIterator K \u2192 ID \u2192 DelegationMap K"
+            },
+            {
+              "name": "range_consistent_impl",
+              "sig": "RangeConsistentImplSig",
+              "type": "{K : Type} \u2192 [KeyTrait K] \u2192 [DecidableEq K] \u2192 DelegationMap K \u2192 KeyIterator K \u2192 KeyIterator K \u2192 ID \u2192 Bool"
+            },
+            {
+              "name": "new_l1053",
+              "sig": "NewL1053Sig",
+              "type": "{K : Type} \u2192 [KeyTrait K] \u2192 [DecidableEq K] \u2192 K \u2192 ID \u2192 DelegationMap K"
+            },
+            {
+              "name": "delegate_for_key_range_is_host_impl",
+              "sig": "DelegateForKeyRangeIsHostImplSig",
+              "type": "DelegationMap CKey \u2192 KeyIterator AbstractKey \u2192 KeyIterator AbstractKey \u2192 ID \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_delegation_map_new_total_default",
+            "spec_delegation_map_get_refines_view",
+            "spec_delegation_map_set_updates_range",
+            "spec_range_consistent_impl_iff_range_consistent",
+            "spec_delegate_for_key_range_is_host_impl_matches_protocol"
+          ]
+        },
+        {
+          "name": "MessageT",
+          "impl": "VerifiedIronkv/Impl/MessageT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "AbstractServiceT",
+          "impl": "VerifiedIronkv/Impl/AbstractServiceT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "SingleMessageT",
+          "impl": "VerifiedIronkv/Impl/SingleMessageT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "CmessageV",
+          "impl": "VerifiedIronkv/Impl/CmessageV.lean",
+          "spec": "VerifiedIronkv/Spec/CmessageV.lean",
+          "apis": [
+            {
+              "name": "is_message_marshallable",
+              "sig": "IsMessageMarshallableSig",
+              "type": "CMessage \u2192 Bool"
+            },
+            {
+              "name": "is_marshallable",
+              "sig": "IsMarshallableSig",
+              "type": "CSingleMessage \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_is_message_marshallable_matches_model",
+            "spec_is_marshallable_matches_model"
+          ]
+        },
+        {
+          "name": "NetworkT",
+          "impl": "VerifiedIronkv/Impl/NetworkT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "SingleDeliveryT",
+          "impl": "VerifiedIronkv/Impl/SingleDeliveryT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "SingleDeliveryStateV",
+          "impl": "VerifiedIronkv/Impl/SingleDeliveryStateV.lean",
+          "spec": "VerifiedIronkv/Spec/SingleDeliveryStateV.lean",
+          "apis": [
+            {
+              "name": "get",
+              "sig": "GetSig",
+              "type": "CSendState \u2192 EndPoint \u2192 Option CAckState"
+            }
+          ],
+          "specs": [
+            "spec_get_matches_hashmap_lookup"
+          ]
+        },
+        {
+          "name": "NetShtV",
+          "impl": "VerifiedIronkv/Impl/NetShtV.lean",
+          "spec": "VerifiedIronkv/Spec/NetShtV.lean",
+          "apis": [
+            {
+              "name": "sht_demarshall_data_method",
+              "sig": "ShtDemarshallDataMethodSig",
+              "type": "List Nat \u2192 CSingleMessage"
+            }
+          ],
+          "specs": [
+            "spec_sht_demarshall_data_method_returns_marshalable"
+          ]
+        },
+        {
+          "name": "HostProtocolT",
+          "impl": "VerifiedIronkv/Impl/HostProtocolT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "MarshalV",
+          "impl": "VerifiedIronkv/Impl/MarshalV.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "MarshalIronshtSpecificV",
+          "impl": "VerifiedIronkv/Impl/MarshalIronshtSpecificV.lean",
+          "spec": "VerifiedIronkv/Spec/MarshalIronshtSpecificV.lean",
+          "apis": [],
+          "specs": [],
+          "spec_helpers": [
+            "spec_sht_key_view_equal_iff_eq",
+            "spec_endpoint_view_equal_iff_view"
+          ]
+        },
+        {
+          "name": "SeqIsUniqueV",
+          "impl": "VerifiedIronkv/Impl/SeqIsUniqueV.lean",
+          "spec": "VerifiedIronkv/Spec/SeqIsUniqueV.lean",
+          "apis": [
+            {
+              "name": "test_unique",
+              "sig": "TestUniqueSig",
+              "type": "List EndPoint \u2192 Bool"
+            },
+            {
+              "name": "endpoints_contain",
+              "sig": "EndpointsContainSig",
+              "type": "List EndPoint \u2192 EndPoint \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_endpoint_sequence_helpers_match_views"
+          ]
+        },
+        {
+          "name": "HostImplV",
+          "impl": "VerifiedIronkv/Impl/HostImplV.lean",
+          "spec": "VerifiedIronkv/Spec/HostImplV.lean",
+          "apis": [
+            {
+              "name": "real_init_impl",
+              "sig": "RealInitImplSig",
+              "type": "NetClient \u2192 Args \u2192 Option HostState"
+            }
+          ],
+          "specs": [
+            "spec_real_init_impl_satisfies_init_ensures"
+          ]
+        },
+        {
+          "name": "HostImplT",
+          "impl": "VerifiedIronkv/Impl/HostImplT.lean",
+          "spec": null,
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "SingleDeliveryModelV",
+          "impl": "VerifiedIronkv/Impl/SingleDeliveryModelV.lean",
+          "spec": "VerifiedIronkv/Spec/SingleDeliveryModelV.lean",
+          "apis": [
+            {
+              "name": "new_impl",
+              "sig": "NewImplSig",
+              "type": "CSingleDelivery \u2192 CPacket \u2192 Bool"
+            },
+            {
+              "name": "receive_real_packet_impl",
+              "sig": "ReceiveRealPacketImplSig",
+              "type": "CSingleDelivery \u2192 CPacket \u2192 CSingleDelivery \u00d7 Bool"
+            },
+            {
+              "name": "should_ack_sigle_message_impl",
+              "sig": "ShouldAckSigleMessageImplSig",
+              "type": "CSingleDelivery \u2192 CPacket \u2192 Bool"
+            },
+            {
+              "name": "maybe_ack_packet_impl",
+              "sig": "MaybeAckPacketImplSig",
+              "type": "CSingleDelivery \u2192 CPacket \u2192 Option CPacket"
+            },
+            {
+              "name": "receive_ack_impl",
+              "sig": "ReceiveAckImplSig",
+              "type": "CSingleDelivery \u2192 CPacket \u2192 CSingleDelivery"
+            },
+            {
+              "name": "send_single_cmessage",
+              "sig": "SendSingleCmessageSig",
+              "type": "CSingleDelivery \u2192 CMessage \u2192 EndPoint \u2192 CSingleDelivery \u00d7 Option CSingleMessage"
+            },
+            {
+              "name": "retransmit_un_acked_packets",
+              "sig": "RetransmitUnAckedPacketsSig",
+              "type": "CSingleDelivery \u2192 EndPoint \u2192 List CPacket"
+            },
+            {
+              "name": "receive_impl",
+              "sig": "ReceiveImplSig",
+              "type": "CSingleDelivery \u2192 CPacket \u2192 CSingleDelivery \u00d7 ReceiveImplResult"
+            }
+          ],
+          "specs": [
+            "spec_new_impl_matches_new_single_message",
+            "spec_receive_ack_impl_matches_receive_ack",
+            "spec_receive_real_packet_impl_matches_receive_real_packet",
+            "spec_should_ack_single_message_impl_matches_model",
+            "spec_maybe_ack_packet_impl_matches_model",
+            "spec_receive_impl_matches_receive",
+            "spec_send_single_cmessage_matches_send_single_message",
+            "spec_retransmit_un_acked_packets_matches_unacked_messages"
+          ]
+        }
+      ]
+    }
+  ]
+}

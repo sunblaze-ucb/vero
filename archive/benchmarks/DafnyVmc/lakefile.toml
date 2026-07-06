@@ -1,0 +1,14 @@
+name = "DafnyVmc"
+version = "0.1.0"
+defaultTargets = ["DafnyVmc"]
+
+[[require]]
+scope = "leanprover-community"
+name = "mathlib"
+rev = "v4.29.1"
+
+[[lean_lib]]
+name = "DafnyVmc"
+srcDir = "."
+roots = ["DafnyVMC"]
+leanOptions = [{ name = "autoImplicit", value = false }]

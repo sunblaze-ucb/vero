@@ -1,0 +1,259 @@
+{
+  "benchmark_id": "heap",
+  "description": "Seven heap data structures from TheAlgorithms/Python: polymorphic max-heap, binary (max) heap, named-node min-heap, binomial heap, skew heap, randomized heap, and a generic heap with decrease-key support.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/TheAlgorithms/Python.git",
+    "commit_hash": "8f1a6b0ca0cbe563ea3f48c43695a07959b923a1",
+    "path": "data_structures/heap/"
+  },
+  "curation": {
+    "date": "2026-04-26"
+  },
+  "root_package": "Heap",
+  "files": {
+    "root_hub": "Heap.lean",
+    "harness": "Heap/Harness.lean",
+    "test": "Heap/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Heap",
+      "bundle": "Heap/Bundle.lean",
+      "bundle_type": "HeapBundle",
+      "repo_impl_field": "heap",
+      "modules": [
+        {
+          "name": "Heap",
+          "impl": "Heap/Impl/Heap.lean",
+          "spec": "Heap/Spec/Heap.lean",
+          "apis": [
+            { "name": "parent_index",   "sig": "ParentIndexSig",   "type": "∀ {α : Type}, Heap α → Nat → Option Nat" },
+            { "name": "left_child_idx", "sig": "LeftChildIdxSig",  "type": "∀ {α : Type}, Heap α → Nat → Option Nat" },
+            { "name": "right_child_idx","sig": "RightChildIdxSig", "type": "∀ {α : Type}, Heap α → Nat → Option Nat" },
+            { "name": "build_max_heap", "sig": "BuildMaxHeapSig",  "type": "∀ {α : Type} [Ord α], Heap α → List α → Heap α" },
+            { "name": "extract_max",    "sig": "ExtractMaxSig",    "type": "∀ {α : Type} [Ord α], Heap α → Option (α × Heap α)" },
+            { "name": "insert",         "sig": "InsertSig",        "type": "∀ {α : Type} [Ord α], Heap α → α → Heap α" },
+            { "name": "heap_sort",      "sig": "HeapSortSig",      "type": "∀ {α : Type} [Ord α], Heap α → Heap α" }
+          ],
+          "spec_helpers": [
+            "spec_helper_is_sorted_asc_int",
+            "spec_helper_is_max_heap_list_int",
+            "spec_build_max_heap_concrete",
+            "spec_extract_max_returns_max",
+            "spec_heap_sort_concrete_sorted",
+            "spec_helper_heap_countInt"
+          ],
+          "specs": [
+            "spec_parent_index_root_none",
+            "spec_parent_index_formula",
+            "spec_left_child_idx_formula",
+            "spec_right_child_idx_formula",
+            "spec_left_right_differ_by_one",
+            "spec_parent_left_inverse",
+            "spec_build_max_heap_size",
+            "spec_build_max_heap_property",
+            "spec_build_max_heap_preserves_multiset",
+            "spec_extract_max_empty",
+            "spec_extract_max_size_decreases",
+            "spec_insert_size_grows",
+            "spec_insert_into_empty",
+            "spec_extract_after_insert_empty",
+            "spec_heap_sort_empty",
+            "spec_heap_sort_singleton",
+            "spec_heap_sort_sorted",
+            "spec_heap_sort_preserves_multiset",
+            "spec_build_max_heap_extract_mem",
+            "spec_build_max_heap_extract_max",
+            "spec_insert_extract_max_ge_inserted",
+            "spec_heap_sort_valid_heap_sorted"
+          ]
+        },
+        {
+          "name": "MaxHeap",
+          "impl": "Heap/Impl/MaxHeap.lean",
+          "spec": "Heap/Spec/MaxHeap.lean",
+          "apis": [
+            { "name": "insert",   "sig": "BinaryHeap.InsertSig",  "type": "BinaryHeap → Int → BinaryHeap" },
+            { "name": "pop",      "sig": "BinaryHeap.PopSig",     "type": "BinaryHeap → Int × BinaryHeap" },
+            { "name": "get_list", "sig": "BinaryHeap.GetListSig", "type": "BinaryHeap → List Int" },
+            { "name": "size",     "sig": "BinaryHeap.SizeSig",    "type": "BinaryHeap → Nat" }
+          ],
+          "spec_helpers": [
+            "spec_maxheap_insert_max_at_root_concrete",
+            "spec_maxheap_pop_returns_max_concrete",
+            "spec_maxheap_pop_singleton_concrete"
+          ],
+          "specs": [
+            "spec_get_list_is_data",
+            "spec_size_is_length",
+            "spec_size_via_get_list",
+            "spec_maxheap_insert_size_grows",
+            "spec_maxheap_insert_into_empty_root",
+            "spec_maxheap_pop_size_shrinks",
+            "spec_maxheap_pop_returns_list_head",
+            "spec_maxheap_insert_get_list_contains",
+            "spec_maxheap_insert_preserves_multiset"
+          ]
+        },
+        {
+          "name": "MinHeap",
+          "impl": "Heap/Impl/MinHeap.lean",
+          "spec": "Heap/Spec/MinHeap.lean",
+          "apis": [
+            { "name": "get_parent_idx",     "sig": "MinHeap.GetParentIdxSig",     "type": "MinHeap → Int → Int" },
+            { "name": "get_left_child_idx", "sig": "MinHeap.GetLeftChildIdxSig",  "type": "MinHeap → Int → Int" },
+            { "name": "get_right_child_idx","sig": "MinHeap.GetRightChildIdxSig", "type": "MinHeap → Int → Int" },
+            { "name": "is_empty",           "sig": "MinHeap.IsEmptySig",          "type": "MinHeap → Bool" }
+          ],
+          "specs": [
+            "spec_get_parent_idx_formula",
+            "spec_get_parent_idx_root",
+            "spec_get_left_child_idx_formula",
+            "spec_get_right_child_idx_formula",
+            "spec_left_then_parent_inverse",
+            "spec_right_then_parent_inverse",
+            "spec_minheap_left_right_differ_by_one",
+            "spec_is_empty_iff_heap_empty"
+          ]
+        },
+        {
+          "name": "BinomialHeap",
+          "impl": "Heap/Impl/BinomialHeap.lean",
+          "spec": "Heap/Spec/BinomialHeap.lean",
+          "apis": [
+            { "name": "insert",     "sig": "BinomialHeap.InsertSig",    "type": "BinomialHeap → Int → BinomialHeap" },
+            { "name": "peek",       "sig": "BinomialHeap.PeekSig",      "type": "BinomialHeap → Int" },
+            { "name": "is_empty",   "sig": "BinomialHeap.IsEmptySig",   "type": "BinomialHeap → Bool" },
+            { "name": "delete_min", "sig": "BinomialHeap.DeleteMinSig", "type": "BinomialHeap → Int × BinomialHeap" }
+          ],
+          "spec_helpers": [
+            "spec_helper_binomial_countInt",
+            "spec_binomialheap_peek_min_concrete",
+            "spec_binomialheap_delete_min_returns_min_concrete"
+          ],
+          "specs": [
+            "spec_binomialheap_is_empty_initial",
+            "spec_binomialheap_is_empty_iff_length_zero",
+            "spec_binomialheap_insert_makes_nonempty",
+            "spec_binomialheap_insert_size_grows",
+            "spec_binomialheap_insert_preserves_multiset",
+            "spec_binomialheap_peek_after_insert_empty",
+            "spec_binomialheap_delete_min_singleton_empties",
+            "spec_binomialheap_delete_min_size_shrinks",
+            "spec_binomialheap_peek_after_insert_le_inserted",
+            "spec_binomialheap_peek_after_insert_le_old_peek",
+            "spec_binomialheap_delete_min_returns_peek",
+            "spec_binomialheap_delete_min_preserves_multiset",
+            "spec_binomialheap_delete_min_next_peek_ge_removed"
+          ]
+        },
+        {
+          "name": "SkewHeap",
+          "impl": "Heap/Impl/SkewHeap.lean",
+          "spec": "Heap/Spec/SkewHeap.lean",
+          "apis": [
+            { "name": "insert", "sig": "SkewHeap.InsertSig", "type": "∀ {α : Type} [Ord α], SkewHeap α → α → SkewHeap α" },
+            { "name": "top",    "sig": "SkewHeap.TopSig",    "type": "∀ {α : Type} [Ord α], SkewHeap α → Option α" },
+            { "name": "pop",    "sig": "SkewHeap.PopSig",    "type": "∀ {α : Type} [Ord α], SkewHeap α → Option α × SkewHeap α" },
+            { "name": "clear",  "sig": "SkewHeap.ClearSig",  "type": "∀ {α : Type}, SkewHeap α → SkewHeap α" }
+          ],
+          "spec_helpers": [
+            "spec_skewheap_top_min_two_concrete",
+            "spec_skewheap_top_min_three_concrete",
+            "spec_skewheap_pop_residue_top_concrete"
+          ],
+          "specs": [
+            "spec_skewheap_top_empty",
+            "spec_skewheap_top_after_insert_empty",
+            "spec_skewheap_pop_empty",
+            "spec_skewheap_pop_after_insert_empty",
+            "spec_skewheap_pop_returns_top",
+            "spec_skewheap_clear_top_none",
+            "spec_skewheap_clear_idempotent",
+            "spec_skewheap_insert_top",
+            "spec_skewheap_pop_next_top_ge_popped"
+          ]
+        },
+        {
+          "name": "RandomizedHeap",
+          "impl": "Heap/Impl/RandomizedHeap.lean",
+          "spec": "Heap/Spec/RandomizedHeap.lean",
+          "apis": [
+            { "name": "insert",         "sig": "RandomizedHeap.InsertSig",       "type": "∀ {α : Type} [Ord α], RandomizedHeap α → α → RandomizedHeap α" },
+            { "name": "top",            "sig": "RandomizedHeap.TopSig",          "type": "∀ {α : Type} [Ord α], RandomizedHeap α → Option α" },
+            { "name": "to_sorted_list", "sig": "RandomizedHeap.ToSortedListSig", "type": "∀ {α : Type} [Ord α], RandomizedHeap α → List α" },
+            { "name": "clear",          "sig": "RandomizedHeap.ClearSig",        "type": "∀ {α : Type}, RandomizedHeap α → RandomizedHeap α" }
+          ],
+          "spec_helpers": [
+            "spec_randomizedheap_to_sorted_list_sorted_concrete"
+          ],
+          "specs": [
+            "spec_randomizedheap_top_empty",
+            "spec_randomizedheap_top_after_insert_empty",
+            "spec_randomizedheap_to_sorted_list_empty",
+            "spec_randomizedheap_to_sorted_list_singleton",
+            "spec_randomizedheap_to_sorted_list_head_is_top",
+            "spec_randomizedheap_clear_top_none",
+            "spec_randomizedheap_clear_to_sorted_list_empty",
+            "spec_randomizedheap_clear_idempotent",
+            "spec_randomizedheap_insert_to_sorted_list_contains",
+            "spec_randomizedheap_to_sorted_list_sorted"
+          ]
+        },
+        {
+          "name": "HeapGeneric",
+          "impl": "Heap/Impl/HeapGeneric.lean",
+          "spec": "Heap/Spec/HeapGeneric.lean",
+          "apis": [
+            { "name": "insert_item",  "sig": "GenericHeap.InsertItemSig",  "type": "GenericHeap → Int → Int → GenericHeap" },
+            { "name": "get_top",      "sig": "GenericHeap.GetTopSig",      "type": "GenericHeap → Option (List Int)" },
+            { "name": "delete_item",  "sig": "GenericHeap.DeleteItemSig",  "type": "GenericHeap → Int → GenericHeap" },
+            { "name": "extract_top",  "sig": "GenericHeap.ExtractTopSig",  "type": "GenericHeap → Option (List Int) × GenericHeap" },
+            { "name": "update_item",  "sig": "GenericHeap.UpdateItemSig",  "type": "GenericHeap → Int → Int → GenericHeap" }
+          ],
+          "spec_helpers": [
+            "spec_genericheap_insert_two_items_top_is_larger_key",
+            "spec_genericheap_extract_top_two_items_returns_max_key",
+            "spec_genericheap_update_changes_key_concrete",
+            "spec_genericheap_update_promotes_item_to_top"
+          ],
+          "specs": [
+            "spec_genericheap_get_top_empty",
+            "spec_genericheap_insert_size_grows",
+            "spec_genericheap_insert_singleton_get_top",
+            "spec_genericheap_delete_missing_no_op",
+            "spec_genericheap_delete_only_item_zeroes_size",
+            "spec_genericheap_delete_only_item_get_top_none",
+            "spec_genericheap_extract_top_empty",
+            "spec_genericheap_extract_top_singleton",
+            "spec_genericheap_update_missing_no_op",
+            "spec_genericheap_extract_top_returns_get_top",
+            "spec_genericheap_extract_top_when_get_top_empty",
+            "spec_genericheap_update_top_item",
+            "spec_genericheap_delete_item_removes_current_top"
+          ]
+        },
+        {
+          "name": "Interfile",
+          "spec": "Heap/Spec/Interfile.lean",
+          "specs": [
+            "spec_interfile_binary_heap_extract_max_agree",
+            "spec_interfile_binary_heap_insert_then_max_ge_inserted",
+            "spec_interfile_binary_heap_observed_size_agree",
+            "spec_interfile_binary_heap_removed_values_mem",
+            "spec_interfile_binomial_skew_insert_top_agree",
+            "spec_interfile_binomial_skew_remove_min_agree",
+            "spec_interfile_randomized_skew_top_agree",
+            "spec_interfile_randomized_skew_clear_top_agree",
+            "spec_interfile_randomized_skew_insert_top_agree"
+          ]
+        }
+      ]
+    }
+  ]
+}

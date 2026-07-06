@@ -1,0 +1,128 @@
+{
+    "benchmark_id": "networkx",
+    "description": "Pure graph-algorithm subset modelled on the networkx library, over an undirected weighted graph Graph := List (Nat × Nat × Nat). Two complementary modules. Components: numConnectedComponents/sameComponent/componentOf — the partition of the nodes into maximal mutually-reachable sets; the obligations pin sameComponent to be the undirected-connectivity equivalence (reflexivity, edge-coherence, symmetry, transitivity, walk-soundness, and component-closure/maximality), and componentOf to be exactly the equivalence class, anchored on a frozen undirected-walk notion (uEdge/isUWalk). Mst: mstWeight/numTreeEdges/subsetWeight — the least total weight of a spanning forest; the headline obligation set is witness ∧ minimality ∧ exact-optimum on mstWeight, anchored on a frozen ground-truth spanning-forest notion (spanningForest = sub-multiset of edges + same-component-partition + acyclic forest edge-count identity, forestWeight = edge-weight sum): the returned weight is realized by an actual spanning forest and is no larger than any spanning forest's weight, so it is pinned to the genuine minimum-spanning-tree weight (a UNIQUE optimum). The reference impls are spec-shaped (fixed-point reachability closure for connectivity; brute-force minimum over all spanning-forest subsets for the MST weight) so soundness is a clean min?-fact, while any real impl (Kruskal/Borůvka/Prim, union-find, BFS) must hit the same optimum. Scope: undirected connectivity and minimum-spanning-forest WEIGHT only — no returned tree edge sequence, mstWeight is a single Nat, edge weights are nonnegative Nat, an edge (u,v,w) connects u and v in either direction. Distinct from the directed single-pair shortest-path-cost dijkstar benchmark and the layered Kahn toposort benchmark.",
+    "lean_version": "4.29.1",
+    "modes_supported": [
+        "proof",
+        "codeproof"
+    ],
+    "source": {
+        "kind": "translated",
+        "language": "python",
+        "repo_url": "https://github.com/networkx/networkx",
+        "commit_hash": "195092869192b762fa553ef3a9ca5758e1d83ee3",
+        "path": [
+            "networkx/algorithms/components/connected.py",
+            "networkx/algorithms/tree/mst.py"
+        ],
+        "name": "networkx"
+    },
+    "curation": {
+        "date": "2026-06-30"
+    },
+    "root_package": "Networkx",
+    "files": {
+        "root_hub": "Networkx.lean",
+        "harness": "Networkx/Harness.lean",
+        "test": "Networkx/Test.lean",
+        "lakefile": "lakefile.toml"
+    },
+    "packages": [
+        {
+            "name": "Networkx",
+            "bundle": "Networkx/Bundle.lean",
+            "bundle_type": "NetworkxBundle",
+            "repo_impl_field": "networkx",
+            "modules": [
+                {
+                    "name": "Components",
+                    "impl": "Networkx/Impl/Components.lean",
+                    "spec": "Networkx/Spec/Components.lean",
+                    "apis": [
+                        {
+                            "name": "numConnectedComponents",
+                            "sig": "NumConnectedComponentsSig",
+                            "type": "Graph → Nat"
+                        },
+                        {
+                            "name": "sameComponent",
+                            "sig": "SameComponentSig",
+                            "type": "Graph → Nat → Nat → Bool"
+                        },
+                        {
+                            "name": "componentOf",
+                            "sig": "ComponentOfSig",
+                            "type": "Graph → Nat → List Nat"
+                        }
+                    ],
+                    "specs": [
+                        "spec_same_component_self",
+                        "spec_same_component_edge",
+                        "spec_same_component_symm",
+                        "spec_same_component_trans",
+                        "spec_same_component_of_walk",
+                        "spec_same_component_complete",
+                        "spec_same_component_closed",
+                        "spec_component_of_mem_iff",
+                        "spec_component_of_self",
+                        "spec_component_of_symm",
+                        "spec_component_of_nodup",
+                        "spec_component_of_sorted",
+                        "spec_component_of_eq_of_same",
+                        "spec_num_components_zero_iff_empty",
+                        "spec_num_components_pos_of_edge",
+                        "spec_num_components_eq_classes",
+                        "spec_component_partition_size_sum",
+                        "spec_component_head_eq_self_iff_min",
+                        "spec_component_of_graph_perm",
+                        "spec_internal_edge_component_frame",
+                        "spec_num_components_graph_perm",
+                        "spec_same_component_graph_perm"
+                    ]
+                },
+                {
+                    "name": "Mst",
+                    "impl": "Networkx/Impl/Mst.lean",
+                    "spec": "Networkx/Spec/Mst.lean",
+                    "apis": [
+                        {
+                            "name": "mstWeight",
+                            "sig": "MstWeightSig",
+                            "type": "Graph → Nat"
+                        },
+                        {
+                            "name": "numTreeEdges",
+                            "sig": "NumTreeEdgesSig",
+                            "type": "Graph → Nat"
+                        },
+                        {
+                            "name": "subsetWeight",
+                            "sig": "SubsetWeightSig",
+                            "type": "Graph → Nat"
+                        }
+                    ],
+                    "specs": [
+                        "spec_mst_minimal",
+                        "spec_mst_witness",
+                        "spec_mst_optimal",
+                        "spec_mst_witness_edges",
+                        "spec_mst_empty",
+                        "spec_subset_weight_correct",
+                        "spec_subset_weight_append",
+                        "spec_subset_weight_nil",
+                        "spec_subset_weight_perm",
+                        "spec_num_tree_edges_identity",
+                        "spec_num_tree_edges_eq_forest",
+                        "spec_frozen_reachset_roundtrip",
+                        "spec_mst_weight_eq_frozen_bruteforce",
+                        "spec_mst_weight_graph_perm",
+                        "spec_mst_self_loop_edge_count",
+                        "spec_same_component_eq_frozen_same_comp",
+                        "spec_component_of_stabilized_class",
+                        "spec_component_of_frozen_reachset_fixpoint"
+                    ]
+                }
+            ]
+        }
+    ]
+}

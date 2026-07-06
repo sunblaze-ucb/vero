@@ -1,0 +1,9 @@
+# iterate=self — retry without eval feedback; agent self-assesses whether it has met the Done condition and keeps working until it believes it is done or we hit the iteration cap.
+#
+# Use when eval is slow/expensive OR when you want to measure how well the agent judges its own completion vs. relying on grader feedback. Note that since eval doesn't run between iters, stop_on_done can never fire — the loop always runs max+1 iterations. For "blind iteration with grading + early stop", use iterate=blind instead.
+
+max: 5
+mode: self
+feedback: true
+stop_on_done: true
+budget_usd: null

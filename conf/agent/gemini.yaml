@@ -1,0 +1,6 @@
+kind: gemini
+model: gemini-3.1-pro-preview
+sandbox_mode: "off"       # "off" | "docker" | "podman" | "seatbelt"
+approval_mode: yolo       # yolo | auto_edit | default | plan
+timeout_seconds: 1800
+config_overrides: []      # reserved for future settings.json injection

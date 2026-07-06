@@ -1,0 +1,8 @@
+name = "Queues"
+version = "0.1.0"
+defaultTargets = ["Queues"]
+
+[[lean_lib]]
+name = "Queues"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

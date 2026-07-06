@@ -1,0 +1,84 @@
+{
+  "benchmark_id": "suffix_tree",
+  "description": "Suffix tree: trie of all suffixes of a text, supporting pattern search.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/TheAlgorithms/Python.git",
+    "commit_hash": "7a0fee401d2990bd5904e94cd5d3a62c50a8b682",
+    "path": "data_structures/suffix_tree/"
+  },
+  "curation": {
+    "date": "2026-04-26"
+  },
+  "root_package": "SuffixTree",
+  "files": {
+    "root_hub": "SuffixTree.lean",
+    "harness": "SuffixTree/Harness.lean",
+    "test": "SuffixTree/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "SuffixTree",
+      "bundle": "SuffixTree/Bundle.lean",
+      "bundle_type": "SuffixTreeBundle",
+      "repo_impl_field": "suffixTree",
+      "modules": [
+        {
+          "name": "SuffixTreeNode",
+          "impl": "SuffixTree/Impl/SuffixTreeNode.lean",
+          "spec": "SuffixTree/Spec/SuffixTreeNode.lean",
+          "apis": [],
+          "specs": []
+        },
+        {
+          "name": "SuffixTree",
+          "impl": "SuffixTree/Impl/SuffixTree.lean",
+          "spec": "SuffixTree/Spec/SuffixTree.lean",
+          "apis": [
+            {
+              "name": "mk",
+              "sig": "MkSig",
+              "type": "String → SuffixTree"
+            },
+            {
+              "name": "buildSuffixTree",
+              "sig": "BuildSuffixTreeSig",
+              "type": "SuffixTree → SuffixTree"
+            },
+            {
+              "name": "addSuffix",
+              "sig": "AddSuffixSig",
+              "type": "SuffixTree → String → Nat → SuffixTree"
+            },
+            {
+              "name": "search",
+              "sig": "SearchSig",
+              "type": "SuffixTree → String → Bool"
+            }
+          ],
+          "spec_helpers": [
+            "spec_helper_isSubstring",
+            "spec_helper_containsChar"
+          ],
+          "specs": [
+            "spec_mk_text_preserved",
+            "spec_mk_has_no_nonempty_matches",
+            "spec_search_empty_pattern_always_true",
+            "spec_buildSuffixTree_preserves_text",
+            "spec_addSuffix_preserves_text",
+            "spec_buildSuffixTree_idempotent",
+            "spec_addSuffix_makes_searchable",
+            "spec_addSuffix_makes_prefixes_searchable",
+            "spec_addSuffix_preserves_existing_searches",
+            "spec_search_matches_substring",
+            "spec_absent_character_not_found"
+          ]
+        }
+      ]
+    }
+  ]
+}

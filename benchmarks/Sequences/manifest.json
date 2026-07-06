@@ -1,0 +1,1792 @@
+{
+  "benchmark_id": "sequences-v2",
+  "description": null,
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "dafny",
+    "repo_url": "https://github.com/dafny-lang/libraries.git",
+    "commit_hash": "b486ff7faadbf306ed7e71386a2b0aeb1e38bd4d",
+    "path": "src/Collections/Sequences"
+  },
+  "curation": {
+    "date": "2026-06-19"
+  },
+  "root_package": "SequencesV2",
+  "files": {
+    "root_hub": "SequencesV2.lean",
+    "harness": "SequencesV2/Harness.lean",
+    "test": "SequencesV2/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "SequencesV2",
+      "bundle": "SequencesV2/Bundle.lean",
+      "bundle_type": "SequencesV2Bundle",
+      "repo_impl_field": "sequences",
+      "modules": [
+        {
+          "name": "Trusted",
+          "impl": "SequencesV2/Impl/Trusted.lean",
+          "spec": "SequencesV2/Spec/Trusted.lean",
+          "apis": [],
+          "specs": [],
+          "spec_metadata": []
+        },
+        {
+          "name": "Seq",
+          "impl": "SequencesV2/Impl/Seq.lean",
+          "spec": "SequencesV2/Spec/Seq.lean",
+          "apis": [
+            {
+              "name": "Seq_First",
+              "sig": "Seq_FirstSig",
+              "type": "{T : Type} → (xs : List T) → xs.length > 0 → T",
+              "upstream_name": "Seq.First",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:First:1086",
+              "opaque": false,
+              "nl_description": "Return the first element of a non-empty sequence."
+            },
+            {
+              "name": "Seq_DropFirst",
+              "sig": "Seq_DropFirstSig",
+              "type": "{T : Type} → (xs : List T) → xs.length > 0 → List T",
+              "upstream_name": "Seq.DropFirst",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:DropFirst:1263",
+              "opaque": false,
+              "nl_description": "Drop the first element of a non-empty sequence."
+            },
+            {
+              "name": "Seq_Last",
+              "sig": "Seq_LastSig",
+              "type": "{T : Type} → (xs : List T) → xs.length > 0 → T",
+              "upstream_name": "Seq.Last",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:Last:1408",
+              "opaque": false,
+              "nl_description": "Return the last element of a non-empty sequence."
+            },
+            {
+              "name": "Seq_DropLast",
+              "sig": "Seq_DropLastSig",
+              "type": "{T : Type} → (xs : List T) → xs.length > 0 → List T",
+              "upstream_name": "Seq.DropLast",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:DropLast:1588",
+              "opaque": false,
+              "nl_description": "Drop the last element of a non-empty sequence."
+            },
+            {
+              "name": "Seq_ToArray",
+              "sig": "Seq_ToArraySig",
+              "type": "{T : Type} → List T → Array T",
+              "upstream_name": "Seq.ToArray",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:ToArray:5014",
+              "opaque": false,
+              "nl_description": "Convert a sequence to an array with the same elements."
+            },
+            {
+              "name": "Seq_IndexOf",
+              "sig": "Seq_IndexOfSig",
+              "type": "{T : Type} → [DecidableEq T] → (xs : List T) → (v : T) → v ∈ xs → Nat",
+              "upstream_name": "Seq.IndexOf",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:IndexOf:8888",
+              "opaque": false,
+              "nl_description": "Return the first index of an element known to occur in a sequence."
+            },
+            {
+              "name": "Seq_IndexOfOption",
+              "sig": "Seq_IndexOfOptionSig",
+              "type": "{T : Type} → [DecidableEq T] → List T → T → Option Nat",
+              "upstream_name": "Seq.IndexOfOption",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:IndexOfOption:9276",
+              "opaque": false,
+              "nl_description": "Return the first index of an element, or none when absent."
+            },
+            {
+              "name": "Seq_LastIndexOf",
+              "sig": "Seq_LastIndexOfSig",
+              "type": "{T : Type} → [DecidableEq T] → (xs : List T) → (v : T) → v ∈ xs → Nat",
+              "upstream_name": "Seq.LastIndexOf",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LastIndexOf:9817",
+              "opaque": false,
+              "nl_description": "Return the last index of an element known to occur in a sequence."
+            },
+            {
+              "name": "Seq_LastIndexOfOption",
+              "sig": "Seq_LastIndexOfOptionSig",
+              "type": "{T : Type} → [DecidableEq T] → List T → T → Option Nat",
+              "upstream_name": "Seq.LastIndexOfOption",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LastIndexOfOption:10227",
+              "opaque": false,
+              "nl_description": "Return the last index of an element, or none when absent."
+            },
+            {
+              "name": "Seq_Remove",
+              "sig": "Seq_RemoveSig",
+              "type": "{T : Type} → (xs : List T) → (pos : Nat) → pos < xs.length → List T",
+              "upstream_name": "Seq.Remove",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:Remove:10669",
+              "opaque": false,
+              "nl_description": "Remove the element at a valid position."
+            },
+            {
+              "name": "Seq_RemoveValue",
+              "sig": "Seq_RemoveValueSig",
+              "type": "{T : Type} → [DecidableEq T] → List T → T → List T",
+              "upstream_name": "Seq.RemoveValue",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:RemoveValue:11148",
+              "opaque": false,
+              "nl_description": "Remove the first occurrence of a value, if present."
+            },
+            {
+              "name": "Seq_Insert",
+              "sig": "Seq_InsertSig",
+              "type": "{T : Type} → (xs : List T) → T → (pos : Nat) → pos ≤ xs.length → List T",
+              "upstream_name": "Seq.Insert",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:Insert:11753",
+              "opaque": false,
+              "nl_description": "Insert a value at a valid sequence position."
+            },
+            {
+              "name": "Seq_Reverse",
+              "sig": "Seq_ReverseSig",
+              "type": "{T : Type} → List T → List T",
+              "upstream_name": "Seq.Reverse",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:Reverse:12364",
+              "opaque": false,
+              "nl_description": "Return the sequence in reverse order."
+            },
+            {
+              "name": "Seq_Repeat",
+              "sig": "Seq_RepeatSig",
+              "type": "{T : Type} → T → Nat → List T",
+              "upstream_name": "Seq.Repeat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:Repeat:12692",
+              "opaque": false,
+              "nl_description": "Return a constant sequence of a given length."
+            },
+            {
+              "name": "Seq_Unzip",
+              "sig": "Seq_UnzipSig",
+              "type": "{A B : Type} → List (A × B) → List A × List B",
+              "upstream_name": "Seq.Unzip",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:Unzip:12994",
+              "opaque": false,
+              "nl_description": "Split a sequence of pairs into the pair of component sequences."
+            },
+            {
+              "name": "Seq_Zip",
+              "sig": "Seq_ZipSig",
+              "type": "{A B : Type} → (xs : List A) → (ys : List B) → xs.length = ys.length → List (A × B)",
+              "upstream_name": "Seq.Zip",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:Zip:13480",
+              "opaque": false,
+              "nl_description": "Zip two equal-length sequences into a sequence of pairs."
+            },
+            {
+              "name": "Seq_Max",
+              "sig": "Seq_MaxSig",
+              "type": "(xs : List Int) → xs.length > 0 → Int",
+              "upstream_name": "Seq.Max",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:Max:14317",
+              "opaque": false,
+              "nl_description": "Return the maximum integer in a non-empty sequence."
+            },
+            {
+              "name": "Seq_Min",
+              "sig": "Seq_MinSig",
+              "type": "(xs : List Int) → xs.length > 0 → Int",
+              "upstream_name": "Seq.Min",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:Min:15185",
+              "opaque": false,
+              "nl_description": "Return the minimum integer in a non-empty sequence."
+            },
+            {
+              "name": "Seq_Flatten",
+              "sig": "Seq_FlattenSig",
+              "type": "{T : Type} → List (List T) → List T",
+              "upstream_name": "Seq.Flatten",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:Flatten:17216",
+              "opaque": false,
+              "nl_description": "Flatten a sequence of sequences from left to right."
+            },
+            {
+              "name": "Seq_FlattenReverse",
+              "sig": "Seq_FlattenReverseSig",
+              "type": "{T : Type} → List (List T) → List T",
+              "upstream_name": "Seq.FlattenReverse",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:FlattenReverse:18188",
+              "opaque": false,
+              "nl_description": "Flatten a sequence of sequences from right to left."
+            },
+            {
+              "name": "Seq_Map",
+              "sig": "Seq_MapSig",
+              "type": "{T R : Type} → (T → R) → List T → List R",
+              "upstream_name": "Seq.Map",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:Map:21114",
+              "opaque": false,
+              "nl_description": "Map a total function over a sequence."
+            },
+            {
+              "name": "Seq_MapWithResult",
+              "sig": "Seq_MapWithResultSig",
+              "type": "{T R E : Type} → (T → Result R E) → List T → Result (List R) E",
+              "upstream_name": "Seq.MapWithResult",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:MapWithResult:22036",
+              "opaque": false,
+              "nl_description": "Map a failure-compatible function over a sequence, stopping at the first failure."
+            },
+            {
+              "name": "Seq_Filter",
+              "sig": "Seq_FilterSig",
+              "type": "{T : Type} → (T → Bool) → List T → List T",
+              "upstream_name": "Seq.Filter",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:Filter:23712",
+              "opaque": false,
+              "nl_description": "Keep the sequence elements satisfying a predicate."
+            },
+            {
+              "name": "Seq_FoldLeft",
+              "sig": "Seq_FoldLeftSig",
+              "type": "{A T : Type} → (A → T → A) → A → List T → A",
+              "upstream_name": "Seq.FoldLeft",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:FoldLeft:25332",
+              "opaque": false,
+              "nl_description": "Fold a sequence from the left."
+            },
+            {
+              "name": "Seq_FoldRight",
+              "sig": "Seq_FoldRightSig",
+              "type": "{A T : Type} → (T → A → A) → List T → A → A",
+              "upstream_name": "Seq.FoldRight",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:FoldRight:27677",
+              "opaque": false,
+              "nl_description": "Fold a sequence from the right."
+            },
+            {
+              "name": "Seq_FlatMap",
+              "sig": "Seq_FlatMapSig",
+              "type": "{T R : Type} → (T → List R) → List T → List R",
+              "upstream_name": "Seq.FlatMap",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:FlatMap:29795",
+              "opaque": false,
+              "nl_description": "Optimized implementation of flattening after mapping."
+            }
+          ],
+          "specs": [
+            {
+              "nl_description": "First returns the element at index 0 of a non-empty sequence.",
+              "lean_form": "∀ {T : Type} (xs : List T) (h : xs.length > 0), impl.sequences.Seq_First xs h = xs.get ⟨0, h⟩",
+              "apis_referenced": [
+                "Seq_First"
+              ],
+              "spec_helpers_referenced": [],
+              "source_theorem": "Seq.First.__ensures_spec",
+              "source_id": null,
+              "role": "scored_spec",
+              "disposition": "scored",
+              "equivalence_status": "equivalent",
+              "semantic_bridge_required": [],
+              "curator_intended_truth": "prove",
+              "name": "spec_Seq_First___ensures_spec"
+            },
+            {
+              "name": "spec_Seq_LemmaLast",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaLast:1887",
+              "source_theorem": "Seq.LemmaLast",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Dropping the last element and appending it reconstructs a non-empty sequence.",
+              "apis_referenced": [
+                "Seq_DropLast",
+                "Seq_Last"
+              ]
+            },
+            {
+              "nl_description": "Last returns the element at index length - 1 of a non-empty sequence.",
+              "lean_form": "∀ {T : Type} (xs : List T) (h : xs.length > 0), impl.sequences.Seq_Last xs h = xs.get ⟨xs.length - 1, Nat.sub_lt h (by decide)⟩",
+              "apis_referenced": [
+                "Seq_Last"
+              ],
+              "spec_helpers_referenced": [],
+              "source_theorem": "Seq.Last.__ensures_spec",
+              "source_id": null,
+              "role": "scored_spec",
+              "disposition": "scored",
+              "equivalence_status": "equivalent",
+              "semantic_bridge_required": [],
+              "curator_intended_truth": "prove",
+              "name": "spec_Seq_Last___ensures_spec"
+            },
+            {
+              "name": "spec_Seq_DropFirst___ensures_spec",
+              "nl_description": "DropFirst returns the suffix after the first element and reconstructs the original sequence with First.",
+              "lean_form": "∀ {T : Type} (xs : List T) (h : xs.length > 0), impl.sequences.Seq_DropFirst xs h = xs.drop 1 ∧ [impl.sequences.Seq_First xs h] ++ impl.sequences.Seq_DropFirst xs h = xs",
+              "apis_referenced": [
+                "Seq_DropFirst",
+                "Seq_First"
+              ],
+              "spec_helpers_referenced": [],
+              "source_theorem": "Seq.DropFirst.__ensures_spec",
+              "source_id": "synthetic:Seq.DropFirst.__ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "equivalence_status": "equivalent",
+              "semantic_bridge_required": [],
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_Seq_LemmaAppendLast",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaAppendLast:2138",
+              "source_theorem": "Seq.LemmaAppendLast",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "The last element of xs ++ ys is the last element of non-empty ys.",
+              "apis_referenced": [
+                "Seq_Last"
+              ]
+            },
+            {
+              "name": "spec_Seq_LemmaConcatIsAssociative",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaConcatIsAssociative:2313",
+              "source_theorem": "Seq.LemmaConcatIsAssociative",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Sequence concatenation is associative.",
+              "apis_referenced": []
+            },
+            {
+              "name": "spec_Seq_LemmaSplitAt",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaSplitAt:3993",
+              "source_theorem": "Seq.LemmaSplitAt",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Splitting a sequence at a valid position and concatenating the slices gives the original sequence.",
+              "apis_referenced": []
+            },
+            {
+              "name": "spec_Seq_LemmaElementFromSlice",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaElementFromSlice:4181",
+              "source_theorem": "Seq.LemmaElementFromSlice",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Elements of a valid slice agree with the corresponding original elements.",
+              "apis_referenced": []
+            },
+            {
+              "name": "spec_Seq_LemmaSliceOfSlice",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaSliceOfSlice:4566",
+              "source_theorem": "Seq.LemmaSliceOfSlice",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "A slice of a slice equals the corresponding direct slice of the original sequence.",
+              "apis_referenced": []
+            },
+            {
+              "name": "spec_Seq_LemmaCardinalityOfSet",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaCardinalityOfSet:5482",
+              "source_theorem": "Seq.LemmaCardinalityOfSet",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "The set of elements of a sequence has cardinality at most the sequence length.",
+              "apis_referenced": []
+            },
+            {
+              "name": "spec_Seq_LemmaCardinalityOfEmptySetIs0",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaCardinalityOfEmptySetIs0:5833",
+              "source_theorem": "Seq.LemmaCardinalityOfEmptySetIs0",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Converting a sequence to a set is empty exactly when the sequence is empty.",
+              "apis_referenced": []
+            },
+            {
+              "name": "spec_Seq_LemmaNoDuplicatesInConcat",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaNoDuplicatesInConcat:6420",
+              "source_theorem": "Seq.LemmaNoDuplicatesInConcat",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Concatenating two duplicate-free disjoint sequences preserves no-duplicates.",
+              "apis_referenced": []
+            },
+            {
+              "name": "spec_Seq_LemmaCardinalityOfSetNoDuplicates",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaCardinalityOfSetNoDuplicates:7049",
+              "source_theorem": "Seq.LemmaCardinalityOfSetNoDuplicates",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "A duplicate-free sequence has the same cardinality as its set of elements.",
+              "apis_referenced": []
+            },
+            {
+              "name": "spec_Seq_LemmaNoDuplicatesCardinalityOfSet",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaNoDuplicatesCardinalityOfSet:7455",
+              "source_theorem": "Seq.LemmaNoDuplicatesCardinalityOfSet",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "If a sequence and its set of elements have the same cardinality, the sequence has no duplicates.",
+              "apis_referenced": []
+            },
+            {
+              "name": "spec_Seq_LemmaMultisetHasNoDuplicates",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaMultisetHasNoDuplicates:8303",
+              "source_theorem": "Seq.LemmaMultisetHasNoDuplicates",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Each element of a duplicate-free sequence occurs exactly once.",
+              "apis_referenced": []
+            },
+            {
+              "name": "spec_Seq_ToArray___ensures_spec",
+              "nl_description": "ToArray preserves sequence length and every element position.",
+              "lean_form": "∀ {T : Type} (xs : List T), let arr := impl.sequences.Seq_ToArray xs; arr.size = xs.length ∧ ∀ i, i < xs.length → arr[i]? = xs[i]?",
+              "apis_referenced": [
+                "Seq_ToArray"
+              ],
+              "spec_helpers_referenced": [],
+              "source_theorem": "Seq.ToArray.__ensures_spec",
+              "source_id": "synthetic:Seq.ToArray.__ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "equivalence_status": "equivalent",
+              "semantic_bridge_required": [
+                "Dafny arrays are represented by Lean Array values; freshness is runtime allocation and is not a scored observable in Lean."
+              ],
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_Seq_IndexOf___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.IndexOf.__ensures_spec",
+              "source_theorem": "Seq.IndexOf.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "IndexOf returns the first valid index containing the requested value.",
+              "apis_referenced": [
+                "Seq_IndexOf"
+              ]
+            },
+            {
+              "name": "spec_Seq_IndexOfOption___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.IndexOfOption.__ensures_spec",
+              "source_theorem": "Seq.IndexOfOption.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "IndexOfOption returns the first index when present and none exactly when absent.",
+              "apis_referenced": [
+                "Seq_IndexOfOption"
+              ]
+            },
+            {
+              "name": "spec_Seq_LastIndexOf___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.LastIndexOf.__ensures_spec",
+              "source_theorem": "Seq.LastIndexOf.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "LastIndexOf returns the last valid index containing the requested value.",
+              "apis_referenced": [
+                "Seq_LastIndexOf"
+              ]
+            },
+            {
+              "name": "spec_Seq_LastIndexOfOption___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.LastIndexOfOption.__ensures_spec",
+              "source_theorem": "Seq.LastIndexOfOption.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "LastIndexOfOption returns the last index when present and none exactly when absent.",
+              "apis_referenced": [
+                "Seq_LastIndexOfOption"
+              ]
+            },
+            {
+              "name": "spec_Seq_Remove___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.Remove.__ensures_spec",
+              "source_theorem": "Seq.Remove.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Removing at a valid position shortens the sequence and preserves surrounding elements.",
+              "apis_referenced": [
+                "Seq_Remove"
+              ]
+            },
+            {
+              "name": "spec_Seq_RemoveValue___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.RemoveValue.__ensures_spec",
+              "source_theorem": "Seq.RemoveValue.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "RemoveValue returns the sequence obtained by removing the first occurrence of the value, or the original sequence when absent.",
+              "apis_referenced": [
+                "Seq_RemoveValue"
+              ],
+              "lean_form": "∀ {T : Type} [DecidableEq T] (xs : List T) (v : T), let ys := impl.sequences.Seq_RemoveValue xs v; ys = xs.erase v ∧ (v ∉ xs → ys = xs) ∧ (v ∈ xs → Seq_Count v ys + 1 = Seq_Count v xs) ∧ (∀ x : T, x ≠ v → Seq_Count x ys = Seq_Count x xs) ∧ (Seq_HasNoDuplicates xs → Seq_HasNoDuplicates ys ∧ Seq_ToSet ys = (Seq_ToSet xs).filter (fun x => x ≠ v))"
+            },
+            {
+              "name": "spec_Seq_Insert___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.Insert.__ensures_spec",
+              "source_theorem": "Seq.Insert.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Insert adds an element at the requested position and preserves the multiset.",
+              "apis_referenced": [
+                "Seq_Insert"
+              ]
+            },
+            {
+              "name": "spec_Seq_Reverse___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.Reverse.__ensures_spec",
+              "source_theorem": "Seq.Reverse.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Reverse has the same length and mirrors element positions.",
+              "apis_referenced": [
+                "Seq_Reverse"
+              ]
+            },
+            {
+              "name": "spec_Seq_Repeat___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.Repeat.__ensures_spec",
+              "source_theorem": "Seq.Repeat.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Repeat creates a constant sequence of the requested length.",
+              "apis_referenced": [
+                "Seq_Repeat"
+              ]
+            },
+            {
+              "name": "spec_Seq_Unzip___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.Unzip.__ensures_spec",
+              "source_theorem": "Seq.Unzip.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Unzip produces equal-length component sequences that reconstruct each source pair.",
+              "apis_referenced": [
+                "Seq_Unzip"
+              ]
+            },
+            {
+              "name": "spec_Seq_Zip___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.Zip.__ensures_spec",
+              "source_theorem": "Seq.Zip.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Zip creates pair elements and unzipping the result recovers the inputs.",
+              "apis_referenced": [
+                "Seq_Zip",
+                "Seq_Unzip"
+              ]
+            },
+            {
+              "name": "spec_Seq_LemmaZipOfUnzip",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaZipOfUnzip:13970",
+              "source_theorem": "Seq.LemmaZipOfUnzip",
+              "semantic_bridge_required": [
+                "The proof argument to Zip corresponds to the Unzip length ensures clause."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Unzipping and then zipping a sequence of pairs recovers the original sequence.",
+              "apis_referenced": [
+                "Seq_Unzip",
+                "Seq_Zip"
+              ]
+            },
+            {
+              "name": "spec_Seq_Max___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.Max.__ensures_spec",
+              "source_theorem": "Seq.Max.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Max returns an element of the non-empty sequence that is at least every element.",
+              "apis_referenced": [
+                "Seq_Max"
+              ]
+            },
+            {
+              "name": "spec_Seq_LemmaMaxOfConcat",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaMaxOfConcat:14714",
+              "source_theorem": "Seq.LemmaMaxOfConcat",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "The maximum of a concatenation is at least the maximum of each non-empty side and all elements.",
+              "apis_referenced": [
+                "Seq_Max"
+              ]
+            },
+            {
+              "name": "spec_Seq_Min___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.Min.__ensures_spec",
+              "source_theorem": "Seq.Min.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Min returns an element of the non-empty sequence that is at most every element.",
+              "apis_referenced": [
+                "Seq_Min"
+              ]
+            },
+            {
+              "name": "spec_Seq_LemmaMinOfConcat",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaMinOfConcat:15579",
+              "source_theorem": "Seq.LemmaMinOfConcat",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "The minimum of a concatenation is at most the minimum of each non-empty side and all elements.",
+              "apis_referenced": [
+                "Seq_Min"
+              ]
+            },
+            {
+              "name": "spec_Seq_LemmaSubseqMax",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaSubseqMax:16067",
+              "source_theorem": "Seq.LemmaSubseqMax",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "The maximum of a non-empty slice is bounded by the maximum of the full non-empty sequence.",
+              "apis_referenced": [
+                "Seq_Max"
+              ]
+            },
+            {
+              "name": "spec_Seq_LemmaSubseqMin",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaSubseqMin:16564",
+              "source_theorem": "Seq.LemmaSubseqMin",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "The minimum of a non-empty slice is bounded below by the minimum of the full non-empty sequence.",
+              "apis_referenced": [
+                "Seq_Min"
+              ]
+            },
+            {
+              "nl_description": "Flatten returns the source-order concatenation of all component sequences.",
+              "lean_form": "∀ {T : Type} (xs : List (List T)), impl.sequences.Seq_Flatten xs = xs.flatten",
+              "apis_referenced": [
+                "Seq_Flatten"
+              ],
+              "spec_helpers_referenced": [],
+              "source_theorem": "Seq.Flatten.__ensures_spec",
+              "source_id": null,
+              "role": "scored_spec",
+              "disposition": "scored",
+              "equivalence_status": "equivalent",
+              "semantic_bridge_required": [],
+              "curator_intended_truth": "prove",
+              "name": "spec_Seq_Flatten___ensures_spec"
+            },
+            {
+              "nl_description": "FlattenReverse computes the same source-order flattened sequence by recursing from the right.",
+              "lean_form": "∀ {T : Type} (xs : List (List T)), impl.sequences.Seq_FlattenReverse xs = xs.flatten",
+              "apis_referenced": [
+                "Seq_FlattenReverse"
+              ],
+              "spec_helpers_referenced": [],
+              "source_theorem": "Seq.FlattenReverse.__ensures_spec",
+              "source_id": null,
+              "role": "scored_spec",
+              "disposition": "scored",
+              "equivalence_status": "equivalent",
+              "semantic_bridge_required": [],
+              "curator_intended_truth": "prove",
+              "name": "spec_Seq_FlattenReverse___ensures_spec"
+            },
+            {
+              "name": "spec_Seq_LemmaFlattenConcat",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaFlattenConcat:17582",
+              "source_theorem": "Seq.LemmaFlattenConcat",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Flatten distributes over sequence concatenation.",
+              "apis_referenced": [
+                "Seq_Flatten"
+              ]
+            },
+            {
+              "name": "spec_Seq_LemmaFlattenReverseConcat",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaFlattenReverseConcat:18634",
+              "source_theorem": "Seq.LemmaFlattenReverseConcat",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Reverse-order flattening distributes over sequence concatenation.",
+              "apis_referenced": [
+                "Seq_FlattenReverse"
+              ]
+            },
+            {
+              "name": "spec_Seq_LemmaFlattenAndFlattenReverseAreEquivalent",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaFlattenAndFlattenReverseAreEquivalent:19383",
+              "source_theorem": "Seq.LemmaFlattenAndFlattenReverseAreEquivalent",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Left-to-right and right-to-left flattening produce the same flattened sequence.",
+              "apis_referenced": [
+                "Seq_Flatten",
+                "Seq_FlattenReverse"
+              ]
+            },
+            {
+              "name": "spec_Seq_LemmaFlattenLengthGeSingleElementLength",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaFlattenLengthGeSingleElementLength:20078",
+              "source_theorem": "Seq.LemmaFlattenLengthGeSingleElementLength",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "The flattened length is at least the length of any component sequence.",
+              "apis_referenced": [
+                "Seq_FlattenReverse"
+              ]
+            },
+            {
+              "name": "spec_Seq_LemmaFlattenLengthLeMul",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaFlattenLengthLeMul:20521",
+              "source_theorem": "Seq.LemmaFlattenLengthLeMul",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "The flattened length is bounded by the number of sequences times a uniform component-length bound.",
+              "apis_referenced": [
+                "Seq_FlattenReverse"
+              ]
+            },
+            {
+              "name": "spec_Seq_FlatMap___ensures_spec",
+              "nl_description": "FlatMap is the optimized implementation of Flatten(Map f xs) and equals List.flatMap.",
+              "lean_form": "∀ {T R : Type} (f : T → List R) (xs : List T), impl.sequences.Seq_FlatMap f xs = xs.flatMap f ∧ impl.sequences.Seq_FlatMap f xs = impl.sequences.Seq_Flatten (impl.sequences.Seq_Map f xs)",
+              "apis_referenced": [
+                "Seq_FlatMap",
+                "Seq_Flatten",
+                "Seq_Map"
+              ],
+              "spec_helpers_referenced": [],
+              "source_theorem": "Seq.FlatMap.__body_spec",
+              "source_id": "Seq.dfy:FlatMap:30504",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "equivalence_status": "equivalent",
+              "semantic_bridge_required": [
+                "Dafny partial function arguments are represented as total Lean functions."
+              ],
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_Seq_Map___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.Map.__ensures_spec",
+              "source_theorem": "Seq.Map.__ensures_spec",
+              "semantic_bridge_required": [
+                "Dafny partial function arguments are represented as total Lean functions."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Map preserves length and applies the function pointwise.",
+              "apis_referenced": [
+                "Seq_Map"
+              ]
+            },
+            {
+              "name": "spec_Seq_MapWithResult___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.MapWithResult.__ensures_spec",
+              "source_theorem": "Seq.MapWithResult.__ensures_spec",
+              "semantic_bridge_required": [
+                "Dafny failure-compatible update syntax is modeled by an explicit Result inductive."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "MapWithResult succeeds pointwise or returns the first failure produced while scanning the input sequence from left to right.",
+              "apis_referenced": [
+                "Seq_MapWithResult"
+              ],
+              "lean_form": "∀ {T R E : Type} (f : T → Result R E) (xs : List T), match impl.sequences.Seq_MapWithResult f xs with | Result.Success result => result.length = xs.length ∧ ∀ i, i < xs.length → ∃ v, f <$> xs[i]? = some (Result.Success v) ∧ result[i]? = some v | Result.Failure e => ∃ i, i < xs.length ∧ f <$> xs[i]? = some (Result.Failure e) ∧ ∀ j, j < i → ∃ v, f <$> xs[j]? = some (Result.Success v)"
+            },
+            {
+              "name": "spec_Seq_LemmaMapDistributesOverConcat",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaMapDistributesOverConcat:22925",
+              "source_theorem": "Seq.LemmaMapDistributesOverConcat",
+              "semantic_bridge_required": [
+                "Dafny partial function arguments are represented as total Lean functions."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Map distributes over sequence concatenation.",
+              "apis_referenced": [
+                "Seq_Map"
+              ]
+            },
+            {
+              "name": "spec_Seq_Filter___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.Filter.__ensures_spec",
+              "source_theorem": "Seq.Filter.__ensures_spec",
+              "semantic_bridge_required": [
+                "Dafny partial predicate arguments are represented as total Lean predicates."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Filter returns exactly the source-order subsequence satisfying the predicate.",
+              "apis_referenced": [
+                "Seq_Filter"
+              ],
+              "lean_form": "∀ {T : Type} (f : T → Bool) (xs : List T), impl.sequences.Seq_Filter f xs = xs.filter f"
+            },
+            {
+              "name": "spec_Seq_LemmaFilterDistributesOverConcat",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaFilterDistributesOverConcat:24374",
+              "source_theorem": "Seq.LemmaFilterDistributesOverConcat",
+              "semantic_bridge_required": [
+                "Dafny partial predicate arguments are represented as total Lean predicates."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Filter distributes over sequence concatenation.",
+              "apis_referenced": [
+                "Seq_Filter"
+              ]
+            },
+            {
+              "nl_description": "FoldLeft is the ordinary left fold over the input sequence.",
+              "lean_form": "∀ {A T : Type} (f : A → T → A) (init : A) (xs : List T), impl.sequences.Seq_FoldLeft f init xs = xs.foldl f init",
+              "apis_referenced": [
+                "Seq_FoldLeft"
+              ],
+              "spec_helpers_referenced": [],
+              "source_theorem": "Seq.FoldLeft.__ensures_spec",
+              "source_id": null,
+              "role": "scored_spec",
+              "disposition": "scored",
+              "equivalence_status": "equivalent",
+              "semantic_bridge_required": [],
+              "curator_intended_truth": "prove",
+              "name": "spec_Seq_FoldLeft___ensures_spec"
+            },
+            {
+              "name": "spec_Seq_LemmaFoldLeftDistributesOverConcat",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaFoldLeftDistributesOverConcat:25754",
+              "source_theorem": "Seq.LemmaFoldLeftDistributesOverConcat",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "FoldLeft over concatenation equals folding the left side then the right side.",
+              "apis_referenced": [
+                "Seq_FoldLeft"
+              ]
+            },
+            {
+              "name": "spec_Seq_LemmaInvFoldLeft",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaInvFoldLeft:26952",
+              "source_theorem": "Seq.LemmaInvFoldLeft",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "A left-fold invariant is preserved through FoldLeft.",
+              "apis_referenced": [
+                "Seq_FoldLeft"
+              ]
+            },
+            {
+              "nl_description": "FoldRight is the ordinary right fold over the input sequence.",
+              "lean_form": "∀ {A T : Type} (f : T → A → A) (xs : List T) (init : A), impl.sequences.Seq_FoldRight f xs init = xs.foldr f init",
+              "apis_referenced": [
+                "Seq_FoldRight"
+              ],
+              "spec_helpers_referenced": [],
+              "source_theorem": "Seq.FoldRight.__ensures_spec",
+              "source_id": null,
+              "role": "scored_spec",
+              "disposition": "scored",
+              "equivalence_status": "equivalent",
+              "semantic_bridge_required": [],
+              "curator_intended_truth": "prove",
+              "name": "spec_Seq_FoldRight___ensures_spec"
+            },
+            {
+              "name": "spec_Seq_LemmaFoldRightDistributesOverConcat",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaFoldRightDistributesOverConcat:28122",
+              "source_theorem": "Seq.LemmaFoldRightDistributesOverConcat",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "FoldRight over concatenation folds the right side into the initial accumulator and then folds the left side.",
+              "apis_referenced": [
+                "Seq_FoldRight"
+              ]
+            },
+            {
+              "name": "spec_Seq_LemmaInvFoldRight",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "Seq.dfy:LemmaInvFoldRight:29178",
+              "source_theorem": "Seq.LemmaInvFoldRight",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "A right-fold invariant is preserved through FoldRight.",
+              "apis_referenced": [
+                "Seq_FoldRight"
+              ]
+            }
+          ],
+          "spec_metadata": []
+        },
+        {
+          "name": "MergeSort",
+          "impl": "SequencesV2/Impl/MergeSort.lean",
+          "spec": "SequencesV2/Spec/MergeSort.lean",
+          "apis": [
+            {
+              "name": "Seq_MergeSort_MergeSortBy",
+              "sig": "Seq_MergeSort_MergeSortBySig",
+              "type": "{T : Type} → (a : List T) → (lessThanOrEq : T → T → Bool) → Relations_TotalOrdering lessThanOrEq → List T",
+              "upstream_name": "Seq.MergeSort.MergeSortBy",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "MergeSort.dfy:MergeSortBy:518",
+              "opaque": false,
+              "nl_description": "Sort a sequence with respect to a total ordering."
+            },
+            {
+              "name": "Seq_MergeSort_MergeSortedWith",
+              "sig": "Seq_MergeSort_MergeSortedWithSig",
+              "type": "{T : Type} → (left right : List T) → (lessThanOrEq : T → T → Bool) → Relations_SortedBy left lessThanOrEq → Relations_SortedBy right lessThanOrEq → Relations_TotalOrdering lessThanOrEq → List T",
+              "upstream_name": "Seq.MergeSort.MergeSortedWith",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "MergeSort.dfy:MergeSortedWith:1087",
+              "opaque": false,
+              "nl_description": "Merge two sorted sequences while preserving sortedness and elements."
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_Seq_MergeSort_MergeSortBy___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.MergeSort.MergeSortBy.__ensures_spec",
+              "source_theorem": "Seq.MergeSort.MergeSortBy.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "MergeSortBy preserves the multiset and returns a sorted sequence.",
+              "apis_referenced": [
+                "Seq_MergeSort_MergeSortBy"
+              ]
+            },
+            {
+              "name": "spec_Seq_MergeSort_MergeSortedWith___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:Seq.MergeSort.MergeSortedWith.__ensures_spec",
+              "source_theorem": "Seq.MergeSort.MergeSortedWith.__ensures_spec",
+              "semantic_bridge_required": [],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "MergeSortedWith preserves the multiset of both inputs and returns a sorted sequence.",
+              "apis_referenced": [
+                "Seq_MergeSort_MergeSortedWith"
+              ]
+            }
+          ],
+          "spec_metadata": []
+        },
+        {
+          "name": "LittleEndianNat",
+          "impl": "SequencesV2/Impl/LittleEndianNat.lean",
+          "spec": "SequencesV2/Spec/LittleEndianNat.lean",
+          "apis": [
+            {
+              "name": "LittleEndianNat_ToNatRight",
+              "sig": "LittleEndianNat_ToNatRightSig",
+              "type": "(model : LittleEndianNat_Model) → List LittleEndianNat_uint → Nat",
+              "upstream_name": "LittleEndianNat.ToNatRight",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:ToNatRight:1313",
+              "opaque": false,
+              "nl_description": "Interpret a little-endian sequence from least significant to most significant."
+            },
+            {
+              "name": "LittleEndianNat_ToNatLeft",
+              "sig": "LittleEndianNat_ToNatLeftSig",
+              "type": "(model : LittleEndianNat_Model) → List LittleEndianNat_uint → Nat",
+              "upstream_name": "LittleEndianNat.ToNatLeft",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:ToNatLeft:1576",
+              "opaque": false,
+              "nl_description": "Interpret a little-endian sequence from most significant to least significant."
+            },
+            {
+              "name": "LittleEndianNat_FromNat",
+              "sig": "LittleEndianNat_FromNatSig",
+              "type": "(model : LittleEndianNat_Model) → Nat → List LittleEndianNat_uint",
+              "upstream_name": "LittleEndianNat.FromNat",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:FromNat:10700",
+              "opaque": false,
+              "nl_description": "Convert a natural number to its little-endian digit sequence."
+            },
+            {
+              "name": "LittleEndianNat_SeqExtend",
+              "sig": "LittleEndianNat_SeqExtendSig",
+              "type": "(model : LittleEndianNat_Model) → (xs : List LittleEndianNat_uint) → (n : Nat) → xs.length ≤ n → List LittleEndianNat_uint",
+              "upstream_name": "LittleEndianNat.SeqExtend",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:SeqExtend:12224",
+              "opaque": false,
+              "nl_description": "Extend a digit sequence with trailing zeros to a specified length."
+            },
+            {
+              "name": "LittleEndianNat_SeqExtendMultiple",
+              "sig": "LittleEndianNat_SeqExtendMultipleSig",
+              "type": "(model : LittleEndianNat_Model) → (xs : List LittleEndianNat_uint) → (n : Nat) → n > 0 → List LittleEndianNat_uint",
+              "upstream_name": "LittleEndianNat.SeqExtendMultiple",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:SeqExtendMultiple:12558",
+              "opaque": false,
+              "nl_description": "Extend a digit sequence to a length that is a multiple of n."
+            },
+            {
+              "name": "LittleEndianNat_FromNatWithLen",
+              "sig": "LittleEndianNat_FromNatWithLenSig",
+              "type": "(model : LittleEndianNat_Model) → (n len : Nat) → PowNat (LittleEndianNat_BASE model) len > n → List LittleEndianNat_uint",
+              "upstream_name": "LittleEndianNat.FromNatWithLen",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:FromNatWithLen:13018",
+              "opaque": false,
+              "nl_description": "Convert a natural number to a little-endian digit sequence of a specified length."
+            },
+            {
+              "name": "LittleEndianNat_SeqZero",
+              "sig": "LittleEndianNat_SeqZeroSig",
+              "type": "(model : LittleEndianNat_Model) → Nat → List LittleEndianNat_uint",
+              "upstream_name": "LittleEndianNat.SeqZero",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:SeqZero:13754",
+              "opaque": false,
+              "nl_description": "Generate a little-endian zero sequence of a specified length."
+            },
+            {
+              "name": "LittleEndianNat_SeqAdd",
+              "sig": "LittleEndianNat_SeqAddSig",
+              "type": "(model : LittleEndianNat_Model) → (xs ys : List LittleEndianNat_uint) → xs.length = ys.length → List LittleEndianNat_uint × Nat",
+              "upstream_name": "LittleEndianNat.SeqAdd",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:SeqAdd:14965",
+              "opaque": false,
+              "nl_description": "Add two equal-length little-endian digit sequences and return digits plus carry."
+            },
+            {
+              "name": "LittleEndianNat_SeqSub",
+              "sig": "LittleEndianNat_SeqSubSig",
+              "type": "(model : LittleEndianNat_Model) → (xs ys : List LittleEndianNat_uint) → xs.length = ys.length → List LittleEndianNat_uint × Nat",
+              "upstream_name": "LittleEndianNat.SeqSub",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:SeqSub:16982",
+              "opaque": false,
+              "nl_description": "Subtract two equal-length little-endian digit sequences and return digits plus borrow."
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_LittleEndianNat_LemmaToNatLeftEqToNatRight",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:LemmaToNatLeftEqToNatRight:1876",
+              "source_theorem": "LittleEndianNat.LemmaToNatLeftEqToNatRight",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "The two definitions of little-endian numeric interpretation agree.",
+              "apis_referenced": [
+                "LittleEndianNat_ToNatRight",
+                "LittleEndianNat_ToNatLeft"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_LemmaSeqLen1",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:LemmaSeqLen1:3780",
+              "source_theorem": "LittleEndianNat.LemmaSeqLen1",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "A one-digit sequence denotes its first digit.",
+              "apis_referenced": [
+                "LittleEndianNat_ToNatRight",
+                "Seq_First"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_LemmaSeqLen2",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:LemmaSeqLen2:4052",
+              "source_theorem": "LittleEndianNat.LemmaSeqLen2",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "A two-digit sequence denotes low digit plus high digit times the base.",
+              "apis_referenced": [
+                "LittleEndianNat_ToNatRight",
+                "Seq_First"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_LemmaSeqAppendZero",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:LemmaSeqAppendZero:4315",
+              "source_theorem": "LittleEndianNat.LemmaSeqAppendZero",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Appending a zero most-significant digit does not change the numeric interpretation.",
+              "apis_referenced": [
+                "LittleEndianNat_ToNatRight"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_LemmaSeqNatBound",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:LemmaSeqNatBound:4776",
+              "source_theorem": "LittleEndianNat.LemmaSeqNatBound",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "A valid digit sequence denotes a number below base^length.",
+              "apis_referenced": [
+                "LittleEndianNat_ToNatRight"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_LemmaSeqPrefix",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:LemmaSeqPrefix:5674",
+              "source_theorem": "LittleEndianNat.LemmaSeqPrefix",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "The numeric value can be split into prefix and suffix contributions.",
+              "apis_referenced": [
+                "LittleEndianNat_ToNatRight"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_LemmaSeqNeq",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:LemmaSeqNeq:8556",
+              "source_theorem": "LittleEndianNat.LemmaSeqNeq",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Distinct equal-length digit sequences have distinct numeric interpretations.",
+              "apis_referenced": [
+                "LittleEndianNat_ToNatRight"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_LemmaSeqEq",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:LemmaSeqEq:9383",
+              "source_theorem": "LittleEndianNat.LemmaSeqEq",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Equal-length digit sequences with equal numeric interpretations are equal.",
+              "apis_referenced": [
+                "LittleEndianNat_ToNatRight"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_LemmaSeqLswModEquivalence",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:LemmaSeqLswModEquivalence:9752",
+              "source_theorem": "LittleEndianNat.LemmaSeqLswModEquivalence",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "The least-significant digit is congruent to the numeric value modulo the base.",
+              "apis_referenced": [
+                "LittleEndianNat_ToNatRight",
+                "Seq_First"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_LemmaNatSeqNat",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:LemmaNatSeqNat:11597",
+              "source_theorem": "LittleEndianNat.LemmaNatSeqNat",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Converting a nat to a sequence and back gives the original nat.",
+              "apis_referenced": [
+                "LittleEndianNat_ToNatRight",
+                "LittleEndianNat_FromNat"
+              ]
+            },
+            {
+              "nl_description": "FromNat returns the canonical valid little-endian digit sequence for n.",
+              "lean_form": "∀ (model : LittleEndianNat_Model), ∀ (n : Nat), let xs := impl.sequences.LittleEndianNat_FromNat model n; LittleEndianNat_validSeq model xs ∧ impl.sequences.LittleEndianNat_ToNatRight model xs = n ∧ (n = 0 → xs = []) ∧ (n > 0 → xs = [n % LittleEndianNat_BASE model] ++ impl.sequences.LittleEndianNat_FromNat model (n / LittleEndianNat_BASE model))",
+              "apis_referenced": [
+                "LittleEndianNat_FromNat",
+                "LittleEndianNat_ToNatRight"
+              ],
+              "spec_helpers_referenced": [
+                "LittleEndianNat_validSeq",
+                "LittleEndianNat_BASE"
+              ],
+              "source_theorem": "LittleEndianNat.FromNat.__ensures_spec",
+              "source_id": null,
+              "role": "scored_spec",
+              "disposition": "scored",
+              "equivalence_status": "equivalent",
+              "semantic_bridge_required": [
+                "Dafny uint subtype restrictions are represented by Nat digits plus explicit validSeq constraints."
+              ],
+              "curator_intended_truth": "prove",
+              "name": "spec_LittleEndianNat_FromNat___ensures_spec"
+            },
+            {
+              "name": "spec_LittleEndianNat_SeqExtend___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:LittleEndianNat.SeqExtend.__ensures_spec",
+              "source_theorem": "LittleEndianNat.SeqExtend.__ensures_spec",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "SeqExtend returns length n and preserves the numeric interpretation.",
+              "apis_referenced": [
+                "LittleEndianNat_SeqExtend",
+                "LittleEndianNat_ToNatRight"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_SeqExtendMultiple___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:LittleEndianNat.SeqExtendMultiple.__ensures_spec",
+              "source_theorem": "LittleEndianNat.SeqExtendMultiple.__ensures_spec",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "SeqExtendMultiple pads with zero digits to the exact source-computed next positive multiple of n and preserves numeric interpretation.",
+              "apis_referenced": [
+                "LittleEndianNat_SeqExtendMultiple",
+                "LittleEndianNat_ToNatRight"
+              ],
+              "lean_form": "∀ (model : LittleEndianNat_Model), ∀ (xs : List LittleEndianNat_uint) (n : Nat) (h : n > 0), let ys := impl.sequences.LittleEndianNat_SeqExtendMultiple model xs n h; ys.length = xs.length + n - (xs.length % n) ∧ ys.length % n = 0 ∧ (∀ i, i < xs.length → ys[i]? = xs[i]?) ∧ (∀ i, xs.length ≤ i → i < ys.length → ys[i]? = some 0) ∧ impl.sequences.LittleEndianNat_ToNatRight model ys = impl.sequences.LittleEndianNat_ToNatRight model xs ∧ (LittleEndianNat_validSeq model xs → LittleEndianNat_validSeq model ys)"
+            },
+            {
+              "name": "spec_LittleEndianNat_FromNatWithLen___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:LittleEndianNat.FromNatWithLen.__ensures_spec",
+              "source_theorem": "LittleEndianNat.FromNatWithLen.__ensures_spec",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "FromNatWithLen produces exactly len valid digits representing n.",
+              "apis_referenced": [
+                "LittleEndianNat_FromNatWithLen",
+                "LittleEndianNat_ToNatRight"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_LemmaSeqZero",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:LemmaSeqZero:13372",
+              "source_theorem": "LittleEndianNat.LemmaSeqZero",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "A sequence with numeric value zero consists only of zero digits.",
+              "apis_referenced": [
+                "LittleEndianNat_ToNatRight"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_SeqZero___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:LittleEndianNat.SeqZero.__ensures_spec",
+              "source_theorem": "LittleEndianNat.SeqZero.__ensures_spec",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "SeqZero returns len zero digits with numeric value zero.",
+              "apis_referenced": [
+                "LittleEndianNat_SeqZero",
+                "LittleEndianNat_ToNatRight"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_LemmaSeqNatSeq",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:LemmaSeqNatSeq:14215",
+              "source_theorem": "LittleEndianNat.LemmaSeqNatSeq",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Converting a valid sequence to a nat and back at the same length recovers the sequence.",
+              "apis_referenced": [
+                "LittleEndianNat_ToNatRight",
+                "LittleEndianNat_FromNatWithLen"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_SeqAdd___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:LittleEndianNat.SeqAdd.__ensures_spec",
+              "source_theorem": "LittleEndianNat.SeqAdd.__ensures_spec",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "SeqAdd returns a same-length valid result and a carry bit.",
+              "apis_referenced": [
+                "LittleEndianNat_SeqAdd"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_LemmaSeqAdd",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:LemmaSeqAdd:15567",
+              "source_theorem": "LittleEndianNat.LemmaSeqAdd",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "SeqAdd matches addition of numeric interpretations plus final carry.",
+              "apis_referenced": [
+                "LittleEndianNat_SeqAdd",
+                "LittleEndianNat_ToNatRight"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_SeqSub___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:LittleEndianNat.SeqSub.__ensures_spec",
+              "source_theorem": "LittleEndianNat.SeqSub.__ensures_spec",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "SeqSub returns a same-length valid result and a borrow bit.",
+              "apis_referenced": [
+                "LittleEndianNat_SeqSub"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNat_LemmaSeqSub",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNat.dfy:LemmaSeqSub:17629",
+              "source_theorem": "LittleEndianNat.LemmaSeqSub",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "SeqSub matches subtraction of numeric interpretations plus final borrow.",
+              "apis_referenced": [
+                "LittleEndianNat_SeqSub",
+                "LittleEndianNat_ToNatRight"
+              ]
+            }
+          ],
+          "spec_metadata": []
+        },
+        {
+          "name": "LittleEndianNatConversions",
+          "impl": "SequencesV2/Impl/LittleEndianNatConversions.lean",
+          "spec": "SequencesV2/Spec/LittleEndianNatConversions.lean",
+          "apis": [
+            {
+              "name": "LittleEndianNatConversions_ToSmall",
+              "sig": "LittleEndianNatConversions_ToSmallSig",
+              "type": "(model : LittleEndianNatConversions_Model) → List Large_uint → List Small_uint",
+              "upstream_name": "LittleEndianNatConversions.ToSmall",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "LittleEndianNatConversions.dfy:ToSmall:1936",
+              "opaque": false,
+              "nl_description": "Convert a sequence from the large base to the small base."
+            },
+            {
+              "name": "LittleEndianNatConversions_ToLarge",
+              "sig": "LittleEndianNatConversions_ToLargeSig",
+              "type": "(model : LittleEndianNatConversions_Model) → (xs : List Small_uint) → xs.length % (LittleEndianNatConversions_E model) = 0 → List Large_uint",
+              "upstream_name": "LittleEndianNatConversions.ToLarge",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "LittleEndianNatConversions.dfy:ToLarge:2273",
+              "opaque": false,
+              "nl_description": "Convert a sequence from the small base to the large base."
+            }
+          ],
+          "specs": [
+            {
+              "name": "spec_LittleEndianNatConversions_ToSmall___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:LittleEndianNatConversions.ToSmall.__ensures_spec",
+              "source_theorem": "LittleEndianNatConversions.ToSmall.__ensures_spec",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "ToSmall expands each large digit into E small digits.",
+              "apis_referenced": [
+                "LittleEndianNatConversions_ToSmall"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNatConversions_ToLarge___ensures_spec",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "synthetic:LittleEndianNatConversions.ToLarge.__ensures_spec",
+              "source_theorem": "LittleEndianNatConversions.ToLarge.__ensures_spec",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "ToLarge packs every E small digits into one large digit.",
+              "apis_referenced": [
+                "LittleEndianNatConversions_ToLarge"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNatConversions_LemmaToSmall",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNatConversions.dfy:LemmaToSmall:3832",
+              "source_theorem": "LittleEndianNatConversions.LemmaToSmall",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Converting from large to small base preserves numeric interpretation.",
+              "apis_referenced": [
+                "LittleEndianNatConversions_ToSmall"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNatConversions_LemmaToLarge",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNatConversions.dfy:LemmaToLarge:4650",
+              "source_theorem": "LittleEndianNatConversions.LemmaToLarge",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Converting from small to large base preserves numeric interpretation.",
+              "apis_referenced": [
+                "LittleEndianNatConversions_ToLarge"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNatConversions_LemmaToSmallIsInjective",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNatConversions.dfy:LemmaToSmallIsInjective:5448",
+              "source_theorem": "LittleEndianNatConversions.LemmaToSmallIsInjective",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "ToSmall is injective for equal-length valid large-base sequences.",
+              "apis_referenced": [
+                "LittleEndianNatConversions_ToSmall"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNatConversions_LemmaToLargeIsInjective",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNatConversions.dfy:LemmaToLargeIsInjective:5779",
+              "source_theorem": "LittleEndianNatConversions.LemmaToLargeIsInjective",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "ToLarge is injective for equal-length valid small-base sequences whose lengths are multiples of E.",
+              "apis_referenced": [
+                "LittleEndianNatConversions_ToLarge"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNatConversions_LemmaSmallLargeSmall",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNatConversions.dfy:LemmaSmallLargeSmall:6263",
+              "source_theorem": "LittleEndianNatConversions.LemmaSmallLargeSmall",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Converting a valid small-base sequence to large and back recovers it.",
+              "apis_referenced": [
+                "LittleEndianNatConversions_ToSmall",
+                "LittleEndianNatConversions_ToLarge"
+              ]
+            },
+            {
+              "name": "spec_LittleEndianNatConversions_LemmaLargeSmallLarge",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "LittleEndianNatConversions.dfy:LemmaLargeSmallLarge:7107",
+              "source_theorem": "LittleEndianNatConversions.LemmaLargeSmallLarge",
+              "semantic_bridge_required": [
+                "Dafny subtype/value restrictions are represented by Nat values plus explicit validSeq/isUint predicates and model assumptions; concrete uint models are test-only instantiations."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove",
+              "nl_description": "Converting a valid large-base sequence to small and back recovers it.",
+              "apis_referenced": [
+                "LittleEndianNatConversions_ToSmall",
+                "LittleEndianNatConversions_ToLarge"
+              ]
+            }
+          ],
+          "spec_metadata": []
+        }
+      ]
+    }
+  ]
+}

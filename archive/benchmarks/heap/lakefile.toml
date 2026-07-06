@@ -1,0 +1,8 @@
+name = "Heap"
+version = "0.1.0"
+defaultTargets = ["Heap"]
+
+[[lean_lib]]
+name = "Heap"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

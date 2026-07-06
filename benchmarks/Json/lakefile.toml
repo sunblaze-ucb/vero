@@ -1,0 +1,13 @@
+name = "JsonV2"
+version = "0.1.0"
+defaultTargets = ["JsonV2"]
+
+[[require]]
+scope = "leanprover-community"
+name = "mathlib"
+rev = "v4.29.1"
+
+[[lean_lib]]
+name = "JsonV2"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

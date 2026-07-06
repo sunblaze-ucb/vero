@@ -1,0 +1,8 @@
+name = "semver"
+version = "0.1.0"
+defaultTargets = ["Semver"]
+
+[[lean_lib]]
+name = "Semver"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

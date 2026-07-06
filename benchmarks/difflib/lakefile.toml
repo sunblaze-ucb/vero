@@ -1,0 +1,8 @@
+name = "difflib"
+version = "0.1.0"
+defaultTargets = ["Difflib"]
+
+[[lean_lib]]
+name = "Difflib"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

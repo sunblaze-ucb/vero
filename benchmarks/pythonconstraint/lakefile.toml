@@ -1,0 +1,8 @@
+name = "pythonconstraint"
+version = "0.1.0"
+defaultTargets = ["Pythonconstraint"]
+
+[[lean_lib]]
+name = "Pythonconstraint"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

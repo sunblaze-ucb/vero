@@ -1,0 +1,532 @@
+{
+  "benchmark_id": "sortedcontainers/core",
+  "description": "Lean 4 benchmark for the sortedcontainers Python library (SortedList, SortedKeyList, SortedSet, SortedDict).",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/grantjenks/python-sortedcontainers",
+    "commit_hash": "3ac358631f58c1347f1d6d2d92784117db0f38ed",
+    "path": "src/sortedcontainers/"
+  },
+  "curation": {
+    "date": "2026-04-26"
+  },
+  "root_package": "SortedcontainersCore",
+  "files": {
+    "root_hub": "SortedcontainersCore.lean",
+    "harness": "SortedcontainersCore/Harness.lean",
+    "test": "SortedcontainersCore/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "SortedcontainersCore",
+      "bundle": "SortedcontainersCore/Bundle.lean",
+      "bundle_type": "SortedcontainersCoreBundle",
+      "repo_impl_field": "sortedcontainersCore",
+      "modules": [
+        {
+          "name": "SortedList",
+          "impl": "SortedcontainersCore/Impl/SortedList.lean",
+          "spec": "SortedcontainersCore/Spec/SortedList.lean",
+          "apis": [
+            {
+              "name": "sortedListMk",
+              "sig": "SortedListMkSig",
+              "type": "List \u03b1 \u2192 SortedList \u03b1"
+            },
+            {
+              "name": "sortedListContains",
+              "sig": "SortedListContainsSig",
+              "type": "SortedList \u03b1 \u2192 \u03b1 \u2192 Bool"
+            },
+            {
+              "name": "sortedListLen",
+              "sig": "SortedListLenSig",
+              "type": "SortedList \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "sortedListGetitem",
+              "sig": "SortedListGetitemSig",
+              "type": "SortedList \u03b1 \u2192 Nat \u2192 \u03b1"
+            },
+            {
+              "name": "sortedListDelitem",
+              "sig": "SortedListDelitemSig",
+              "type": "SortedList \u03b1 \u2192 Nat \u2192 SortedList \u03b1"
+            },
+            {
+              "name": "sortedListAdd",
+              "sig": "SortedListAddSig",
+              "type": "SortedList \u03b1 \u2192 \u03b1 \u2192 SortedList \u03b1"
+            },
+            {
+              "name": "sortedListDiscard",
+              "sig": "SortedListDiscardSig",
+              "type": "SortedList \u03b1 \u2192 \u03b1 \u2192 SortedList \u03b1"
+            },
+            {
+              "name": "sortedListRemove",
+              "sig": "SortedListRemoveSig",
+              "type": "SortedList \u03b1 \u2192 \u03b1 \u2192 SortedList \u03b1"
+            },
+            {
+              "name": "sortedListUpdate",
+              "sig": "SortedListUpdateSig",
+              "type": "SortedList \u03b1 \u2192 List \u03b1 \u2192 SortedList \u03b1"
+            },
+            {
+              "name": "sortedListExtend",
+              "sig": "SortedListExtendSig",
+              "type": "SortedList \u03b1 \u2192 List \u03b1 \u2192 SortedList \u03b1"
+            },
+            {
+              "name": "sortedListBisectLeft",
+              "sig": "SortedListBisectLeftSig",
+              "type": "SortedList \u03b1 \u2192 \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "sortedListBisectRight",
+              "sig": "SortedListBisectRightSig",
+              "type": "SortedList \u03b1 \u2192 \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "sortedListCount",
+              "sig": "SortedListCountSig",
+              "type": "SortedList \u03b1 \u2192 \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "sortedListIndex",
+              "sig": "SortedListIndexSig",
+              "type": "SortedList \u03b1 \u2192 \u03b1 \u2192 Nat \u2192 Nat \u2192 Nat"
+            },
+            {
+              "name": "sortedListClear",
+              "sig": "SortedListClearSig",
+              "type": "SortedList \u03b1 \u2192 SortedList \u03b1"
+            },
+            {
+              "name": "sortedListCopy",
+              "sig": "SortedListCopySig",
+              "type": "SortedList \u03b1 \u2192 SortedList \u03b1"
+            },
+            {
+              "name": "sortedListPop",
+              "sig": "SortedListPopSig",
+              "type": "SortedList \u03b1 \u2192 Nat \u2192 \u03b1"
+            },
+            {
+              "name": "sortedListIrange",
+              "sig": "SortedListIrangeSig",
+              "type": "SortedList \u03b1 \u2192 \u03b1 \u2192 \u03b1 \u2192 Bool \u2192 Bool \u2192 List \u03b1"
+            },
+            {
+              "name": "sortedListIslice",
+              "sig": "SortedListIsliceSig",
+              "type": "SortedList \u03b1 \u2192 Nat \u2192 Nat \u2192 Bool \u2192 List \u03b1"
+            },
+            {
+              "name": "sortedListIter",
+              "sig": "SortedListIterSig",
+              "type": "SortedList \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "sortedListReversed",
+              "sig": "SortedListReversedSig",
+              "type": "SortedList \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "sortedKeyListMk",
+              "sig": "SortedKeyListMkSig",
+              "type": "List \u03b1 \u2192 SortedKeyList \u03b1"
+            },
+            {
+              "name": "sortedKeyListContains",
+              "sig": "SortedKeyListContainsSig",
+              "type": "SortedKeyList \u03b1 \u2192 \u03b1 \u2192 Bool"
+            },
+            {
+              "name": "sortedKeyListAdd",
+              "sig": "SortedKeyListAddSig",
+              "type": "SortedKeyList \u03b1 \u2192 \u03b1 \u2192 SortedList \u03b1"
+            },
+            {
+              "name": "sortedKeyListDiscard",
+              "sig": "SortedKeyListDiscardSig",
+              "type": "SortedKeyList \u03b1 \u2192 \u03b1 \u2192 SortedList \u03b1"
+            },
+            {
+              "name": "sortedKeyListRemove",
+              "sig": "SortedKeyListRemoveSig",
+              "type": "SortedKeyList \u03b1 \u2192 \u03b1 \u2192 SortedList \u03b1"
+            },
+            {
+              "name": "sortedKeyListBisectLeft",
+              "sig": "SortedKeyListBisectLeftSig",
+              "type": "SortedKeyList \u03b1 \u2192 \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "sortedKeyListBisectRight",
+              "sig": "SortedKeyListBisectRightSig",
+              "type": "SortedKeyList \u03b1 \u2192 \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "sortedKeyListCount",
+              "sig": "SortedKeyListCountSig",
+              "type": "SortedKeyList \u03b1 \u2192 \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "sortedKeyListIndex",
+              "sig": "SortedKeyListIndexSig",
+              "type": "SortedKeyList \u03b1 \u2192 \u03b1 \u2192 Nat \u2192 Nat \u2192 Nat"
+            },
+            {
+              "name": "sortedKeyListIrange",
+              "sig": "SortedKeyListIrangeSig",
+              "type": "SortedKeyList \u03b1 \u2192 \u03b1 \u2192 \u03b1 \u2192 Bool \u2192 Bool \u2192 List \u03b1"
+            },
+            {
+              "name": "sortedKeyListIrangeKey",
+              "sig": "SortedKeyListIrangeSig",
+              "type": "SortedKeyList \u03b1 \u2192 \u03b1 \u2192 \u03b1 \u2192 Bool \u2192 Bool \u2192 List \u03b1"
+            },
+            {
+              "name": "sortedKeyListClear",
+              "sig": "SortedKeyListClearSig",
+              "type": "SortedKeyList \u03b1 \u2192 SortedList \u03b1"
+            },
+            {
+              "name": "sortedKeyListCopy",
+              "sig": "SortedKeyListCopySig",
+              "type": "SortedKeyList \u03b1 \u2192 SortedList \u03b1"
+            },
+            {
+              "name": "sortedKeyListUpdate",
+              "sig": "SortedKeyListUpdateSig",
+              "type": "SortedKeyList \u03b1 \u2192 List \u03b1 \u2192 SortedList \u03b1"
+            }
+          ],
+          "spec_helpers": [
+            "spec_helper_sortedByOrd",
+            "spec_helper_containsAll",
+            "spec_helper_isSorted",
+            "spec_helper_isStrictSorted",
+            "spec_sortedList_len_concrete",
+            "spec_sortedList_getitem_concrete",
+            "spec_sortedList_delitem_concrete",
+            "spec_sortedList_add_concrete",
+            "spec_sortedList_discard_concrete",
+            "spec_sortedList_update_concrete",
+            "spec_sortedList_bisectLeft_concrete",
+            "spec_sortedList_bisectRight_concrete",
+            "spec_sortedList_index_concrete",
+            "spec_sortedList_irange_concrete",
+            "spec_sortedList_islice_concrete",
+            "spec_sortedKeyList_discard_concrete",
+            "spec_sortedKeyList_bisectLeft_concrete",
+            "spec_sortedKeyList_bisectRight_concrete",
+            "spec_sortedKeyList_count_concrete",
+            "spec_sortedKeyList_index_concrete",
+            "spec_sortedKeyList_irange_concrete",
+            "spec_sortedKeyList_update_concrete",
+            "spec_sortedList_mk_sorts",
+            "spec_sortedList_contains_after_mk",
+            "spec_sortedList_add_then_contains",
+            "spec_sortedList_add_increments_len",
+            "spec_sortedList_clear_is_nil",
+            "spec_sortedList_copy_is_id",
+            "spec_sortedList_pop_eq_getitem",
+            "spec_sortedList_iter_eq_underlying",
+            "spec_sortedList_reversed_eq_iterRev",
+            "spec_sortedKeyList_mk_sorts",
+            "spec_sortedKeyList_contains_after_mk",
+            "spec_sortedKeyList_add_then_contains",
+            "spec_sortedKeyList_irangeKey_eq_irange",
+            "spec_sortedKeyList_clear_is_nil",
+            "spec_sortedKeyList_copy_is_id"
+          ],
+          "specs": [
+            "spec_sortedList_mk_iter_sorted",
+            "spec_sortedList_mk_preserves_multiset",
+            "spec_sortedList_add_preserves_shape",
+            "spec_sortedList_add_count_law",
+            "spec_sortedList_discard_preserves_order_and_bounds",
+            "spec_sortedList_bisect_count_law",
+            "spec_sortedList_bisectLeft_exact",
+            "spec_sortedList_bisectRight_exact",
+            "spec_sortedList_update_extend_law",
+            "spec_sortedKeyList_matches_sortedList_core",
+            "spec_sortedList_remove_eq_discard",
+            "spec_sortedKeyList_remove_eq_discard"
+          ]
+        },
+        {
+          "name": "SortedSet",
+          "impl": "SortedcontainersCore/Impl/SortedSet.lean",
+          "spec": "SortedcontainersCore/Spec/SortedSet.lean",
+          "apis": [
+            {
+              "name": "sortedSetMk",
+              "sig": "SortedSetMkSig",
+              "type": "List \u03b1 \u2192 SortedSet \u03b1"
+            },
+            {
+              "name": "sortedSetContains",
+              "sig": "SortedSetContainsSig",
+              "type": "SortedSet \u03b1 \u2192 \u03b1 \u2192 Bool"
+            },
+            {
+              "name": "sortedSetLen",
+              "sig": "SortedSetLenSig",
+              "type": "SortedSet \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "sortedSetGetitem",
+              "sig": "SortedSetGetitemSig",
+              "type": "SortedSet \u03b1 \u2192 Nat \u2192 \u03b1"
+            },
+            {
+              "name": "sortedSetDelitem",
+              "sig": "SortedSetDelitemSig",
+              "type": "SortedSet \u03b1 \u2192 Nat \u2192 SortedSet \u03b1"
+            },
+            {
+              "name": "sortedSetAdd",
+              "sig": "SortedSetAddSig",
+              "type": "SortedSet \u03b1 \u2192 \u03b1 \u2192 SortedSet \u03b1"
+            },
+            {
+              "name": "sortedSetDiscard",
+              "sig": "SortedSetDiscardSig",
+              "type": "SortedSet \u03b1 \u2192 \u03b1 \u2192 SortedSet \u03b1"
+            },
+            {
+              "name": "sortedSetRemove",
+              "sig": "SortedSetRemoveSig",
+              "type": "SortedSet \u03b1 \u2192 \u03b1 \u2192 SortedSet \u03b1"
+            },
+            {
+              "name": "sortedSetCount",
+              "sig": "SortedSetCountSig",
+              "type": "SortedSet \u03b1 \u2192 \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "sortedSetClear",
+              "sig": "SortedSetClearSig",
+              "type": "SortedSet \u03b1 \u2192 SortedSet \u03b1"
+            },
+            {
+              "name": "sortedSetCopy",
+              "sig": "SortedSetCopySig",
+              "type": "SortedSet \u03b1 \u2192 SortedSet \u03b1"
+            },
+            {
+              "name": "sortedSetPop",
+              "sig": "SortedSetPopSig",
+              "type": "SortedSet \u03b1 \u2192 Nat \u2192 \u03b1"
+            },
+            {
+              "name": "sortedSetIter",
+              "sig": "SortedSetIterSig",
+              "type": "SortedSet \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "sortedSetReversed",
+              "sig": "SortedSetReversedSig",
+              "type": "SortedSet \u03b1 \u2192 List \u03b1"
+            },
+            {
+              "name": "sortedSetDifference",
+              "sig": "SortedSetDifferenceSig",
+              "type": "SortedSet \u03b1 \u2192 SortedSet \u03b1 \u2192 SortedSet \u03b1"
+            },
+            {
+              "name": "sortedSetDifferenceUpdate",
+              "sig": "SortedSetDifferenceUpdateSig",
+              "type": "SortedSet \u03b1 \u2192 SortedSet \u03b1 \u2192 SortedSet \u03b1"
+            },
+            {
+              "name": "sortedSetIntersection",
+              "sig": "SortedSetIntersectionSig",
+              "type": "SortedSet \u03b1 \u2192 SortedSet \u03b1 \u2192 SortedSet \u03b1"
+            },
+            {
+              "name": "sortedSetIntersectionUpdate",
+              "sig": "SortedSetIntersectionUpdateSig",
+              "type": "SortedSet \u03b1 \u2192 SortedSet \u03b1 \u2192 SortedSet \u03b1"
+            },
+            {
+              "name": "sortedSetSymmetricDifference",
+              "sig": "SortedSetSymmetricDifferenceSig",
+              "type": "SortedSet \u03b1 \u2192 SortedSet \u03b1 \u2192 SortedSet \u03b1"
+            },
+            {
+              "name": "sortedSetSymmetricDifferenceUpdate",
+              "sig": "SortedSetSymmetricDifferenceUpdateSig",
+              "type": "SortedSet \u03b1 \u2192 SortedSet \u03b1 \u2192 SortedSet \u03b1"
+            },
+            {
+              "name": "sortedSetUnion",
+              "sig": "SortedSetUnionSig",
+              "type": "SortedSet \u03b1 \u2192 SortedSet \u03b1 \u2192 SortedSet \u03b1"
+            },
+            {
+              "name": "sortedSetUpdate",
+              "sig": "SortedSetUpdateSig",
+              "type": "SortedSet \u03b1 \u2192 SortedSet \u03b1 \u2192 SortedSet \u03b1"
+            }
+          ],
+          "specs": [
+            "spec_sortedSet_mk_sorted_idempotent",
+            "spec_sortedSet_add_membership_idempotent",
+            "spec_sortedSet_count_contains_law",
+            "spec_sortedSet_union_intersection_subset_laws",
+            "spec_sortedSet_union_exact_membership",
+            "spec_sortedSet_intersection_exact_membership",
+            "spec_sortedSet_update_variants_match_pure_ops",
+            "spec_sortedSet_algebraic_self_laws",
+            "spec_sortedSet_remove_eq_discard",
+            "spec_sortedSet_union_contains_inputs",
+            "spec_sortedSet_intersection_contained"
+          ],
+          "spec_helpers": [
+            "spec_helper_sortedByOrd",
+            "spec_helper_containsAll",
+            "spec_sortedSet_len_concrete",
+            "spec_sortedSet_getitem_concrete",
+            "spec_sortedSet_delitem_concrete",
+            "spec_sortedSet_discard_concrete",
+            "spec_sortedSet_difference_concrete",
+            "spec_sortedSet_intersection_concrete",
+            "spec_sortedSet_symmetricDifference_concrete",
+            "spec_sortedSet_union_concrete",
+            "spec_sortedSet_mk_dedup_sort",
+            "spec_sortedSet_contains_after_mk",
+            "spec_sortedSet_add_dedup_noop",
+            "spec_sortedSet_add_new_then_contains",
+            "spec_sortedSet_clear_is_nil",
+            "spec_sortedSet_copy_is_id",
+            "spec_sortedSet_pop_eq_getitem",
+            "spec_sortedSet_iter_eq_underlying",
+            "spec_sortedSet_reversed_eq_iterRev"
+          ]
+        },
+        {
+          "name": "SortedDict",
+          "impl": "SortedcontainersCore/Impl/SortedDict.lean",
+          "spec": "SortedcontainersCore/Spec/SortedDict.lean",
+          "apis": [
+            {
+              "name": "sortedDictMk",
+              "sig": "SortedDictMkSig",
+              "type": "List (\u03b1 \u00d7 \u03b2) \u2192 SortedDict \u03b1 \u03b2"
+            },
+            {
+              "name": "sortedDictDelitem",
+              "sig": "SortedDictDelitemSig",
+              "type": "SortedDict \u03b1 \u03b2 \u2192 \u03b1 \u2192 SortedDict \u03b1 \u03b2"
+            },
+            {
+              "name": "sortedDictSetitem",
+              "sig": "SortedDictSetitemSig",
+              "type": "SortedDict \u03b1 \u03b2 \u2192 \u03b1 \u2192 \u03b2 \u2192 SortedDict \u03b1 \u03b2"
+            },
+            {
+              "name": "sortedDictIter",
+              "sig": "SortedDictIterSig",
+              "type": "SortedDict \u03b1 \u03b2 \u2192 List \u03b1"
+            },
+            {
+              "name": "sortedDictReversed",
+              "sig": "SortedDictReversedSig",
+              "type": "SortedDict \u03b1 \u03b2 \u2192 List \u03b1"
+            },
+            {
+              "name": "sortedDictClear",
+              "sig": "SortedDictClearSig",
+              "type": "SortedDict \u03b1 \u03b2 \u2192 SortedDict \u03b1 \u03b2"
+            },
+            {
+              "name": "sortedDictCopy",
+              "sig": "SortedDictCopySig",
+              "type": "SortedDict \u03b1 \u03b2 \u2192 SortedDict \u03b1 \u03b2"
+            },
+            {
+              "name": "sortedDictItems",
+              "sig": "SortedDictItemsSig",
+              "type": "SortedDict \u03b1 \u03b2 \u2192 List (\u03b1 \u00d7 \u03b2)"
+            },
+            {
+              "name": "sortedDictKeys",
+              "sig": "SortedDictKeysSig",
+              "type": "SortedDict \u03b1 \u03b2 \u2192 List \u03b1"
+            },
+            {
+              "name": "sortedDictValues",
+              "sig": "SortedDictValuesSig",
+              "type": "SortedDict \u03b1 \u03b2 \u2192 List \u03b2"
+            },
+            {
+              "name": "sortedDictPop",
+              "sig": "SortedDictPopSig",
+              "type": "SortedDict \u03b1 \u03b2 \u2192 \u03b1 \u2192 \u03b2 \u2192 \u03b2"
+            },
+            {
+              "name": "sortedDictPopitem",
+              "sig": "SortedDictPopitemSig",
+              "type": "SortedDict \u03b1 \u03b2 \u2192 Nat \u2192 (\u03b1 \u00d7 \u03b2)"
+            },
+            {
+              "name": "sortedDictPeekitem",
+              "sig": "SortedDictPeekitemSig",
+              "type": "SortedDict \u03b1 \u03b2 \u2192 Nat \u2192 (\u03b1 \u00d7 \u03b2)"
+            },
+            {
+              "name": "sortedDictSetdefault",
+              "sig": "SortedDictSetdefaultSig",
+              "type": "SortedDict \u03b1 \u03b2 \u2192 \u03b1 \u2192 \u03b2 \u2192 SortedDict \u03b1 \u03b2"
+            }
+          ],
+          "spec_helpers": [
+            "spec_helper_sortedByOrd",
+            "spec_helper_containsAll",
+            "spec_helper_keysOf"
+          ],
+          "specs": [
+            "spec_sortedDict_mk_views_law",
+            "spec_sortedDict_setitem_preserves_key_lookup_and_order",
+            "spec_sortedDict_setitem_preserves_other_lookups",
+            "spec_sortedDict_delitem_removes_key_and_preserves_views",
+            "spec_sortedDict_delitem_preserves_other_lookups",
+            "spec_sortedDict_setdefault_laws",
+            "spec_sortedDict_iteration_and_item_views",
+            "spec_sortedDict_mk_sort_dedup_lastWins",
+            "spec_sortedDict_delitem_removes_key",
+            "spec_sortedDict_setitem_concrete",
+            "spec_sortedDict_setitem_then_pop",
+            "spec_sortedDict_iter_eq_keys",
+            "spec_sortedDict_reversed_eq_keysRev",
+            "spec_sortedDict_clear_is_nil",
+            "spec_sortedDict_copy_is_id",
+            "spec_sortedDict_items_eq_underlying",
+            "spec_sortedDict_keys_eq_itemsFirst",
+            "spec_sortedDict_values_eq_itemsSecond",
+            "spec_sortedDict_pop_concrete",
+            "spec_sortedDict_pop_absent_default",
+            "spec_sortedDict_popitem_concrete",
+            "spec_sortedDict_peekitem_eq_popitem",
+            "spec_sortedDict_setdefault_present_noop",
+            "spec_sortedDict_setdefault_absent_inserts",
+            "spec_sortedDict_delitem_then_pop_default",
+            "spec_sortedDict_keys_agree_with_items"
+          ]
+        }
+      ]
+    }
+  ]
+}

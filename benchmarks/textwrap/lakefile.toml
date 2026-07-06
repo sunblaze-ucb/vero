@@ -1,0 +1,8 @@
+name = "textwrap"
+version = "0.1.0"
+defaultTargets = ["Textwrap"]
+
+[[lean_lib]]
+name = "Textwrap"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

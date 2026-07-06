@@ -1,0 +1,557 @@
+{
+  "benchmark_id": "eip20-v2",
+  "description": null,
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "coq",
+    "repo_url": "https://github.com/AU-COBRA/ConCert.git",
+    "commit_hash": "341f440abb955b58066c269ebe0a231e8172e403",
+    "path": "local_backup/retranslate-20260619/sources/eip20/ConCert/examples/eip20"
+  },
+  "curation": {
+    "date": "2026-06-19"
+  },
+  "root_package": "EIP20V2",
+  "files": {
+    "root_hub": "Eip20.lean",
+    "harness": "EIP20V2/Harness.lean",
+    "test": "EIP20V2/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "EIP20V2",
+      "bundle": "EIP20V2/Bundle.lean",
+      "bundle_type": "EIP20V2Bundle",
+      "repo_impl_field": "eip20",
+      "modules": [
+        {
+          "name": "EIP20Token",
+          "impl": "EIP20V2/Impl/EIP20Token.lean",
+          "spec": "EIP20V2/Spec/EIP20Token.lean",
+          "apis": [
+            {
+              "name": "init",
+              "sig": "InitSig",
+              "type": "Chain → ContractCallContext → Setup → Except Error State",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "EIP20Token.v:init:2099"
+            },
+            {
+              "name": "try_transfer",
+              "sig": "TryTransferSig",
+              "type": "Address → Address → TokenValue → State → Except Error State",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "EIP20Token.v:try_transfer:2993"
+            },
+            {
+              "name": "try_transfer_from",
+              "sig": "TryTransferFromSig",
+              "type": "Address → Address → Address → TokenValue → State → Except Error State",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "EIP20Token.v:try_transfer_from:3769"
+            },
+            {
+              "name": "try_approve",
+              "sig": "TryApproveSig",
+              "type": "Address → Address → TokenValue → State → Except Error State",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "EIP20Token.v:try_approve:4926"
+            },
+            {
+              "name": "receive",
+              "sig": "ReceiveSig",
+              "type": "Chain → ContractCallContext → State → Option Msg → Except Error (State × List ActionBody)",
+              "role": "scored_api",
+              "disposition": "scored",
+              "source_id": "EIP20Token.v:receive:5561"
+            }
+          ],
+          "specs": [
+            "spec_init_direct",
+            "spec_try_transfer_direct",
+            "spec_try_transfer_from_direct",
+            "spec_try_approve_direct"
+          ],
+          "spec_metadata": [
+            {
+              "name": "spec_init_direct",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20Token.v:init:2099",
+              "source_theorem": "direct_init_behavior",
+              "semantic_bridge_required": [
+                "Direct API coverage for the scored helper surface exposed in Bundle; source behavior is the Coq init definition."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_direct",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20Token.v:try_transfer:2993",
+              "source_theorem": "direct_try_transfer_behavior",
+              "semantic_bridge_required": [
+                "Direct API coverage for the scored helper surface exposed in Bundle; FMap behavior is represented by stateWF and extensional map helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_from_direct",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20Token.v:try_transfer_from:3769",
+              "source_theorem": "direct_try_transfer_from_behavior",
+              "semantic_bridge_required": [
+                "Direct API coverage for the scored helper surface exposed in Bundle; FMap behavior is represented by stateWF and extensional map helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_approve_direct",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20Token.v:try_approve:4926",
+              "source_theorem": "direct_try_approve_behavior",
+              "semantic_bridge_required": [
+                "Direct API coverage for the scored helper surface exposed in Bundle; FMap behavior is represented by stateWF and extensional map helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            }
+          ]
+        },
+        {
+          "name": "EIP20TokenCorrect",
+          "impl": "EIP20V2/Impl/EIP20TokenCorrect.lean",
+          "spec": "EIP20V2/Spec/EIP20TokenCorrect.lean",
+          "apis": [],
+          "specs": [
+            "spec_EIP20_not_payable",
+            "spec_EIP20_no_acts",
+            "spec_default_none",
+            "spec_try_transfer_balance_correct",
+            "spec_try_transfer_preserves_total_supply",
+            "spec_try_transfer_preserves_allowances",
+            "spec_try_transfer_preserves_other_balances",
+            "spec_try_transfer_is_some",
+            "spec_try_transfer_from_balance_correct",
+            "spec_try_transfer_from_preserves_total_supply",
+            "spec_try_transfer_from_preserves_other_balances",
+            "spec_try_transfer_from_preserves_other_allowances",
+            "spec_try_transfer_from_preserves_other_allowance",
+            "spec_try_transfer_from_is_some",
+            "spec_try_approve_allowance_correct",
+            "spec_try_approve_preserves_total_supply",
+            "spec_try_approve_preserves_balances",
+            "spec_try_approve_preserves_other_allowances",
+            "spec_try_approve_preserves_other_allowance",
+            "spec_try_approve_is_some",
+            "spec_try_transfer_preserves_balances_sum",
+            "spec_try_transfer_from_preserves_balances_sum",
+            "spec_try_approve_preserves_balances_sum",
+            "spec_outgoing_acts_nil",
+            "spec_total_supply_eq_init_supply",
+            "spec_sum_balances_eq_total_supply"
+          ],
+          "spec_metadata": [
+            {
+              "name": "spec_EIP20_not_payable",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:EIP20_not_payable:858",
+              "source_theorem": "EIP20_not_payable",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_EIP20_no_acts",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:EIP20_no_acts:2418",
+              "source_theorem": "EIP20_no_acts",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_default_none",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:default_none:3061",
+              "source_theorem": "default_none",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_balance_correct",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_transfer_balance_correct:11992",
+              "source_theorem": "try_transfer_balance_correct",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_preserves_total_supply",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_transfer_preserves_total_supply:13393",
+              "source_theorem": "try_transfer_preserves_total_supply",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_preserves_allowances",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_transfer_preserves_allowances:13767",
+              "source_theorem": "try_transfer_preserves_allowances",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_preserves_other_balances",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_transfer_preserves_other_balances:14153",
+              "source_theorem": "try_transfer_preserves_other_balances",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_is_some",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_transfer_is_some:14798",
+              "source_theorem": "try_transfer_is_some",
+              "semantic_bridge_required": [
+                "Coq Z boolean comparison is represented by Lean Int proposition ctx.ctx_amount ≤ 0.",
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_from_balance_correct",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_transfer_from_balance_correct:15756",
+              "source_theorem": "try_transfer_from_balance_correct",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_from_preserves_total_supply",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_transfer_from_preserves_total_supply:17752",
+              "source_theorem": "try_transfer_from_preserves_total_supply",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_from_preserves_other_balances",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_transfer_from_preserves_other_balances:18162",
+              "source_theorem": "try_transfer_from_preserves_other_balances",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_from_preserves_other_allowances",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_transfer_from_preserves_other_allowances:18722",
+              "source_theorem": "try_transfer_from_preserves_other_allowances",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_from_preserves_other_allowance",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_transfer_from_preserves_other_allowance:19254",
+              "source_theorem": "try_transfer_from_preserves_other_allowance",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_from_is_some",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_transfer_from_is_some:20044",
+              "source_theorem": "try_transfer_from_is_some",
+              "semantic_bridge_required": [
+                "Coq local get_allowance_ over FMap is represented by lookup over the list-map model.",
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_approve_allowance_correct",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_approve_allowance_correct:22382",
+              "source_theorem": "try_approve_allowance_correct",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_approve_preserves_total_supply",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_approve_preserves_total_supply:22958",
+              "source_theorem": "try_approve_preserves_total_supply",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_approve_preserves_balances",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_approve_preserves_balances:23383",
+              "source_theorem": "try_approve_preserves_balances",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_approve_preserves_other_allowances",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_approve_preserves_other_allowances:23821",
+              "source_theorem": "try_approve_preserves_other_allowances",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_approve_preserves_other_allowance",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_approve_preserves_other_allowance:24401",
+              "source_theorem": "try_approve_preserves_other_allowance",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_approve_is_some",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_approve_is_some:25117",
+              "source_theorem": "try_approve_is_some",
+              "semantic_bridge_required": [
+                "Coq Z boolean comparison is represented by Lean Int proposition ctx.ctx_amount ≤ 0.",
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_preserves_balances_sum",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_transfer_preserves_balances_sum:25685",
+              "source_theorem": "try_transfer_preserves_balances_sum",
+              "semantic_bridge_required": [
+                "Depends on proof-helper task helper_sumN_FMap_add_sub for the list-map model.",
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_transfer_from_preserves_balances_sum",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_transfer_from_preserves_balances_sum:26160",
+              "source_theorem": "try_transfer_from_preserves_balances_sum",
+              "semantic_bridge_required": [
+                "Depends on proof-helper task helper_sumN_FMap_add_sub for the list-map model.",
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_try_approve_preserves_balances_sum",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:try_approve_preserves_balances_sum:26647",
+              "source_theorem": "try_approve_preserves_balances_sum",
+              "semantic_bridge_required": [
+                "Coq FMap well-formedness/extensional equality is represented by stateWF/chainStateWF and token/allowance map equivalence helpers."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_outgoing_acts_nil",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:outgoing_acts_nil:27074",
+              "source_theorem": "outgoing_acts_nil",
+              "semantic_bridge_required": [
+                "ConCert reachable/env_contracts/outgoing_acts semantics are represented by the operational ChainTrace model with deploy and receive/call steps.",
+                "reachable carries chainStateWF so the list-map chain model preserves the source FMap representation invariant."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_total_supply_eq_init_supply",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:total_supply_eq_init_supply:27514",
+              "source_theorem": "total_supply_eq_init_supply",
+              "semantic_bridge_required": [
+                "ConCert ChainTrace/deployment_info/contract_state semantics are represented by the operational ChainTrace model and final-state deployment metadata.",
+                "reachable carries chainStateWF so the list-map chain model preserves the source FMap representation invariant."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            },
+            {
+              "name": "spec_sum_balances_eq_total_supply",
+              "role": "scored_spec",
+              "disposition": "scored",
+              "source_id": "EIP20TokenCorrect.v:sum_balances_eq_total_supply:28578",
+              "source_theorem": "sum_balances_eq_total_supply",
+              "semantic_bridge_required": [
+                "ConCert reachable/env_contracts/contract_state semantics are represented by the operational ChainTrace model with deployment and receive/call transitions.",
+                "reachable carries chainStateWF so the list-map chain model preserves the source FMap representation invariant."
+              ],
+              "equivalence_status": "equivalent",
+              "curator_intended_truth": "prove"
+            }
+          ]
+        },
+        {
+          "name": "EIP20TokenTests",
+          "impl": "EIP20V2/Impl/EIP20TokenTests.lean",
+          "spec": "EIP20V2/Spec/EIP20TokenTests.lean",
+          "apis": [],
+          "specs": [],
+          "spec_metadata": []
+        }
+      ]
+    }
+  ],
+  "test_cases": [
+    {
+      "name": "guard_init_owner_supply",
+      "nl_description": "Initialization puts the full initial supply in the owner balance and leaves allowances empty."
+    },
+    {
+      "name": "guard_try_transfer_success",
+      "nl_description": "A sender with enough balance can transfer tokens to another address."
+    },
+    {
+      "name": "guard_try_transfer_insufficient_balance",
+      "nl_description": "A transfer fails with the default error when the sender lacks balance."
+    },
+    {
+      "name": "guard_try_approve_sets_allowance",
+      "nl_description": "Approval records the requested delegate allowance for the caller."
+    },
+    {
+      "name": "guard_try_transfer_from_success",
+      "nl_description": "A delegate with enough allowance can transfer from the owner and spends that allowance."
+    },
+    {
+      "name": "guard_try_transfer_from_insufficient_allowance",
+      "nl_description": "A delegated transfer fails when the delegate allowance is too small."
+    },
+    {
+      "name": "guard_try_transfer_from_missing_owner_allowance",
+      "nl_description": "A delegated transfer fails when the owner has no allowance map."
+    },
+    {
+      "name": "guard_try_transfer_from_wrong_delegate",
+      "nl_description": "A delegated transfer fails when the delegate has no allowance entry."
+    },
+    {
+      "name": "guard_receive_dispatch_transfer",
+      "nl_description": "Receive dispatches a transfer message to transfer and returns no outgoing actions."
+    },
+    {
+      "name": "guard_receive_dispatch_transfer_from",
+      "nl_description": "Receive dispatches transfer_from and returns no outgoing actions."
+    },
+    {
+      "name": "guard_receive_dispatch_approve",
+      "nl_description": "Receive dispatches approve and returns no outgoing actions."
+    },
+    {
+      "name": "guard_receive_default_none",
+      "nl_description": "Receive rejects calls without a message."
+    },
+    {
+      "name": "guard_receive_rejects_payable",
+      "nl_description": "Receive rejects calls with a positive attached amount."
+    }
+  ]
+}

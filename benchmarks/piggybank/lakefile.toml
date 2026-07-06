@@ -1,0 +1,8 @@
+name = "PiggybankV2"
+version = "0.1.0"
+defaultTargets = ["PiggybankV2"]
+
+[[lean_lib]]
+name = "PiggybankV2"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

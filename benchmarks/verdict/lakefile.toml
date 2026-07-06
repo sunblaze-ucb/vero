@@ -1,0 +1,8 @@
+name = "verdict"
+version = "0.1.0"
+defaultTargets = ["Verdict"]
+
+[[lean_lib]]
+name = "Verdict"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

@@ -1,0 +1,142 @@
+{
+  "benchmark_id": "portion",
+  "description": "Interval set Boolean algebra modelled on the portion library: contains/complement/union/intersection/difference/isEmpty over Int, each returning the unique canonical sorted disjoint maximal atomic decomposition of the corresponding point-set operation. Every operation is pinned by a PAIR of obligations — a point-set semantics half (membership ↔ against the FROZEN member predicate, anchored on the frozen connectives ∨/∧/¬/(a∧¬b) over the unbounded Int domain) and a canonical-form half (the FROZEN Canonical predicate: cut list strictly increasing). Both halves are load-bearing: membership alone admits non-canonical representations of the right set, canonicality alone admits a canonical representation of the wrong set; a uniqueness bridge (spec_canonical_unique) pins each output to the one and only canonical representative of its point set. The algebra laws (complement involution, union/intersection commutativity-idempotence-associativity, excluded-middle/non-contradiction, De Morgan both sides, difference-as-intersection-with-complement, distributivity) are EACH anchored to the frozen point-set semantics over all points x, not stated as abstract axioms. A family of laws is additionally stated as LITERAL structure/list equalities (`=` on the IntervalSet data, not membership `↔`): complement structural involution, union-with-self, excluded-middle/non-contradiction collapsing to the literal universe/empty constants, difference-as-intersection-with-complement, union/intersection commutativity, De Morgan (union side), union associativity, distributivity, and a union normalisation fixpoint — each forcing the unique canonical representation, so a coverage-only impl that reorders/pads/duplicates the right point set is rejected. Representation: a set is {neg : Bool, cuts : List Int} in toggle/parity form — neg is membership at -∞ (making complement total over the unbounded universe with no ±∞ sentinel), cuts are the toggle points, and membership of x is neg XOR the parity of the cuts ≤ x. Beyond the pointwise/structural law families, three deeper structural invariants are pinned as clean end-facts whose proofs need discovered lemmas rather than the pointwise machinery: well-definedness on point sets (member-equivalent inputs — even redundant/reordered representations — force the LITERALLY-equal union output, forbidding any impl that leaks input shape into output shape), structural provenance (every output cut is already a cut of an operand — the merge invents no toggle point), and maximality (at every output cut membership genuinely flips across it — no redundant zero-width or touching atom survives, the missing half of `Canonical`). The `isEmpty` characterisation carries NO canonicality precondition, so it must decide emptiness of the underlying point set on an arbitrary (possibly redundant) representation, not merely read the raw cut list. The model is mathlib-free, total, terminating, discrete (no Float), and is DISTINCT from the intervaltree benchmark (single-set normalisation merge/chop) — this is the full two-operand Boolean algebra with complement. The portion library is LGPL-3.0; only its algorithm/semantics are modelled fresh in Lean, no code is copied.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/AlexandreDecan/portion",
+    "commit_hash": "b771acfa2ea1a1bd6706901ea6c099f6262022aa",
+    "path": [
+      "portion/interval.py",
+      "portion/const.py"
+    ],
+    "name": "portion"
+  },
+  "curation": {
+    "date": "2026-06-30"
+  },
+  "root_package": "Portion",
+  "files": {
+    "root_hub": "Portion.lean",
+    "harness": "Portion/Harness.lean",
+    "test": "Portion/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Portion",
+      "bundle": "Portion/Bundle.lean",
+      "bundle_type": "PortionBundle",
+      "repo_impl_field": "portion",
+      "modules": [
+        {
+          "name": "Algebra",
+          "impl": "Portion/Impl/Algebra.lean",
+          "spec": "Portion/Spec/Algebra.lean",
+          "apis": [
+            {
+              "name": "contains",
+              "sig": "ContainsSig",
+              "type": "IntervalSet → Int → Bool"
+            },
+            {
+              "name": "complement",
+              "sig": "ComplementSig",
+              "type": "IntervalSet → IntervalSet"
+            },
+            {
+              "name": "union",
+              "sig": "UnionSig",
+              "type": "IntervalSet → IntervalSet → IntervalSet"
+            },
+            {
+              "name": "intersection",
+              "sig": "IntersectionSig",
+              "type": "IntervalSet → IntervalSet → IntervalSet"
+            },
+            {
+              "name": "difference",
+              "sig": "DifferenceSig",
+              "type": "IntervalSet → IntervalSet → IntervalSet"
+            },
+            {
+              "name": "isEmpty",
+              "sig": "IsEmptySig",
+              "type": "IntervalSet → Bool"
+            }
+          ],
+          "specs": [
+            "spec_contains_correct",
+            "spec_complement_member",
+            "spec_complement_canonical",
+            "spec_complement_involutive",
+            "spec_union_member",
+            "spec_union_canonical",
+            "spec_intersection_member",
+            "spec_intersection_canonical",
+            "spec_difference_member",
+            "spec_difference_canonical",
+            "spec_canonical_unique",
+            "spec_union_comm",
+            "spec_intersection_comm",
+            "spec_union_idem",
+            "spec_intersection_idem",
+            "spec_union_assoc",
+            "spec_intersection_assoc",
+            "spec_excluded_middle",
+            "spec_non_contradiction",
+            "spec_demorgan_union",
+            "spec_demorgan_intersection",
+            "spec_difference_as_inter_complement",
+            "spec_distrib_inter_over_union",
+            "spec_isEmpty_iff",
+            "spec_complement_complement_eq",
+            "spec_union_self_eq",
+            "spec_excluded_middle_eq",
+            "spec_non_contradiction_eq",
+            "spec_difference_as_inter_complement_eq",
+            "spec_union_comm_eq",
+            "spec_intersection_comm_eq",
+            "spec_demorgan_union_eq",
+            "spec_union_assoc_eq",
+            "spec_distrib_inter_over_union_eq",
+            "spec_union_canonical_fixpoint",
+            "spec_intersection_self_eq",
+            "spec_intersection_assoc_eq",
+            "spec_demorgan_intersection_eq",
+            "spec_difference_self_empty_eq",
+            "spec_difference_empty_id_eq",
+            "spec_union_wd_eq",
+            "spec_union_cuts_from_inputs",
+            "spec_intersection_cuts_from_inputs",
+            "spec_difference_cuts_from_inputs",
+            "spec_union_cut_boundary",
+            "spec_intersection_cut_boundary",
+            "spec_difference_cut_boundary",
+            "spec_binary_cut_length_le_inputs",
+            "spec_binary_cut_count_le_inputs",
+            "spec_majority3_cut_length_le_inputs",
+            "spec_exactly_one3_cut_count_le_inputs",
+            "spec_union_fold_member",
+            "spec_union_head_boundary",
+            "spec_union_empty_left_cut_count",
+            "spec_nonunion_canonical_unique",
+            "spec_big_union_member",
+            "spec_big_demorgan_union_eq",
+            "spec_fold_intersection_member_and_canonical",
+            "spec_intersection_difference_wd_eq",
+            "spec_union_cuts_exact_flips",
+            "spec_intersection_cuts_exact_flips",
+            "spec_difference_cuts_exact_flips",
+            "spec_operation_cuts_exact_boundaries"
+          ]
+        }
+      ]
+    }
+  ]
+}

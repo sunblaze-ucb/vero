@@ -1,0 +1,18 @@
+kind: claude
+model: claude-sonnet-4-5
+max_turns: 40
+effort: medium            # opus adaptive reasoning: low|medium|high (high = extra thinking)
+timeout_seconds: 0        # 0 = no wall-clock cap; SDK enforces turn budget
+# Mid-run $ cap. Null = disabled. When set, the SDK iterator breaks as
+# soon as cumulative ResultMessage.total_cost_usd crosses this value
+# and run_outcome.extra.over_strict_budget is True. Distinct from the
+# post-hoc iterate.budget_usd which fires between iterations.
+strict_budget_usd: null
+
+# Env / dotfile / config_files plumbing handled by `AgentEnvShim`. The
+# concrete values come from the active `credentials/<profile>.yaml` (default
+# `credentials=litellm`) so the same agent yaml can target LiteLLM,
+# OpenRouter, Anthropic-direct, etc. without duplication.
+env: ${credentials.claude.env}
+dotfiles: []                                 # Claude SDK needs nothing on disk under the sandbox
+config_files: ${credentials.claude.config_files}

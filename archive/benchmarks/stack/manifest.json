@@ -1,0 +1,189 @@
+{
+  "benchmark_id": "stack",
+  "description": null,
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/TheAlgorithms/Python.git",
+    "commit_hash": "7a0fee401d2990bd5904e94cd5d3a62c50a8b682",
+    "path": "data_structures/stacks/"
+  },
+  "curation": {
+    "date": "2026-04-26"
+  },
+  "root_package": "Stack",
+  "files": {
+    "root_hub": "Stack.lean",
+    "harness": "Stack/Harness.lean",
+    "test": "Stack/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Stack",
+      "bundle": "Stack/Bundle.lean",
+      "bundle_type": "StackBundle",
+      "repo_impl_field": "stack",
+      "modules": [
+        {
+          "name": "Stack",
+          "impl": "Stack/Impl/Stack.lean",
+          "spec": "Stack/Spec/Stack.lean",
+          "apis": [
+            {
+              "name": "isEmpty",
+              "sig": "IsEmptySig",
+              "type": "{\u03b1 : Type} \u2192 Stack \u03b1 \u2192 Bool"
+            },
+            {
+              "name": "size",
+              "sig": "SizeSig",
+              "type": "{\u03b1 : Type} \u2192 Stack \u03b1 \u2192 Nat"
+            },
+            {
+              "name": "isFull",
+              "sig": "IsFullSig",
+              "type": "{\u03b1 : Type} \u2192 Stack \u03b1 \u2192 Nat \u2192 Bool"
+            },
+            {
+              "name": "peek",
+              "sig": "PeekSig",
+              "type": "{\u03b1 : Type} \u2192 Stack \u03b1 \u2192 Option \u03b1"
+            },
+            {
+              "name": "pop",
+              "sig": "PopSig",
+              "type": "{\u03b1 : Type} \u2192 Stack \u03b1 \u2192 Option (\u03b1 \u00d7 Stack \u03b1)"
+            },
+            {
+              "name": "contains",
+              "sig": "ContainsSig",
+              "type": "{\u03b1 : Type} \u2192 [BEq \u03b1] \u2192 \u03b1 \u2192 Stack \u03b1 \u2192 Bool"
+            },
+            {
+              "name": "fromList",
+              "sig": "FromListSig",
+              "type": "{\u03b1 : Type} \u2192 List \u03b1 \u2192 Stack \u03b1"
+            }
+          ],
+          "specs": [
+            "spec_empty_stack_law",
+            "spec_isEmpty_iff_size_zero",
+            "spec_push_shape_and_membership",
+            "spec_fromList_shape",
+            "spec_isFull_threshold",
+            "spec_pop_peek_agree",
+            "spec_contains_after_push_other",
+            "spec_contains_fromList_iff_mem",
+            "spec_fromList_top_matches_last",
+            "spec_pop_fromList_append_singleton",
+            "spec_peek_after_push_empty",
+            "spec_peek_after_push_nonempty",
+            "spec_pop_singleton",
+            "spec_fromList_empty",
+            "spec_fromList_singleton",
+            "spec_fromList_involutive",
+            "spec_empty_stack_law_all_types"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "BalancedParentheses",
+          "impl": "Stack/Impl/BalancedParentheses.lean",
+          "spec": "Stack/Spec/BalancedParentheses.lean",
+          "apis": [
+            {
+              "name": "balancedParentheses",
+              "sig": "BalancedParenthesesSig",
+              "type": "String \u2192 Bool"
+            }
+          ],
+          "specs": [
+            "spec_balanced_empty",
+            "spec_balanced_simple_pairs",
+            "spec_balanced_unmatched_open",
+            "spec_balanced_concat_closed",
+            "spec_balanced_ignores_nonbrackets"
+          ],
+          "spec_helpers": []
+        },
+        {
+          "name": "InfixToPostfixConversion",
+          "impl": "Stack/Impl/InfixToPostfixConversion.lean",
+          "spec": "Stack/Spec/InfixToPostfixConversion.lean",
+          "apis": [
+            {
+              "name": "infixToPostfix",
+              "sig": "InfixToPostfixSig",
+              "type": "String \u2192 String"
+            }
+          ],
+          "specs": [
+            "spec_infixToPostfix_unbalanced_implies_empty",
+            "spec_infixToPostfix_single_operand_general",
+            "spec_infixToPostfix_single_binary_operator"
+          ],
+          "spec_helpers": [
+            "spec_infixToPostfix_empty",
+            "spec_infixToPostfix_alphabet_associativity"
+          ]
+        },
+        {
+          "name": "InfixToPrefixConversion",
+          "impl": "Stack/Impl/InfixToPrefixConversion.lean",
+          "spec": "Stack/Spec/InfixToPrefixConversion.lean",
+          "apis": [
+            {
+              "name": "infix2Postfix",
+              "sig": "Infix2PostfixSig",
+              "type": "String \u2192 String"
+            },
+            {
+              "name": "infix2Prefix",
+              "sig": "Infix2PrefixSig",
+              "type": "String \u2192 String"
+            }
+          ],
+          "specs": [
+            "spec_infix2_single_operand_general",
+            "spec_infix2Postfix_single_binary_operator",
+            "spec_infix2Prefix_single_binary_operator",
+            "spec_infix2Prefix_reverse_postfix_law"
+          ],
+          "spec_helpers": [
+            "spec_infix2_empty_agreement",
+            "spec_infix2Postfix_examples",
+            "spec_infix2Prefix_examples",
+            "spec_infix2_single_operand",
+            "spec_helper_swapBrackets",
+            "spec_helper_reverseSwap"
+          ]
+        },
+        {
+          "name": "DijkstrasTwoStackAlgorithm",
+          "impl": "Stack/Impl/DijkstrasTwoStackAlgorithm.lean",
+          "spec": "Stack/Spec/DijkstrasTwoStackAlgorithm.lean",
+          "apis": [
+            {
+              "name": "dijkstrasTwoStackAlgorithm",
+              "sig": "DijkstrasTwoStackAlgorithmSig",
+              "type": "String \u2192 Int"
+            }
+          ],
+          "specs": [
+            "spec_dijkstra_single_digit_binary_ops"
+          ],
+          "spec_helpers": [
+            "spec_dijkstra_examples",
+            "spec_dijkstra_simple_binary"
+          ]
+        }
+      ]
+    }
+  ]
+}

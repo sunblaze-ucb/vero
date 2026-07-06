@@ -1,0 +1,8 @@
+name = "dijkstar"
+version = "0.1.0"
+defaultTargets = ["Dijkstar"]
+
+[[lean_lib]]
+name = "Dijkstar"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

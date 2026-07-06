@@ -1,0 +1,145 @@
+{
+  "benchmark_id": "packaging_version",
+  "description": "PEP 440-style version ordering modelled on PyPA's packaging library (the comparator all of pip relies on): verLe/verEq/maxVer/minVer/sortVers over (epoch, trailing-zero-trimmed release tuple, dev<a<b<rc<final<post tag), with total-order axioms plus frozen trailing-zero canonicality and tag-precedence anchors. The spec set also includes a deep STRUCTURAL-SORT layer whose proofs each need a DISCOVERED, non-obvious strengthened induction hypothesis / loop invariant the statement hides (stability of the insertion sort, argmax/argmin append decompositions, threshold-filter / sort commutation in both order directions, presort-absorption fold-fusion, sort-invariance of the extrema, and concatenation-order-independence of the extrema up to verEq). Scope: this models the already-PARSED PEP 440 comparator core (epoch, release tuple, and a single pre-OR-post-OR-dev tag) \u2014 there is no version-string PARSER, and local labels (`+local`) plus combined pre/post/dev qualifiers are out of scope. `maxVer` / `minVer` / `sortVers` are derived ordering APIs over `verLe`.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/pypa/packaging",
+    "commit_hash": "dcac24cc0a37983f2005e22564b45def7ff66625",
+    "path": "src/packaging/version.py",
+    "name": "packaging"
+  },
+  "curation": {
+    "date": "2026-06-28"
+  },
+  "root_package": "PackagingVersion",
+  "files": {
+    "root_hub": "PackagingVersion.lean",
+    "harness": "PackagingVersion/Harness.lean",
+    "test": "PackagingVersion/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "PackagingVersion",
+      "bundle": "PackagingVersion/Bundle.lean",
+      "bundle_type": "PackagingVersionBundle",
+      "repo_impl_field": "packagingVersion",
+      "modules": [
+        {
+          "name": "Version",
+          "impl": "PackagingVersion/Impl/Version.lean",
+          "spec": "PackagingVersion/Spec/Version.lean",
+          "apis": [
+            {
+              "name": "verLe",
+              "sig": "VerLeSig",
+              "type": "Ver \u2192 Ver \u2192 Bool"
+            },
+            {
+              "name": "verEq",
+              "sig": "VerEqSig",
+              "type": "Ver \u2192 Ver \u2192 Bool"
+            },
+            {
+              "name": "maxVer",
+              "sig": "MaxVerSig",
+              "type": "List Ver \u2192 Option Ver"
+            },
+            {
+              "name": "sortVers",
+              "sig": "SortVersSig",
+              "type": "List Ver \u2192 List Ver"
+            },
+            {
+              "name": "minVer",
+              "sig": "MinVerSig",
+              "type": "List Ver \u2192 Option Ver"
+            }
+          ],
+          "specs": [
+            "spec_le_total",
+            "spec_le_refl",
+            "spec_le_antisymm",
+            "spec_le_trans",
+            "spec_release_trailing_zero",
+            "spec_tag_precedence",
+            "spec_epoch_dominates",
+            "spec_release_dominates_tag",
+            "spec_sort_perm",
+            "spec_sort_sorted",
+            "spec_max_is_greatest",
+            "spec_eq_refl",
+            "spec_eq_symm",
+            "spec_eq_trans",
+            "spec_eq_iff_le_le",
+            "spec_le_strict_antisymm",
+            "spec_eq_implies_epoch_eq",
+            "spec_release_eq_reduces_to_tag",
+            "spec_trailing_zero_concrete",
+            "spec_tag_dev_lt_final",
+            "spec_tag_final_lt_post",
+            "spec_sort_nil",
+            "spec_sort_length",
+            "spec_sort_mem",
+            "spec_sort_idempotent",
+            "spec_max_nil_iff",
+            "spec_max_singleton",
+            "spec_max_eq_sort_last",
+            "spec_sort_pairwise_le",
+            "spec_sort_count_eq",
+            "spec_sort_head_le_all",
+            "spec_sort_eq_self_iff_sorted",
+            "spec_chain_strictly_increasing",
+            "spec_min_is_least",
+            "spec_min_nil_iff",
+            "spec_min_singleton",
+            "spec_min_verEq_sort_head",
+            "spec_min_le_max",
+            "spec_sort_stable",
+            "spec_max_append",
+            "spec_sort_presort_prefix",
+            "spec_sort_filter_commute",
+            "spec_min_append",
+            "spec_sort_filter_lower_commute",
+            "spec_sort_presort_suffix",
+            "spec_sort_presort_both",
+            "spec_max_sort_invariant",
+            "spec_min_sort_invariant",
+            "spec_max_concat_comm_verEq",
+            "spec_min_concat_comm_verEq",
+            "spec_sort_filter_interval_commute",
+            "spec_max_filter_below_commute",
+            "spec_min_filter_above_commute",
+            "spec_filter_below_sorted_fixed",
+            "spec_sort_presort_middle",
+            "spec_sort_index_monotone",
+            "spec_sort_stable_two_index",
+            "spec_sort_eq_of_sorted_stable_perm",
+            "spec_sort_interleave_disjoint_eq_append",
+            "spec_eq_iff_frozen_axes",
+            "spec_full_order_trichotomy",
+            "spec_le_iff_lex_axes",
+            "spec_release_normal_form_invariant",
+            "spec_sort_strict_prefix_count",
+            "spec_sort_eq_class_block",
+            "spec_order_statistic_band",
+            "spec_sort_verEq_class_convex",
+            "spec_sort_cons_insert_rank",
+            "spec_sort_append_fold_insert",
+            "spec_sort_append_stable_merge",
+            "spec_extrema_perm_unique_classes",
+            "spec_max_filter_above_keeps_top",
+            "spec_strict_chain_pairwise_from_adjacent",
+            "spec_sort_class_nodup_pairwise_strict"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+name = "networkx"
+version = "0.1.0"
+defaultTargets = ["Networkx"]
+
+[[lean_lib]]
+name = "Networkx"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

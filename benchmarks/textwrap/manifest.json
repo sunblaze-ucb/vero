@@ -1,0 +1,116 @@
+{
+  "benchmark_id": "textwrap",
+  "description": "Greedy line wrapping modelled on Python's stdlib textwrap module: wrap/shorten over word-length lists, with lineWidth a frozen helper (the sum of a line's word-lengths, exposed so specs can reference it directly — not a fillable API). Specs span witness/bound/maximality plus closure, boundary, count-bound and width-monotonicity laws for wrap; base/fit-closure/length/maximality laws for shorten; and a cross-API law identifying wrap's first line with shorten — pinning the greedy first-fit answer, anchored on List.sum/List.flatten/List.IsPrefix. A global-optimality block (over a frozen IsValidWrapping predicate) adds the deep theorems: wrap is itself a valid wrapping, wrap is line-count optimal among all valid wrappings (greedy stays-ahead/exchange), total word-width is conserved, the line count is bounded below by totalWidth/width, and re-wrapping the flattened output is a fixpoint. A further deep exchange/structural block adds the extensive-effort obligations whose proofs need long induction/realignment arguments: greedy stays-ahead pointwise on consumed words against every valid wrapping; lexicographic-maximality / uniqueness — wrap is THE valid wrapping that is also greedy-maximal (frozen IsGreedyMaximal); optimal substructure (wrap chunks = firstLine :: wrap leftover); line-count monotonicity under appending words; combined feasibility+optimality; and a two-sided ceil(totalLen/w) ≤ #lines ≤ #chunks count bound. A final discovered-invariant block adds clean end-facts whose proofs require GENERALIZING the goal before induction closes — the invariant is deliberately not revealed by the statement: first-line word-count maximality among all valid wrappings (proved via greedy = longest fitting prefix); cumulative-width stays-ahead (greedy maximizes total packed width in its first k lines, reduced to a prefix-sum domination controlled by the word-count stays-ahead); drop-last optimal substructure from the back (deleting greedy's last line = greedy of the front words, via a suffix-stability engine); and a tight pairwise-width line-count bound ((#lines − 1)·w ≤ 2·totalWidth, summing the adjacency invariant over disjoint consecutive line pairs). A further generalized-substructure / composition block adds more strengthened-IH obligations: generalized optimal substructure (dropping the first k output lines = greedy of the words after them, the arbitrary-k lift of the k=1 law); line-count subadditivity under concatenation (#wrap(xs++ys) ≤ #wrap xs + #wrap ys, via a CONSTRUCTED competitor wrapping wrap xs ++ wrap ys fed to the exchange theorem); append suffix-stability (every output line of wrap xs except its last reappears verbatim at the front of wrap(xs++ys)); exact append line-count realignment (#wrap(xs++ys) = (#wrap xs − 1) + #wrap(lastLine ++ ys), splicing the trailing open line with the appended words); and a shorten deeper-law cluster — shorten width-maximality over all fitting prefixes, shorten word-count monotonicity in the width, shorten input-prefix monotonicity, shorten locality (only one lookahead word past the kept run matters), and shorten idempotence. Scope: the model is greedy first-fit packing over word-LENGTHS (`List Nat`), not full `textwrap.wrap` with its keyword arguments — `lineWidth` is a frozen helper (the sum of a line's word lengths), and over-long-word splitting, whitespace/separator handling, and placeholder/max_lines behavior are out of scope.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/python/cpython",
+    "commit_hash": "669299b62f6c2176d4bedcf550fb9baaabd6a9d6",
+    "path": "Lib/textwrap.py",
+    "name": "textwrap"
+  },
+  "curation": {
+    "date": "2026-06-29"
+  },
+  "root_package": "Textwrap",
+  "files": {
+    "root_hub": "Textwrap.lean",
+    "harness": "Textwrap/Harness.lean",
+    "test": "Textwrap/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Textwrap",
+      "bundle": "Textwrap/Bundle.lean",
+      "bundle_type": "TextwrapBundle",
+      "repo_impl_field": "textwrap",
+      "modules": [
+        {
+          "name": "Wrap",
+          "impl": "Textwrap/Impl/Wrap.lean",
+          "spec": "Textwrap/Spec/Wrap.lean",
+          "apis": [
+            {
+              "name": "wrap",
+              "sig": "WrapSig",
+              "type": "List Nat → Nat → List Line"
+            },
+            {
+              "name": "shorten",
+              "sig": "ShortenSig",
+              "type": "List Nat → Nat → List Nat"
+            }
+          ],
+          "specs": [
+            "spec_wrap_preserves_words",
+            "spec_wrap_empty",
+            "spec_wrap_lines_nonempty",
+            "spec_wrap_lines_fit",
+            "spec_wrap_greedy_maximal",
+            "spec_wrap_chunks_subset",
+            "spec_wrap_single_line",
+            "spec_wrap_lines_le_words",
+            "spec_wrap_width_mono",
+            "spec_shorten_prefix",
+            "spec_shorten_fits",
+            "spec_shorten_nil",
+            "spec_shorten_all_fits",
+            "spec_shorten_length_le",
+            "spec_shorten_maximal",
+            "spec_wrap_first_line_eq_shorten",
+            "spec_wrap_is_valid_wrapping",
+            "spec_wrap_min_lines",
+            "spec_wrap_total_width_conserved",
+            "spec_wrap_lines_lower_bound",
+            "spec_wrap_rewrap_fixpoint",
+            "spec_wrap_stays_ahead",
+            "spec_wrap_lex_maximal",
+            "spec_wrap_optimal_substructure",
+            "spec_wrap_lines_mono_append",
+            "spec_wrap_feasible_optimal",
+            "spec_wrap_lines_count_bounds",
+            "spec_wrap_first_line_longest",
+            "spec_wrap_width_stays_ahead",
+            "spec_wrap_dropLast_eq",
+            "spec_wrap_lines_pair_width_bound",
+            "spec_wrap_drop_substructure",
+            "spec_wrap_lines_subadditive",
+            "spec_wrap_append_realign",
+            "spec_wrap_append_count_realign",
+            "spec_shorten_width_maximal",
+            "spec_shorten_len_mono_width",
+            "spec_shorten_prefix_mono",
+            "spec_shorten_local",
+            "spec_shorten_idempotent",
+            "spec_wrap_overlong_isolated",
+            "spec_wrap_value_count_table",
+            "spec_wrap_duplicate_value_lines_count",
+            "spec_wrap_start_offsets_index_heads",
+            "spec_wrap_line_last_at_boundary",
+            "spec_wrap_boundary_width_exact",
+            "spec_wrap_word_index_locator",
+            "spec_shorten_kept_drop_count",
+            "spec_wrap_prefix_tie_recursive_suffix",
+            "spec_wrap_width_mono_prefix_consumed",
+            "spec_wrap_take_midline_prefix",
+            "spec_wrap_append_one_count_exact",
+            "spec_wrap_physical_greedy_unique",
+            "spec_wrap_pairwise_rewrap_fixpoint_unique",
+            "spec_wrap_each_line_shorten_or_head",
+            "spec_wrap_take_drop_recompose",
+            "spec_wrap_delete_middle_count_mono",
+            "spec_wrap_insert_middle_count_at_most_two",
+            "spec_wrap_adjacent_overflow_lower_bound",
+            "spec_shorten_append_decompose"
+          ]
+        }
+      ]
+    }
+  ]
+}

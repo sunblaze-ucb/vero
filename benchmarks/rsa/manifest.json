@@ -1,0 +1,121 @@
+{
+  "benchmark_id": "rsa",
+  "description": "Pure number-theoretic core of RSA modelled on the python-rsa library: encryptInt/decryptInt (modular exponentiation) plus the key-math primitives gcd/extendedGcd/inverse/crt. Every output is pinned to a UNIQUE answer by a relation against FROZEN operations (^, %, *, +, ∣, <) over an unbounded domain. encryptInt and decryptInt are characterised independently as their frozen modular-exponentiation residue (m^e)%n / (c^d)%n — the RSA round-trip decrypt(encrypt m)=m is a derived consequence, never the load-bearing spec. inverse is pinned by (x*inv)%n=1 together with the mandatory uniqueness clause inv<n. crt is pinned by the two-modulus congruence law (it reduces to each residue modulo its modulus) together with the range clause crt<∏moduli. gcd is characterised by the divisibility relation (divides both, every common divisor divides it). extendedGcd is pinned by the Bézout identity a*x+b*y=g together with g=gcd a b. Proof depth is genuine and layered: inverse correctness requires the extended-Euclidean Bézout identity, and the two-modulus CRT congruence rides on inverse correctness, so the modular-inverse algorithm is transitively forced. Concrete-vector specs anchor python-rsa's exact return values (extendedGcd 240 46 = (2,-9,47); inverse 17 3120 = 2753; crt [2,3] [3,5] = 8) as SUPPORTING anchors, not drivers. Scope: integer-level primitives only — no key generation, PKCS#1 padding, byte/blocksize handling, or ASN.1 encoding; discrete (Nat/Int), mathlib-free, no Float.",
+  "lean_version": "4.29.1",
+  "modes_supported": ["proof", "codeproof"],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/sybrenstuvel/python-rsa",
+    "commit_hash": "42b0e14ffbeeb9d99d1037e6440a2cc61780e4ea",
+    "path": ["rsa/core.py", "rsa/common.py"],
+    "name": "python-rsa"
+  },
+  "curation": {
+    "date": "2026-06-30"
+  },
+  "root_package": "Rsa",
+  "files": {
+    "root_hub": "Rsa.lean",
+    "harness": "Rsa/Harness.lean",
+    "test": "Rsa/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Rsa",
+      "bundle": "Rsa/Bundle.lean",
+      "bundle_type": "RsaBundle",
+      "repo_impl_field": "rsa",
+      "modules": [
+        {
+          "name": "Transform",
+          "impl": "Rsa/Impl/Transform.lean",
+          "spec": "Rsa/Spec/Transform.lean",
+          "apis": [
+            {"name": "encryptInt", "sig": "EncryptIntSig", "type": "Nat → Nat → Nat → Nat"},
+            {"name": "decryptInt", "sig": "DecryptIntSig", "type": "Nat → Nat → Nat → Nat"}
+          ],
+          "specs": [
+            "spec_encrypt_int_correct",
+            "spec_decrypt_int_correct",
+            "spec_encrypt_mod_message",
+            "spec_encrypt_range",
+            "spec_decrypt_range",
+            "spec_encrypt_exp_one",
+            "spec_encrypt_vec",
+            "spec_encrypt_mul_base",
+            "spec_encrypt_exp_add",
+            "spec_encrypt_base_congr",
+            "spec_decrypt_encrypt_compose",
+            "spec_encrypt_chain_exps"
+          ]
+        },
+        {
+          "name": "Common",
+          "impl": "Rsa/Impl/Common.lean",
+          "spec": "Rsa/Spec/Common.lean",
+          "apis": [
+            {"name": "gcd",         "sig": "GcdSig",         "type": "Nat → Nat → Nat"},
+            {"name": "extendedGcd", "sig": "ExtendedGcdSig", "type": "Nat → Nat → (Nat × Int × Int)"},
+            {"name": "inverse",     "sig": "InverseSig",     "type": "Nat → Nat → Nat"},
+            {"name": "crt",         "sig": "CrtSig",         "type": "List Nat → List Nat → Nat"}
+          ],
+          "specs": [
+            "spec_gcd_dvd_left",
+            "spec_gcd_dvd_right",
+            "spec_gcd_greatest",
+            "spec_gcd_comm",
+            "spec_gcd_zero_right",
+            "spec_gcd_vec",
+            "spec_extended_gcd_bezout",
+            "spec_extended_gcd_fst",
+            "spec_extended_gcd_vec1",
+            "spec_extended_gcd_vec2",
+            "spec_inverse_correct",
+            "spec_inverse_lt",
+            "spec_inverse_exists",
+            "spec_inverse_vec1",
+            "spec_inverse_vec2",
+            "spec_crt_range",
+            "spec_crt_single",
+            "spec_crt_congruence_pair",
+            "spec_crt_vec1",
+            "spec_crt_vec2",
+            "spec_inverse_of_power",
+            "spec_crt_unique",
+            "spec_crt_congruence_list",
+            "spec_extended_gcd_recurrence",
+            "spec_inverse_unique_residue",
+            "spec_inverse_involution",
+            "spec_gcd_class_partition_count",
+            "spec_crt_pair_permutes_range",
+            "spec_coprime_count_mul",
+            "spec_crt_pair_first_index",
+            "spec_crt_pair_shared_factor_scaled_congruence",
+            "spec_crt_non_coprime_head_scaled",
+            "spec_inverse_units_permutes",
+            "spec_inverse_mul_units",
+            "spec_inverse_unit_table_first_index",
+            "spec_crt_pair_roundtrip_residues",
+            "spec_crt_pair_table_residue_pairs",
+            "spec_crt_triple_table_permutes_range",
+            "spec_unit_product_projection_cardinality",
+            "spec_extended_gcd_common_factor",
+            "spec_extended_gcd_scaled_half_bounds",
+            "spec_totient_divisor_sum",
+            "spec_gcd_class_count_quotient",
+            "spec_unit_power_unitcount_one",
+            "spec_unit_power_unitcount_cycle",
+            "spec_inverse_as_unitcount_power",
+            "spec_mult_order_divides_unitcount",
+            "spec_mult_order_divides_periods",
+            "spec_unitcount_prime_power",
+            "spec_full_residue_roundtrip_prime_product",
+            "spec_crt_pair_mul_hom"
+          ]
+        }
+      ]
+    }
+  ]
+}

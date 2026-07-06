@@ -1,0 +1,8 @@
+name = "SpecialNumbers"
+version = "0.1.0"
+defaultTargets = ["SpecialNumbers"]
+
+[[lean_lib]]
+name = "SpecialNumbers"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]

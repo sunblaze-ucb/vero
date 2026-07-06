@@ -1,0 +1,155 @@
+{
+  "benchmark_id": "ntheory",
+  "description": "Residue number theory modelled on the residue subset of sympy.ntheory.residue_ntheory: legendreSymbol / isQuadraticResidue / jacobiSymbol / sqrtMod / nthrootMod / discreteLog / nOrder / totient. All values are discrete (Nat residues, Int symbol values in {-1,0,1}); there is no Float. The obligations follow the frozen-op unique-answer discipline: every output is characterized by an algebraic relation against Lean's immutable ^, %, *, ∣, ≤, <, and Nat.gcd over an unbounded numeric domain — never by agreement with a copyable reference body and never by a self-referential round-trip. Quadratic residuosity is pinned by a frozen existential over the complete residue system x < p (the iff carries both the soundness and completeness halves); the Legendre symbol is then pinned to {-1,0,1} by three mutually-exclusive iff's, the -1 case carrying the no-witness completeness clause. The three existence-bearing APIs — sqrtMod, nthrootMod, discreteLog — each carry ALL THREE of a soundness/witness clause, a least clause pinning the canonical representative, and a completeness clause (a returned none certifies no witness exists); the completeness half is mandatory so that the soundness clause alone is not satisfied by the degenerate fun _ _ _ => none (the explicit discrete_log anti-vacuity fix). The Jacobi symbol is anchored on its recurrence laws — base case (a/1)=1, numerator periodicity mod n, the value range, plus reciprocity check-points (agreement with Legendre at odd primes and concrete worked values) — rather than on a body the agent could copy, so the value is constrained while forcing the recurrence to be computed. nOrder is the least-positive-period characterization (paired witness + least clause); totient is anchored on frozen Nat.gcd as the unit count (base value, upper bound, positivity, and the value p-1 at a prime stated against frozen divisibility) and capped by Gauss's divisor-sum identity (the sum of totient over the positive divisors of n equals n, stated against a frozen divisorsOf enumeration) — a global law that no finite lookup table of totient values can satisfy. A further block of deep laws states clean end-facts whose proof needs a discovered structural argument the statement withholds: the multiplicative order divides exactly the exponents that return to 1 (a^k ≡ 1 mod n iff nOrder a n divides k) and equals 1 iff a ≡ 1; the discrete log is shift-invariant by the order (and by every multiple of it); and a square root's complement p-r is again a root with the canonical (least) root lying in the lower half (r ≤ p-r). Scope: the benchmark models the residue functions only — no factorisation or continued-fraction internals; symbols are meaningful at odd prime / odd n, the reference brute-force searches are bounded by p (a complete residue system), nOrder returns 0 as the no-order sentinel, and totient 0 = 0.",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "source": {
+    "kind": "translated",
+    "language": "python",
+    "repo_url": "https://github.com/sympy/sympy",
+    "commit_hash": "1a2501b30c1b2e7b97818895b62c61ae5b15ea52",
+    "path": [
+      "sympy/ntheory/residue_ntheory.py",
+      "sympy/functions/combinatorial/numbers.py",
+      "sympy/ntheory/primetest.py",
+      "sympy/ntheory/generate.py",
+      "sympy/ntheory/factor_.py",
+      "sympy/ntheory/modular.py"
+    ],
+    "name": "sympy.ntheory.residue_ntheory"
+  },
+  "curation": {
+    "date": "2026-06-30"
+  },
+  "root_package": "Ntheory",
+  "files": {
+    "root_hub": "Ntheory.lean",
+    "harness": "Ntheory/Harness.lean",
+    "test": "Ntheory/Test.lean",
+    "lakefile": "lakefile.toml"
+  },
+  "packages": [
+    {
+      "name": "Ntheory",
+      "bundle": "Ntheory/Bundle.lean",
+      "bundle_type": "NtheoryBundle",
+      "repo_impl_field": "ntheory",
+      "modules": [
+        {
+          "name": "Residue",
+          "impl": "Ntheory/Impl/Residue.lean",
+          "spec": "Ntheory/Spec/Residue.lean",
+          "apis": [
+            {
+              "name": "legendreSymbol",
+              "sig": "LegendreSymbolSig",
+              "type": "Nat → Nat → Int"
+            },
+            {
+              "name": "isQuadraticResidue",
+              "sig": "IsQuadraticResidueSig",
+              "type": "Nat → Nat → Bool"
+            },
+            {
+              "name": "jacobiSymbol",
+              "sig": "JacobiSymbolSig",
+              "type": "Int → Nat → Int"
+            },
+            {
+              "name": "sqrtMod",
+              "sig": "SqrtModSig",
+              "type": "Nat → Nat → Option Nat"
+            },
+            {
+              "name": "nthrootMod",
+              "sig": "NthrootModSig",
+              "type": "Nat → Nat → Nat → Option Nat"
+            },
+            {
+              "name": "discreteLog",
+              "sig": "DiscreteLogSig",
+              "type": "Nat → Nat → Nat → Option Nat"
+            },
+            {
+              "name": "nOrder",
+              "sig": "NOrderSig",
+              "type": "Nat → Nat → Nat"
+            },
+            {
+              "name": "totient",
+              "sig": "TotientSig",
+              "type": "Nat → Nat"
+            }
+          ],
+          "specs": [
+            "spec_qr_iff",
+            "spec_legendre_zero_iff",
+            "spec_legendre_one_iff",
+            "spec_legendre_neg_one_iff",
+            "spec_legendre_range",
+            "spec_jacobi_base",
+            "spec_jacobi_periodic",
+            "spec_jacobi_range",
+            "spec_jacobi_matches_legendre",
+            "spec_jacobi_values",
+            "spec_sqrt_mod_sound",
+            "spec_sqrt_mod_least",
+            "spec_sqrt_mod_complete",
+            "spec_sqrt_mod_isSome_iff",
+            "spec_nthroot_mod_sound",
+            "spec_nthroot_mod_least",
+            "spec_nthroot_mod_complete",
+            "spec_discrete_log_sound",
+            "spec_discrete_log_least",
+            "spec_discrete_log_complete",
+            "spec_n_order_period",
+            "spec_n_order_least",
+            "spec_n_order_complete",
+            "spec_totient_one",
+            "spec_totient_le",
+            "spec_totient_pos",
+            "spec_totient_prime",
+            "spec_totient_lt",
+            "spec_totient_divisor_sum",
+            "spec_n_order_pow_eq_one_iff",
+            "spec_n_order_one_iff",
+            "spec_discrete_log_order_periodic",
+            "spec_discrete_log_order_multiple",
+            "spec_sqrt_mod_complement",
+            "spec_sqrt_mod_least_le_complement",
+            "spec_totient_square_lift",
+            "spec_totient_prime_power",
+            "spec_discrete_log_order_class_count",
+            "spec_sqrt_mod_prefix_singleton",
+            "spec_jacobi_mul_numerator",
+            "spec_jacobi_mul_denominator",
+            "spec_jacobi_legendre_all_odd_primes",
+            "spec_jacobi_reciprocity",
+            "spec_jacobi_zero_iff_not_coprime",
+            "spec_totient_mul_coprime",
+            "spec_totient_gcd_fiber_count",
+            "spec_totient_gcd_sum",
+            "spec_n_order_divides_totient",
+            "spec_discrete_log_image_count",
+            "spec_discrete_log_shifted_order_class_count",
+            "spec_sqrt_mod_odd_prime_roots_pair",
+            "spec_nthroot_prime_coprime_unique",
+            "spec_euler_theorem_units",
+            "spec_quadratic_residue_count_odd_prime",
+            "spec_primitive_root_count_prime",
+            "spec_legendre_neg_one_supplement",
+            "spec_legendre_two_supplement",
+            "spec_jacobi_two_supplement",
+            "spec_legendre_euler_criterion",
+            "spec_n_order_power_quotient",
+            "spec_discrete_log_image_one_period",
+            "spec_discrete_log_mul_homomorphism"
+          ]
+        }
+      ]
+    }
+  ]
+}

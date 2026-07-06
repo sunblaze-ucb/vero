@@ -1,0 +1,8 @@
+name = "croniter"
+version = "0.1.0"
+defaultTargets = ["Croniter"]
+
+[[lean_lib]]
+name = "Croniter"
+srcDir = "."
+leanOptions = [{ name = "autoImplicit", value = false }]
