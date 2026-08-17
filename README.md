@@ -4,6 +4,8 @@ AI agents are increasingly used for programming, but they give no guarantee abou
 
 Vero is the first benchmark to evaluate joint implementation and proof synthesis at the repository level. It contains 43 instances sourced from real-world repositories spanning Python, Dafny, Verus, and Coq, covering domains from cryptographic protocols to distributed systems. Each instance is a Lean 4 repository with predetermined API interfaces, manually curated formal specifications, and reference implementations, and it supports both proof-only and code-and-proof evaluation modes. Because every instance is translated into Lean 4 with manual validation, no Lean 4 ground-truth solution exists online, which is a structural guard against training-data contamination. Vero also includes an audit mechanism in which agents can formally prove that a provided specification is unsatisfiable or that reference code is incorrect, surfacing and correcting latent code and specification errors during curation. The full benchmark list is in the [benchmark inventory](#benchmark-inventory).
 
+The accompanying paper is [Vero: Can AI Agents Build Formally Verified Software Repositories?](https://arxiv.org/abs/2608.13522). If you use Vero in your work, please [cite it](#citation).
+
 ## What a benchmark instance looks like
 
 A benchmark is a self-contained multi-module Lean 4 project. The curator provides three frozen layers (shared data types and helpers, API signatures, and formal specifications), and the agent discharges two kinds of obligation. It writes an implementation for each API and a proof for each spec. The glue is a single interface structure, with specs written against it.
@@ -112,6 +114,19 @@ uv run pytest
 ```
 
 Contributor conventions live in `CLAUDE.md`. When changing benchmark conventions (markers, manifest shape, `RepoImpl` shape), update `reference/BankLedger/` first, since it is the canonical exemplar that drives the curation tooling and validator.
+
+## Citation
+
+If you use Vero, please cite the paper.
+
+```bibtex
+@article{ye2026vero,
+  title   = {Vero: Can AI Agents Build Formally Verified Software Repositories?},
+  author  = {Ye, Zhe and Lou, Hantao and Sun, Yuechun and Song, Peiyang and Yan, Zhengxu and Kasriel, Timothe and Zhang, Qingyang and Yang, Kaiyu and Kong, Soonho and He, Jingxuan and Song, Dawn},
+  journal = {arXiv preprint arXiv:2608.13522},
+  year    = {2026}
+}
+```
 
 ## License
 
