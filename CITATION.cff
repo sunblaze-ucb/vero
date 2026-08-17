@@ -1,0 +1,60 @@
+cff-version: 1.2.0
+title: "Vero: Can AI Agents Build Formally Verified Software Repositories?"
+message: >-
+  If you use this benchmark, please cite it as below.
+type: software
+authors:
+  - given-names: Zhe
+    family-names: Ye
+  - given-names: Hantao
+    family-names: Lou
+  - given-names: Yuechun
+    family-names: Sun
+  - given-names: Peiyang
+    family-names: Song
+  - given-names: Zhengxu
+    family-names: Yan
+  - given-names: Timothe
+    family-names: Kasriel
+  - given-names: Qingyang
+    family-names: Zhang
+  - given-names: Kaiyu
+    family-names: Yang
+  - given-names: Soonho
+    family-names: Kong
+  - given-names: Jingxuan
+    family-names: He
+  - given-names: Dawn
+    family-names: Song
+date-released: 2026-08-13
+url: "https://github.com/sunblaze-ucb/vero"
+preferred-citation:
+  type: article
+  title: "Vero: Can AI Agents Build Formally Verified Software Repositories?"
+  authors:
+    - given-names: Zhe
+      family-names: Ye
+    - given-names: Hantao
+      family-names: Lou
+    - given-names: Yuechun
+      family-names: Sun
+    - given-names: Peiyang
+      family-names: Song
+    - given-names: Zhengxu
+      family-names: Yan
+    - given-names: Timothe
+      family-names: Kasriel
+    - given-names: Qingyang
+      family-names: Zhang
+    - given-names: Kaiyu
+      family-names: Yang
+    - given-names: Soonho
+      family-names: Kong
+    - given-names: Jingxuan
+      family-names: He
+    - given-names: Dawn
+      family-names: Song
+  url: "https://arxiv.org/abs/2608.13522"
+  journal: "arXiv preprint arXiv:2608.13522"
+  year: 2026
+  doi: "10.48550/arXiv.2608.13522"
