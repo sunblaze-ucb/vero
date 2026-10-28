@@ -60,5 +60,5 @@ end Verdict
 
 def Verdict.toHexUpper : Verdict.ToHexUpperSig :=
 -- !benchmark @start code def=toHexUpper
-  sorry
+  specToHexUpper
 -- !benchmark @end code def=toHexUpper

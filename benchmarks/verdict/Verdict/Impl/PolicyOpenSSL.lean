@@ -141,6 +141,93 @@ abbrev OpensslValidChainSig :=
 end Verdict
 
 -- !benchmark @start global_aux
+namespace Verdict.Policy.OpenSSL
+open Verdict.Policy
+
+def checkAuthSubjectKeyId (cert : AbstractCertificate) (isRoot isLeaf : Bool) : Bool :=
+  cert.extAuthorityKeyId.all (fun aki => aki.critical != some true) &&
+  cert.extSubjectKeyId.all (fun skid => skid.critical != some true) &&
+  (if cert.version ≥ 2 then
+    (isRoot || cert.extAuthorityKeyId.any (fun aki => aki.keyId.isSome)) &&
+    (isLeaf || cert.extSubjectKeyId.isSome)
+  else
+    cert.allExts.isNone && cert.extAuthorityKeyId.isNone && cert.extSubjectKeyId.isNone &&
+    cert.extExtendedKeyUsage.isNone && cert.extBasicConstraints.isNone && cert.extKeyUsage.isNone &&
+    cert.extSubjectAltName.isNone && cert.extNameConstraints.isNone && cert.extCertPolicies.isNone &&
+    cert.extAuthorityInfoAccess.isNone)
+
+def checkPurpose (cert : AbstractCertificate) (isLeaf : Bool) : Bool :=
+  cert.extExtendedKeyUsage.all (fun eku => eku.usages.contains .serverAuth) &&
+  (if isLeaf then cert.extKeyUsage.all (fun ku =>
+    ku.digitalSignature || ku.keyEncipherment || ku.keyAgreement)
+  else checkCa cert == 1)
+
+def checkUnhandledExtensions (cert : AbstractCertificate) : Bool :=
+  cert.allExts.all fun es => es.all fun e =>
+    e.critical != some true ||
+      ["2.16.840.1.113730.1.1", "2.5.29.15", "2.5.29.17", "2.5.29.19", "2.5.29.32",
+       "2.5.29.31", "2.5.29.37", "1.3.6.1.5.5.7.48.1.5", "2.5.29.36", "1.3.6.1.5.5.7.1.14",
+       "2.5.29.30"].contains e.oid
+
+def validCertCommon (task : PolicyTask) (cert : AbstractCertificate)
+    (isLeaf isRoot : Bool) (depth : Nat) : Bool :=
+  checkCertKeyLevel cert && checkCertTime cert task.now && checkBasicConstraints cert &&
+  checkKeyUsage cert && (if isLeaf then checkCa cert != 2 else checkCa cert == 1) &&
+  !cert.issuer.rdns.isEmpty &&
+  (!cert.subject.rdns.isEmpty ||
+    (cert.extSubjectAltName.any (fun san => !san.names.isEmpty && san.critical == some true) &&
+     cert.extBasicConstraints.all (fun bc => !bc.isCA) && cert.extKeyUsage.all (fun ku => !ku.keyCertSign))) &&
+  checkSan cert && cert.sigAlgInner.bytes == cert.sigAlgOuter.bytes && checkPurpose cert isLeaf &&
+  checkAuthSubjectKeyId cert isRoot isLeaf &&
+  cert.extBasicConstraints.all (fun bc => bc.pathLen.all (fun n =>
+    0 ≤ n && (isLeaf || (depth : Int) ≤ n))) &&
+  checkUnhandledExtensions cert && checkDuplicateExtensions cert
+
+def checkValidPattern (name : String) : Bool :=
+  !name.startsWith "*." ||
+    (name.length ≥ 2 && (String.ofList (name.toList.drop 2)).any (· == '.'))
+
+def sanHasDns (cert : AbstractCertificate) : Bool :=
+  cert.extSubjectAltName.any fun san => san.names.any fun n => match n with
+    | .dnsName _ => true | _ => false
+
+def matchDnsName (pattern name : String) : Bool :=
+  pattern.isEmpty ||
+  (name.length > pattern.length &&
+    (name.toList.getD (name.length - pattern.length - 1) ' ' == '.' || pattern.startsWith ".") &&
+    name.endsWith pattern) ||
+  (name.length == pattern.length && pattern.toLower == name.toLower)
+
+def isGeneralSubtreeOf (constraint name : GeneralName) : Bool :=
+  match constraint, name with
+  | .dnsName p, .dnsName n => matchDnsName p n
+  | .directoryName p, .directoryName n => isSubtreeOf p n true
+  | .ipAddr p, .ipAddr n => ipAddrInRange p n
+  | _, _ => false
+
+def ncMatch (name : GeneralName) (nc : NameConstraints) : Bool :=
+  let enabled := nc.permitted.any fun p => match name, p with
+    | .dnsName _, .dnsName _ => true
+    | .directoryName _, .directoryName _ => true
+    | .ipAddr _, .ipAddr _ => true
+    | _, _ => false
+  (match name with | .otherName => false | _ => true) &&
+  (!enabled || nc.permitted.any (fun p => isGeneralSubtreeOf p name)) &&
+  nc.excluded.all (fun p => !isGeneralSubtreeOf p name)
+
+def checkNameConstraintsHelper (cert : AbstractCertificate) (nc : NameConstraints) (isLeaf : Bool) : Bool :=
+  let maxUsize := 2 ^ 64 - 1
+  let nameCount := min (cert.subject.rdns.length +
+    (cert.extSubjectAltName.map (·.names.length)).getD 0) maxUsize
+  let constraintCount := min (nc.permitted.length + nc.excluded.length) maxUsize
+  (nameCount == 0 || constraintCount ≤ 1048576 / nameCount) &&
+  ncMatch (.directoryName cert.subject) nc &&
+  cert.extSubjectAltName.all (fun san => san.names.all (fun n => ncMatch n nc)) &&
+  (!isLeaf || sanHasDns cert || cert.subject.rdns.all (fun rdn => rdn.all fun a =>
+    a.oid != "2.5.4.3" || ncMatch (.dnsName a.value) nc))
+
+end Verdict.Policy.OpenSSL
+
 -- !benchmark @end global_aux
 
 /-! ## § 3  OpenSSL Per-Certificate Verification (LLM Implements) -/
@@ -150,7 +237,7 @@ end Verdict
 
 def Verdict.opensslValidLeaf : Verdict.OpensslValidLeafSig :=
 -- !benchmark @start code def=opensslValidLeaf
-  sorry
+  fun task cert => Verdict.Policy.OpenSSL.validCertCommon task cert true false 0
 -- !benchmark @end code def=opensslValidLeaf
 
 -- !benchmark @start code_aux def=opensslValidIntermediate
@@ -158,7 +245,7 @@ def Verdict.opensslValidLeaf : Verdict.OpensslValidLeafSig :=
 
 def Verdict.opensslValidIntermediate : Verdict.OpensslValidIntermediateSig :=
 -- !benchmark @start code def=opensslValidIntermediate
-  sorry
+  fun task cert depth => Verdict.Policy.OpenSSL.validCertCommon task cert false false depth
 -- !benchmark @end code def=opensslValidIntermediate
 
 -- !benchmark @start code_aux def=opensslValidRoot
@@ -166,7 +253,7 @@ def Verdict.opensslValidIntermediate : Verdict.OpensslValidIntermediateSig :=
 
 def Verdict.opensslValidRoot : Verdict.OpensslValidRootSig :=
 -- !benchmark @start code def=opensslValidRoot
-  sorry
+  fun task cert depth => Verdict.Policy.OpenSSL.validCertCommon task cert false true depth
 -- !benchmark @end code def=opensslValidRoot
 
 -- !benchmark @start code_aux def=opensslCheckNameConstraints
@@ -174,7 +261,11 @@ def Verdict.opensslValidRoot : Verdict.OpensslValidRootSig :=
 
 def Verdict.opensslCheckNameConstraints : Verdict.OpensslCheckNameConstraintsSig :=
 -- !benchmark @start code def=opensslCheckNameConstraints
-  sorry
+  fun chain =>
+    ((List.range (chain.length - 1)).map (· + 1)).all (fun i =>
+      chain[i]!.extNameConstraints.all (fun nc => (List.range i).all (fun j =>
+        Verdict.Policy.sameDN chain[j]!.subject chain[j]!.issuer true ||
+        Verdict.Policy.OpenSSL.checkNameConstraintsHelper chain[j]! nc (j == 0))))
 -- !benchmark @end code def=opensslCheckNameConstraints
 
 -- !benchmark @start code_aux def=opensslCheckHostname
@@ -182,7 +273,15 @@ def Verdict.opensslCheckNameConstraints : Verdict.OpensslCheckNameConstraintsSig
 
 def Verdict.opensslCheckHostname : Verdict.OpensslCheckHostnameSig :=
 -- !benchmark @start code def=opensslCheckHostname
-  sorry
+  fun cert hostname =>
+    let hostname := hostname.toLower
+    cert.extSubjectAltName.any (fun san => san.names.any fun n => match n with
+      | .dnsName name => Verdict.Policy.OpenSSL.checkValidPattern name &&
+        Verdict.Policy.matchName name.toLower hostname
+      | _ => false) ||
+    (!Verdict.Policy.OpenSSL.sanHasDns cert && cert.subject.rdns.any (fun rdn => rdn.any fun a =>
+      a.oid == "2.5.4.3" && Verdict.Policy.OpenSSL.checkValidPattern a.value &&
+      Verdict.Policy.matchName a.value.toLower hostname))
 -- !benchmark @end code def=opensslCheckHostname
 
 /-! ## § 4  OpenSSL Policy Composition (LLM Implements) -/
@@ -192,7 +291,9 @@ def Verdict.opensslCheckHostname : Verdict.OpensslCheckHostnameSig :=
 
 def Verdict.opensslLikelyIssued : Verdict.OpensslLikelyIssuedSig :=
 -- !benchmark @start code def=opensslLikelyIssued
-  sorry
+  fun issuer subject =>
+    Verdict.Policy.sameDN issuer.subject subject.issuer true &&
+    Verdict.Policy.checkAuthKeyId issuer subject
 -- !benchmark @end code def=opensslLikelyIssued
 
 -- !benchmark @start code_aux def=opensslValidChain
@@ -200,5 +301,11 @@ def Verdict.opensslLikelyIssued : Verdict.OpensslLikelyIssuedSig :=
 
 def Verdict.opensslValidChain : Verdict.OpensslValidChainSig :=
 -- !benchmark @start code def=opensslValidChain
-  sorry
+  fun chain task =>
+    chain.length ≥ 2 && Verdict.opensslValidLeaf task chain[0]! &&
+    ((List.range (chain.length - 2)).map (· + 1)).all (fun i =>
+      Verdict.opensslValidIntermediate task chain[i]! (i - 1)) &&
+    Verdict.opensslValidRoot task chain[chain.length - 1]! (chain.length - 2) &&
+    Verdict.opensslCheckNameConstraints chain &&
+    task.hostname.all (fun hostname => Verdict.opensslCheckHostname chain[0]! hostname)
 -- !benchmark @end code def=opensslValidChain

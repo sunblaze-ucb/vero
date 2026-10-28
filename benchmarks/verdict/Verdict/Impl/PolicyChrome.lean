@@ -181,6 +181,91 @@ abbrev ChromeValidChainSig :=
 end Verdict
 
 -- !benchmark @start global_aux
+namespace Verdict.Policy.Chrome
+open Verdict.Policy
+
+def cleanName (name : String) : String :=
+  let lower := name.toLower
+  if lower.endsWith "." then String.ofList (lower.toList.take (lower.length - 1)) else lower
+
+def validName (name : String) : Bool :=
+  if name.any (· == '*') then
+    name.length > 2 && name.startsWith "*." && !name.endsWith "." &&
+      (String.ofList (name.toList.drop 2)).any (· == '.')
+  else !name.isEmpty && !name.endsWith "."
+
+def matchSanDomain (env : ChromePolicyEnv) (cert : AbstractCertificate)
+    (domain : String) : Bool :=
+  cert.extSubjectAltName.any fun san =>
+    !san.names.isEmpty &&
+    san.names.all (fun n => match n with
+      | .dnsName name => validName (cleanName name)
+      | _ => true) &&
+    san.names.any (fun n => match n with
+      | .dnsName name =>
+        if env.publicSuffix.any (fun suffix => matchName suffix domain) then
+          cleanName name == domain
+        else matchName (cleanName name) domain
+      | _ => false)
+
+def checkExtCritical (cert : AbstractCertificate) : Bool :=
+  cert.allExts.all fun es => es.all fun e => e.critical != some false
+
+def checkUnhandledExtensions (cert : AbstractCertificate) : Bool :=
+  cert.allExts.all fun es => es.all fun e =>
+    e.critical != some true ||
+      ["2.5.29.19", "2.5.29.15", "2.5.29.37", "2.5.29.30", "2.5.29.17",
+       "2.5.29.32", "2.5.29.33", "2.5.29.36", "2.5.29.54"].contains e.oid
+
+def certVerifiedNonLeaf (cert : AbstractCertificate) (depth : Nat) : Bool :=
+  cert.version == 2 && isValidPki cert && checkExtCritical cert &&
+  checkDuplicateExtensions cert && cert.sigAlgInner.bytes == cert.sigAlgOuter.bytes &&
+  cert.extBasicConstraints.all (fun bc => bc.pathLen.all (fun n => 0 ≤ n && (depth : Int) ≤ n)) &&
+  !cert.subject.rdns.isEmpty &&
+  ((!cert.issuerUid.isSome && !cert.subjectUid.isSome) || cert.version == 2 || cert.version == 3)
+
+def validDnsNameConstraints (nc : NameConstraints) : Bool :=
+  (nc.permitted ++ nc.excluded).all fun n => match n with
+    | .dnsName name =>
+      let name := cleanName name
+      !name.isEmpty && !name.endsWith "." && !name.any (· == '*')
+    | _ => true
+
+def checkDnsNameConstraints (nc : NameConstraints) (name : String) : Bool :=
+  let name := cleanName name
+  let permits := nc.permitted.filterMap fun n => match n with
+    | .dnsName s => some s | _ => none
+  (permits.isEmpty || permits.any (fun p => permitName p name)) &&
+  nc.excluded.all (fun n => match n with
+    | .dnsName p => !permitName p name | _ => true)
+
+def checkDirectoryNameConstraints (nc : NameConstraints) (name : DistinguishedName) : Bool :=
+  let permits := nc.permitted.filterMap fun n => match n with
+    | .directoryName dn => some dn | _ => none
+  (permits.isEmpty || permits.any (fun p => isSubtreeOf p name true)) &&
+  nc.excluded.all (fun n => match n with
+    | .directoryName p => !isSubtreeOf p name true | _ => true)
+
+def checkIpNameConstraints (nc : NameConstraints) (addr : ByteArray) : Bool :=
+  let permits := nc.permitted.filterMap fun n => match n with
+    | .ipAddr p => some p | _ => none
+  (permits.isEmpty || permits.any (fun p => ipAddrInRange p addr)) &&
+  nc.excluded.all (fun n => match n with
+    | .ipAddr p => !ipAddrInRange p addr | _ => true)
+
+def checkNameConstraints (cert target : AbstractCertificate) : Bool :=
+  cert.extNameConstraints.all fun nc =>
+    validDnsNameConstraints nc && (!nc.permitted.isEmpty || !nc.excluded.isEmpty) &&
+    target.extSubjectAltName.all (fun san => san.names.all fun n => match n with
+      | .dnsName name => checkDnsNameConstraints nc name
+      | .directoryName dn => checkDirectoryNameConstraints nc dn
+      | .ipAddr addr => checkIpNameConstraints nc addr
+      | .otherName => false
+      | _ => true) &&
+    checkDirectoryNameConstraints nc target.subject
+
+end Verdict.Policy.Chrome
+
 -- !benchmark @end global_aux
 
 /-! ## § 4  Chrome Per-Certificate Verification (LLM Implements) -/
@@ -190,7 +275,21 @@ end Verdict
 
 def Verdict.chromeCertVerifiedLeaf : Verdict.ChromeCertVerifiedLeafSig :=
 -- !benchmark @start code def=chromeCertVerifiedLeaf
-  sorry
+  fun env task cert root =>
+    cert.version == 2 && Verdict.Policy.Chrome.isValidPki cert &&
+    cert.sigAlgInner.bytes == cert.sigAlgOuter.bytes &&
+    cert.notBefore ≤ task.now && task.now ≤ cert.notAfter &&
+    task.hostname.all (fun name => Verdict.Policy.Chrome.matchSanDomain env cert name.toLower) &&
+    Verdict.Policy.checkDuplicateExtensions cert &&
+    cert.extAuthorityInfoAccess.all (fun aia => aia.critical != some true) &&
+    (!Verdict.Policy.Chrome.isKnownRoot env root || Verdict.Policy.Chrome.leafDurationValid cert) &&
+    (!cert.subject.rdns.isEmpty || cert.extSubjectAltName.any (fun san => san.critical == some true)) &&
+    Verdict.Policy.Chrome.notInCrl env cert &&
+    Verdict.Policy.Chrome.strongSignature cert.sigAlgInner.id &&
+    Verdict.Policy.Chrome.keyUsageValid cert && Verdict.Policy.Chrome.extendedKeyUsageValid cert &&
+    Verdict.Policy.Chrome.checkExtCritical cert && Verdict.Policy.Chrome.checkUnhandledExtensions cert &&
+    cert.extBasicConstraints.all (fun bc => bc.pathLen.all (fun n => 0 ≤ n)) &&
+    ((!cert.issuerUid.isSome && !cert.subjectUid.isSome) || cert.version == 2 || cert.version == 3)
 -- !benchmark @end code def=chromeCertVerifiedLeaf
 
 -- !benchmark @start code_aux def=chromeCertVerifiedIntermediate
@@ -198,7 +297,15 @@ def Verdict.chromeCertVerifiedLeaf : Verdict.ChromeCertVerifiedLeafSig :=
 
 def Verdict.chromeCertVerifiedIntermediate : Verdict.ChromeCertVerifiedIntermediateSig :=
 -- !benchmark @start code def=chromeCertVerifiedIntermediate
-  sorry
+  fun env task cert depth =>
+    Verdict.Policy.Chrome.certVerifiedNonLeaf cert depth &&
+    cert.extBasicConstraints.any (·.isCA) &&
+    cert.notBefore ≤ task.now && task.now ≤ cert.notAfter &&
+    cert.extAuthorityInfoAccess.all (fun aia => aia.critical != some true) &&
+    Verdict.Policy.Chrome.notInCrl env cert &&
+    Verdict.Policy.Chrome.strongSignature cert.sigAlgInner.id &&
+    Verdict.Policy.Chrome.keyUsageValid cert && Verdict.Policy.Chrome.extendedKeyUsageValid cert &&
+    Verdict.Policy.Chrome.checkUnhandledExtensions cert
 -- !benchmark @end code def=chromeCertVerifiedIntermediate
 
 -- !benchmark @start code_aux def=chromeCertVerifiedRoot
@@ -206,7 +313,16 @@ def Verdict.chromeCertVerifiedIntermediate : Verdict.ChromeCertVerifiedIntermedi
 
 def Verdict.chromeCertVerifiedRoot : Verdict.ChromeCertVerifiedRootSig :=
 -- !benchmark @start code def=chromeCertVerifiedRoot
-  sorry
+  fun env task cert interm depth =>
+    Verdict.Policy.Chrome.certVerifiedNonLeaf cert depth &&
+    cert.extKeyUsage.all (·.keyCertSign) &&
+    cert.extAuthorityKeyId.all (fun aki => aki.issuer.isNone == aki.serial.isNone) &&
+    task.hostname.all (fun name =>
+      (!env.indiaTrusted.contains cert.fingerprint ||
+        env.indiaDomains.any (fun p => Verdict.Policy.matchName p name.toLower)) &&
+      (!env.anssiTrusted.contains cert.fingerprint ||
+        env.anssiDomains.any (fun p => Verdict.Policy.matchName p name.toLower))) &&
+    (!env.symantecRoots.contains cert.fingerprint || env.symantecExceptions.contains interm.fingerprint)
 -- !benchmark @end code def=chromeCertVerifiedRoot
 
 -- !benchmark @start code_aux def=chromeCheckAllNameConstraints
@@ -214,7 +330,10 @@ def Verdict.chromeCertVerifiedRoot : Verdict.ChromeCertVerifiedRootSig :=
 
 def Verdict.chromeCheckAllNameConstraints : Verdict.ChromeCheckAllNameConstraintsSig :=
 -- !benchmark @start code def=chromeCheckAllNameConstraints
-  sorry
+  fun chain =>
+    !chain.isEmpty &&
+    ((List.range (chain.length - 2)).map (· + 1)).all (fun i =>
+      (chain.take i).all (fun target => Verdict.Policy.Chrome.checkNameConstraints chain[i]! target))
 -- !benchmark @end code def=chromeCheckAllNameConstraints
 
 /-! ## § 5  Chrome Policy Composition (LLM Implements) -/
@@ -224,7 +343,7 @@ def Verdict.chromeCheckAllNameConstraints : Verdict.ChromeCheckAllNameConstraint
 
 def Verdict.chromeLikelyIssued : Verdict.ChromeLikelyIssuedSig :=
 -- !benchmark @start code def=chromeLikelyIssued
-  sorry
+  fun issuer subject => Verdict.Policy.sameDN issuer.subject subject.issuer true
 -- !benchmark @end code def=chromeLikelyIssued
 
 -- !benchmark @start code_aux def=chromeValidChain
@@ -232,5 +351,12 @@ def Verdict.chromeLikelyIssued : Verdict.ChromeLikelyIssuedSig :=
 
 def Verdict.chromeValidChain : Verdict.ChromeValidChainSig :=
 -- !benchmark @start code def=chromeValidChain
-  sorry
+  fun env chain task =>
+    chain.length ≥ 2 &&
+    Verdict.chromeCertVerifiedLeaf env task chain[0]! chain[chain.length - 1]! &&
+    ((List.range (chain.length - 2)).map (· + 1)).all (fun i =>
+      Verdict.chromeCertVerifiedIntermediate env task chain[i]! (i - 1)) &&
+    Verdict.chromeCertVerifiedRoot env task chain[chain.length - 1]! chain[chain.length - 2]!
+      (chain.length - 2) &&
+    Verdict.chromeCheckAllNameConstraints chain
 -- !benchmark @end code def=chromeValidChain

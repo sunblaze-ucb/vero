@@ -88,7 +88,8 @@ def checkKeyUsageIntermediate (cert : AbstractCertificate) : Bool :=
 
 /-- Strong signature — re-export of Chrome's `strongSignature`.
     Verus: `strong_signature` (firefox.rs:180). -/
-def strongSignature := Verdict.Policy.Chrome.strongSignature
+def strongSignature (alg : String) : Bool :=
+  Verdict.Policy.Chrome.strongSignature alg && alg != "1.2.840.113549.1.1.10"
 
 /-- Signature algorithm OIDs match — re-export of Chrome's `sigAlgMatch`. -/
 def sigAlgMatch := Verdict.Policy.Chrome.sigAlgMatch
@@ -141,6 +142,97 @@ abbrev FirefoxValidChainSig :=
 end Verdict
 
 -- !benchmark @start global_aux
+namespace Verdict.Policy.Firefox
+open Verdict.Policy
+
+def isValidPki (cert : AbstractCertificate) : Bool :=
+  match cert.subjectKey with
+  | .rsa bits => bits ≥ 2048
+  | .dsa _ _ _ => false
+  | .other => true
+
+def validName (name : String) : Bool :=
+  if name.any (· == '*') then
+    name.length > 2 && name.startsWith "*." && !name.endsWith "." &&
+      (String.ofList (name.toList.drop 2)).any (· == '.')
+  else !name.isEmpty && !name.startsWith "." && !name.endsWith "."
+
+def matchCommonNameDomain (cert : AbstractCertificate) (name : String) : Bool :=
+  cert.subject.rdns.any fun rdn => rdn.any fun a =>
+    a.oid == "2.5.4.3" && validName a.value && matchName a.value name
+
+def matchSanDomain (san : SubjectAltName) (name : String) : Bool :=
+  san.names.all (fun n => match n with
+    | .dnsName s => validName s | _ => true) &&
+  san.names.any (fun n => match n with
+    | .dnsName s => matchName s.toLower name | _ => false)
+
+def checkUnhandledExtensions (cert : AbstractCertificate) : Bool :=
+  cert.allExts.all fun es => es.all fun e =>
+    e.critical != some true ||
+      ["2.5.29.9", "2.5.29.14", "2.5.29.15", "2.5.29.16", "2.5.29.17", "2.5.29.18",
+       "2.5.29.19", "2.5.29.30", "2.5.29.31", "2.5.29.32", "2.5.29.33", "2.5.29.36",
+       "2.5.29.35", "2.5.29.37", "1.3.6.1.5.5.7.1.1"].contains e.oid
+
+def extendedKeyUsageValid (cert : AbstractCertificate) : Bool :=
+  cert.extExtendedKeyUsage.all fun eku =>
+    eku.usages.contains .serverAuth &&
+    (cert.extBasicConstraints.any (·.isCA) || !eku.usages.contains .ocspSigning)
+
+def internationalValid (env : FirefoxPolicyEnv) (cert leaf : AbstractCertificate) : Bool :=
+  leaf.extSubjectAltName.all fun san => san.names.all fun n => match n with
+    | .dnsName name =>
+      (!env.tubitakFingerprints.contains cert.fingerprint ||
+        env.tubitakDomains.any (fun p => matchName p name)) &&
+      (!env.anssiFingerprints.contains cert.fingerprint ||
+        env.anssiDomains.any (fun p => matchName p name))
+    | _ => true
+
+def certVerifiedNonLeaf (env : FirefoxPolicyEnv) (task : PolicyTask)
+    (cert leaf : AbstractCertificate) (depth : Nat) : Bool :=
+  internationalValid env cert leaf && isValidPki cert && depth ≤ 6 &&
+  cert.extBasicConstraints.any (fun bc => bc.isCA &&
+    bc.pathLen.all (fun n => 0 ≤ n && (depth : Int) ≤ n)) &&
+  cert.sigAlgInner.bytes == cert.sigAlgOuter.bytes &&
+  cert.notBefore ≤ task.now && task.now ≤ cert.notAfter &&
+  cert.extKeyUsage.all (fun ku => cert.extBasicConstraints.any (·.isCA) && ku.keyCertSign) &&
+  cert.extAuthorityKeyId.all (fun aki => aki.critical != some true) &&
+  !cert.subject.rdns.isEmpty && checkDuplicateExtensions cert && checkUnhandledExtensions cert &&
+  cert.extSubjectKeyId.all (fun skid => skid.critical != some true)
+
+def checkDnsNameConstraints (nc : NameConstraints) (name : String) : Bool :=
+  let permits := nc.permitted.filterMap fun n => match n with
+    | .dnsName s => some s | _ => none
+  (permits.isEmpty || permits.any (fun p => permitName p name)) &&
+  nc.excluded.all (fun n => match n with
+    | .dnsName p => !permitName p name | _ => true)
+
+def checkDirectoryNameConstraints (nc : NameConstraints) (name : DistinguishedName) : Bool :=
+  let permits := nc.permitted.filterMap fun n => match n with
+    | .directoryName dn => some dn | _ => none
+  (permits.isEmpty || permits.any (fun p => isSubtreeOf p name false)) &&
+  nc.excluded.all (fun n => match n with
+    | .directoryName p => !isSubtreeOf p name false | _ => true)
+
+def checkNameConstraints (cert target : AbstractCertificate) (isLeaf : Bool) : Bool :=
+  cert.extNameConstraints.all fun nc =>
+    (nc.permitted ++ nc.excluded).all (fun n => match n with
+      | .dnsName name => !name.isEmpty && !name.endsWith "." && !name.any (· == '*')
+      | _ => true) &&
+    (!nc.permitted.isEmpty || !nc.excluded.isEmpty) &&
+    target.extSubjectAltName.all (fun san => san.names.all fun n => match n with
+      | .dnsName name => checkDnsNameConstraints nc name
+      | .directoryName dn => checkDirectoryNameConstraints nc dn
+      | .ipAddr addr => Chrome.checkIpNameConstraints nc addr
+      | .otherName => false
+      | _ => true) &&
+    (!isLeaf || target.extSubjectAltName.isSome ||
+      target.subject.rdns.all (fun rdn => rdn.all fun a =>
+        a.oid != "2.5.4.3" || checkDnsNameConstraints nc a.value)) &&
+    checkDirectoryNameConstraints nc target.subject
+
+end Verdict.Policy.Firefox
+
 -- !benchmark @end global_aux
 
 /-! ## § 4  Firefox Per-Certificate Verification (LLM Implements) -/
@@ -150,7 +242,19 @@ end Verdict
 
 def Verdict.firefoxCertVerifiedLeaf : Verdict.FirefoxCertVerifiedLeafSig :=
 -- !benchmark @start code def=firefoxCertVerifiedLeaf
-  sorry
+  fun env task cert ev =>
+    Verdict.Policy.Firefox.isValidPki cert &&
+    task.hostname.all (fun name => match cert.extSubjectAltName with
+      | some san => Verdict.Policy.Firefox.matchSanDomain san name.toLower
+      | none => Verdict.Policy.Firefox.matchCommonNameDomain cert name.toLower) &&
+    cert.extBasicConstraints.all (fun bc => !bc.isCA) &&
+    (!ev || (cert.notBefore ≤ cert.notAfter && cert.notAfter - cert.notBefore < 71712000)) &&
+    !env.crl.contains cert.fingerprint && cert.sigAlgInner.bytes == cert.sigAlgOuter.bytes &&
+    cert.notBefore ≤ task.now && task.now ≤ cert.notAfter &&
+    Verdict.Policy.Firefox.strongSignature cert.sigAlgInner.id &&
+    Verdict.Policy.Firefox.checkKeyUsageLeaf cert && Verdict.Policy.Firefox.extendedKeyUsageValid cert &&
+    Verdict.Policy.checkDuplicateExtensions cert && Verdict.Policy.Firefox.checkUnhandledExtensions cert &&
+    cert.extSubjectKeyId.all (fun skid => skid.critical != some true)
 -- !benchmark @end code def=firefoxCertVerifiedLeaf
 
 -- !benchmark @start code_aux def=firefoxCertVerifiedIntermediate
@@ -158,7 +262,11 @@ def Verdict.firefoxCertVerifiedLeaf : Verdict.FirefoxCertVerifiedLeafSig :=
 
 def Verdict.firefoxCertVerifiedIntermediate : Verdict.FirefoxCertVerifiedIntermediateSig :=
 -- !benchmark @start code def=firefoxCertVerifiedIntermediate
-  sorry
+  fun env task cert leaf depth =>
+    Verdict.Policy.Firefox.certVerifiedNonLeaf env task cert leaf depth &&
+    !env.crl.contains cert.fingerprint &&
+    Verdict.Policy.Firefox.strongSignature cert.sigAlgInner.id &&
+    Verdict.Policy.Firefox.extendedKeyUsageValid cert
 -- !benchmark @end code def=firefoxCertVerifiedIntermediate
 
 -- !benchmark @start code_aux def=firefoxCertVerifiedRoot
@@ -166,7 +274,11 @@ def Verdict.firefoxCertVerifiedIntermediate : Verdict.FirefoxCertVerifiedInterme
 
 def Verdict.firefoxCertVerifiedRoot : Verdict.FirefoxCertVerifiedRootSig :=
 -- !benchmark @start code def=firefoxCertVerifiedRoot
-  sorry
+  fun env task cert interm leaf depth =>
+    Verdict.Policy.Firefox.certVerifiedNonLeaf env task cert leaf depth &&
+    (!env.symantecRoots.contains cert.fingerprint ||
+      env.symantecExceptions.contains interm.fingerprint || cert.notBefore ≥ 1464739200) &&
+    Verdict.Policy.Firefox.internationalValid env cert leaf
 -- !benchmark @end code def=firefoxCertVerifiedRoot
 
 -- !benchmark @start code_aux def=firefoxCheckAllNameConstraints
@@ -174,7 +286,11 @@ def Verdict.firefoxCertVerifiedRoot : Verdict.FirefoxCertVerifiedRootSig :=
 
 def Verdict.firefoxCheckAllNameConstraints : Verdict.FirefoxCheckAllNameConstraintsSig :=
 -- !benchmark @start code def=firefoxCheckAllNameConstraints
-  sorry
+  fun chain =>
+    !chain.isEmpty &&
+    ((List.range (chain.length - 1)).map (· + 1)).all (fun i =>
+      (List.range i).all (fun j =>
+        Verdict.Policy.Firefox.checkNameConstraints chain[i]! chain[j]! (j == 0)))
 -- !benchmark @end code def=firefoxCheckAllNameConstraints
 
 /-! ## § 5  Firefox Policy Composition (LLM Implements) -/
@@ -184,7 +300,9 @@ def Verdict.firefoxCheckAllNameConstraints : Verdict.FirefoxCheckAllNameConstrai
 
 def Verdict.firefoxLikelyIssued : Verdict.FirefoxLikelyIssuedSig :=
 -- !benchmark @start code def=firefoxLikelyIssued
-  sorry
+  fun issuer subject =>
+    Verdict.Policy.sameDN issuer.subject subject.issuer false &&
+    Verdict.Policy.checkAuthKeyId issuer subject
 -- !benchmark @end code def=firefoxLikelyIssued
 
 -- !benchmark @start code_aux def=firefoxValidChain
@@ -192,5 +310,12 @@ def Verdict.firefoxLikelyIssued : Verdict.FirefoxLikelyIssuedSig :=
 
 def Verdict.firefoxValidChain : Verdict.FirefoxValidChainSig :=
 -- !benchmark @start code def=firefoxValidChain
-  sorry
+  fun env chain task =>
+    chain.length ≥ 2 &&
+    Verdict.firefoxCertVerifiedLeaf env task chain[0]! false &&
+    ((List.range (chain.length - 2)).map (· + 1)).all (fun i =>
+      Verdict.firefoxCertVerifiedIntermediate env task chain[i]! chain[0]! (i - 1)) &&
+    Verdict.firefoxCertVerifiedRoot env task chain[chain.length - 1]! chain[chain.length - 2]!
+      chain[0]! (chain.length - 2) &&
+    Verdict.firefoxCheckAllNameConstraints chain
 -- !benchmark @end code def=firefoxValidChain
