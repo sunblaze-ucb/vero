@@ -8,6 +8,7 @@ import Flocq.IEEE754.Impl.BinaryDefs
 import Flocq.IEEE754.Impl.Binary
 import Flocq.IEEE754.Impl.Bits
 import Flocq.IEEE754.Impl.PrimFloat
+import Flocq.IEEE754.Spec.Bits
 
 open Flocq
 
@@ -75,3 +76,17 @@ example : PrecLtEmax 53 1024 := ⟨by decide⟩
 -- → mantissa = 2^52 = 4503599627370496, flocq_exp = 1023 − 1075 = −52
 #guard Flocq.prim2B 1.0 == BinaryFloat.finite false 4503599627370496 (-52)
 #guard Flocq.b2Prim (BinaryFloat.finite false 4503599627370496 (-52)) == 1.0
+
+-- Arithmetic wrappers must reduce to the same declarations as the bundle APIs.
+example : spec_b32Plus_def canonical := by unfold spec_b32Plus_def; intros; rfl
+example : spec_b32Minus_def canonical := by unfold spec_b32Minus_def; intros; rfl
+example : spec_b32Mult_def canonical := by unfold spec_b32Mult_def; intros; rfl
+example : spec_b32Div_def canonical := by unfold spec_b32Div_def; intros; rfl
+example : spec_b32Sqrt_def canonical := by unfold spec_b32Sqrt_def; intros; rfl
+example : spec_b32Fma_def canonical := by unfold spec_b32Fma_def; intros; rfl
+example : spec_b64Plus_def canonical := by unfold spec_b64Plus_def; intros; rfl
+example : spec_b64Minus_def canonical := by unfold spec_b64Minus_def; intros; rfl
+example : spec_b64Mult_def canonical := by unfold spec_b64Mult_def; intros; rfl
+example : spec_b64Div_def canonical := by unfold spec_b64Div_def; intros; rfl
+example : spec_b64Sqrt_def canonical := by unfold spec_b64Sqrt_def; intros; rfl
+example : spec_b64Fma_def canonical := by unfold spec_b64Fma_def; intros; rfl

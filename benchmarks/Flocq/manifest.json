@@ -3942,13 +3942,7 @@
     "magUniquePos",
     "validBinary",
     "binaryFloatOfBitsAux",
-    "binaryFloatOfBitsAuxCorrect",
-    "bplus",
-    "bminus",
-    "bmult",
-    "bdiv",
-    "bsqrt",
-    "bfma"
+    "binaryFloatOfBitsAuxCorrect"
   ],
   "trusted_axiom_sources": {
     "ZfloorValidRnd": {
@@ -4004,30 +3998,6 @@
       "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
     },
     "binaryFloatOfBitsAuxCorrect": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "bplus": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "bminus": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "bmult": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "bdiv": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "bsqrt": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "bfma": {
       "kind": "curated_boundary",
       "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
     }

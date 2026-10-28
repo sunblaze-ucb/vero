@@ -1,5 +1,5 @@
 import Flocq.Core.Impl.Defs
-import Flocq.IEEE754.Impl.BinaryDefs
+import Flocq.IEEE754.Impl.Binary
 
 -- !benchmark @start imports
 -- !benchmark @end imports
@@ -81,40 +81,6 @@ axiom binaryFloatOfBitsAux : ∀ (mw ew : Int), Int → BinaryFloat (mw + 1) ((2
 /-- `binaryFloatOfBitsAux` always produces a valid BinaryFloat. -/
 axiom binaryFloatOfBitsAuxCorrect : ∀ (mw ew : Int) (x : Int),
   validBinary (mw + 1) ((2 : Int) ^ (ew - 1).toNat) (binaryFloatOfBitsAux mw ew x) = true
-
--- ── Axiomatized IEEE 754 binary arithmetic (from IEEE754.Binary) ──────────────
--- These operations are defined in the Binary module; axiomatized here so that
--- this module compiles independently.
-
-/-- IEEE 754 floating-point addition with NaN propagation. -/
-axiom bplus : ∀ (prec emax : Int),
-  (BinaryFloat prec emax → BinaryFloat prec emax → BinaryFloat prec emax) →
-  RoundingMode → BinaryFloat prec emax → BinaryFloat prec emax → BinaryFloat prec emax
-
-/-- IEEE 754 floating-point subtraction with NaN propagation. -/
-axiom bminus : ∀ (prec emax : Int),
-  (BinaryFloat prec emax → BinaryFloat prec emax → BinaryFloat prec emax) →
-  RoundingMode → BinaryFloat prec emax → BinaryFloat prec emax → BinaryFloat prec emax
-
-/-- IEEE 754 floating-point multiplication with NaN propagation. -/
-axiom bmult : ∀ (prec emax : Int),
-  (BinaryFloat prec emax → BinaryFloat prec emax → BinaryFloat prec emax) →
-  RoundingMode → BinaryFloat prec emax → BinaryFloat prec emax → BinaryFloat prec emax
-
-/-- IEEE 754 floating-point division with NaN propagation. -/
-axiom bdiv : ∀ (prec emax : Int),
-  (BinaryFloat prec emax → BinaryFloat prec emax → BinaryFloat prec emax) →
-  RoundingMode → BinaryFloat prec emax → BinaryFloat prec emax → BinaryFloat prec emax
-
-/-- IEEE 754 floating-point square root with NaN propagation. -/
-axiom bsqrt : ∀ (prec emax : Int),
-  (BinaryFloat prec emax → BinaryFloat prec emax) →
-  RoundingMode → BinaryFloat prec emax → BinaryFloat prec emax
-
-/-- IEEE 754 floating-point fused multiply-add with NaN propagation. -/
-axiom bfma : ∀ (prec emax : Int),
-  (BinaryFloat prec emax → BinaryFloat prec emax → BinaryFloat prec emax → BinaryFloat prec emax) →
-  RoundingMode → BinaryFloat prec emax → BinaryFloat prec emax → BinaryFloat prec emax → BinaryFloat prec emax
 
 namespace Flocq
 
@@ -390,70 +356,70 @@ def Flocq.bitsOfB64 : Flocq.BitsOfB64Sig :=
 
 
 noncomputable def Flocq.b32Plus : Flocq.B32PlusSig :=
-  fun mode x y => bplus 24 128 binopNanPl32 mode x y
+  fun mode x y => Flocq.bplus 24 128 mode Flocq.binopNanPl32 x y
 
 -- ── b32Minus ──────────────────────────────────────────────────────────────────
 
 
 noncomputable def Flocq.b32Minus : Flocq.B32MinusSig :=
-  fun mode x y => bminus 24 128 binopNanPl32 mode x y
+  fun mode x y => Flocq.bminus 24 128 mode Flocq.binopNanPl32 x y
 
 -- ── b32Mult ───────────────────────────────────────────────────────────────────
 
 
 noncomputable def Flocq.b32Mult : Flocq.B32MultSig :=
-  fun mode x y => bmult 24 128 binopNanPl32 mode x y
+  fun mode x y => Flocq.bmult 24 128 mode Flocq.binopNanPl32 x y
 
 -- ── b32Div ────────────────────────────────────────────────────────────────────
 
 
 noncomputable def Flocq.b32Div : Flocq.B32DivSig :=
-  fun mode x y => bdiv 24 128 binopNanPl32 mode x y
+  fun mode x y => Flocq.bdiv 24 128 mode Flocq.binopNanPl32 x y
 
 -- ── b32Sqrt ───────────────────────────────────────────────────────────────────
 
 
 noncomputable def Flocq.b32Sqrt : Flocq.B32SqrtSig :=
-  fun mode x => bsqrt 24 128 unopNanPl32 mode x
+  fun mode x => Flocq.bsqrt 24 128 mode Flocq.unopNanPl32 x
 
 -- ── b32Fma ────────────────────────────────────────────────────────────────────
 
 
 noncomputable def Flocq.b32Fma : Flocq.B32FmaSig :=
-  fun mode x y z => bfma 24 128 ternopNanPl32 mode x y z
+  fun mode x y z => Flocq.bfma 24 128 mode Flocq.ternopNanPl32 x y z
 
 -- ── b64Plus ───────────────────────────────────────────────────────────────────
 
 
 noncomputable def Flocq.b64Plus : Flocq.B64PlusSig :=
-  fun mode x y => bplus 53 1024 binopNanPl64 mode x y
+  fun mode x y => Flocq.bplus 53 1024 mode Flocq.binopNanPl64 x y
 
 -- ── b64Minus ──────────────────────────────────────────────────────────────────
 
 
 noncomputable def Flocq.b64Minus : Flocq.B64MinusSig :=
-  fun mode x y => bminus 53 1024 binopNanPl64 mode x y
+  fun mode x y => Flocq.bminus 53 1024 mode Flocq.binopNanPl64 x y
 
 -- ── b64Mult ───────────────────────────────────────────────────────────────────
 
 
 noncomputable def Flocq.b64Mult : Flocq.B64MultSig :=
-  fun mode x y => bmult 53 1024 binopNanPl64 mode x y
+  fun mode x y => Flocq.bmult 53 1024 mode Flocq.binopNanPl64 x y
 
 -- ── b64Div ────────────────────────────────────────────────────────────────────
 
 
 noncomputable def Flocq.b64Div : Flocq.B64DivSig :=
-  fun mode x y => bdiv 53 1024 binopNanPl64 mode x y
+  fun mode x y => Flocq.bdiv 53 1024 mode Flocq.binopNanPl64 x y
 
 -- ── b64Sqrt ───────────────────────────────────────────────────────────────────
 
 
 noncomputable def Flocq.b64Sqrt : Flocq.B64SqrtSig :=
-  fun mode x => bsqrt 53 1024 unopNanPl64 mode x
+  fun mode x => Flocq.bsqrt 53 1024 mode Flocq.unopNanPl64 x
 
 -- ── b64Fma ────────────────────────────────────────────────────────────────────
 
 
 noncomputable def Flocq.b64Fma : Flocq.B64FmaSig :=
-  fun mode x y z => bfma 53 1024 ternopNanPl64 mode x y z
+  fun mode x y z => Flocq.bfma 53 1024 mode Flocq.ternopNanPl64 x y z

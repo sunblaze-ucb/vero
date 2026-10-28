@@ -80,9 +80,10 @@ def spec_binary_float_of_bits_of_binary_float (impl : RepoImpl) : Prop :=
   impl.flocq.binaryFloatOfBits mw ew (impl.flocq.bitsOfBinaryFloat mw ew x) = x
 
 /-- `bitsOfBinaryFloat` is a left inverse of `binaryFloatOfBits`:
-    encoding the decoding of any integer bit pattern recovers the original bits. -/
+    encoding the decoding of an in-range integer bit pattern recovers the original bits. -/
 def spec_bits_of_binary_float_of_bits (impl : RepoImpl) : Prop :=
   ∀ (mw ew : Int) (n : Int),
+  0 ≤ n ∧ n < (2 : Int) ^ (mw + ew + 1).toNat →
   impl.flocq.bitsOfBinaryFloat mw ew (impl.flocq.binaryFloatOfBits mw ew n) = n
 
 /-- `b32OfBits` is the binary32 specialization of `binaryFloatOfBits`. -/
