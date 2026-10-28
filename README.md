@@ -190,12 +190,12 @@ Every benchmark is a standalone Lean 4 project under `benchmarks/<name>/` (the `
 | `textwrap` | 2 | 60 | [python/cpython](https://github.com/python/cpython) | PSF-2.0 | `669299b62f6c` |
 | `toposort` | 2 | 15 | [ericvsmith/toposort](https://gitlab.com/ericvsmith/toposort) | Apache-2.0 | `9fcd043736d3` |
 | `unicode` | 30 | 46 | [dafny-lang/libraries](https://github.com/dafny-lang/libraries.git) | MIT | `b486ff7faadb` |
-| `verdict` | 31 | 119 | [secure-foundations/verdict](https://github.com/secure-foundations/verdict) | MIT OR Apache-2.0 | `9bc18bc5a287` |
+| `verdict` | 31 | 116 | [secure-foundations/verdict](https://github.com/secure-foundations/verdict) | MIT OR Apache-2.0 | `9bc18bc5a287` |
 | `verified_bitmasks` | 88 | 124 | [achreto/verified-bitmasks](https://github.com/achreto/verified-bitmasks.git) | MIT | `cce6985c3d99` |
 | `verified_ironkv` | 23 | 22 | [verus-lang/verified-ironkv](https://github.com/verus-lang/verified-ironkv.git) | MIT | `08be20c3c356` |
 | `vest` | 29 | 42 | [secure-foundations/vest](https://github.com/secure-foundations/vest.git) | MIT | `db63c23b1a63` |
 
-*Totals: 43 benchmark instances, 743 APIs, 2,705 scored specs (plus the BankLedger exemplar).*
+*Totals: 43 benchmark instances, 743 APIs, 2,702 scored specs (plus the BankLedger exemplar).*
 
 ### Archived
 
