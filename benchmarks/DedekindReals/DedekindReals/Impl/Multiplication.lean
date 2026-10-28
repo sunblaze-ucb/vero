@@ -175,7 +175,8 @@ def inv_upper_open_pos : Prop :=
 -- API signatures
 
 abbrev RmultSig := R → R → R
-abbrev RinvSig := (x : R) → Rneq x (R_of_Q 0) → R
+abbrev RinvSig (rneq : RneqSig) (rOfQ : ROfQSig) :=
+  (x : R) → rneq x (rOfQ 0) → R
 
 end DedekindReals
 
@@ -258,7 +259,7 @@ axiom Rinv_located :
 
 end DedekindReals
 
-def DedekindReals.Rinv : DedekindReals.RinvSig :=
+def DedekindReals.Rinv : DedekindReals.RinvSig DedekindReals.Rneq DedekindReals.R_of_Q :=
 -- !benchmark @start code def=Rinv
   fun x hx =>
     { lower := DedekindReals.inv_lower x

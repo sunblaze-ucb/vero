@@ -26,7 +26,7 @@ structure DedekindRealsBundle where
   RCut_of_R : RCutOfRSig
   R_of_RCut : ROfRCutSig
   Rmult : RmultSig
-  Rinv : RinvSig
+  Rinv : RinvSig Rneq R_of_Q
   Rmin : RminSig
   Rmax : RmaxSig
 

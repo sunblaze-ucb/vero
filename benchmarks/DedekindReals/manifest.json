@@ -3111,7 +3111,7 @@
               "source_signature": "Definition Rinv : forall x : R, (x ## 0 -> R)%R.",
               "equivalence_status": "translated",
               "kind": "api",
-              "sig": "RinvSig",
+              "sig": "RinvSig Rneq R_of_Q",
               "type": "(x : R) \u2192 Rneq x (R_of_Q 0) \u2192 R"
             }
           ],
