@@ -6,6 +6,12 @@ import Verdict.Impl.Convert
 
 Preservation specifications for `Verdict.certFromParsed`.
 
+Curator hold (#5): these three declarations are retained as unscored
+`spec_helpers` requiring human review. The opaque converter exposes neither
+an implementation slot nor preservation laws. Restore scoring only after
+providing a source-faithful conversion and its OID/time representation bridge;
+an always-failing conversion must not receive vacuous preservation credit.
+
 These mirror the three Verus-proved preservation facts on
 `Certificate::spec_from` (`verdict/src/convert.rs`): the outer and
 inner signature-algorithm OIDs survive the parser→policy translation

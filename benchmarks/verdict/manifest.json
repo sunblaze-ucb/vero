@@ -264,12 +264,28 @@
           "name": "Convert",
           "impl": "Verdict/Impl/Convert.lean",
           "spec": "Verdict/Spec/Convert.lean",
-          "note": "Certificate AST → policy-layer AbstractCertificate conversion. certFromParsed is opaque (1125 LOC in Verus convert.rs). Specs capture the three preservation properties from Certificate::spec_from ensures.",
+          "note": "Curator hold (#5): the frozen opaque converter has no kernel-visible preservation contract and is not editable. Preserve these obligations as unscored review items until the conversion and OID/time representation bridges are supplied.",
           "apis": [],
-          "specs": [
-            "spec_cert_from_parsed_sig_alg_outer",
-            "spec_cert_from_parsed_sig_alg_inner",
-            "spec_cert_from_parsed_validity"
+          "specs": [],
+          "spec_helpers": [
+            {
+              "name": "spec_cert_from_parsed_sig_alg_outer",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "source_note": "Held from scoring pending the conversion implementation and source-faithful OID/time bridge; see issue #5."
+            },
+            {
+              "name": "spec_cert_from_parsed_sig_alg_inner",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "source_note": "Held from scoring pending the conversion implementation and source-faithful OID/time bridge; see issue #5."
+            },
+            {
+              "name": "spec_cert_from_parsed_validity",
+              "role": "requires_human_review",
+              "disposition": "provided",
+              "source_note": "Held from scoring pending the conversion implementation and source-faithful OID/time bridge; see issue #5."
+            }
           ]
         },
         {
