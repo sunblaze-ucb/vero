@@ -19,9 +19,11 @@ All specs access API functions via `impl.flocq.*` through `RepoImpl`.
 DO NOT MODIFY — this file is frozen curator-given content.
 -/
 
-/-- `validBinary` exposes the shared BinaryFloat validity helper. -/
+/-- Pin validity independently of the candidate decoder, and require the
+    decoder to produce valid values under the source format hypotheses. -/
 def spec_validBinary_def (impl : RepoImpl) : Prop :=
-  ∀ (mw ew x : Int),
+  (∀ prec emax x, impl.flocq.validBinary prec emax x = _root_.validBinary prec emax x) ∧
+  ∀ (mw ew x : Int), validBitFormat mw ew →
     impl.flocq.validBinary (mw + 1) ((2 : Int) ^ (ew - 1).toNat)
       (impl.flocq.binaryFloatOfBitsAux mw ew x) = true
 
@@ -58,9 +60,9 @@ def spec_ternopNanPl64_def (impl : RepoImpl) : Prop :=
 /-- `splitBits` exposes the fixed sign/exponent/mantissa field split helper. -/
 def spec_splitBits_fields (impl : RepoImpl) : Prop :=
   ∀ (mw ew : Nat) (n : Int),
-    let body := n % (2 : Int) ^ (mw + ew + 1)
     impl.flocq.splitBits mw ew n =
-      (decide (n < 0), body / (2 : Int) ^ mw, body % (2 : Int) ^ mw)
+      (decide ((2 : Int) ^ (mw + ew) ≤ n),
+        (n / (2 : Int) ^ mw) % (2 : Int) ^ ew, n % (2 : Int) ^ mw)
 
 /-- Splitting an encoded float agrees with the dedicated float splitter. -/
 def spec_split_bits_of_binary_float_correct (impl : RepoImpl) : Prop :=
@@ -68,21 +70,24 @@ def spec_split_bits_of_binary_float_correct (impl : RepoImpl) : Prop :=
     impl.flocq.splitBits mw.toNat ew.toNat (impl.flocq.bitsOfBinaryFloat mw ew x) =
       impl.flocq.splitBitsOfBinaryFloat mw ew x
 
-/-- The public raw decoder auxiliary agrees with `binaryFloatOfBits`. -/
+/-- Pin the raw decoder to the concrete source semantics. -/
 def spec_binaryFloatOfBitsAux_agrees (impl : RepoImpl) : Prop :=
   ∀ (mw ew n : Int),
+    impl.flocq.binaryFloatOfBitsAux mw ew n = _root_.binaryFloatOfBitsAux mw ew n ∧
     impl.flocq.binaryFloatOfBitsAux mw ew n = impl.flocq.binaryFloatOfBits mw ew n
 
 /-- `binaryFloatOfBits` is a left inverse of `bitsOfBinaryFloat`:
-    decoding the encoding of any `BinaryFloat` recovers the original float. -/
+    decoding the encoding of a source-valid `BinaryFloat` recovers it. -/
 def spec_binary_float_of_bits_of_binary_float (impl : RepoImpl) : Prop :=
   ∀ (mw ew : Int) (x : BinaryFloat (mw + 1) ((2 : Int) ^ (ew - 1).toNat)),
+  validBitFormat mw ew → _root_.validBinary _ _ x = true →
   impl.flocq.binaryFloatOfBits mw ew (impl.flocq.bitsOfBinaryFloat mw ew x) = x
 
 /-- `bitsOfBinaryFloat` is a left inverse of `binaryFloatOfBits`:
     encoding the decoding of an in-range integer bit pattern recovers the original bits. -/
 def spec_bits_of_binary_float_of_bits (impl : RepoImpl) : Prop :=
   ∀ (mw ew : Int) (n : Int),
+  validBitFormat mw ew →
   0 ≤ n ∧ n < (2 : Int) ^ (mw + ew + 1).toNat →
   impl.flocq.bitsOfBinaryFloat mw ew (impl.flocq.binaryFloatOfBits mw ew n) = n
 

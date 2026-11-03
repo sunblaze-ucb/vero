@@ -34,18 +34,17 @@ abbrev Binary64 := BinaryFloat 53 1024
 
 -- ── Spec helpers (no markers — fixed vocabulary) ─────────────────────────────
 
-/-- Combine (sign, exponent, mantissa) fields into a signed integer bit pattern.
+/-- Combine (sign, exponent, mantissa) fields into an unsigned integer bit pattern.
     The sign bit occupies position `mw + ew`; exponent occupies bits `mw..mw+ew-1`;
     mantissa occupies bits `0..mw-1`. -/
 def joinBits (mw ew : Nat) (sign : Bool) (e m : Int) : Int :=
-  (if sign then -((2 : Int) ^ (mw + ew)) else 0) + e * (2 : Int) ^ mw + m
+  (if sign then (2 : Int) ^ (mw + ew) else 0) + e * (2 : Int) ^ mw + m
 
-/-- Split an integer bit pattern into `(sign, exponent, mantissa)` fields.
-    The sign is `x < 0`; exponent and mantissa are extracted from
-    `x mod 2^(mw+ew+1)`. -/
+/-- Split into `(sign, exponent, mantissa)`, as in Coq's `split_bits`
+    (with the last two tuple components exchanged for this Lean API). -/
 def splitBits (mw ew : Nat) (x : Int) : Bool × Int × Int :=
-  let body := x % (2 : Int) ^ (mw + ew + 1)
-  (x < 0, body / (2 : Int) ^ mw, body % (2 : Int) ^ mw)
+  (decide ((2 : Int) ^ (mw + ew) ≤ x),
+    (x / (2 : Int) ^ mw) % (2 : Int) ^ ew, x % (2 : Int) ^ mw)
 
 /-- Default NaN for binary32 binary operations. -/
 def binopNanPl32 (_ _ : Binary32) : Binary32 := BinaryFloat.nan false 1
@@ -71,16 +70,33 @@ def defaultNanPl32 : Binary32 := BinaryFloat.nan false 1
 /-- Default NaN constant for binary64. -/
 def defaultNanPl64 : Binary64 := BinaryFloat.nan false 1
 
-/-- Validity predicate for a BinaryFloat (axiomatized from Flocq's `valid_binary`). -/
-axiom validBinary : ∀ (prec emax : Int), BinaryFloat prec emax → Bool
+/-- The source section's `Hmw`, `Hew`, and `Hmax` hypotheses. -/
+def validBitFormat (mw ew : Int) : Prop :=
+  0 < mw ∧ 0 < ew ∧ mw + 1 < (2 : Int) ^ (ew - 1).toNat
 
-/-- Internal helper that converts a raw integer bit pattern to a BinaryFloat.
-    The result is always valid (see `binaryFloatOfBitsAuxCorrect`). -/
-axiom binaryFloatOfBitsAux : ∀ (mw ew : Int), Int → BinaryFloat (mw + 1) ((2 : Int) ^ (ew - 1).toNat)
+/-- Source `valid_binary`: positive, bounded payloads and canonical finite
+    mantissas. The Coq constructors carry these invariants as proof fields. -/
+def validBinary (prec emax : Int) (x : BinaryFloat prec emax) : Bool :=
+  match x with
+  | .zero _ | .inf _ => true
+  | .nan _ pl => decide (0 < pl ∧ (pl : Int) < (2 : Int) ^ (prec - 1).toNat)
+  | .finite _ m e =>
+    let emin := 3 - emax - prec
+    decide (0 < m ∧ (m : Int) < (2 : Int) ^ prec.toNat ∧
+      emin ≤ e ∧ e ≤ emax - prec ∧
+      (e = emin ∨ (2 : Int) ^ (prec - 1).toNat ≤ (m : Int)))
 
-/-- `binaryFloatOfBitsAux` always produces a valid BinaryFloat. -/
-axiom binaryFloatOfBitsAuxCorrect : ∀ (mw ew : Int) (x : Int),
-  validBinary (mw + 1) ((2 : Int) ^ (ew - 1).toNat) (binaryFloatOfBitsAux mw ew x) = true
+/-- Concrete source decoder. Validity requires `validBitFormat`; no inverse
+    or validity property is assumed as an axiom. -/
+def binaryFloatOfBitsAux (mw ew : Int) (x : Int) :
+    BinaryFloat (mw + 1) ((2 : Int) ^ (ew - 1).toNat) :=
+  let (s, e, m) := splitBits mw.toNat ew.toNat x
+  let emin := 2 - (2 : Int) ^ (ew - 1).toNat - mw
+  if e = 0 then
+    if m = 0 then .zero s else .finite s m.toNat emin
+  else if e = (2 : Int) ^ ew.toNat - 1 then
+    if m = 0 then .inf s else .nan s m.toNat
+  else .finite s (m + (2 : Int) ^ mw.toNat).toNat (e + emin - 1)
 
 namespace Flocq
 
@@ -199,7 +215,7 @@ def Flocq.splitBits : Flocq.SplitBitsSig :=
 -- !benchmark @start code_aux def=validBinary
 -- !benchmark @end code_aux def=validBinary
 
-noncomputable def Flocq.validBinary : Flocq.ValidBinarySig :=
+def Flocq.validBinary : Flocq.ValidBinarySig :=
 -- !benchmark @start code def=validBinary
   fun prec emax x => _root_.validBinary prec emax x
 -- !benchmark @end code def=validBinary
@@ -263,7 +279,7 @@ def Flocq.bitsOfBinaryFloat : Flocq.BitsOfBinaryFloatSig :=
     let mwn := mw.toNat
     let ewn := ew.toNat
     -- Sign bit contribution: place 1 in sign position (mw+ew) for negative
-    let sb (s : Bool) : Int := if s then -((2 : Int) ^ (mwn + ewn)) else 0
+    let sb (s : Bool) : Int := if s then (2 : Int) ^ (mwn + ewn) else 0
     -- All-ones exponent field: 2^ew - 1 (used for inf/nan)
     let expMask : Int := (2 : Int) ^ ewn - 1
     match x with
@@ -305,7 +321,7 @@ def Flocq.splitBitsOfBinaryFloat : Flocq.SplitBitsOfBinaryFloatSig :=
 -- !benchmark @start code_aux def=binaryFloatOfBitsAux
 -- !benchmark @end code_aux def=binaryFloatOfBitsAux
 
-noncomputable def Flocq.binaryFloatOfBitsAux : Flocq.BinaryFloatOfBitsAuxSig :=
+def Flocq.binaryFloatOfBitsAux : Flocq.BinaryFloatOfBitsAuxSig :=
 -- !benchmark @start code def=binaryFloatOfBitsAux
   fun mw ew n => _root_.binaryFloatOfBitsAux mw ew n
 -- !benchmark @end code def=binaryFloatOfBitsAux
@@ -313,20 +329,20 @@ noncomputable def Flocq.binaryFloatOfBitsAux : Flocq.BinaryFloatOfBitsAuxSig :=
 -- ── binaryFloatOfBits ─────────────────────────────────────────────────────────
 
 
-noncomputable def Flocq.binaryFloatOfBits : Flocq.BinaryFloatOfBitsSig :=
+def Flocq.binaryFloatOfBits : Flocq.BinaryFloatOfBitsSig :=
   fun mw ew n => binaryFloatOfBitsAux mw ew n
 
 -- ── b32OfBits ─────────────────────────────────────────────────────────────────
 
 
-noncomputable def Flocq.b32OfBits : Flocq.B32OfBitsSig :=
+def Flocq.b32OfBits : Flocq.B32OfBitsSig :=
   -- mw = 23, ew = 8 for binary32
   fun n => Flocq.binaryFloatOfBits 23 8 n
 
 -- ── b64OfBits ─────────────────────────────────────────────────────────────────
 
 
-noncomputable def Flocq.b64OfBits : Flocq.B64OfBitsSig :=
+def Flocq.b64OfBits : Flocq.B64OfBitsSig :=
   -- mw = 52, ew = 11 for binary64
   fun n => Flocq.binaryFloatOfBits 52 11 n
 
