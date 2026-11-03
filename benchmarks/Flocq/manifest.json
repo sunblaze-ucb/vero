@@ -2866,10 +2866,10 @@
               "name": "validBinary",
               "sig": "ValidBinarySig",
               "type": "\u2200 (prec emax : Int), BinaryFloat prec emax \u2192 Bool",
-              "source_id": "IEEE754/Bits.v:binary32:16503",
-              "source_name": "binary32",
-              "source_file": "IEEE754/Bits.v",
-              "source_signature": "Definition binary32",
+              "source_id": "IEEE754/Binary.v:valid_binary:3830",
+              "source_name": "valid_binary",
+              "source_file": "IEEE754/Binary.v",
+              "source_signature": "Definition valid_binary",
               "reference_allowed": true,
               "role": "reference_api",
               "source_note": "Wrapper/equivalence specs intentionally compare this API with the frozen Flocq namespace reference."
@@ -3007,13 +3007,13 @@
           "specs": [
             {
               "name": "spec_validBinary_def",
-              "source_id": "IEEE754/Bits.v:binary32:16503",
-              "source_name": "binary32",
+              "source_id": "IEEE754/Bits.v:binary_float_of_bits_aux_correct:10351",
+              "source_name": "binary_float_of_bits_aux_correct",
               "source_file": "IEEE754/Bits.v",
-              "source_signature": "Definition binary32",
-              "source_theorem": "binary32",
+              "source_signature": "Lemma binary_float_of_bits_aux_correct",
+              "source_theorem": "binary_float_of_bits_aux_correct",
               "equivalence_status": "derived",
-              "source_note": "Derived/split Flocq spec mapped to nearest source item binary32 in IEEE754/Bits.v."
+              "source_note": "Pins source Binary.valid_binary independently of the candidate, and proves binary_float_of_bits_aux_correct under the source section hypotheses."
             },
             {
               "name": "spec_binopNanPl32_def",
@@ -3102,7 +3102,7 @@
               "source_signature": "Definition binary_float_of_bits_aux",
               "source_theorem": "binary_float_of_bits_aux",
               "equivalence_status": "derived",
-              "source_note": "Derived/split Flocq spec mapped to nearest source item binary_float_of_bits_aux in IEEE754/Bits.v."
+              "source_note": "Pins the candidate decoder to the concrete source binary_float_of_bits_aux algorithm; no uninterpreted decoder axiom remains."
             },
             {
               "name": "spec_binary_float_of_bits_of_binary_float",
@@ -3111,7 +3111,8 @@
               "source_file": "IEEE754/Bits.v",
               "source_signature": "Theorem binary_float_of_bits_of_binary_float",
               "source_theorem": "binary_float_of_bits_of_binary_float",
-              "equivalence_status": "equivalent"
+              "equivalence_status": "equivalent",
+              "source_note": "Restores section hypotheses Hmw, Hew, Hmax; the float roundtrip also restores validity proof fields erased from the Coq constructors."
             },
             {
               "name": "spec_bits_of_binary_float_of_bits",
@@ -3120,7 +3121,8 @@
               "source_file": "IEEE754/Bits.v",
               "source_signature": "Theorem bits_of_binary_float_of_bits",
               "source_theorem": "bits_of_binary_float_of_bits",
-              "equivalence_status": "equivalent"
+              "equivalence_status": "equivalent",
+              "source_note": "Restores section hypotheses Hmw, Hew, Hmax; the float roundtrip also restores validity proof fields erased from the Coq constructors."
             },
             {
               "name": "spec_b32OfBits_def",
@@ -3487,7 +3489,8 @@
               "source_file": "IEEE754/PrimFloat.v",
               "source_signature": "Lemma B2Prim_Prim2B",
               "source_theorem": "B2Prim_Prim2B",
-              "equivalence_status": "equivalent"
+              "equivalence_status": "derived",
+              "source_note": "Restores the source BinarySingleNaN domain via frozen validBinary and primitiveNanCanonical predicates. FloatBitsLaws explicitly assumes the external conversion laws supplied by Coq FloatAxioms but absent from Lean Float. The bit inverse law is restricted to canonical native encodings because Lean 4.29.1 runtime canonicalizes all NaNs. No new global axiom is added."
             },
             {
               "name": "spec_Prim2B_B2Prim",
@@ -3496,7 +3499,8 @@
               "source_file": "IEEE754/PrimFloat.v",
               "source_signature": "Lemma Prim2B_B2Prim",
               "source_theorem": "Prim2B_B2Prim",
-              "equivalence_status": "equivalent"
+              "equivalence_status": "derived",
+              "source_note": "Restores the source BinarySingleNaN domain via frozen validBinary and primitiveNanCanonical predicates. FloatBitsLaws explicitly assumes the external conversion laws supplied by Coq FloatAxioms but absent from Lean Float. The bit inverse law is restricted to canonical native encodings because Lean 4.29.1 runtime canonicalizes all NaNs. No new global axiom is added."
             }
           ],
           "api_helpers": []
@@ -3939,16 +3943,7 @@
     "expSmallRound0Pos",
     "magDN",
     "roundUPSmallPos",
-    "magUniquePos",
-    "validBinary",
-    "binaryFloatOfBitsAux",
-    "binaryFloatOfBitsAuxCorrect",
-    "bplus",
-    "bminus",
-    "bmult",
-    "bdiv",
-    "bsqrt",
-    "bfma"
+    "magUniquePos"
   ],
   "trusted_axiom_sources": {
     "ZfloorValidRnd": {
@@ -3992,42 +3987,6 @@
       "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
     },
     "magUniquePos": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "validBinary": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "binaryFloatOfBitsAux": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "binaryFloatOfBitsAuxCorrect": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "bplus": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "bminus": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "bmult": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "bdiv": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "bsqrt": {
-      "kind": "curated_boundary",
-      "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
-    },
-    "bfma": {
       "kind": "curated_boundary",
       "reason": "Existing Flocq translation relies on this source-backed mathematical or IEEE operation boundary; trusted for benchmark curation."
     }
