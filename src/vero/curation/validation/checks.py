@@ -923,6 +923,21 @@ def check_file_roles(benchmark: Path) -> CheckResult:
                             location=impl_rel,
                         )
                     )
+            # Reverse check: every code/code_aux slot must be a manifest API.
+            # The extractor only schedules ``apis`` and drops other slots.
+            api_names = {api.get("name") for api in mod.get("apis", [])}
+            for key, def_name in sorted(keys_present, key=lambda k: (k[0], k[1] or "")):
+                if key in ("code", "code_aux") and def_name not in api_names:
+                    details.append(
+                        Finding(
+                            "error",
+                            f"{impl_rel}: !benchmark {key} slot def={def_name} "
+                            "is not a manifest API — generation never schedules "
+                            "it; make the definition marker-free (frozen) or "
+                            "list it in apis",
+                            location=impl_rel,
+                        )
+                    )
 
     # Spec files: no markers of any prefix
     for pkg in manifest.get("packages", []):

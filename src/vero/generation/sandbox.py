@@ -5,7 +5,7 @@ Given a benchmark in the ratified bundle paradigm, produce a sandbox the agent c
 1. ``shutil.copytree`` the benchmark into the sandbox dir (minus lake caches),
    then reuse the benchmark's ``.lake/packages`` dependency cache when present.
 2. Materialize per-mode ``<Package>/Proof/<Module>.lean`` via :mod:`vero.generation.proof_materialize`. In ``codeproof`` mode, also materialize the dormant ``<Package>/Proof/Joint.lean`` slot.
-3. **Codeproof only**: overwrite every ``!benchmark code`` slot in ``Impl/*.lean`` with a single ``sorry`` line. The LLM fills the implementation itself. In ``proof`` mode the reference impl stays (``canonical`` is given).
+3. Freeze any ``code`` / ``code_aux`` slot whose ``def=`` is not a manifest API (strip its markers, keep the body). **Codeproof only**: then overwrite every remaining ``!benchmark code`` slot in ``Impl/*.lean`` with a single ``sorry`` line. The LLM fills the implementation itself. In ``proof`` mode the reference impl stays (``canonical`` is given).
 4. Strip ``!curation @…`` single-line annotations from every sandbox file the agent can touch. Keep marker + non-marker content otherwise verbatim.
 5. Write ``INSTRUCTION.md`` at the sandbox root — consumed by the agent runner.
 
@@ -110,6 +110,11 @@ def create_sandbox(
 
     # Materialize Proof/ into the sandbox per mode.
     materialize_proof(sandbox_dir, mode=mode)
+
+    # Freeze code/code_aux slots that are not manifest APIs: the extractor
+    # never schedules them, so codeproof blanking would leave an unfixable sorry.
+    for impl, scheduled in _scheduled_apis_by_impl(bench).items():
+        _freeze_unscheduled_slots(impl, scheduled=scheduled)
 
     # Blank out code slots in codeproof mode. The agent must WRITE the impl,
     # so it also gets EMPTY `code_aux` / `global_aux` slots (curator helpers
@@ -352,6 +357,47 @@ def _link_lake_packages(src: Path, dst: Path) -> None:
             package_target.symlink_to(
                 package.resolve(), target_is_directory=package.is_dir()
             )
+
+
+_API_SLOT_KEYS = ("code", "code_aux")
+
+
+def _scheduled_apis_by_impl(bench: Benchmark) -> dict[Path, set[str]]:
+    """Map each ``Impl/*.lean`` file to the API names the extractor schedules."""
+    out: dict[Path, set[str]] = {}
+    for m in bench.iter_modules():
+        impl = m.impl_path(bench.root)
+        if impl is not None:
+            out.setdefault(impl, set()).update(api.name for api in m.apis)
+    return out
+
+
+def _freeze_unscheduled_slots(file: Path, *, scheduled: set[str]) -> None:
+    """Strip the marker lines of ``code`` / ``code_aux`` slots whose ``def=`` is
+    not in ``scheduled``, keeping their interior verbatim as frozen code."""
+    if not file.exists():
+        return
+    drop: set[int] = set()  # 0-based indices of marker lines to remove
+    names: list[str] = []
+    for s in load_slots(file):
+        if s.prefix != "benchmark" or s.key not in _API_SLOT_KEYS:
+            continue
+        if s.def_name in scheduled:
+            continue
+        drop.update({s.start_line - 1, s.end_line - 1})
+        names.append(f"{s.key} def={s.def_name}")
+    if not drop:
+        return
+    logger.warning(
+        "{}: freezing {} unscheduled impl slot(s) not in manifest apis: {}",
+        file.name,
+        len(names),
+        ", ".join(names),
+    )
+    lines = file.read_text().splitlines(keepends=True)
+    file.write_text(
+        "".join(ln for i, ln in enumerate(lines) if i not in drop), encoding="utf-8"
+    )
 
 
 def _sorry_out_slots(file: Path, *, key: str) -> None:

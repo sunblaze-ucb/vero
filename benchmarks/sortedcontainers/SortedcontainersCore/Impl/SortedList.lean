@@ -389,27 +389,17 @@ def SortedContainers.SortedKeyList.bisect_right (s0 : SortedContainers.SortedKey
   bisectRightGo s0 value 0 s0.length
 -- !benchmark @end code def=sortedKeyListBisectRight
 
--- !benchmark @start code_aux def=sortedKeyListBisectKeyLeft
--- !benchmark @end code_aux def=sortedKeyListBisectKeyLeft
-
 -- @review human: bisect_key requires a stored key function not present in
 -- this Lean model.  Approximate via lexicographic comparison of toString
 -- representations; requires [ToString α].
 def SortedContainers.SortedKeyList.bisect_key_left [ToString α]
     (s0 : SortedContainers.SortedKeyList α) (key : String) : Nat :=
--- !benchmark @start code def=sortedKeyListBisectKeyLeft
   (s0.map toString).foldl (fun acc k => if k < key then acc + 1 else acc) 0
--- !benchmark @end code def=sortedKeyListBisectKeyLeft
-
--- !benchmark @start code_aux def=sortedKeyListBisectKeyRight
--- !benchmark @end code_aux def=sortedKeyListBisectKeyRight
 
 -- @review human: same approximation as bisect_key_left.
 def SortedContainers.SortedKeyList.bisect_key_right [ToString α]
     (s0 : SortedContainers.SortedKeyList α) (key : String) : Nat :=
--- !benchmark @start code def=sortedKeyListBisectKeyRight
   (s0.map toString).foldl (fun acc k => if k <= key then acc + 1 else acc) 0
--- !benchmark @end code def=sortedKeyListBisectKeyRight
 
 -- !benchmark @start code_aux def=sortedKeyListCount
 -- !benchmark @end code_aux def=sortedKeyListCount

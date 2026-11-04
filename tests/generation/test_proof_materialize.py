@@ -218,3 +218,51 @@ def test_dry_run_writes_nothing(tmp_path: Path, mode: str) -> None:
     result = materialize_proof(benchmark, mode=mode, dry_run=True)
     for p in result.files_written:
         assert not p.exists(), f"dry_run wrote {p}"
+
+
+# ─── namespaced specs ───────────────────────────────────────
+
+
+def test_spec_namespaces_detects_enclosing_namespace() -> None:
+    from vero.generation.proof_materialize import spec_namespaces
+
+    text = """import Foo.Harness
+
+/-! docs mentioning namespace Bogus -/
+
+namespace A.B
+section
+-- def spec_commented (impl : RepoImpl) : Prop := True
+def spec_x (impl : RepoImpl) : Prop := True
+end
+end A.B
+
+def spec_top (impl : RepoImpl) : Prop := True
+def C.spec_y (impl : RepoImpl) : Prop := True
+"""
+    assert spec_namespaces(text, ["spec_x"]) == ["A.B"]
+    assert spec_namespaces(text, ["spec_top"]) == []
+    assert spec_namespaces(text, ["spec_y"]) == ["C"]
+    assert spec_namespaces(text, ["spec_x", "spec_y", "spec_top"]) == ["A.B", "C"]
+    assert spec_namespaces(text, ["spec_commented"]) == []
+
+
+@pytest.mark.parametrize("mode", ["proof", "codeproof"])
+def test_materialize_opens_spec_namespace(tmp_path: Path, mode: str) -> None:
+    """Specs declared inside a namespace get a frozen ``open`` after the
+    ``imports`` slot, so the unqualified stub statements elaborate."""
+    benchmark = _copy_bankledger_to_tmp(tmp_path)
+    spec = benchmark / "BankLedger" / "Spec" / "Account.lean"
+    head, _, rest = spec.read_text().partition("\n")
+    spec.write_text(f"{head}\n\nnamespace BankLedgerSpec\n{rest}\nend BankLedgerSpec\n")
+
+    materialize_proof(benchmark, mode=mode)
+
+    text = (benchmark / "BankLedger" / "Proof" / "Account.lean").read_text()
+    assert "-- !benchmark @end imports\n\nopen BankLedgerSpec\n" in text, text[:400]
+    # Other modules are untouched.
+    other = (benchmark / "BankLedger" / "Proof" / "Ledger.lean").read_text()
+    assert "\nopen " not in other
+    if mode == "codeproof":
+        joint = (benchmark / "BankLedger" / "Proof" / "Joint.lean").read_text()
+        assert "-- !benchmark @end imports\n\nopen BankLedgerSpec\n" in joint

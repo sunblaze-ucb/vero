@@ -54,7 +54,7 @@ To skip: leave ``Joint.lean`` untouched. No penalty.
 
 ## Grading (``codeproof`` mode)
 
-A spec is **passed** iff exactly one of ``{prove_<S>, unsat_<S>, sat_<S>}`` is filled, the file compiles, and ``#print axioms`` reports only the standard axiom set.
+A spec is **passed** iff exactly one of ``{prove_<S>, unsat_<S>, sat_<S>}`` is filled, the file compiles, and ``#print axioms`` reports only the standard trio (``Classical.choice``, ``propext``, ``Quot.sound``){% if trusted_axioms %} plus this benchmark's trusted axioms (see *Trusted axioms*){% endif %}, or none.
 
 - ``summary.unpaired_sat_specs`` counts lone ``sat_<S>``'s. Those do NOT pass.
 - ``lake build`` (full library) failing on ``Test.lean`` means Part A is wrong.
