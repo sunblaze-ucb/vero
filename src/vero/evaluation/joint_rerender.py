@@ -26,13 +26,14 @@ from pathlib import Path
 from typing import Literal
 
 from vero.evaluation.lake import lean_run_file
-from vero.generation.benchmark import Benchmark
+from vero.generation.benchmark import Benchmark, Module
 from vero.generation.extractor import (
     Artifact,
     proof_slot,
     slots_by,
     solution_slot,
 )
+from vero.generation.proof_materialize import spec_module_import, spec_namespaces
 
 JointStatus = Literal[
     "no_claim",
@@ -78,10 +79,10 @@ def _parse_spec_list(solution_body: list[str]) -> tuple[str, ...] | None:
     return tuple(parts)
 
 
-def _spec_to_module(bench: Benchmark, spec: str) -> str | None:
+def _spec_to_module(bench: Benchmark, spec: str) -> Module | None:
     for m in bench.iter_modules():
         if spec in m.specs:
-            return m.name
+            return m
     return None
 
 
@@ -96,19 +97,38 @@ def _render_joint_check(
 ) -> tuple[str, str]:
     """Render the ``eval/JointCheck.lean`` file contents + generated theorem name."""
     pkg = bench.root_package
-    needed_modules = {m for s in specs if (m := _spec_to_module(bench, s)) is not None}
+    needed = {m.name: m for s in specs if (m := _spec_to_module(bench, s)) is not None}
     # Import only what's needed to re-render ``joint_unsat``: the harness
     # (macro + RepoImpl) and the spec files for the named specs. Do NOT
     # import ``<pkg>.Proof`` — that would drag in the LLM's own Joint.lean
     # claim (a twin definition of the same theorem → name collision).
+    # Import Spec modules by manifest path (handles sub-packaged modules).
     import_lines = [f"import {pkg}.Harness"]
-    for m in sorted(needed_modules):
-        import_lines.append(f"import {pkg}.Spec.{m}")
+    for name in sorted(needed):
+        m = needed[name]
+        import_lines.append(
+            f"import {spec_module_import(m.package, m.name, m.spec_rel)}"
+        )
 
     lines: list[str] = list(import_lines) + [""]
 
     if imports_body:
         lines.extend(imports_body)
+        lines.append("")
+
+    # Open spec namespaces, as the materialized Joint.lean does.
+    namespaces = sorted(
+        {
+            ns
+            for m in needed.values()
+            if m.spec_rel and (bench.root / m.spec_rel).exists()
+            for ns in spec_namespaces(
+                (bench.root / m.spec_rel).read_text(encoding="utf-8"), m.specs
+            )
+        }
+    )
+    if namespaces:
+        lines.append(f"open {' '.join(namespaces)}")
         lines.append("")
 
     if global_aux_body:

@@ -2304,3 +2304,27 @@ def test_reference_build_pass() -> None:
     """Full `lake build` against the reference. Slow — opt in with `-m slow`."""
     report = validate_benchmark(REFERENCE, skip_build=False, build_timeout=180)
     assert report.rule_checks["build"].status in {"pass", "warn"}
+
+
+def test_file_roles_flags_unscheduled_impl_slot(tmp_path: Path) -> None:
+    """A ``code`` slot whose ``def=`` is not a manifest API is an error:
+    generation never schedules it."""
+    import shutil
+
+    from vero.curation.validation.checks import check_file_roles
+
+    bench = tmp_path / "BankLedger"
+    shutil.copytree(REFERENCE, bench, ignore=shutil.ignore_patterns(".lake", "build"))
+    impl = bench / "BankLedger" / "Impl" / "Account.lean"
+    impl.write_text(
+        impl.read_text()
+        + "\n-- !benchmark @start code_aux def=frozenHelper\n"
+        + "-- !benchmark @end code_aux def=frozenHelper\n\n"
+        + "def frozenHelper : Nat :=\n"
+        + "-- !benchmark @start code def=frozenHelper\n  42\n"
+        + "-- !benchmark @end code def=frozenHelper\n"
+    )
+    result = check_file_roles(bench)
+    assert result.status == "fail"
+    msgs = [f.message for f in result.details if "is not a manifest API" in f.message]
+    assert len(msgs) == 2, [f.message for f in result.details]

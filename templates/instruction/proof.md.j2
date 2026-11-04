@@ -27,7 +27,7 @@ Do NOT default to ``prove_`` reflexively — read the spec and the impl before c
 
 ## Grading (``proof`` mode)
 
-A spec is **passed** iff exactly one of ``{prove_<S>, disprove_<S>}`` is filled, the file compiles, and ``#print axioms`` reports only the standard trio (``Classical.choice``, ``propext``, ``Quot.sound``) or none.
+A spec is **passed** iff exactly one of ``{prove_<S>, disprove_<S>}`` is filled, the file compiles, and ``#print axioms`` reports only the standard trio (``Classical.choice``, ``propext``, ``Quot.sound``){% if trusted_axioms %} plus this benchmark's trusted axioms (see *Trusted axioms*){% endif %}, or none.
 
 Per-spec failure statuses: ``unfilled``, ``overfilled``, ``sorry_leaked``, ``axiom_leaked``, ``slot_body_tainted``, ``build_error``.
 

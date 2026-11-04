@@ -16,9 +16,10 @@ and ``reference/BankLedger/BankLedger/Proof_modecodeproof/``.
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Literal
+from typing import Iterable, Literal
 
 from vero.generation.benchmark import manifest_spec_name
 
@@ -31,7 +32,7 @@ def _lean_module_suffix(module_name: str) -> str:
     return module_name.replace("/", ".")
 
 
-def _spec_import(package: str, module_name: str, spec_path: str | None) -> str:
+def spec_module_import(package: str, module_name: str, spec_path: str | None) -> str:
     """Lean module name to `import` for a module's Spec file.
 
     Derive it from the manifest's recorded ``spec`` path rather than assuming a
@@ -46,6 +47,52 @@ def _spec_import(package: str, module_name: str, spec_path: str | None) -> str:
     if spec_path:
         return spec_path.removesuffix(".lean").replace("/", ".")
     return f"{package}.Spec.{_lean_module_suffix(module_name)}"
+
+
+_BLOCK_COMMENT = re.compile(r"/-.*?-/", re.DOTALL)
+_SCOPE_OPEN = re.compile(
+    r"^\s*(?:noncomputable\s+)?(?P<kind>namespace|section|mutual)\b\s*(?P<name>[^\s-]*)"
+)
+_SCOPE_END = re.compile(r"^\s*end\b")
+_DECL = re.compile(
+    r"^\s*(?:@\[[^\]]*\]\s*)?(?:(?:private|protected|noncomputable|partial)\s+)*"
+    r"(?:def|abbrev|theorem)\s+(?P<name>[\w.?!']+)"
+)
+
+
+def spec_namespaces(spec_text: str, spec_names: Iterable[str]) -> list[str]:
+    """Namespaces enclosing the given ``spec_*`` defs in a Spec file.
+
+    Proof stubs name specs unqualified, so namespaced specs need an ``open``.
+    A line scanner, not a parser: tracks ``namespace``/``section``/``mutual`` … ``end`` and ``def Foo.spec_S`` prefixes.
+    """
+    wanted = set(spec_names)
+    found: set[str] = set()
+    stack: list[str | None] = []  # namespace component, or None for section/mutual
+    text = _BLOCK_COMMENT.sub("", spec_text)
+    for raw in text.splitlines():
+        line = raw.split("--", 1)[0]
+        if m := _SCOPE_OPEN.match(line):
+            stack.append(m["name"] if m["kind"] == "namespace" else None)
+            continue
+        if _SCOPE_END.match(line):
+            if stack:
+                stack.pop()
+            continue
+        if m := _DECL.match(line):
+            *prefix, bare = m["name"].split(".")
+            if bare in wanted:
+                ns = ".".join([*(p for p in stack if p), *prefix])
+                if ns:
+                    found.add(ns)
+    return sorted(found)
+
+
+def _open_line(namespaces: list[str]) -> str:
+    """Frozen ``open`` command placed right after the ``imports`` slot."""
+    if not namespaces:
+        return ""
+    return f"\nopen {' '.join(namespaces)}\n"
 
 
 @dataclass
@@ -89,22 +136,34 @@ def _iter_modules(manifest: dict) -> list[Module]:
     return out
 
 
+def _module_spec_namespaces(benchmark: Path, mod: Module) -> list[str]:
+    if not mod.spec_path:
+        return []
+    path = benchmark / mod.spec_path
+    if not path.exists():
+        return []
+    return spec_namespaces(path.read_text(encoding="utf-8"), mod.specs)
+
+
 # ─────────────────────────────────────────────────────────────
 # File templates
 
 
 def _module_header_proof_mode(
-    package: str, module_name: str, spec_path: str | None = None
+    package: str,
+    module_name: str,
+    spec_path: str | None = None,
+    namespaces: list[str] | None = None,
 ) -> str:
     module_import = _lean_module_suffix(module_name)
-    spec_import = _spec_import(package, module_name, spec_path)
+    spec_import = spec_module_import(package, module_name, spec_path)
     return f"""\
 import {package}.Harness
 import {spec_import}
 
 -- !benchmark @start imports
 -- !benchmark @end imports
-
+{_open_line(namespaces or [])}
 /-!
 # {package}.Proof.{module_import} (proof mode)
 
@@ -120,17 +179,20 @@ DO NOT MODIFY theorem statements. Fill only the `sorry` proof bodies.
 
 
 def _module_header_codeproof_mode(
-    package: str, module_name: str, spec_path: str | None = None
+    package: str,
+    module_name: str,
+    spec_path: str | None = None,
+    namespaces: list[str] | None = None,
 ) -> str:
     module_import = _lean_module_suffix(module_name)
-    spec_import = _spec_import(package, module_name, spec_path)
+    spec_import = spec_module_import(package, module_name, spec_path)
     return f"""\
 import {package}.Harness
 import {spec_import}
 
 -- !benchmark @start imports
 -- !benchmark @end imports
-
+{_open_line(namespaces or [])}
 /-!
 # {package}.Proof.{module_import} (codeproof mode)
 
@@ -226,9 +288,11 @@ def _module_body_codeproof_mode(specs: list[str]) -> str:
     return "".join(out)
 
 
-def _joint_lean(root_package: str, spec_imports: list[str]) -> str:
+def _joint_lean(
+    root_package: str, spec_imports: list[str], namespaces: list[str] | None = None
+) -> str:
     """``spec_imports`` are already-resolved Lean module names (see
-    ``_spec_import``) — not raw ``<Sub>/<Mod>`` manifest names."""
+    ``spec_module_import``) — not raw ``<Sub>/<Mod>`` manifest names."""
     imports = "\n".join(f"import {m}" for m in spec_imports)
     return f"""\
 import {root_package}.Harness
@@ -236,7 +300,7 @@ import {root_package}.Harness
 
 -- !benchmark @start imports
 -- !benchmark @end imports
-
+{_open_line(namespaces or [])}
 /-!
 # {root_package}.Proof.Joint (codeproof mode)
 
@@ -312,11 +376,16 @@ def materialize_proof(
         proof_dir = benchmark / mod.package / "Proof"
         proof_path = proof_dir / f"{mod.name}.lean"
 
+        namespaces = _module_spec_namespaces(benchmark, mod)
         if mode == "proof":
-            header = _module_header_proof_mode(mod.package, mod.name, mod.spec_path)
+            header = _module_header_proof_mode(
+                mod.package, mod.name, mod.spec_path, namespaces
+            )
             body = _module_body_proof_mode(mod.specs)
         else:
-            header = _module_header_codeproof_mode(mod.package, mod.name, mod.spec_path)
+            header = _module_header_codeproof_mode(
+                mod.package, mod.name, mod.spec_path, namespaces
+            )
             body = _module_body_codeproof_mode(mod.specs)
 
         content = header + body
@@ -328,12 +397,14 @@ def materialize_proof(
     if mode == "codeproof":
         joint_dir = benchmark / root_package / "Proof"
         joint_path = joint_dir / "Joint.lean"
+        joint_modules = [m for m in modules if m.package == root_package and m.specs]
         spec_modules = [
-            _spec_import(m.package, m.name, m.spec_path)
-            for m in modules
-            if m.package == root_package and m.specs
+            spec_module_import(m.package, m.name, m.spec_path) for m in joint_modules
         ]
-        content = _joint_lean(root_package, spec_modules)
+        joint_namespaces = sorted(
+            {ns for m in joint_modules for ns in _module_spec_namespaces(benchmark, m)}
+        )
+        content = _joint_lean(root_package, spec_modules, joint_namespaces)
         if not dry_run:
             joint_dir.mkdir(parents=True, exist_ok=True)
             joint_path.write_text(content, encoding="utf-8")

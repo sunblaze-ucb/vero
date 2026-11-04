@@ -49,6 +49,15 @@ Edit only the interior between ``@start`` and ``@end``. Never alter, add, or del
 - ``lake lean <path>`` — one-off compile of any file; participates in Lake's ``.olean`` cache.
 
 Run these frequently. They are the same commands the grader uses.
+{% if trusted_axioms %}
+## Trusted axioms
+
+This benchmark's frozen files declare curator-trusted axioms. They model parts of the original system that the Lean port does not implement, and they are part of the benchmark contract. The grader accepts exactly these names in addition to the standard trio (``Classical.choice``, ``propext``, ``Quot.sound``):
+
+{% for ax in trusted_axioms %}- ``{{ ax }}``
+{% endfor %}
+Proofs may depend on them: a ``#print axioms`` result that lists any of these still grades as clean. Some specs cannot be proved without them. Do not declare new axioms — no other name is accepted.
+{% endif %}
 {% if upstream_source %}
 ## Reference — original upstream source
 
@@ -105,7 +114,7 @@ A future chunk will pick up your compiling slots and continue — so a clean han
 The grader scans your filled slots + agent-editable files before compilation. The following patterns are hard-rejected (the affected specs — or the whole run — score zero):
 
 - **``Classical.arbitrary`` in a filled slot body** — often used to manufacture a placeholder term that "discharges" a goal without a real proof. Same severity as ``sorry``.
-- **New ``axiom`` declarations anywhere** — neither inside a filled slot body (status ``slot_body_tainted``) nor at file scope in ``imports`` / ``global_aux`` (status ``axiom_leaked`` via ``#print axioms``). If you need a new axiomatic assumption, you don't — use the existing curator-declared ``trusted_axioms`` or revise the proof strategy.
+- **New ``axiom`` declarations anywhere** — neither inside a filled slot body (status ``slot_body_tainted``) nor at file scope in ``imports`` / ``global_aux`` (status ``axiom_leaked`` via ``#print axioms``). If you need a new axiomatic assumption, you don't — {% if trusted_axioms %}use the curator-declared axioms listed under *Trusted axioms* above, or {% endif %}revise the proof strategy.
 - **``instance`` manipulation on ``DecidableEq`` / ``BEq`` / ``Hashable`` / ``LawfulBEq`` to trivialize a proof goal** — e.g. declaring ``instance : DecidableEq (Foo → Bar) := fun _ _ => .isTrue (by sorry)`` and then closing the spec via ``decide``. Legitimate typeclass instances on concrete data types (``instance : Hashable Account := ⟨fun a => ...⟩``) are fine; the grader's anti-cheat judge flags instances whose construction discharges an undecidable goal.
 - **The ``unsafe`` keyword anywhere in agent-editable files** — ``unsafe def``, ``unsafe section``, etc. ``unsafe`` escapes Lean's kernel and makes every downstream proof vacuous. If the grader finds a whole-word ``unsafe`` match in any file you authored, the run is marked ``build_ok=false`` and every spec fails with status ``unsafe_keyword``. No partial credit.
 - **The ``@[implemented_by …]`` attribute in an ``Impl/`` file (codeproof)** — this splits the compile-time proof target from the run-time function: a ``noncomputable`` definition of the scored API (e.g. one that copies the spec's own ``∃``-witness / argmin via ``Exists.choose``) makes every proof about it tautological, while a real algorithm is attached only for execution. That is a spec-oracle cheat, not an implementation. Implement each scored API **directly as a computable definition** — no ``@[implemented_by]``. If the grader finds ``@[implemented_by]`` in any ``Impl/`` file you authored, the run is voided (``build_ok=false``, every spec → status ``impl_oracle``). No partial credit. (A legitimate ``noncomputable`` reference definition that carries **no** ``@[implemented_by]`` is fine.)

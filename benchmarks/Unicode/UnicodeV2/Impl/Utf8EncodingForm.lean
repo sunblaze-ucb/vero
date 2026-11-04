@@ -39,13 +39,7 @@ abbrev Utf8DecodeMinimalWellFormedCodeUnitSubsequenceSig :=
 
 end Unicode
 
--- !benchmark @start global_aux
-
-/-- The Unicode scalar value U+0000 (null), used as a fallback return value when
-    the UTF-8 decode input is not a valid minimal well-formed sequence. -/
-private def nullSV : ScalarValue :=
-  ⟨⟨0, by decide⟩,
-   ⟨Or.inl (by decide), Or.inl (by decide)⟩⟩
+-- Frozen: used by the spec helper below.
 
 /-- Check that a 1-element byte list is a well-formed 1-byte UTF-8 sequence.
     Valid range for the leading byte: 0x00–0x7F. -/
@@ -95,17 +89,21 @@ private def utf8WellFormed4 : List UInt8 → Bool
     Nat.ble 0x80 n3 && n3.ble 0xBF
   | _ => false
 
+-- !benchmark @start global_aux
+
+/-- The Unicode scalar value U+0000 (null), used as a fallback return value when
+    the UTF-8 decode input is not a valid minimal well-formed sequence. -/
+private def nullSV : ScalarValue :=
+  ⟨⟨0, by decide⟩,
+   ⟨Or.inl (by decide), Or.inl (by decide)⟩⟩
+
 -- !benchmark @end global_aux
 
--- !benchmark @start code_aux def=utf8IsMinimalWellFormedCodeUnitSubsequence
--- !benchmark @end code_aux def=utf8IsMinimalWellFormedCodeUnitSubsequence
-
+-- Spec helper (manifest `api_helpers`): frozen, not an agent slot.
 def Unicode.utf8IsMinimalWellFormedCodeUnitSubsequence :
     Unicode.Utf8IsMinimalWellFormedCodeUnitSubsequenceSig :=
--- !benchmark @start code def=utf8IsMinimalWellFormedCodeUnitSubsequence
   fun s =>
     utf8WellFormed1 s || utf8WellFormed2 s || utf8WellFormed3 s || utf8WellFormed4 s
--- !benchmark @end code def=utf8IsMinimalWellFormedCodeUnitSubsequence
 
 -- !benchmark @start code_aux def=utf8SplitPrefixMinimalWellFormedCodeUnitSubsequence
 -- !benchmark @end code_aux def=utf8SplitPrefixMinimalWellFormedCodeUnitSubsequence

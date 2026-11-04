@@ -106,4 +106,6 @@ def render_instruction(
         iteration_total=iteration_total,
         chunk_minutes=(round(chunk_minutes, 1) if chunk_minutes is not None else None),
         upstream_source=upstream_source,
+        # Grader accepts trio ∪ these; manifest.json is not in the sandbox.
+        trusted_axioms=list(bench.trusted_axioms),
     )

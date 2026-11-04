@@ -51,12 +51,9 @@ end Unicode
 
 -- ── Implementation stubs (LLM task) ──────────────────────────────────────────
 
--- !benchmark @start code_aux def=utf16IsMinimalWellFormedCodeUnitSubsequence
--- !benchmark @end code_aux def=utf16IsMinimalWellFormedCodeUnitSubsequence
-
+-- Spec helper (manifest `api_helpers`): frozen, not an agent slot.
 def Unicode.utf16IsMinimalWellFormedCodeUnitSubsequence
     : Unicode.Utf16IsMinimalWellFormedCodeUnitSubsequenceSig :=
--- !benchmark @start code def=utf16IsMinimalWellFormedCodeUnitSubsequence
   fun s =>
     match s with
     | [w] =>
@@ -69,7 +66,6 @@ def Unicode.utf16IsMinimalWellFormedCodeUnitSubsequence
       let v2 := w2.toNat
       decide (0xD800 ≤ v1 ∧ v1 ≤ 0xDBFF) && decide (0xDC00 ≤ v2 ∧ v2 ≤ 0xDFFF)
     | _ => false
--- !benchmark @end code def=utf16IsMinimalWellFormedCodeUnitSubsequence
 
 -- !benchmark @start code_aux def=utf16SplitPrefixMinimalWellFormedCodeUnitSubsequence
 -- !benchmark @end code_aux def=utf16SplitPrefixMinimalWellFormedCodeUnitSubsequence

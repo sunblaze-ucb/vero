@@ -178,3 +178,80 @@ def test_sandbox_instruction_with_feedback(sandbox: Path) -> None:
     fb = sandbox / "FEEDBACK.md"
     assert fb.is_file()
     assert fb.read_text() == sample
+
+
+# ─── unscheduled impl slots ─────────────────────────────────
+
+_UNSCHEDULED_HELPER = """
+-- !benchmark @start code_aux def=frozenHelper
+-- !benchmark @end code_aux def=frozenHelper
+
+def frozenHelper : Nat :=
+-- !benchmark @start code def=frozenHelper
+  42
+-- !benchmark @end code def=frozenHelper
+"""
+
+
+def _bench_with_unscheduled_slot(tmp_path: Path) -> Path:
+    """BankLedger + a ``code`` slot whose ``def=`` is not a manifest API."""
+    bench = tmp_path / "BankLedger"
+    shutil.copytree(REF, bench, ignore=shutil.ignore_patterns(".lake", "build"))
+    impl = bench / "BankLedger" / "Impl" / "Account.lean"
+    impl.write_text(impl.read_text() + _UNSCHEDULED_HELPER)
+    return bench
+
+
+@pytest.mark.parametrize("mode", ["proof", "codeproof"])
+def test_sandbox_freezes_unscheduled_impl_slots(tmp_path: Path, mode: str) -> None:
+    """An unscheduled slot keeps its reference body as frozen code in both modes
+    (regression: unicode's spec helpers were sorry'd in codeproof)."""
+    from vero.generation.extractor import extract
+
+    bench = _bench_with_unscheduled_slot(tmp_path)
+    out = tmp_path / "sandbox"
+    create_sandbox(bench, out, mode=mode, strip_manifest=False)
+
+    text = (out / "BankLedger" / "Impl" / "Account.lean").read_text()
+    assert "def frozenHelper : Nat :=\n  42\n" in text
+    assert "def=frozenHelper" not in text
+    assert extract(out, Benchmark(bench), mode=mode).extras == []
+    if mode == "codeproof":
+        # Scheduled API slots are still blanked.
+        create = [
+            s
+            for s in load_slots(out / "BankLedger" / "Impl" / "Account.lean")
+            if s.key == "code" and s.def_name == "createAccount"
+        ]
+        assert [ln.strip() for ln in create[0].body if ln.strip()] == ["sorry"]
+
+
+# ─── trusted axioms in INSTRUCTION.md ───────────────────────
+
+
+def test_instruction_lists_trusted_axioms(tmp_path: Path) -> None:
+    import json
+
+    from vero.generation.prompt import render_instruction
+
+    bench = tmp_path / "BankLedger"
+    shutil.copytree(REF, bench, ignore=shutil.ignore_patterns(".lake", "build"))
+    manifest = json.loads((bench / "manifest.json").read_text())
+    manifest["trusted_axioms"] = ["contract_induction", "Foo.bar"]
+    (bench / "manifest.json").write_text(json.dumps(manifest))
+
+    for mode in ("proof", "codeproof"):
+        text = render_instruction(Benchmark(bench), mode=mode)
+        assert "## Trusted axioms" in text
+        assert "- ``contract_induction``" in text
+        assert "- ``Foo.bar``" in text
+        assert "plus this benchmark's trusted axioms" in text
+
+
+def test_instruction_without_trusted_axioms_has_no_section() -> None:
+    from vero.generation.prompt import render_instruction
+
+    for mode in ("proof", "codeproof"):
+        text = render_instruction(Benchmark(REF), mode=mode)
+        assert "## Trusted axioms" not in text
+        assert "plus this benchmark's trusted axioms" not in text
