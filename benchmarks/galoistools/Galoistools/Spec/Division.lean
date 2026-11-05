@@ -140,13 +140,15 @@ def spec_gcd_empty_iff (impl : RepoImpl) : Prop :=
   ∀ (f g : List Nat) (p : Nat), 1 < p → IsNorm p f → IsNorm p g →
     (impl.galoistools.gfGcd f g p = [] ↔ (f = [] ∧ g = []))
 
-/-- Self-gcd: for a normalized `f` over `p > 1`, `gfGcd f f p = (gfMonic f p).2` —
+/-- Self-gcd: for a normalized `f` over a prime field, `gfGcd f f p = (gfMonic f p).2` —
     the gcd of a polynomial with itself is its monic associate. This directly rules
     out a degenerate constant `gfGcd := fun _ _ _ => [1]`: for any `f` of positive
-    degree, `gfMonic f p |>.2` has that degree, not `[1]`. Over
+    degree, `gfMonic f p |>.2` has that degree, not `[1]`. (Primality is required:
+    over a composite modulus a non-invertible leading coefficient stalls the
+    Euclidean reduction, e.g. `gfGcd [3, 1] [3, 1] 15 = [3, 11]`.) Over
     `impl.galoistools.gfGcd`, `impl.galoistools.gfMonic`. -/
 def spec_gcd_self (impl : RepoImpl) : Prop :=
-  ∀ (f : List Nat) (p : Nat), 1 < p → IsNorm p f →
+  ∀ (f : List Nat) (p : Nat), PrimeField p → IsNorm p f →
     impl.galoistools.gfGcd f f p = (impl.galoistools.gfMonic f p).2
 
 /-- GCD maximality (greatestness): over a prime field with normalized inputs,
